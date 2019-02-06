@@ -7,19 +7,19 @@
   
   <title>gradle build和gradlew build的区别 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="接之前写的一篇小文《gradle项目开发环境搭建》， 我们观察一下gradle项目中的文件  其中我们看到了gradlew 和 gradlew.bat 文件, 有点经验的人都知道, 前者是linux上用的, 后者是Windows下用的, 但从作用上来讲, 两者没有本质区别. 那么接上一文的疑问, gradlew 的作用是什么呢? 它和gradle命令有什么区别? 答: gradle是因为我们本机安">
+  <meta name="description" content="接之前写的一篇小文《gradle项目开发环境搭建》， 我们观察一下gradle项目中的文件  其中我们看到了gradlew 和 gradlew.bat 文件, 有点经验的人都知道, 前者是linux上用的, 后者是Windows下用的, 但从作用上来讲, 两者没有本质区别. 那么接上一文的疑问, gradlew 的作用是什么呢? 它和gradle命令有什么区别?">
 <meta name="keywords" content="gradle">
 <meta property="og:type" content="article">
 <meta property="og:title" content="gradle build和gradlew build的区别">
 <meta property="og:url" content="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="接之前写的一篇小文《gradle项目开发环境搭建》， 我们观察一下gradle项目中的文件  其中我们看到了gradlew 和 gradlew.bat 文件, 有点经验的人都知道, 前者是linux上用的, 后者是Windows下用的, 但从作用上来讲, 两者没有本质区别. 那么接上一文的疑问, gradlew 的作用是什么呢? 它和gradle命令有什么区别? 答: gradle是因为我们本机安">
+<meta property="og:description" content="接之前写的一篇小文《gradle项目开发环境搭建》， 我们观察一下gradle项目中的文件  其中我们看到了gradlew 和 gradlew.bat 文件, 有点经验的人都知道, 前者是linux上用的, 后者是Windows下用的, 但从作用上来讲, 两者没有本质区别. 那么接上一文的疑问, gradlew 的作用是什么呢? 它和gradle命令有什么区别?">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/1.png">
-<meta property="og:updated_time" content="2019-02-06T07:40:25.039Z">
+<meta property="og:updated_time" content="2019-02-06T07:47:09.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gradle build和gradlew build的区别">
-<meta name="twitter:description" content="接之前写的一篇小文《gradle项目开发环境搭建》， 我们观察一下gradle项目中的文件  其中我们看到了gradlew 和 gradlew.bat 文件, 有点经验的人都知道, 前者是linux上用的, 后者是Windows下用的, 但从作用上来讲, 两者没有本质区别. 那么接上一文的疑问, gradlew 的作用是什么呢? 它和gradle命令有什么区别? 答: gradle是因为我们本机安">
+<meta name="twitter:description" content="接之前写的一篇小文《gradle项目开发环境搭建》， 我们观察一下gradle项目中的文件  其中我们看到了gradlew 和 gradlew.bat 文件, 有点经验的人都知道, 前者是linux上用的, 后者是Windows下用的, 但从作用上来讲, 两者没有本质区别. 那么接上一文的疑问, gradlew 的作用是什么呢? 它和gradle命令有什么区别?">
 <meta name="twitter:image" content="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/1.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -92,6 +92,7 @@
         <p>接之前写的一篇小文<strong>《gradle项目开发环境搭建》</strong>， 我们观察一下gradle项目中的文件</p>
 <img src="/2019/02/06/gradle-build和gradlew-build的区别/1.png" title="项目结构">
 <p>其中我们看到了gradlew 和 gradlew.bat 文件, 有点经验的人都知道, 前者是linux上用的, 后者是Windows下用的, 但从作用上来讲, 两者没有本质区别. 那么接上一文的疑问, gradlew 的作用是什么呢? 它和gradle命令有什么区别?</p>
+<a id="more"></a>
 <p>答: gradle是因为我们本机安装了gradle而且配置了环境变量所以产生的命令. 而gradlew是为了统一项目组中的成员的gradle版本而引入的文件. 提到gradlew就不得不提到gradle项目根路径下面的gradle目录, 里面有一个wrapper目录，其中有2个文件, 一个是gradle-wrapper.jar，一个是gradle-wrapper.properties， 值得注意的是后者</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">distributionBase=GRADLE_USER_HOME</span><br><span class="line">distributionPath=wrapper/dists</span><br><span class="line"># 发布包的基地址, 所以我们需要配置环境变量GRADLE_USER_HOME为gradle的安装目录,我的是D:\gradle-3.5.1</span><br><span class="line">zipStoreBase=GRADLE_USER_HOME</span><br><span class="line"># 发布包下载到的地址(相对于zipStoreBase)</span><br><span class="line">zipStorePath=wrapper/dists</span><br><span class="line"># 发布包的网络地址</span><br><span class="line">distributionUrl=https\://services.gradle.org/distributions/gradle-2.13-bin.zip</span><br></pre></td></tr></table></figure>
 <p>因此看到这里我们就不难明白为什么要配置GRADLE_USER_HOME环境变量, 以及为什么使用gradlew都不需要项目组成员本机事先安装好gradle了, 第一次执行</p>
@@ -111,7 +112,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/" data-id="cjrsvw3l60000mow612zavczp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/" data-id="cjrsw494g000058w6f4wlastm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradle/">gradle</a></li></ul>

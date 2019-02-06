@@ -87,26 +87,15 @@
         <p>接之前写的一篇小文<strong>《gradle项目开发环境搭建》</strong>， 我们观察一下gradle项目中的文件</p>
 <img src="/2019/02/06/gradle-build和gradlew-build的区别/1.png" title="项目结构">
 <p>其中我们看到了gradlew 和 gradlew.bat 文件, 有点经验的人都知道, 前者是linux上用的, 后者是Windows下用的, 但从作用上来讲, 两者没有本质区别. 那么接上一文的疑问, gradlew 的作用是什么呢? 它和gradle命令有什么区别?</p>
-<p>答: gradle是因为我们本机安装了gradle而且配置了环境变量所以产生的命令. 而gradlew是为了统一项目组中的成员的gradle版本而引入的文件. 提到gradlew就不得不提到gradle项目根路径下面的gradle目录, 里面有一个wrapper目录，其中有2个文件, 一个是gradle-wrapper.jar，一个是gradle-wrapper.properties， 值得注意的是后者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">distributionBase=GRADLE_USER_HOME</span><br><span class="line">distributionPath=wrapper/dists</span><br><span class="line"># 发布包的基地址, 所以我们需要配置环境变量GRADLE_USER_HOME为gradle的安装目录,我的是D:\gradle-3.5.1</span><br><span class="line">zipStoreBase=GRADLE_USER_HOME</span><br><span class="line"># 发布包下载到的地址(相对于zipStoreBase)</span><br><span class="line">zipStorePath=wrapper/dists</span><br><span class="line"># 发布包的网络地址</span><br><span class="line">distributionUrl=https\://services.gradle.org/distributions/gradle-2.13-bin.zip</span><br></pre></td></tr></table></figure>
-<p>因此看到这里我们就不难明白为什么要配置GRADLE_USER_HOME环境变量, 以及为什么使用gradlew都不需要项目组成员本机事先安装好gradle了, 第一次执行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradlew build</span><br></pre></td></tr></table></figure>
-<p>会先到上面配置文件中的distributionUrl所指示的地址去下载gradle到 %GRADLE_USER_HOME%/zipStorePath 中去, 然后使用该下载好的gradle对我们的项目进行构建. 这就起到了约束项目组成员使用gradle版本一致的作用. 但是第二次再次执行的话, 是不会下载的. </p>
-<p>所以</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle build</span><br></pre></td></tr></table></figure>
-<p>和</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradlew build</span><br></pre></td></tr></table></figure>
-<p>的区别在于, 前者使用本机安装好并配置好环境变量的gradle进行项目构建, 后者从网上下载统一的版本之后再构建.</p>
-<p>举一反三, </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle bootRun</span><br></pre></td></tr></table></figure>
-<p>和</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradlew bootRun</span><br></pre></td></tr></table></figure>
-<p>的区别也是如此.</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2019/02/06/gradle-build和gradlew-build的区别/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/" data-id="cjrsvw3l60000mow612zavczp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/" data-id="cjrsw494g000058w6f4wlastm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradle/">gradle</a></li></ul>
@@ -141,72 +130,16 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>最近看公司代码看到了使用gradle技术构建的项目. 原先就听说过与maven齐名的gradle, 但是安卓用的多, javaee用的少. 但是好奇心催促我学（qian）习（chang）一（zhe）把（zhi）.</p>
-<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><ol>
-<li><p>下载gradle-3.5.1, <a href="http://services.gradle.org/distributions/" target="_blank" rel="noopener">传送门</a></p>
-</li>
-<li><p>解压存放. 我是直接放到d盘根路径下面.</p>
-<img src="/2019/02/06/gradle项目开发环境搭建/1.png" title="目录">
-</li>
-<li><p>配置环境变量, 我自定义名称GRADLE_HOME=D:\gradle-3.5.1，以及配置PATH环境变量</p>
-<img src="/2019/02/06/gradle项目开发环境搭建/2.png" title="环境变量">
-<img src="/2019/02/06/gradle项目开发环境搭建/3.png" title="环境变量">
-</li>
-<li><p>使用cmd执行 gradle -v 看到下面的版本信息方说明安装成功</p>
-<img src="/2019/02/06/gradle项目开发环境搭建/4.png" title="install successfully">
-</li>
-<li><p>类比maven, 我们希望gradle也有自己的本地仓库. 继续配置环境变量GRADLE_USER_HOME, 注意, 和上面的GRADLE_HOME名称可以自定义不同, 这里的名称是固定写法.</p>
-<img src="/2019/02/06/gradle项目开发环境搭建/5.png" title="本地仓库环境变量">
-</li>
-<li><p>类比maven, 我们希望gradle可以使用阿里云的镜像仓库，而不是使用慢如龟的国外仓库. 所以我们配置%GRADLE_HOME%/init.d/init.gradle 文件, 如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">         maven &#123;</span><br><span class="line">             name &quot;aliyunmaven&quot;</span><br><span class="line">             url &quot;http://maven.aliyun.com/nexus/content/groups/public/&quot;</span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>诚然, 网上也有其他的方法使用阿里云的镜像，详见参考链接【1】</p>
-</li>
-<li><p>上面完成了gradle在本机的搭建，下面要配合我们的IDE（我的是eclipse-oxygen）安装gradle的插件.  具体步骤参见参考链接【2】</p>
-</li>
-</ol>
-<h3 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World!"></a>Hello World!</h3><ol>
-<li><p>配置IDE的gradle</p>
-<img src="/2019/02/06/gradle项目开发环境搭建/6.png" title="配置eclipse中的gradle插件">
-</li>
-<li><p>eclipse中Ctrl+N快捷键新建项目, 选择新建的项目类型是gradle.</p>
-<img src="/2019/02/06/gradle项目开发环境搭建/7.png" title="新建gradle项目">
-<p>然后一路next即可.</p>
-</li>
-<li><p>配置项目的build.gradle文件, 如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">// buildscript 代码块中脚本优先执行</span><br><span class="line">buildscript &#123;</span><br><span class="line"></span><br><span class="line">	// ext 用于定义动态属</span><br><span class="line">	ext &#123;</span><br><span class="line">		springBootVersion = &apos;1.4.3.RELEASE&apos;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	// 使用了 Maven 的中央仓库（你也可以指定其他仓库）</span><br><span class="line">	repositories &#123;</span><br><span class="line">		mavenCentral()</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	// 依赖关系</span><br><span class="line">	dependencies &#123;</span><br><span class="line">		// classpath 声明说明了在执行其余的脚本时，ClassLoader 可以使用这些依赖项</span><br><span class="line">		classpath(&quot;org.springframework.boot:spring-boot-gradle-plugin:$&#123;springBootVersion&#125;&quot;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 使用插件</span><br><span class="line">apply plugin: &apos;java&apos;</span><br><span class="line">apply plugin: &apos;eclipse&apos;</span><br><span class="line">apply plugin: &apos;org.springframework.boot&apos;</span><br><span class="line"></span><br><span class="line">// 打包的类型为 jar，并指定了生成的打包的文件名称和版本</span><br><span class="line">jar &#123;</span><br><span class="line">	baseName = &apos;initializr-start&apos;</span><br><span class="line">	version = &apos;0.0.1-SNAPSHOT&apos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 指定编译 .java 文件的 JDK 版本</span><br><span class="line">sourceCompatibility = 1.8</span><br><span class="line"></span><br><span class="line">// 使用了 Maven 的中央仓库</span><br><span class="line">repositories &#123;</span><br><span class="line">	mavenCentral()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 依赖关系</span><br><span class="line">dependencies &#123;</span><br><span class="line">	// 该依赖对于编译发行是必须的，注意, 写了这个的话, 后面打包打成的就是可执行jar包, 即依赖的jar包也都打进去了</span><br><span class="line">	compile(&apos;org.springframework.boot:spring-boot-starter-web&apos;)</span><br><span class="line">	// 该依赖对于编译测试是必须的，默认包含编译产品依赖和编译时依</span><br><span class="line">	testCompile(&apos;org.springframework.boot:spring-boot-starter-test&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>右键项目–&gt;Gradle–&gt;Refresh Gradle Project, 类比于maven的从仓库中拉jar包. 我们可以看到</p>
-<img src="/2019/02/06/gradle项目开发环境搭建/8.png" title="拉包">
-<p>可见, 之前配置的本地仓库GRADLE_USER_HOME起作用了.  而且gradle比maven做的好的地方是相应的源码包也都下载下来了.</p>
-</li>
-<li><p>按照springboot常规开发, 具体代码见后面的demo链接.</p>
-</li>
-<li><p>运行gradle项目有三种方式</p>
-<p><strong>方式1</strong> 首先进到项目根路径使用</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle build</span><br></pre></td></tr></table></figure>
-<p>或者(还有一个gradlew, 和下面的gradlew.bat的区别就是前者是linux，后者是Windows，ps: gradlew和gradlew.bat 都是项目根路径下面的文件)</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradlew.bat build</span><br></pre></td></tr></table></figure>
-<p>构建项目. 构建完毕之后, 项目根路径下面多了一个build目录, 里面有一个libs目录, 里面有一个initializr-start-0.0.1-SNAPSHOT.jar文件，该文件的命名由上面的build.gradle文件的jar节点给定. 有了runnable jar包, 则使用java -jar运行即可. 注意, 这里牵出了一个小问题</p>
-<blockquote>
-<p>gradle 和 gradlew 一样吗? 有什么区别?</p>
-</blockquote>
-<p>这个问题参见参考链接【3】，是我写的另一篇小短文简要叙述区别</p>
-<p><strong>方式2</strong> 既然都在eclipse中了, 直接用运行Java Application的方式运行main方法所在类即可, 这个不多说</p>
-<p><strong>方式3</strong> 使用spring boot gradle plugin插件的方式运行, 所幸的是springboot已经集成了该插件, 不需要我们额外配置什么. 同样进到项目根目录, 执行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle bootRun</span><br></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradlew bootRun</span><br></pre></td></tr></table></figure>
-<p>即可将项目跑起来.</p>
-</li>
-<li><p>运行效果</p>
-<img src="/2019/02/06/gradle项目开发环境搭建/9.png" title="效果">
-</li>
-</ol>
-<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><h3 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h3>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3>
+        
+          <p class="article-more-link">
+            <a href="/2019/02/06/gradle项目开发环境搭建/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/" data-id="cjrsvw3m60001mow6idrevh1b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/" data-id="cjrsw494o000158w6bu0etlyc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradle/">gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
@@ -252,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" data-id="cjrsvw3mc0004mow65l5a83s7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" data-id="cjrsw494v000458w6109nppyh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jpa/">jpa</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oracle/">oracle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
@@ -314,7 +247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/30/hello-world/" data-id="cjrsvw3ma0003mow66ygrayw1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/30/hello-world/" data-id="cjrsw494s000358w6kbp62pnn" class="article-share-link">Share</a>
       
       
     </footer>
