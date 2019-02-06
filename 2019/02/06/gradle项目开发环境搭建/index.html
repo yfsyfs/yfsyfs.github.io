@@ -5,15 +5,30 @@
   
 
   
-  <title>影法師の物語</title>
+  <title>gradle项目开发环境搭建 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="缘起最近看公司代码看到了使用gradle技术构建的项目. 原先就听说过与maven齐名的gradle, 但是安卓用的多, javaee用的少. 但是好奇心催促我学（qian）习（chang）一（zhe）把（zhi）. 环境搭建 下载gradle-3.5.1, 传送门  解压存放. 我是直接放到d盘根路径下面.   配置环境变量, 我自定义名称GRADLE_HOME=D:\gradle-3.5.1，">
+<meta name="keywords" content="gradle,springboot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gradle项目开发环境搭建">
+<meta property="og:url" content="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起最近看公司代码看到了使用gradle技术构建的项目. 原先就听说过与maven齐名的gradle, 但是安卓用的多, javaee用的少. 但是好奇心催促我学（qian）习（chang）一（zhe）把（zhi）. 环境搭建 下载gradle-3.5.1, 传送门  解压存放. 我是直接放到d盘根路径下面.   配置环境变量, 我自定义名称GRADLE_HOME=D:\gradle-3.5.1，">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/4.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/5.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/6.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/7.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/8.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/9.png">
+<meta property="og:updated_time" content="2019-02-06T07:23:39.036Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="gradle项目开发环境搭建">
+<meta name="twitter:description" content="缘起最近看公司代码看到了使用gradle技术构建的项目. 原先就听说过与maven齐名的gradle, 但是安卓用的多, javaee用的少. 但是好奇心催促我学（qian）习（chang）一（zhe）把（zhi）. 环境搭建 下载gradle-3.5.1, 传送门  解压存放. 我是直接放到d盘根路径下面.   配置环境变量, 我自定义名称GRADLE_HOME=D:\gradle-3.5.1，">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/1.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -34,7 +49,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">影法師の物語</a>
+        <a href="/" id="logo">Hexo</a>
       </h1>
       
     </div>
@@ -60,65 +75,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-gradle-build和gradlew-build的区别" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/06/gradle-build和gradlew-build的区别/" class="article-date">
-  <time datetime="2019-02-06T07:24:14.000Z" itemprop="datePublished">2019-02-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/06/gradle-build和gradlew-build的区别/">gradle build和gradlew build的区别</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>接之前写的一篇小文<strong>《gradle项目开发环境搭建》</strong>， 我们观察一下gradle项目中的文件</p>
-<img src="/2019/02/06/gradle-build和gradlew-build的区别/1.png" title="项目结构">
-<p>其中我们看到了gradlew 和 gradlew.bat 文件, 有点经验的人都知道, 前者是linux上用的, 后者是Windows下用的, 但从作用上来讲, 两者没有本质区别. 那么接上一文的疑问, gradlew 的作用是什么呢? 它和gradle命令有什么区别?</p>
-<p>答: gradle是因为我们本机安装了gradle而且配置了环境变量所以产生的命令. 而gradlew是为了统一项目组中的成员的gradle版本而引入的文件. 提到gradlew就不得不提到gradle项目根路径下面的gradle目录, 里面有一个wrapper目录，其中有2个文件, 一个是gradle-wrapper.jar，一个是gradle-wrapper.properties， 值得注意的是后者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">distributionBase=GRADLE_USER_HOME</span><br><span class="line">distributionPath=wrapper/dists</span><br><span class="line"># 发布包的基地址, 所以我们需要配置环境变量GRADLE_USER_HOME为gradle的安装目录,我的是D:\gradle-3.5.1</span><br><span class="line">zipStoreBase=GRADLE_USER_HOME</span><br><span class="line"># 发布包下载到的地址(相对于zipStoreBase)</span><br><span class="line">zipStorePath=wrapper/dists</span><br><span class="line"># 发布包的网络地址</span><br><span class="line">distributionUrl=https\://services.gradle.org/distributions/gradle-2.13-bin.zip</span><br></pre></td></tr></table></figure>
-<p>因此看到这里我们就不难明白为什么要配置GRADLE_USER_HOME环境变量, 以及为什么使用gradlew都不需要项目组成员本机事先安装好gradle了, 第一次执行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradlew build</span><br></pre></td></tr></table></figure>
-<p>会先到上面配置文件中的distributionUrl所指示的地址去下载gradle到 %GRADLE_USER_HOME%/zipStorePath 中去, 然后使用该下载好的gradle对我们的项目进行构建. 这就起到了约束项目组成员使用gradle版本一致的作用. 但是第二次再次执行的话, 是不会下载的. </p>
-<p>所以</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle build</span><br></pre></td></tr></table></figure>
-<p>和</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradlew build</span><br></pre></td></tr></table></figure>
-<p>的区别在于, 前者使用本机安装好并配置好环境变量的gradle进行项目构建, 后者从网上下载统一的版本之后再构建.</p>
-<p>举一反三, </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle bootRun</span><br></pre></td></tr></table></figure>
-<p>和</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradlew bootRun</span><br></pre></td></tr></table></figure>
-<p>的区别也是如此.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/" data-id="cjrsvw3l60000mow612zavczp" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradle/">gradle</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-gradle项目开发环境搭建" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-gradle项目开发环境搭建" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/02/06/gradle项目开发环境搭建/" class="article-date">
   <time datetime="2019-02-06T06:35:21.000Z" itemprop="datePublished">2019-02-06</time>
@@ -131,8 +88,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/06/gradle项目开发环境搭建/">gradle项目开发环境搭建</a>
+    <h1 class="article-title" itemprop="name">
+      gradle项目开发环境搭建
     </h1>
   
 
@@ -214,117 +171,28 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" class="article-date">
-  <time datetime="2019-02-05T09:21:26.000Z" itemprop="datePublished">2019-02-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/2019/02/06/gradle-build和gradlew-build的区别/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
+          gradle build和gradlew build的区别
+        
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/">oracle转postgresql时,使用jpa(hibernate)报错: 不良的类型值 long</a>
-    </h1>
   
+    <a href="/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">oracle转postgresql时,使用jpa(hibernate)报错: 不良的类型值 long</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>近日, 公司要和第三方对接, 而第三方不能和我方标准接口对接, 因此只能我方定时从他们的数据库中拉取数据, 然后调用我方标准接口将数据推送到我方服务器中去. 即要实现一个中间层的功能.  </p>
-<img src="/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/1.png" title="对接说明">
-<p>这个功能的实现思路是极为简单的, 就是写一个定时任务去第三方的数据库中拉取数据就是. 而且公司原本就有定时任务的代码, 可以copy. 但是公司的数据库是oracle的, 而第三方是pg数据库, 本想都是关系型的,最多数据类型有点不一致, 微调一下就行了, 结果在使用springboot+jpa读取第三方的pg数据库的时候报错</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.postgresql.util.PSQLException: 不良的类型值 long : <span class="tag">\<span class="name">xffd</span></span>8...</span><br></pre></td></tr></table></figure>
-        
-          <p class="article-more-link">
-            <a href="/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" data-id="cjrsvw3mc0004mow65l5a83s7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jpa/">jpa</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oracle/">oracle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/30/hello-world/" class="article-date">
-  <time datetime="2019-01-30T05:28:23.234Z" itemprop="datePublished">2019-01-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/30/hello-world/">声明</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><p>领域包括但不限于</p>
-<p><strong>前端</strong></p>
-<p><strong>后端</strong></p>
-<p><strong>大数据</strong></p>
-<p><strong>数据结构和算法</strong></p>
-<p><strong>操作系统</strong></p>
-<p><strong>网络原理</strong></p>
-<p><strong>编译原理</strong></p>
-<p><strong>数据库理论</strong></p>
-</li>
-<li><p>力争短小精悍,用最少的话把问题讲清楚</p>
-</li>
-<li><p>每篇原创, 引用必然附上链接.</p>
-</li>
-<li><p>源码全部分享在github上</p>
-</li>
-</ol>
-<blockquote>
-<p>联系方式: </p>
-<p>影法师</p>
-<p>QQ 2803751415</p>
-<p>WeChat 13718955357</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/30/hello-world/" data-id="cjrsvw3ma0003mow66ygrayw1" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
@@ -396,7 +264,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2019 yfs<br>
+      &copy; 2019 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
