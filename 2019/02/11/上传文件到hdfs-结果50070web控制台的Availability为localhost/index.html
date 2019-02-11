@@ -17,7 +17,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/1.png">
 <meta property="og:image" content="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/2.png">
-<meta property="og:updated_time" content="2019-02-11T08:59:21.775Z">
+<meta property="og:updated_time" content="2019-02-11T09:36:05.295Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="上传文件到hdfs,结果50070web控制台的Availability为localhost">
 <meta name="twitter:description" content="缘起大数据最近入门. 3台centos虚拟机搭建了hadoop环境.  集群部署规划如下     hadoop01 hadoop02 hadoop03     HDFS namenode/datanode datanode secondarynamenode/datanode    但是上传本地文件到hdfs上去之后, 打开50070端口的hdfsのweb控制台一看  我明明有三台hadoop节点">
@@ -112,6 +112,7 @@
 <p>但是上传本地文件到hdfs上去之后, 打开50070端口的hdfsのweb控制台一看</p>
 <img src="/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/1.png" title="上传hdfs的文件的Availability异常">
 <p>我明明有三台hadoop节点, 为什么该block的副本全部在local会话?</p>
+<a id="more"></a>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>hadoop02的日志如下</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop02 hadoop-2.7.2]# vim logs/hadoop-root-datanode-hadoop02.log </span><br><span class="line">...</span><br><span class="line">2019-02-11 16:35:52,721 INFO org.apache.hadoop.ipc.Client: Retrying connect to server: hadoop01/192.168.119.130:9000. Already tried 7 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p>日志表明, datanode节点联系不上namenode的9000端口. 百度了一波, 无非说什么防火墙没关之类的. 但是我是禁用掉了防火墙的（讲真，稍有点开发经验的人应该都不会犯这种错误或者因此水一篇博客）. 后来百度到了一篇文章, 参见参考文献【1】 . 在hadoop01上</p>
@@ -129,7 +130,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" data-id="cjs048f5u0000ocw6c73rzwdv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" data-id="cjs057zwz00010kw6rlwhjjkf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>

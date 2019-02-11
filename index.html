@@ -5,7 +5,7 @@
   
 
   
-  <title>Hexo</title>
+  <title>影法師の物語</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
@@ -106,24 +106,15 @@
 <p>但是上传本地文件到hdfs上去之后, 打开50070端口的hdfsのweb控制台一看</p>
 <img src="/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/1.png" title="上传hdfs的文件的Availability异常">
 <p>我明明有三台hadoop节点, 为什么该block的副本全部在local会话?</p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>hadoop02的日志如下</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop02 hadoop-2.7.2]# vim logs/hadoop-root-datanode-hadoop02.log </span><br><span class="line">...</span><br><span class="line">2019-02-11 16:35:52,721 INFO org.apache.hadoop.ipc.Client: Retrying connect to server: hadoop01/192.168.119.130:9000. Already tried 7 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>日志表明, datanode节点联系不上namenode的9000端口. 百度了一波, 无非说什么防火墙没关之类的. 但是我是禁用掉了防火墙的（讲真，稍有点开发经验的人应该都不会犯这种错误或者因此水一篇博客）. 后来百度到了一篇文章, 参见参考文献【1】 . 在hadoop01上</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop01 ~]# netstat -nltp | grep 9000</span><br><span class="line">tcp        0      0 127.0.0.1:9000          0.0.0.0:*               LISTEN      9349/java</span><br></pre></td></tr></table></figure>
-<p>原来我可爱的9000端口正在127.0.0.1这个回环地址上listen呢! 那么我的datanode怎么可能访问到这个服务呢? 于是不禁要问，为什么ip是127.0.0.1，而不是hadoop01的机器的ip呢? 查看hosts记录</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop01 hadoop-2.7.2]# cat /etc/hosts</span><br><span class="line"><span class="meta">#</span>127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line">127.0.0.1 hadoop01 localhost</span><br><span class="line">192.168.119.130 hadoop01</span><br><span class="line">192.168.119.132 hadoop02</span><br><span class="line">192.168.119.133 hadoop03</span><br></pre></td></tr></table></figure>
-<p>发现第四行手贱了.</p>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>修改hadoop01的/etc/hosts记录为</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop01 hadoop-2.7.2]# cat /etc/hosts</span><br><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line">192.168.119.130 hadoop01</span><br><span class="line">192.168.119.132 hadoop02</span><br><span class="line">192.168.119.133 hadoop03</span><br></pre></td></tr></table></figure>
-<p>则正常了</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop01 ~]# netstat -nltp | grep 9000</span><br><span class="line">tcp        0      0 192.168.119.130:9000    0.0.0.0:*               LISTEN      4490/java</span><br></pre></td></tr></table></figure>
-<img src="/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/2.png" title="上传hdfs的文件的Availability正常">
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://blog.csdn.net/yjc_1111/article/details/53817750" target="_blank" rel="noopener">https://blog.csdn.net/yjc_1111/article/details/53817750</a></p>
-
+        
+          <p class="article-more-link">
+            <a href="/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" data-id="cjs048f5u0000ocw6c73rzwdv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" data-id="cjs057zwz00010kw6rlwhjjkf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
@@ -168,7 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/" data-id="cjs048f9j0004ocw619ib8x72" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/" data-id="cjs057zxq00080kw6vush4hb3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradle/">gradle</a></li></ul>
@@ -212,7 +203,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/" data-id="cjs048f9d0001ocw606qkdp8m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/" data-id="cjs057zxu00090kw6q0ooyz6v" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradle/">gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
@@ -258,7 +249,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" data-id="cjs048fb8000gocw68pvqzhtd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" data-id="cjs057zya000g0kw69yik9mnc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jpa/">jpa</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oracle/">oracle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
@@ -320,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/30/hello-world/" data-id="cjs048f9i0003ocw6ia1o8z4h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/01/30/hello-world/" data-id="cjs057zwj00000kw6jsv50rjg" class="article-share-link">Share</a>
       
       
     </footer>
