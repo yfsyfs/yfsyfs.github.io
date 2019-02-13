@@ -5,19 +5,20 @@
   
 
   
-  <title>声明 | Hexo</title>
+  <title>一道sql面试题统计人数&gt;1的记录id | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="领域包括但不限于 前端 后端 大数据 数据结构和算法 操作系统 网络原理 编译原理 数据库理论  力争短小精悍,用最少的话把问题讲清楚  每篇原创, 引用必然附上链接.  源码全部分享在github上    联系方式:  影法师 QQ 2803751415 WeChat 13718955357">
+  <meta name="description" content="缘起朋友面试, 问我面到的题目, 哎，每次sql的问题, 其实想吧想吧都能答出来，但是如果要求你短时间，特别是面试官就站在你对面的话, 还真有点压力. 题目: 如下一张表 T_PUB_MEMBER    PUB_ID JOB_TITLE     1 采集人员   3 财务人员   1 采集人员   2 采集人员    要统计这张表中JOB_TITLE为采集人员的数量&amp;gt;1的PUB_ID 分析s">
+<meta name="keywords" content="sql,面试">
 <meta property="og:type" content="article">
-<meta property="og:title" content="声明">
-<meta property="og:url" content="http://yoursite.com/2019/01/30/hello-world/index.html">
+<meta property="og:title" content="一道sql面试题统计人数&gt;1的记录id">
+<meta property="og:url" content="http://yoursite.com/2019/02/13/一道sql面试题统计人数-1的记录id/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="领域包括但不限于 前端 后端 大数据 数据结构和算法 操作系统 网络原理 编译原理 数据库理论  力争短小精悍,用最少的话把问题讲清楚  每篇原创, 引用必然附上链接.  源码全部分享在github上    联系方式:  影法师 QQ 2803751415 WeChat 13718955357">
+<meta property="og:description" content="缘起朋友面试, 问我面到的题目, 哎，每次sql的问题, 其实想吧想吧都能答出来，但是如果要求你短时间，特别是面试官就站在你对面的话, 还真有点压力. 题目: 如下一张表 T_PUB_MEMBER    PUB_ID JOB_TITLE     1 采集人员   3 财务人员   1 采集人员   2 采集人员    要统计这张表中JOB_TITLE为采集人员的数量&amp;gt;1的PUB_ID 分析s">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-06T07:38:24.498Z">
+<meta property="og:updated_time" content="2019-02-13T08:13:03.253Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="声明">
-<meta name="twitter:description" content="领域包括但不限于 前端 后端 大数据 数据结构和算法 操作系统 网络原理 编译原理 数据库理论  力争短小精悍,用最少的话把问题讲清楚  每篇原创, 引用必然附上链接.  源码全部分享在github上    联系方式:  影法师 QQ 2803751415 WeChat 13718955357">
+<meta name="twitter:title" content="一道sql面试题统计人数&gt;1的记录id">
+<meta name="twitter:description" content="缘起朋友面试, 问我面到的题目, 哎，每次sql的问题, 其实想吧想吧都能答出来，但是如果要求你短时间，特别是面试官就站在你对面的话, 还真有点压力. 题目: 如下一张表 T_PUB_MEMBER    PUB_ID JOB_TITLE     1 采集人员   3 财务人员   1 采集人员   2 采集人员    要统计这张表中JOB_TITLE为采集人员的数量&amp;gt;1的PUB_ID 分析s">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -64,10 +65,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-一道sql面试题统计人数-1的记录id" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/01/30/hello-world/" class="article-date">
-  <time datetime="2019-01-30T05:28:23.234Z" itemprop="datePublished">2019-01-30</time>
+    <a href="/2019/02/13/一道sql面试题统计人数-1的记录id/" class="article-date">
+  <time datetime="2019-02-13T07:54:09.000Z" itemprop="datePublished">2019-02-13</time>
 </a>
     
   </div>
@@ -78,7 +79,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      声明
+      一道sql面试题统计人数&gt;1的记录id
     </h1>
   
 
@@ -86,52 +87,65 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ol>
-<li><p>领域包括但不限于</p>
-<p><strong>前端</strong></p>
-<p><strong>后端</strong></p>
-<p><strong>大数据</strong></p>
-<p><strong>数据结构和算法</strong></p>
-<p><strong>操作系统</strong></p>
-<p><strong>网络原理</strong></p>
-<p><strong>编译原理</strong></p>
-<p><strong>数据库理论</strong></p>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>朋友面试, 问我面到的题目, 哎，每次sql的问题, 其实想吧想吧都能答出来，但是如果要求你短时间，特别是面试官就站在你对面的话, 还真有点压力.</p>
+<p>题目: 如下一张表 T_PUB_MEMBER</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">PUB_ID</th>
+<th style="text-align:center">JOB_TITLE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">采集人员</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">财务人员</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">采集人员</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">采集人员</td>
+</tr>
+</tbody>
+</table>
+<p>要统计这张表中JOB_TITLE为<strong>采集人员</strong>的数量&gt;1的PUB_ID</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>sql题一般都是逐步写出答案的.</p>
+<ol>
+<li><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> PUB_ID <span class="keyword">AS</span> <span class="keyword">id</span> <span class="keyword">FROM</span> T_PUB_MEMBER <span class="keyword">WHERE</span> JOB_TITLE=<span class="string">'采集人员'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> JOB_TITLE</span><br></pre></td></tr></table></figure>
+<p>得到所有JOB_TITLE为采集人员的ID列表. 将此表记做c</p>
 </li>
-<li><p>力争短小精悍,用最少的话把问题讲清楚</p>
-</li>
-<li><p>每篇原创, 引用必然附上链接.</p>
-</li>
-<li><p>源码全部分享在github上</p>
+<li><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> c.id <span class="keyword">FROM</span> c <span class="keyword">GROUP</span> <span class="keyword">BY</span> c.id <span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(<span class="number">1</span>)&gt;<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>得到答案</p>
 </li>
 </ol>
-<blockquote>
-<p>联系方式: </p>
-<p>影法师</p>
-<p>QQ 2803751415</p>
-<p>WeChat 13718955357</p>
-</blockquote>
-
+<p>综上，答案是</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> c.id <span class="keyword">FROM</span></span><br><span class="line">(<span class="keyword">SELECT</span> PUB_ID <span class="keyword">AS</span> <span class="keyword">id</span> <span class="keyword">FROM</span> T_PUB_MEMBER <span class="keyword">WHERE</span> JOB_TITLE=<span class="string">'采集人员'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> JOB_TITLE) c <span class="keyword">GROUP</span> <span class="keyword">BY</span> c.id <span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(<span class="number">1</span>)&gt;<span class="number">1</span></span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/30/hello-world/" data-id="cjs2xfff30004e4w6bnuckzit" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/13/一道sql面试题统计人数-1的记录id/" data-id="cjs2xfff10003e4w6oyr02zve" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          oracle转postgresql时,使用jpa(hibernate)报错: 不良的类型值 long
-        
-      </div>
-    </a>
   
+    <a href="/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">win10 java客户端连接hdfs集群报 java.io.Exception: Could not locate executable null/bin/winutils.exe in the Hadoop binaries</div>
+    </a>
   
 </nav>
 
