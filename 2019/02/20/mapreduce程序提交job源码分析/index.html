@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>mapreduce程序提交job源码分析 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缘起继续入门, 运行mapreduce的helloworld程序——wordcount. 运行mr程序的方式有两种  本地模式，你导入的hadoop的jar包包括了本地模拟器 集群模式, 打成（普通）jar包（未必要是可运行jar包），扔到hadoop集群上使用hadoop jar 命令运行  这不是本文讨论的重点, 本文讨论的重点在于最后提交(job) 1job.waitForCompletio">
+<meta name="keywords" content="mapreduce,大数据,源码分析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mapreduce程序提交job源码分析">
+<meta property="og:url" content="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起继续入门, 运行mapreduce的helloworld程序——wordcount. 运行mr程序的方式有两种  本地模式，你导入的hadoop的jar包包括了本地模拟器 集群模式, 打成（普通）jar包（未必要是可运行jar包），扔到hadoop集群上使用hadoop jar 命令运行  这不是本文讨论的重点, 本文讨论的重点在于最后提交(job) 1job.waitForCompletio">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/3.png">
+<meta property="og:updated_time" content="2019-02-19T23:02:20.628Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mapreduce程序提交job源码分析">
+<meta name="twitter:description" content="缘起继续入门, 运行mapreduce的helloworld程序——wordcount. 运行mr程序的方式有两种  本地模式，你导入的hadoop的jar包包括了本地模拟器 集群模式, 打成（普通）jar包（未必要是可运行jar包），扔到hadoop集群上使用hadoop jar 命令运行  这不是本文讨论的重点, 本文讨论的重点在于最后提交(job) 1job.waitForCompletio">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mapreduce程序提交job源码分析" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/20/mapreduce程序提交job源码分析/" class="article-date">
+  <time datetime="2019-02-19T22:49:27.000Z" itemprop="datePublished">2019-02-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mapreduce程序提交job源码分析
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>继续入门, 运行mapreduce的helloworld程序——wordcount. 运行mr程序的方式有两种</p>
+<ol>
+<li>本地模式，你导入的hadoop的jar包包括了本地模拟器</li>
+<li>集群模式, 打成（普通）jar包（未必要是可运行jar包），扔到hadoop集群上使用hadoop jar 命令运行</li>
+</ol>
+<p>这不是本文讨论的重点, 本文讨论的重点在于最后提交(job)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">job.waitForCompletion(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+<p>本文就在于分析其提交过程</p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>打好断点,m首先进入到 waitForCompletion的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">waitForCompletion</span><span class="params">(<span class="keyword">boolean</span> verbose</span></span></span><br><span class="line"><span class="function"><span class="params">                                   )</span> <span class="keyword">throws</span> IOException, InterruptedException,</span></span><br><span class="line"><span class="function">                                            ClassNotFoundException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (state == JobState.DEFINE) &#123;</span><br><span class="line">      submit();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (verbose) &#123;</span><br><span class="line">      monitorAndPrintJob();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// get the completion poll interval from the client.</span></span><br><span class="line">      <span class="keyword">int</span> completionPollIntervalMillis = </span><br><span class="line">        Job.getCompletionPollInterval(cluster.getConf());</span><br><span class="line">      <span class="keyword">while</span> (!isComplete()) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          Thread.sleep(completionPollIntervalMillis);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException ie) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> isSuccessful();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>所以waitForCompletion 其实是包含submit方法的. 下面重点看看submit方法干了什么</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">submit</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">         <span class="keyword">throws</span> IOException, InterruptedException, ClassNotFoundException </span>&#123;</span><br><span class="line">    ensureState(JobState.DEFINE);</span><br><span class="line">    setUseNewAPI();</span><br><span class="line">    connect();</span><br><span class="line">    <span class="keyword">final</span> JobSubmitter submitter = </span><br><span class="line">        getJobSubmitter(cluster.getFileSystem(), cluster.getClient());</span><br><span class="line">    status = ugi.doAs(<span class="keyword">new</span> PrivilegedExceptionAction&lt;JobStatus&gt;() &#123;</span><br><span class="line">      <span class="function"><span class="keyword">public</span> JobStatus <span class="title">run</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException, </span></span><br><span class="line"><span class="function">      ClassNotFoundException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> submitter.submitJobInternal(Job.<span class="keyword">this</span>, cluster);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    state = JobState.RUNNING;</span><br><span class="line">    LOG.info(<span class="string">"The url to track the job: "</span> + getTrackingURL());</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>下面围绕上面的代码作分析.</p>
+<p>其中第三行代码的作用是确认状态. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureState</span><span class="params">(JobState state)</span> <span class="keyword">throws</span> IllegalStateException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (state != <span class="keyword">this</span>.state) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Job in state "</span>+ <span class="keyword">this</span>.state + </span><br><span class="line">                                      <span class="string">" instead of "</span> + state);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (state == JobState.RUNNING &amp;&amp; cluster == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException</span><br><span class="line">        (<span class="string">"Job in state "</span> + <span class="keyword">this</span>.state</span><br><span class="line">         + <span class="string">", but it isn't attached to any job tracker!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>注意，本地模式下 state(和this.state) 是DEFINE, cluster是null，所以该方法不会抛异常.</p>
+<p>而setUseNewAPI()方法的作用是老的API解读为新的API, 其中老的API一般是以 mapred为包名的. 而新的API的包名都替换成了mapreduce. 这个方法将就的API的设置的属性转换为新的API的属性. 然后我们来到了 connect()方法.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">connect</span><span class="params">()</span></span></span><br><span class="line"><span class="function">          <span class="keyword">throws</span> IOException, InterruptedException, ClassNotFoundException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (cluster == <span class="keyword">null</span>) &#123;</span><br><span class="line">      cluster = </span><br><span class="line">        ugi.doAs(<span class="keyword">new</span> PrivilegedExceptionAction&lt;Cluster&gt;() &#123;</span><br><span class="line">                   <span class="function"><span class="keyword">public</span> Cluster <span class="title">run</span><span class="params">()</span></span></span><br><span class="line"><span class="function">                          <span class="keyword">throws</span> IOException, InterruptedException, </span></span><br><span class="line"><span class="function">                                 ClassNotFoundException </span>&#123;</span><br><span class="line">                     <span class="keyword">return</span> <span class="keyword">new</span> Cluster(getConfiguration());</span><br><span class="line">                   &#125;</span><br><span class="line">                 &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>本地模式下，cluster是null, 所以会进这个代码. 其中ugi是UserGroupInformation类,  则cluster变成了一个不是null的对象(注意, 这里doAs传入的是一个回调函数, 即会返回一个new Cluster()).  而Cluster的带一个Configuration的构造器中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Cluster</span><span class="params">(Configuration conf)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">   <span class="keyword">this</span>(<span class="keyword">null</span>, conf);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="title">Cluster</span><span class="params">(InetSocketAddress jobTrackAddr, Configuration conf)</span> </span></span><br><span class="line"><span class="function">     <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">   <span class="keyword">this</span>.conf = conf;</span><br><span class="line">   <span class="keyword">this</span>.ugi = UserGroupInformation.getCurrentUser();</span><br><span class="line">   initialize(jobTrackAddr, conf);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>conf是Configuration: core-default.xml, core-site.xml, mapred-default.xml, mapred-site.xml, yarn-default.xml, yarn-site.xml, hdfs-default.xml, hdfs-site.xml</p>
+<p>其中initialize方法的源码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">initialize</span><span class="params">(InetSocketAddress jobTrackAddr, Configuration conf)</span></span></span><br><span class="line"><span class="function">      <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">synchronized</span> (frameworkLoader) &#123;</span><br><span class="line">      <span class="keyword">for</span> (ClientProtocolProvider provider : frameworkLoader) &#123;</span><br><span class="line">        LOG.debug(<span class="string">"Trying ClientProtocolProvider : "</span></span><br><span class="line">            + provider.getClass().getName());</span><br><span class="line">        ClientProtocol clientProtocol = <span class="keyword">null</span>; </span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (jobTrackAddr == <span class="keyword">null</span>) &#123;</span><br><span class="line">            clientProtocol = provider.create(conf);</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            clientProtocol = provider.create(jobTrackAddr, conf);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (clientProtocol != <span class="keyword">null</span>) &#123;</span><br><span class="line">            clientProtocolProvider = provider;</span><br><span class="line">            client = clientProtocol;</span><br><span class="line">            LOG.debug(<span class="string">"Picked "</span> + provider.getClass().getName()</span><br><span class="line">                + <span class="string">" as the ClientProtocolProvider"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="keyword">else</span> &#123;</span><br><span class="line">            LOG.debug(<span class="string">"Cannot pick "</span> + provider.getClass().getName()</span><br><span class="line">                + <span class="string">" as the ClientProtocolProvider - returned null protocol"</span>);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">          LOG.info(<span class="string">"Failed to use "</span> + provider.getClass().getName()</span><br><span class="line">              + <span class="string">" due to error: "</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == clientProtocolProvider || <span class="keyword">null</span> == client) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> IOException(</span><br><span class="line">          <span class="string">"Cannot initialize Cluster. Please check your configuration for "</span></span><br><span class="line">              + MRConfig.FRAMEWORK_NAME</span><br><span class="line">              + <span class="string">" and the correspond server addresses."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>本地模式下会走第11行, 得到的是一个 org.apache.hadoop.mapred.LocalJobRunner .这里就是得到了Cluster的两个成员变量</p>
+<ol>
+<li>client 是一个org.apache.hadoop.mapred.LocalJobRunner</li>
+<li>clientProtocolProvider 是一个org.apache.hadoop.mapred.LocalClientProtocolProvider</li>
+</ol>
+<p>如果是提交到Yarn的话, 则就是YarnRunner.</p>
+<p>再将这个Cluster返回给submit方法中。即submit方法中的connect方法中初始化了Job类中的cluster成员变量为一个含有上述client、clientProtocolProvider 的类. </p>
+<p>再看submit方法中的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> JobSubmitter submitter = </span><br><span class="line">        getJobSubmitter(cluster.getFileSystem(), cluster.getClient());</span><br></pre></td></tr></table></figure>
+<p>其中 cluster.getFileSystem()得到org.apache.hadoop.fs.LocalFileSystem@7d7758be, 而 cluster.getClient()得到的就是上面说的一个 org.apache.hadoop.mapred.LocalJobRunner@2bdd8394. 可见都是 本地的东西.</p>
+<p>执行完ugi.doAs之后, 返回的status就是 </p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">job-id : job_local1871012903_0001</span><br><span class="line">uber-mode : false</span><br><span class="line">map-progress : 1.0</span><br><span class="line">reduce-progress : 1.0</span><br><span class="line">cleanup-progress : 1.0</span><br><span class="line">setup-progress : 1.0</span><br><span class="line">runstate : SUCCEEDED</span><br><span class="line">start-time : 0</span><br><span class="line">user-name : yfs</span><br><span class="line">priority : NORMAL</span><br><span class="line">scheduling-info : NAnum-used-slots0</span><br><span class="line">num-reserved-slots0</span><br><span class="line">used-mem0</span><br><span class="line">reserved-mem0</span><br><span class="line">needed-mem0</span><br></pre></td></tr></table></figure>
+<p>我们可以推测, 在上面的ugi.doAs方法就一定跑了任务, 因为 map-progress 和 reduce-progress 都是1.0</p>
+<p>后面再继续分析ugi.doAs方法.  最后 将状态state改成RUNNING.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">state = JobState.RUNNING;</span><br></pre></td></tr></table></figure>
+<p>submit方法的最后记录了一下job的trackingurl</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LOG.info(<span class="string">"The url to track the job: "</span> + getTrackingURL());</span><br></pre></td></tr></table></figure>
+<p>这里打印了</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2019-02-19 17:52:36,127 INFO [org.apache.hadoop.mapreduce.Job] - The url to track the job: http://localhost:8080/</span><br></pre></td></tr></table></figure>
+<p>然后我们分析一下剩下的 waitForCompletion方法.  入参verbose是true, 所以进入到monitorAndPrintJob()方法中去.  这个方法的逻辑是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Monitor a job and print status in real-time as progress is made and tasks </span></span><br><span class="line"><span class="comment">   * fail.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@return</span> true if the job succeeded</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@throws</span> IOException if communication to the JobTracker fails</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">monitorAndPrintJob</span><span class="params">()</span> </span></span><br><span class="line"><span class="function">      <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line">    String lastReport = <span class="keyword">null</span>;</span><br><span class="line">    Job.TaskStatusFilter filter;</span><br><span class="line">    Configuration clientConf = getConfiguration();</span><br><span class="line">    filter = Job.getTaskOutputFilter(clientConf);</span><br><span class="line">    JobID jobId = getJobID();</span><br><span class="line">    LOG.info(<span class="string">"Running job: "</span> + jobId);</span><br><span class="line">    <span class="keyword">int</span> eventCounter = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">boolean</span> profiling = getProfileEnabled();</span><br><span class="line">    IntegerRanges mapRanges = getProfileTaskRange(<span class="keyword">true</span>);</span><br><span class="line">    IntegerRanges reduceRanges = getProfileTaskRange(<span class="keyword">false</span>);</span><br><span class="line">    <span class="keyword">int</span> progMonitorPollIntervalMillis = </span><br><span class="line">      Job.getProgressPollInterval(clientConf);</span><br><span class="line">    <span class="comment">/* make sure to report full progress after the job is done */</span></span><br><span class="line">    <span class="keyword">boolean</span> reportedAfterCompletion = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">boolean</span> reportedUberMode = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">while</span> (!isComplete() || !reportedAfterCompletion) &#123;</span><br><span class="line">      <span class="keyword">if</span> (isComplete()) &#123;</span><br><span class="line">        reportedAfterCompletion = <span class="keyword">true</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        Thread.sleep(progMonitorPollIntervalMillis);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (status.getState() == JobStatus.State.PREP) &#123;</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;      </span><br><span class="line">      <span class="keyword">if</span> (!reportedUberMode) &#123;</span><br><span class="line">        reportedUberMode = <span class="keyword">true</span>;</span><br><span class="line">        LOG.info(<span class="string">"Job "</span> + jobId + <span class="string">" running in uber mode : "</span> + isUber());</span><br><span class="line">      &#125;      </span><br><span class="line">      String report = </span><br><span class="line">        (<span class="string">" map "</span> + StringUtils.formatPercent(mapProgress(), <span class="number">0</span>)+</span><br><span class="line">            <span class="string">" reduce "</span> + </span><br><span class="line">            StringUtils.formatPercent(reduceProgress(), <span class="number">0</span>));</span><br><span class="line">      <span class="keyword">if</span> (!report.equals(lastReport)) &#123;</span><br><span class="line">        LOG.info(report);</span><br><span class="line">        lastReport = report;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      TaskCompletionEvent[] events = </span><br><span class="line">        getTaskCompletionEvents(eventCounter, <span class="number">10</span>); </span><br><span class="line">      eventCounter += events.length;</span><br><span class="line">      printTaskEvents(events, filter, profiling, mapRanges, reduceRanges);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">boolean</span> success = isSuccessful();</span><br><span class="line">    <span class="keyword">if</span> (success) &#123;</span><br><span class="line">      LOG.info(<span class="string">"Job "</span> + jobId + <span class="string">" completed successfully"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      LOG.info(<span class="string">"Job "</span> + jobId + <span class="string">" failed with state "</span> + status.getState() + </span><br><span class="line">          <span class="string">" due to: "</span> + status.getFailureInfo());</span><br><span class="line">    &#125;</span><br><span class="line">    Counters counters = getCounters();</span><br><span class="line">    <span class="keyword">if</span> (counters != <span class="keyword">null</span>) &#123;</span><br><span class="line">      LOG.info(counters.toString());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> success;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>从源码的注释(或者单纯从方法的名字)就可以看出，该方法的作用是通过轮询实时监控job的status属性(只要没完成就打印)并打印日志. 如果job成功的话, 返回true, 如果失败，打印false. 上面代码的第14行打印了job的id,  根据上面知道，自然是</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2019-02-19 17:58:36,963 INFO [org.apache.hadoop.mapreduce.Job] - Running job: job_local1871012903_0001</span><br></pre></td></tr></table></figure>
+<p>最后waitForCompletion 的最后一行返回了isSuccessful(); 这个方法返回了 status是否等于SUCCEEDED. 即</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Check if the job completed successfully. </span></span><br><span class="line"><span class="comment">   * </span></span><br><span class="line"><span class="comment">   * <span class="doctag">@return</span> &lt;code&gt;true&lt;/code&gt; if the job succeeded, else &lt;code&gt;false&lt;/code&gt;.</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isSuccessful</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    ensureState(JobState.RUNNING);</span><br><span class="line">    updateStatus();</span><br><span class="line">    <span class="keyword">return</span> status.getState() == JobStatus.State.SUCCEEDED;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>其中status只是Job中的一个JobStatus类型的成员变量.  下面回到submit方法， 我们来看提交job最重要的一段代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">status = ugi.doAs(<span class="keyword">new</span> PrivilegedExceptionAction&lt;JobStatus&gt;() &#123;</span><br><span class="line">      <span class="function"><span class="keyword">public</span> JobStatus <span class="title">run</span><span class="params">()</span> <span class="keyword">throws</span> IOException, InterruptedException, </span></span><br><span class="line"><span class="function">      ClassNotFoundException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> submitter.submitJobInternal(Job.<span class="keyword">this</span>, cluster);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<p>注意，这里和connect一样, 也是传入一个回调. 则在回调执行之前, status都是undefined的.  我们不难猜测这个submitJobInternal方法就在提交job切片信息和jar包, 以及job.xml信息. 其中第二个参数cluster参数前面说过了是org.apache.hadoop.mapreduce.Cluster@4c2bb6e0,它的client和filesystem都是本地的(相当于一个本地模拟器).</p>
+<p>这个submitJobInternal方法 首先</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//validate the jobs output specs </span></span><br><span class="line">    checkSpecs(job);</span><br></pre></td></tr></table></figure>
+<p>而checkSpecs方法中有一行 output.checkOutputSpecs(job);,  output 是FileOutputFormat的实例, 其checkSpecs方法中checkOutputSpecs方法中有这么一段</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (outDir.getFileSystem(job.getConfiguration()).exists(outDir)) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> FileAlreadyExistsException(<span class="string">"Output directory "</span> + outDir + </span><br><span class="line">                                           <span class="string">" already exists"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>即output是否已经存在的检查. 这就不难明白为什么我们输出路径不能事先存在的原因.</p>
+<p>然后</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Path jobStagingArea = JobSubmissionFiles.getStagingDir(cluster, conf);</span><br></pre></td></tr></table></figure>
+<p>我在本地模式调试的时候是</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:/tmp/hadoop-yfs/mapred/staging/yfs688390032/.staging</span><br></pre></td></tr></table></figure>
+<p>例如我的项目跑在F盘，则文件放在</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F:<span class="tag">\<span class="name">tmp</span></span><span class="tag">\<span class="name">hadoop</span></span>-yfs<span class="tag">\<span class="name">mapred</span></span><span class="tag">\<span class="name">staging</span></span><span class="tag">\<span class="name">yfs</span></span>688390032<span class="tag">\<span class="name">.</span></span>staging</span><br></pre></td></tr></table></figure>
+<p>目录中.  然后是对配置文件conf的进一步的设置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//configure the command line options correctly on the submitting dfs</span></span><br><span class="line">    InetAddress ip = InetAddress.getLocalHost();</span><br><span class="line">    <span class="keyword">if</span> (ip != <span class="keyword">null</span>) &#123;</span><br><span class="line">      submitHostAddress = ip.getHostAddress();</span><br><span class="line">      submitHostName = ip.getHostName();</span><br><span class="line">      conf.set(MRJobConfig.JOB_SUBMITHOST,submitHostName);</span><br><span class="line">      conf.set(MRJobConfig.JOB_SUBMITHOSTADDR,submitHostAddress);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>设置了MR Job提交的地址. 然后是创建并设置任务的id并生成作业提交的路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:/tmp/hadoop-yfs/mapred/staging/yfs688390032/.staging/job_local688390032_0001</span><br></pre></td></tr></table></figure>
+<p>我们的项目跑在F盘上，所以路径是</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F:<span class="tag">\<span class="name">tmp</span></span><span class="tag">\<span class="name">hadoop</span></span>-yfs<span class="tag">\<span class="name">mapred</span></span><span class="tag">\<span class="name">staging</span></span><span class="tag">\<span class="name">yfs</span></span>688390032<span class="tag">\<span class="name">.</span></span>staging</span><br></pre></td></tr></table></figure>
+<p>然后进一步的设置conf的属性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">conf.set(MRJobConfig.USER_NAME,</span><br><span class="line">          UserGroupInformation.getCurrentUser().getShortUserName());</span><br><span class="line">      conf.set(<span class="string">"hadoop.http.filter.initializers"</span>, </span><br><span class="line">          <span class="string">"org.apache.hadoop.yarn.server.webproxy.amfilter.AmFilterInitializer"</span>);</span><br><span class="line">      conf.set(MRJobConfig.MAPREDUCE_JOB_DIR, submitJobDir.toString());</span><br></pre></td></tr></table></figure>
+<p>然后进一步的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">copyAndConfigureFiles(job, submitJobDir);</span><br></pre></td></tr></table></figure>
+<p>这个方法的源码是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">copyAndConfigureFiles</span><span class="params">(Job job, Path jobSubmitDir)</span> </span></span><br><span class="line"><span class="function"> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">   JobResourceUploader rUploader = <span class="keyword">new</span> JobResourceUploader(jtFs);</span><br><span class="line">   rUploader.uploadFiles(job, jobSubmitDir);</span><br><span class="line"></span><br><span class="line">   <span class="comment">// Get the working directory. If not set, sets it to filesystem working dir</span></span><br><span class="line">   <span class="comment">// This code has been added so that working directory reset before running</span></span><br><span class="line">   <span class="comment">// the job. This is necessary for backward compatibility as other systems</span></span><br><span class="line">   <span class="comment">// might use the public API JobConf#setWorkingDirectory to reset the working</span></span><br><span class="line">   <span class="comment">// directory.</span></span><br><span class="line">   job.getWorkingDirectory();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>其中最后的job.getWorkingDirectory();是项目的根路径，这里是 file:/F:/xx/learning/mapreduce.  其中rUploader.uploadFiles方法的源码中有一段</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// get all the command line arguments passed in by the user conf</span></span><br><span class="line">    String files = conf.get(<span class="string">"tmpfiles"</span>);</span><br><span class="line">    String libjars = conf.get(<span class="string">"tmpjars"</span>);</span><br><span class="line">    String archives = conf.get(<span class="string">"tmparchives"</span>);</span><br><span class="line">    String jobJar = job.getJar();</span><br></pre></td></tr></table></figure>
+<p>其实rUploader.uploadFiles 主要就是上传jar包的. 但是yarn和本地模式有不一样的地方, yarn模式会拷贝jar包，但是本地模式不会.</p>
+<p>然后submitJobInternal方法的下面一行的代码是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Path submitJobFile = JobSubmissionFiles.getJobConfPath(submitJobDir);</span><br></pre></td></tr></table></figure>
+<p>我这里是</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:/tmp/hadoop-yfs/mapred/staging/yfs1764451778/.staging/job_local1764451778_0001/job.xml</span><br></pre></td></tr></table></figure>
+<p>然后开始记录job分片信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Create the splits for the job</span></span><br><span class="line">     LOG.debug(<span class="string">"Creating splits at "</span> + jtFs.makeQualified(submitJobDir));</span><br></pre></td></tr></table></figure>
+<p>我这里是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:/tmp/hadoop-yfs/mapred/staging/yfs1764451778/.staging/job_local1764451778_0001</span><br></pre></td></tr></table></figure>
+<p>然后是job分片</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> maps = writeSplits(job, submitJobDir);</span><br></pre></td></tr></table></figure>
+<p>返回的maps是分片数.  其中writeSplits方法中 的源码是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">maps = writeNewSplits(job, jobSubmitDir);</span><br></pre></td></tr></table></figure>
+<p>进一步进入, 里面有源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;InputSplit&gt; splits = input.getSplits(job);</span><br></pre></td></tr></table></figure>
+<p>再进一步进入是 org.apache.hadoop.mapreduce.lib.input.FileInputFormat.getSplits(JobContext). 其中有源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> minSize = Math.max(getFormatMinSplitSize(), getMinSplitSize(job));</span><br><span class="line">    <span class="keyword">long</span> maxSize = getMaxSplitSize(job);</span><br></pre></td></tr></table></figure>
+<p>其中 getFormatMinSplitSize返回就是1, 所以其实就是getMinSplitSize(job)的结果，而 getMinSplitSize(job) 的源码是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">getMinSplitSize</span><span class="params">(JobContext job)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">return</span> job.getConfiguration().getLong(SPLIT_MINSIZE, <span class="number">1L</span>);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>其中SPLIT_MINSIZE=mapreduce.input.fileinputformat.split.minsize，1L是defaultValue.  所以如果配置文件中配置了mapreduce.input.fileinputformat.split.minsize的话, 就是它，如果没配置的话，就是 1. 而getMaxSplitSize方法的源码是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">getMaxSplitSize</span><span class="params">(JobContext context)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> context.getConfiguration().getLong(SPLIT_MAXSIZE, </span><br><span class="line">                                              Long.MAX_VALUE);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>即默认是不限定分片总数（有多少算多少）,除非你配置了</p>
+<p>SPLIT_MAXSIZE = “mapreduce.input.fileinputformat.split.maxsize”</p>
+<p>这样我们就得到了分片大小最大值和分片大小最小值. 然后下面是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// generate splits</span></span><br><span class="line">    List&lt;InputSplit&gt; splits = <span class="keyword">new</span> ArrayList&lt;InputSplit&gt;();</span><br><span class="line">    List&lt;FileStatus&gt; files = listStatus(job);</span><br><span class="line">    <span class="keyword">for</span> (FileStatus file: files) &#123;</span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
+<p>表示开始产生切片文件了, 这里files就是我们的输入文件. 遍历处理做的事情是</p>
+<p>其中一段源码我们可以得到 切片的splitsize</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (isSplitable(job, path)) &#123;</span><br><span class="line">	<span class="keyword">long</span> blockSize = file.getBlockSize();</span><br><span class="line">	<span class="keyword">long</span> splitSize = computeSplitSize(blockSize, minSize, maxSize);</span><br><span class="line">    <span class="keyword">long</span> bytesRemaining = length;</span><br><span class="line">          <span class="keyword">while</span> (((<span class="keyword">double</span>) bytesRemaining)/splitSize &gt; SPLIT_SLOP) &#123;</span><br><span class="line">            <span class="keyword">int</span> blkIndex = getBlockIndex(blkLocations, length-bytesRemaining);</span><br><span class="line">            splits.add(makeSplit(path, length-bytesRemaining, splitSize,</span><br><span class="line">                        blkLocations[blkIndex].getHosts(),</span><br><span class="line">                        blkLocations[blkIndex].getCachedHosts()));</span><br><span class="line">            bytesRemaining -= splitSize;</span><br><span class="line">          &#125;</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>注意，做了一个是否可切割的判断, 有些文件不允许切片. 而且上面的SPLIT_SLOP 是1.1， 即如果剩余的字节数/splitsize(前面说了, 如果什么都不配置的话, 就是32M)&lt;=1.1的话, 那就不再切割了, 例如129M在yarn集群上就只切一块出来而不是2块.  该方法返回的切片信息类似于,</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file:/e:/input/hello.txt:0+260</span><br></pre></td></tr></table></figure>
+<p>即这个切片是260字节.</p>
+<p>其中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">long</span> <span class="title">computeSplitSize</span><span class="params">(<span class="keyword">long</span> blockSize, <span class="keyword">long</span> minSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">long</span> maxSize)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Math.max(minSize, Math.min(maxSize, blockSize));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>所以一般情况下不配置 mapreduce.input.fileinputformat.split.maxsize 和mapreduce.input.fileinputformat.split.minsize的话, 则computeSplitSize返回的结果就是blocksize，也就是32M(注意，和yarn不同，本地模式下blocksize是32M而不是128M).   最后writeNewSplits方法中的倒数第二行</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">JobSplitWriter.createSplitFiles(jobSubmitDir, conf, </span><br><span class="line">        jobSubmitDir.getFileSystem(conf), array);</span><br></pre></td></tr></table></figure>
+<p>就会导致.staging目录创建job切片文件. 但是都不是文本文件.</p>
+<img src="/2019/02/20/mapreduce程序提交job源码分析/1.png" title="切片文件">
+<p>回到 JobSubmitter.submitJobInternal然后开始记录分片数(并且将job分片信息写入到conf中去)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">conf.setInt(MRJobConfig.NUM_MAPS, maps);</span><br><span class="line">      LOG.info(<span class="string">"number of splits:"</span> + maps);</span><br></pre></td></tr></table></figure>
+<p>然后是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Write job file to submit dir</span></span><br><span class="line">      writeConf(conf, submitJobFile);</span><br></pre></td></tr></table></figure>
+<p>其中submitJobFile是 file:/tmp/hadoop-yfs/mapred/staging/yfs1917761191/.staging/job_local1917761191_0001/job.xml, 而conf是 Configuration: core-default.xml, core-site.xml, mapred-default.xml, mapred-site.xml, yarn-default.xml, yarn-site.xml, hdfs-default.xml, hdfs-site.xml.  其中writeConf执行完毕，将产生一个job.xml文件(比较大, 最简单的wordcount都多达96K).</p>
+<img src="/2019/02/20/mapreduce程序提交job源码分析/2.png" title="job.xml">
+<p>可以看一眼里面的内容</p>
+<img src="/2019/02/20/mapreduce程序提交job源码分析/3.png" title="job.xml内容一瞥">
+<p>大部分是hadoop默认的配置信息.</p>
+<p>然后 JobSubmitter.submitJobInternal中的代码是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">status = submitClient.submitJob(</span><br><span class="line">          jobId, submitJobDir.toString(), job.getCredentials());</span><br></pre></td></tr></table></figure>
+<p>其中submitClient 是ClientProtocol接口，其实就是一开始获取Cluster中的client. 其实现类有两个</p>
+<ol>
+<li>org.apache.hadoop.mapred.LocalJobRunner</li>
+<li>org.apache.hadoop.mapred.YARNRunner</li>
+</ol>
+<p>不用说, 也知道这里是org.apache.hadoop.mapred.LocalJobRunner（本地模拟器）.  jobId是 job_local1917761191_0001</p>
+<p>submitJobDir.toString()是file:/tmp/hadoop-yfs/mapred/staging/yfs1917761191/.staging/job_local1917761191_0001</p>
+<p>返回得到的status是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">job-id : job_local1917761191_0001</span><br><span class="line">uber-mode : <span class="keyword">false</span></span><br><span class="line">map-progress : <span class="number">1.0</span></span><br><span class="line">reduce-progress : <span class="number">1.0</span></span><br><span class="line">cleanup-progress : <span class="number">1.0</span></span><br><span class="line">setup-progress : <span class="number">1.0</span></span><br><span class="line">runstate : SUCCEEDED</span><br><span class="line">start-time : <span class="number">0</span></span><br><span class="line">user-name : yfs</span><br><span class="line">priority : NORMAL</span><br><span class="line">scheduling-info : NAnum-used-slots0num-reserved-slots0used-mem0reserved-mem0needed-mem0</span><br></pre></td></tr></table></figure>
+<p>然后在finally块中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jtFs.delete(submitJobDir, <span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+<p>即递归删除了提交给集群的文件. 这里submitJobDir 是file:/tmp/hadoop-yfs/mapred/staging/yfs1917761191/.staging/job_local1917761191_0001 最后只剩下 一个file:/tmp/hadoop-yfs/mapred/staging/yfs1917761191/.staging空目录.</p>
+<p>这就是提交job的全过程.  其总体就是异步提交之后轮询打印进度的过程.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/" data-id="cjscde07f0000ocw6litm0k9c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/02/13/一道sql面试题统计人数-1的记录id/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">一道sql面试题统计人数&gt;1的记录id</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/gradle/" style="font-size: 15px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 15px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 15px;">hdfs</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/jdbc/" style="font-size: 10px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/springboot/" style="font-size: 15px;">springboot</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/大数据/" style="font-size: 20px;">大数据</a> <a href="/tags/源码分析/" style="font-size: 10px;">源码分析</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/02/20/mapreduce程序提交job源码分析/">mapreduce程序提交job源码分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/13/一道sql面试题统计人数-1的记录id/">一道sql面试题统计人数&gt;1的记录id</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/">win10 java客户端连接hdfs集群报 java.io.Exception: Could not locate executable null/bin/winutils.exe in the Hadoop binaries</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/">上传文件到hdfs,结果50070web控制台的Availability为localhost</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/06/gradle-build和gradlew-build的区别/">gradle build和gradlew build的区别</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
