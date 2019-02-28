@@ -5,20 +5,22 @@
   
 
   
-  <title>一道sql面试题统计人数&gt;1的记录id | Hexo</title>
+  <title>JDK之SPI机制简明分析 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缘起朋友面试, 问我面到的题目, 哎，每次sql的问题, 其实想吧想吧都能答出来，但是如果要求你短时间，特别是面试官就站在你对面的话, 还真有点压力. 题目: 如下一张表 T_PUB_MEMBER    PUB_ID JOB_TITLE     1 采集人员   3 财务人员   1 采集人员   2 采集人员    要统计这张表中JOB_TITLE为采集人员的数量&amp;gt;1的PUB_ID 分析s">
-<meta name="keywords" content="sql,面试">
+  <meta name="description" content="缘起最近在看公司代码, 发现一些公司自己封装的老框架中并没有使用spring. 而是使用了大量的XXXServiceLoader的东西. 后来google了一下，发现这是JDK本身提供的SPI（Service Provider Interface）机制.">
+<meta name="keywords" content="源码分析,后端,JDK">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一道sql面试题统计人数&gt;1的记录id">
-<meta property="og:url" content="http://yoursite.com/2019/02/13/一道sql面试题统计人数-1的记录id/index.html">
+<meta property="og:title" content="JDK之SPI机制简明分析">
+<meta property="og:url" content="http://yoursite.com/2019/02/28/JDK之SPI机制简明分析/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="缘起朋友面试, 问我面到的题目, 哎，每次sql的问题, 其实想吧想吧都能答出来，但是如果要求你短时间，特别是面试官就站在你对面的话, 还真有点压力. 题目: 如下一张表 T_PUB_MEMBER    PUB_ID JOB_TITLE     1 采集人员   3 财务人员   1 采集人员   2 采集人员    要统计这张表中JOB_TITLE为采集人员的数量&amp;gt;1的PUB_ID 分析s">
+<meta property="og:description" content="缘起最近在看公司代码, 发现一些公司自己封装的老框架中并没有使用spring. 而是使用了大量的XXXServiceLoader的东西. 后来google了一下，发现这是JDK本身提供的SPI（Service Provider Interface）机制.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-02-13T08:13:03.253Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/28/JDK之SPI机制简明分析/1.png">
+<meta property="og:updated_time" content="2019-02-28T08:04:48.441Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一道sql面试题统计人数&gt;1的记录id">
-<meta name="twitter:description" content="缘起朋友面试, 问我面到的题目, 哎，每次sql的问题, 其实想吧想吧都能答出来，但是如果要求你短时间，特别是面试官就站在你对面的话, 还真有点压力. 题目: 如下一张表 T_PUB_MEMBER    PUB_ID JOB_TITLE     1 采集人员   3 财务人员   1 采集人员   2 采集人员    要统计这张表中JOB_TITLE为采集人员的数量&amp;gt;1的PUB_ID 分析s">
+<meta name="twitter:title" content="JDK之SPI机制简明分析">
+<meta name="twitter:description" content="缘起最近在看公司代码, 发现一些公司自己封装的老框架中并没有使用spring. 而是使用了大量的XXXServiceLoader的东西. 后来google了一下，发现这是JDK本身提供的SPI（Service Provider Interface）机制.">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/28/JDK之SPI机制简明分析/1.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -65,10 +67,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-一道sql面试题统计人数-1的记录id" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-JDK之SPI机制简明分析" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/02/13/一道sql面试题统计人数-1的记录id/" class="article-date">
-  <time datetime="2019-02-13T07:54:09.000Z" itemprop="datePublished">2019-02-13</time>
+    <a href="/2019/02/28/JDK之SPI机制简明分析/" class="article-date">
+  <time datetime="2019-02-28T06:44:16.000Z" itemprop="datePublished">2019-02-28</time>
 </a>
     
   </div>
@@ -79,7 +81,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      一道sql面试题统计人数&gt;1的记录id
+      JDK之SPI机制简明分析
     </h1>
   
 
@@ -87,53 +89,45 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>朋友面试, 问我面到的题目, 哎，每次sql的问题, 其实想吧想吧都能答出来，但是如果要求你短时间，特别是面试官就站在你对面的话, 还真有点压力.</p>
-<p>题目: 如下一张表 T_PUB_MEMBER</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">PUB_ID</th>
-<th style="text-align:center">JOB_TITLE</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">采集人员</td>
-</tr>
-<tr>
-<td style="text-align:center">3</td>
-<td style="text-align:center">财务人员</td>
-</tr>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">采集人员</td>
-</tr>
-<tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center">采集人员</td>
-</tr>
-</tbody>
-</table>
-<p>要统计这张表中JOB_TITLE为<strong>采集人员</strong>的数量&gt;1的PUB_ID</p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>sql题一般都是逐步写出答案的.</p>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>最近在看公司代码, 发现一些公司自己封装的老框架中并没有使用spring. 而是使用了大量的XXXServiceLoader的东西. 后来google了一下，发现这是JDK本身提供的SPI（Service Provider Interface）机制. </p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h4 id="为什么要用SPI"><a href="#为什么要用SPI" class="headerlink" title="为什么要用SPI?"></a>为什么要用SPI?</h4><p>这不得不从类加载机制之<strong>全盘负责+父委托机制</strong>谈起. 关于这些问题的文章很多, 就不再赘述了. 只简明谈一下结论.</p>
 <ol>
-<li><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> PUB_ID <span class="keyword">AS</span> <span class="keyword">id</span> <span class="keyword">FROM</span> T_PUB_MEMBER <span class="keyword">WHERE</span> JOB_TITLE=<span class="string">'采集人员'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> JOB_TITLE</span><br></pre></td></tr></table></figure>
-<p>得到所有JOB_TITLE为采集人员的ID列表. 将此表记做c</p>
+<li><p>全盘负责</p>
+<p>当一个ClassLoder装载一个类时，<strong>除非显示的使用另外一个ClassLoder</strong>，该类所依赖及引用的类（比如其父类）也由这个ClassLoder加载字节码文件.</p>
 </li>
-<li><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> c.id <span class="keyword">FROM</span> c <span class="keyword">GROUP</span> <span class="keyword">BY</span> c.id <span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(<span class="number">1</span>)&gt;<span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>得到答案</p>
+<li><p>父委托机制</p>
+<p>当一个ClassLoader准备加载一份字节码文件的时候, 先委托其父类装载器寻找目标类字节码文件并试图加载，只有在找不到或者加载抛出异常的情况下才从自己的类路径中查找并装载目标类. </p>
 </li>
 </ol>
-<p>综上，答案是</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> c.id <span class="keyword">FROM</span></span><br><span class="line">(<span class="keyword">SELECT</span> PUB_ID <span class="keyword">AS</span> <span class="keyword">id</span> <span class="keyword">FROM</span> T_PUB_MEMBER <span class="keyword">WHERE</span> JOB_TITLE=<span class="string">'采集人员'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> JOB_TITLE) c <span class="keyword">GROUP</span> <span class="keyword">BY</span> c.id <span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(<span class="number">1</span>)&gt;<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>诚然, 父委托机制增加了字节码的安全性. 因为显然你不能自己写一个java.lang.String类然后用类加载器加载. 而且保证了字节码只会存在一份于内存中. 那么父委托机制有什么缺点吗? 缺点是显然的</p>
+<blockquote>
+<p>如果规范制定方（比如sun）制定的接口规范（比如JNDI、JDBC、JAXP）在rt.jar. 但是提供接口实现类的第三方厂商（比如mysql、oracle、postgresql等）提供的实现类在系统加载器路径中（即 $CLASSPATH 或 -Djava.classpath 参数指定路径），则根据父委托机制，加载接口包的类加载器是无法加载实现类的字节码的.</p>
+</blockquote>
+<p>怎么办呢? 于是<strong>我们就必须显示指定使用能够加载实现类的ClassLoader来加载第三方实现类</strong>.而这个能够加载第三方实现类的类加载器就是我们常说的线程上下文类加载器. 这个线程上下文类加载器的特点是</p>
+<ol>
+<li>如果不指定, 则默认是父线程所持有的线程上下文加载器.</li>
+<li>最初线程上下文类加载器是AppClassLoader. 这一点可以去看 sun.misc.Launcher 的源码, 参考【1】</li>
+</ol>
+<p>也就是，线程上下文类加载器就是为了解决父加载器无法感知子加载器所加载的类而出现的. 可以以下面一副图看出.</p>
+<img src="/2019/02/28/JDK之SPI机制简明分析/1.png" title="类加载器结构">
+<p>于是SPI机制就利用了这一点, 实现了, 高层定义接口规范, 第三方厂商提供实现. 高层提供工具类（JDK的java.util.ServiceLoader）加载这些第三方实现. 当然, 为了工具类能找到第三方jar包中的字节码文件, 约定优于配置, 规定第三方jar包的类路径下的META-INF/services 目录下有以接口全限定名为文件名, 实现类全限定名为文件内容（多个实现类的话, 一行一个）.  </p>
+<p><strong>这样做的好处是显然的, 就能实现第三方jar包插件式的集成, 方便地接入系统.</strong></p>
+<h4 id="SPI技术的关键"><a href="#SPI技术的关键" class="headerlink" title="SPI技术的关键"></a>SPI技术的关键</h4><ol>
+<li>使用线程上下文加载器（其实就是AppClassLoader）加载第三方实现类.</li>
+<li>使用ClassLoader 的 API 读取全部jar包中META-INF/services目录下的同名文件.</li>
+</ol>
+<p>了解以上两点，我们完全可以写出自定义的SPI和ServiceLoader. 参见DEMO链接. DEMO中只是实现了一个简易版的. JDK的实现更加松耦合. 因为java.util.ServiceLoader内部实现了迭代器模式. 暴露的接口很窄.</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://zy19982004.iteye.com/blog/1983236" target="_blank" rel="noopener">https://zy19982004.iteye.com/blog/1983236</a></p>
+<h3 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h3><p><a href="https://github.com/yfsyfs/backend/tree/master/spi-parent" target="_blank" rel="noopener">https://github.com/yfsyfs/backend/tree/master/spi-parent</a></p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/13/一道sql面试题统计人数-1的记录id/" data-id="cjsocgd7x000znww647pv1m9j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/28/JDK之SPI机制简明分析/" data-id="cjsocgd4w0000nww63rg5e409" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
 
     </footer>
   </div>
@@ -141,19 +135,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/02/20/mapreduce程序提交job源码分析/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          mapreduce程序提交job源码分析
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/02/22/记一次服务器定时崩溃排错/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">win10 java客户端连接hdfs集群报 java.io.Exception: Could not locate executable null/bin/winutils.exe in the Hadoop binaries</div>
+      <div class="article-nav-title">记一次服务器定时崩溃排错</div>
     </a>
   
 </nav>
