@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>从使用 ldap 想到的 jndi 机制分析 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缘起​    最近做总部定制，一个组件开发任务. 要查询数据库，但是总部对接人说这边不提供直接数据库访问，只暴露ldap服务.  听过没用过是最令人兴奋的啦. 于是兴奋的花了一天时间了解了ldap, 并且写了ldap 的 demo（参见【1】）.  但是依旧觉得不过瘾，因为写demo的时候发现了JNDI的影子.  JNDI 最初是在学jdbc的时候，学过一种使用jndi技术将mysql数据源使用t">
+<meta name="keywords" content="源码分析,后端,JDK,LDAP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从使用 ldap 想到的 jndi 机制分析">
+<meta property="og:url" content="http://yoursite.com/2019/03/07/从使用-ldap-想到的-jndi-机制分析/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起​    最近做总部定制，一个组件开发任务. 要查询数据库，但是总部对接人说这边不提供直接数据库访问，只暴露ldap服务.  听过没用过是最令人兴奋的啦. 于是兴奋的花了一天时间了解了ldap, 并且写了ldap 的 demo（参见【1】）.  但是依旧觉得不过瘾，因为写demo的时候发现了JNDI的影子.  JNDI 最初是在学jdbc的时候，学过一种使用jndi技术将mysql数据源使用t">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/03/07/从使用-ldap-想到的-jndi-机制分析/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/07/从使用-ldap-想到的-jndi-机制分析/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/07/从使用-ldap-想到的-jndi-机制分析/3.png">
+<meta property="og:updated_time" content="2019-03-07T04:41:09.212Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从使用 ldap 想到的 jndi 机制分析">
+<meta name="twitter:description" content="缘起​    最近做总部定制，一个组件开发任务. 要查询数据库，但是总部对接人说这边不提供直接数据库访问，只暴露ldap服务.  听过没用过是最令人兴奋的啦. 于是兴奋的花了一天时间了解了ldap, 并且写了ldap 的 demo（参见【1】）.  但是依旧觉得不过瘾，因为写demo的时候发现了JNDI的影子.  JNDI 最初是在学jdbc的时候，学过一种使用jndi技术将mysql数据源使用t">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/07/从使用-ldap-想到的-jndi-机制分析/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-从使用-ldap-想到的-jndi-机制分析" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/" class="article-date">
+  <time datetime="2019-03-07T02:52:14.000Z" itemprop="datePublished">2019-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      从使用 ldap 想到的 jndi 机制分析
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>​    最近做总部定制，一个组件开发任务. 要查询数据库，但是总部对接人说这边不提供直接数据库访问，只暴露ldap服务.  听过没用过是最令人兴奋的啦. 于是兴奋的花了一天时间了解了ldap, 并且写了ldap 的 demo（参见【1】）.  但是依旧觉得不过瘾，因为写demo的时候发现了JNDI的影子.  JNDI 最初是在学jdbc的时候，学过一种使用jndi技术将mysql数据源使用tomcat容器之类的Servlet容器管理起来. 然后在代码里面直接使用统一的JNDI API获取数据源即可. 而不论数据源是mysql数据源还是oracle数据源. 现在发现ldap、JDK内置DNS查询程序DnsContextFactory、甚至 MQ的资源都可以使用JNDI技术管理起来. 于是就产生了浓厚的兴趣想了解JDK是怎么做到的.</p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>关于JNDI 技术的介绍，推荐看看【1】的P189.  这里只PO一张图</p>
+<img src="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/1.png" title="JNDI架构图">
+<p>a、b都是JNDI中的术语Context, 每个Context里面既可以存java serialized对象（dog、pig），也可以存属性（cat、mouse就是属性的集合，属性是\&lt;属性名, 若干属性值>的键值对，其中一个属性名可以对应多个属性值, 就好像你可以有多个邮箱一样.）.同一个Contex中的属性不能同属性名, 但是不同Context（比如ldap的Context和mq的Context）是完全可以有属性名相同的属性的.  所以其实JNDI的操作就分成2步. </p>
+<p>第一步 定位到Context</p>
+<p>第二步 对Context中的属性进行增删改查.</p>
+<p>这里直奔JDK源码.</p>
+<p>一般使用的是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Context context = <span class="keyword">new</span> InitDirContext(HashTable&lt;?,?&gt; environment)</span><br></pre></td></tr></table></figure>
+<p>所以我们跟源码到</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javax.naming.InitialContext.init(Hashtable&lt;?, ?&gt; environment)</span><br></pre></td></tr></table></figure>
+<p>该方法的源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">myProps = (Hashtable&lt;Object,Object&gt;)</span><br><span class="line">                ResourceManager.getInitialEnvironment(environment);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (myProps.get(Context.INITIAL_CONTEXT_FACTORY) != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// user has specified initial context factory; try to get it</span></span><br><span class="line">            getDefaultInitCtx();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>其中myProps你可以理解为 environment的一层封装.  其过程是（其实就是 ResourceManager.getInitialEnvironment源码的解读）</p>
+<ol>
+<li><p>从入参env中获取</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Context.INITIAL_CONTEXT_FACTORY = <span class="string">"java.naming.factory.initial"</span>,</span><br><span class="line">Context.OBJECT_FACTORIES = <span class="string">"java.naming.factory.object"</span>;,</span><br><span class="line">Context.URL_PKG_PREFIXES = <span class="string">""</span>java.naming.factory.url.pkgs<span class="string">""</span>,</span><br><span class="line">Context.STATE_FACTORIES = <span class="string">"java.naming.factory.state"</span>,</span><br><span class="line">Context.PROVIDER_URL = <span class="string">"java.naming.provider.url"</span>,</span><br><span class="line">Context.DNS_URL = <span class="string">"java.naming.dns.url"</span>,</span><br><span class="line"><span class="comment">// The following shouldn't create a runtime dependence on ldap package.</span></span><br><span class="line">LdapContext.CONTROL_FACTORIES</span><br></pre></td></tr></table></figure>
+<p>这5个参数的值</p>
+</li>
+<li><p>看看 env 中有没有参数com.sun.naming.disable.app.resource.files， 并且是不是true，如果是false或者不存在的话 就直接返回env给mypros. 否则的话, 进入下面的第三步</p>
+</li>
+<li><p>合并从env中获取的上面7个参数的值（可能为null，则进一步applet中的值）和 $JAVA_HOME/lib/jndi.properties文件以及classpath下的用户自定义的jndi.properties·文件的内容. 最后返回给mypros.</p>
+</li>
+<li><p>如果myProps中存在Context.INITIAL_CONTEXT_FACTORY, 即java.naming.factory.initial，则就开始getDefaultInitCtx();</p>
+</li>
+<li><p>getDefaultInitCtx 中最核心的代码是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">defaultInitCtx = NamingManager.getInitialContext(myProps);</span><br></pre></td></tr></table></figure>
+<p>注意，NamingManager的角色就好比是SPI机制中的java.util.ServiceLoader 我们把它的源码po出来</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Context <span class="title">getInitialContext</span><span class="params">(Hashtable&lt;?,?&gt; env)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> NamingException </span>&#123;</span><br><span class="line">        InitialContextFactory factory;</span><br><span class="line"></span><br><span class="line">        InitialContextFactoryBuilder builder = getInitialContextFactoryBuilder();</span><br><span class="line">        <span class="keyword">if</span> (builder == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">// No factory installed, use property</span></span><br><span class="line">            <span class="comment">// Get initial context factory class name</span></span><br><span class="line"></span><br><span class="line">            String className = env != <span class="keyword">null</span> ?</span><br><span class="line">                (String)env.get(Context.INITIAL_CONTEXT_FACTORY) : <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">if</span> (className == <span class="keyword">null</span>) &#123;</span><br><span class="line">                NoInitialContextException ne = <span class="keyword">new</span> NoInitialContextException(</span><br><span class="line">                    <span class="string">"Need to specify class name in environment or system "</span> +</span><br><span class="line">                    <span class="string">"property, or as an applet parameter, or in an "</span> +</span><br><span class="line">                    <span class="string">"application resource file:  "</span> +</span><br><span class="line">                    Context.INITIAL_CONTEXT_FACTORY);</span><br><span class="line">                <span class="keyword">throw</span> ne;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                factory = (InitialContextFactory)</span><br><span class="line">                    helper.loadClass(className).newInstance();</span><br><span class="line">            &#125; <span class="keyword">catch</span>(Exception e) &#123;</span><br><span class="line">                NoInitialContextException ne =</span><br><span class="line">                    <span class="keyword">new</span> NoInitialContextException(</span><br><span class="line">                        <span class="string">"Cannot instantiate class: "</span> + className);</span><br><span class="line">                ne.setRootCause(e);</span><br><span class="line">                <span class="keyword">throw</span> ne;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            factory = builder.createInitialContextFactory(env);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> factory.getInitialContext(env);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>注意到第五行代码，其结果就是返回NamingManager中的static成员变量 initctx_factory_builder. 但是它是需要先NamingManager. setInitialContextFactoryBuilder的（同一个jvm进程至多只能set一次，否则抛出IllegalStateException异常）. 一般如果没有set的话，则就是null. 则一般情况下我们走的是第10行代码的逻辑. 我们先从传入的myProps中查询 java.naming.factory.initial参数，如果是null的话，则抛NoInitialContextException异常. <strong>所以一定要指定生产Context的InitialContextFactory实现类</strong>，不是在jndi.properties文件中指定，就是在传入InitContext构造器的hashtable中指定. 我们看看常用的InitialContextFactory实现类. 其实这和SPI机制中的 META-INF/services/文件方法是一模一样的套路.</p>
+<img src="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/2.png" title="InitContextFactory的实现者们">
+<p> 来到最关键的代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">factory = (InitialContextFactory)helper.loadClass(className).newInstance();</span><br></pre></td></tr></table></figure>
+<p>继续跟代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com.sun.naming.internal.VersionHelper12.loadClass(String)</span><br></pre></td></tr></table></figure>
+<p>该方法源码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> loadClass(className, getContextClassLoader());</span><br></pre></td></tr></table></figure>
+<p>而</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ClassLoader <span class="title">getContextClassLoader</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> AccessController.doPrivileged(</span><br><span class="line">            <span class="keyword">new</span> PrivilegedAction&lt;ClassLoader&gt;() &#123;</span><br><span class="line">                <span class="function"><span class="keyword">public</span> ClassLoader <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    ClassLoader loader =</span><br><span class="line">                            Thread.currentThread().getContextClassLoader();</span><br><span class="line">                    <span class="keyword">if</span> (loader == <span class="keyword">null</span>) &#123;</span><br><span class="line">                        <span class="comment">// Don't use bootstrap class loader directly!</span></span><br><span class="line">                        loader = ClassLoader.getSystemClassLoader();</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">return</span> loader;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><strong>看到了没有???第六行和第十行又见线程上下文类加载器!!!</strong> 可见JDK也是满满的套路!!! 一种机制，屡试不爽啊! 到了这里我们就明白整个JNDI机制是怎么工作的了. 最后根据获取的InitContextFactory实现类（譬如com.sun.jndi.ldap.LdapCtxFactory）获取Context， LdapCtxFactory.getInitialContext源码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Context <span class="title">getInitialContext</span><span class="params">(Hashtable&lt;?, ?&gt; paramHashtable)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">throws</span> NamingException</span></span><br><span class="line"><span class="function">  </span>&#123;</span><br><span class="line">    <span class="keyword">try</span></span><br><span class="line">    &#123;</span><br><span class="line">      String str = paramHashtable != <span class="keyword">null</span> ? (String)paramHashtable.get(<span class="string">"java.naming.provider.url"</span>) : <span class="keyword">null</span>;</span><br><span class="line">      <span class="keyword">if</span> (str == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> LdapCtx(<span class="string">""</span>, <span class="string">"localhost"</span>, <span class="number">389</span>, paramHashtable, <span class="keyword">false</span>);</span><br><span class="line">      arrayOfString = LdapURL.fromList(str);</span><br><span class="line">      <span class="keyword">if</span> (arrayOfString.length == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ConfigurationException(<span class="string">"java.naming.provider.url property does not contain a URL"</span>);</span><br><span class="line">      <span class="keyword">return</span> getLdapCtxInstance(arrayOfString, paramHashtable);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (LdapReferralException localLdapReferralException)</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ((paramHashtable != <span class="keyword">null</span>) &amp;&amp; (<span class="string">"throw"</span>.equals(paramHashtable.get(<span class="string">"java.naming.referral"</span>))))</span><br><span class="line">        <span class="keyword">throw</span> localLdapReferralException;</span><br><span class="line">      String[] arrayOfString = paramHashtable != <span class="keyword">null</span> ? (Control[])paramHashtable.get(<span class="string">"java.naming.ldap.control.connect"</span>) : <span class="keyword">null</span>;</span><br><span class="line">      <span class="keyword">return</span> (LdapCtx)localLdapReferralException.getReferralContext(paramHashtable, arrayOfString);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>此方法返回的是LdapCtx 即一个Ldap上下文, 该上下文中有LdapClient类, 里面持有Ldap环境参数可以和ldap服务器进行ldap协议通信.</p>
+<p>有了上面的分析，我们看一张经典的JNDI架构图</p>
+<img src="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/3.png" title="JNDI 机制图">
+<p>就不难理解JNDI机制本质上和SPI机制是一回事（jdbc4.0之后采用的就是SPI机制，从而不需要写Class.forName 加载驱动包的字节码了）.  实现了服务的热插拔. 都是基于线程上下文类加载器. </p>
+<p>至此, JNDI机制已经浅析完毕.</p>
+</li>
+</ol>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】 《Java邮件开发详解 》 张孝祥 方立勋</p>
+<h3 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h3><p>【1】<a href="https://github.com/yfsyfs/backend/tree/master/ldap-demo" target="_blank" rel="noopener">https://github.com/yfsyfs/backend/tree/master/ldap-demo</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/07/从使用-ldap-想到的-jndi-机制分析/" data-id="cjsy58v5t000d5cw6vqkf6gg3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/07/jdk-的-URL-源码浅析/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">jdk 的 URL 源码浅析</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JDK/" style="font-size: 16.67px;">JDK</a> <a href="/tags/LDAP/" style="font-size: 10px;">LDAP</a> <a href="/tags/gradle/" style="font-size: 13.33px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 13.33px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 13.33px;">hdfs</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/jdbc/" style="font-size: 10px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/springboot/" style="font-size: 13.33px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/后端/" style="font-size: 16.67px;">后端</a> <a href="/tags/大数据/" style="font-size: 16.67px;">大数据</a> <a href="/tags/源码分析/" style="font-size: 20px;">源码分析</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/">从使用 ldap 想到的 jndi 机制分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/07/jdk-的-URL-源码浅析/">jdk 的 URL 源码浅析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的hexo-d/">从springmvc讨厌的404说起, 谈及tomcat的servlet路径匹配规则，/* 和 / 是不一样的hexo d!</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/28/JDK之SPI机制简明分析/">JDK之SPI机制简明分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/20/mapreduce程序提交job源码分析/">mapreduce程序提交job源码分析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

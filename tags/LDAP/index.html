@@ -5,11 +5,11 @@
   
 
   
-  <title>Hexo</title>
+  <title>Tag: LDAP | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/LDAP/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
@@ -62,118 +62,38 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" class="article-date">
-  <time datetime="2019-02-05T09:21:26.000Z" itemprop="datePublished">2019-02-05</time>
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/" class="archive-article-date">
+  <time datetime="2019-03-07T02:52:14.000Z" itemprop="datePublished">Mar 7</time>
 </a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+      
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/">oracle转postgresql时,使用jpa(hibernate)报错: 不良的类型值 long</a>
+      <a class="archive-article-title" href="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/">从使用 ldap 想到的 jndi 机制分析</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>近日, 公司要和第三方对接, 而第三方不能和我方标准接口对接, 因此只能我方定时从他们的数据库中拉取数据, 然后调用我方标准接口将数据推送到我方服务器中去. 即要实现一个中间层的功能.  </p>
-<img src="/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/1.png" title="对接说明">
-<p>这个功能的实现思路是极为简单的, 就是写一个定时任务去第三方的数据库中拉取数据就是. 而且公司原本就有定时任务的代码, 可以copy. 但是公司的数据库是oracle的, 而第三方是pg数据库, 本想都是关系型的,最多数据类型有点不一致, 微调一下就行了, 结果在使用springboot+jpa读取第三方的pg数据库的时候报错</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.postgresql.util.PSQLException: 不良的类型值 long : <span class="tag">\<span class="name">xffd</span></span>8...</span><br></pre></td></tr></table></figure>
-        
-          <p class="article-more-link">
-            <a href="/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" data-id="cjsy58v5t00085cw66exp8417" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jpa/">jpa</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oracle/">oracle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
 </article>
-
-
   
-    <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/30/hello-world/" class="article-date">
-  <time datetime="2019-01-30T05:28:23.234Z" itemprop="datePublished">2019-01-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/01/30/hello-world/">声明</a>
-    </h1>
+    </div></section>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><p>领域包括但不限于</p>
-<p><strong>前端</strong></p>
-<p><strong>后端</strong></p>
-<p><strong>大数据</strong></p>
-<p><strong>数据结构和算法</strong></p>
-<p><strong>操作系统</strong></p>
-<p><strong>网络原理</strong></p>
-<p><strong>编译原理</strong></p>
-<p><strong>数据库理论</strong></p>
-</li>
-<li><p>力争短小精悍,用最少的话把问题讲清楚</p>
-</li>
-<li><p>每篇原创, 引用必然附上链接.</p>
-</li>
-<li><p>源码全部分享在github上</p>
-</li>
-</ol>
-<blockquote>
-<p>联系方式: </p>
-<p>影法師</p>
-<p>QQ 2803751415</p>
-<p>WeChat 13718955357</p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/01/30/hello-world/" data-id="cjsy58v5t00045cw6z5ncvvqj" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
 
 </section>
         
