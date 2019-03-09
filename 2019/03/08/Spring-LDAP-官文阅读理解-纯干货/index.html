@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Spring LDAP 官文阅读理解 纯干货 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缘起公司项目需要使用LDAP服务, 遂研究了2天.  昨天下午想写个LDAP分页, 百度万千, 结果都是抄来抄去的不可用的代码. 感觉博客的作者自己都没弄懂Spring LDAP的API分类就瞎抄一气. 我极为光火. 遂花了一晚上阅读了Spring LDAP 2.3.2 的官方文档. 豁然开朗, 并且写了基于最新的spring-ldap2.3.2分页的demo.  关于参考文档，见【1-3】 本文">
+<meta name="keywords" content="LDAP,后端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring LDAP 官文阅读理解 纯干货">
+<meta property="og:url" content="http://yoursite.com/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起公司项目需要使用LDAP服务, 遂研究了2天.  昨天下午想写个LDAP分页, 百度万千, 结果都是抄来抄去的不可用的代码. 感觉博客的作者自己都没弄懂Spring LDAP的API分类就瞎抄一气. 我极为光火. 遂花了一晚上阅读了Spring LDAP 2.3.2 的官方文档. 豁然开朗, 并且写了基于最新的spring-ldap2.3.2分页的demo.  关于参考文档，见【1-3】 本文">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/4.png">
+<meta property="og:image" content="http://yoursite.com/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/5.png">
+<meta property="og:updated_time" content="2019-03-09T06:11:10.422Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring LDAP 官文阅读理解 纯干货">
+<meta name="twitter:description" content="缘起公司项目需要使用LDAP服务, 遂研究了2天.  昨天下午想写个LDAP分页, 百度万千, 结果都是抄来抄去的不可用的代码. 感觉博客的作者自己都没弄懂Spring LDAP的API分类就瞎抄一气. 我极为光火. 遂花了一晚上阅读了Spring LDAP 2.3.2 的官方文档. 豁然开朗, 并且写了基于最新的spring-ldap2.3.2分页的demo.  关于参考文档，见【1-3】 本文">
+<meta name="twitter:image" content="http://yoursite.com/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Spring-LDAP-官文阅读理解-纯干货" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/" class="article-date">
+  <time datetime="2019-03-08T03:56:46.000Z" itemprop="datePublished">2019-03-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring LDAP 官文阅读理解 纯干货
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>公司项目需要使用LDAP服务, 遂研究了2天.  昨天下午想写个LDAP分页, 百度万千, 结果都是抄来抄去的不可用的代码. 感觉博客的作者自己都没弄懂Spring LDAP的API分类就瞎抄一气. 我极为光火. 遂花了一晚上阅读了Spring LDAP 2.3.2 的官方文档. 豁然开朗, 并且写了基于最新的spring-ldap2.3.2分页的demo.  关于参考文档，见【1-3】</p>
+<p>本文并不想仔细分析其中的API，其实这一点直接去看官文就很容易看懂了. 英文不好的童鞋直接看中文翻译的1-5章. 秒懂. <strong>比百度搜的抄来抄去作者都不知所谓的博文好上百倍</strong>.</p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>Spring LDAP 封装了LDAP原生的JNDI操作. Spring LDAP 的API 分成2类</p>
+<ol>
+<li>实体类不带注解的</li>
+<li>实体类带注解的</li>
+</ol>
+<p>不带注解的需要自己写Mapper（不论是AttributesMapper还是较为方便的ContextMapper）, 而为了解决需要额外定义Mapper的代码繁琐问题，Spring LDAP 引入了ODM（Object Directory Mapping）注解. 该注解就是提供了实体类属性和LDAP目录结构之间的映射，这和JPA注解是类似的. 本质上就是实现了Mapper的功能.  所以不难知道, 后者在增删改查的时候是不需要传入Mapper或者有类似于做Mapper的事情的举动的. 这里只说两个问题</p>
+<ol>
+<li>在使用ODM注解的时候, 具体遇到的问题和自己的理解</li>
+<li>分页的正确姿势</li>
+</ol>
+<p><strong>可能下面的写的比较乱，但是绝对是使用spring ldap 2.3.2的干货</strong>. 因为下面要讲的一些东西都是我demo中试出来的, 用语言不好表达，所以很多博客或者官文干脆寥寥数言就带过 但是如果理解不到位的话, 就很难真正把Spring LDAP的API用好的. 所以下面的语言会比较啰嗦.</p>
+<h4 id="使用ODM注解时遇到的问题"><a href="#使用ODM注解时遇到的问题" class="headerlink" title="使用ODM注解时遇到的问题"></a>使用ODM注解时遇到的问题</h4><p><strong>这里首先说一句，ODM注解虽然代码简单，但是操作并没有不带注解的简明直接. 所以其实我更喜欢用不带注解的方式.</strong></p>
+<ol>
+<li><p>Q: 注解@Entry的属性objectClasses意味着什么?</p>
+<p>A: 意味着如果查到的条目中没有包含这里写的objectClasses全部值的话, 就不会被查询出.  相当于过滤. 当然, 官网上也有解释.</p>
+</li>
+<li><p>Q: 注解@Entry的属性base意味着什么? </p>
+<p>A: 这个必须要和另一个注解 @DnAttribute 结合在一起讲.  </p>
+<p>项目的DIT树基本结构如下</p>
+<img src="/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/1.png" title="DIT树基本结构">
+<p>@DnAttribute 有2个属性，一个叫value，一个叫index.  <strong>写了这个注解的属性是一定要参与条目dn值的构建的,所以不能为null, 不然创建条目的时候报错</strong>. value表示它在dn中的名称. index就是它的索引位置（从@Entry的base属性开始，第一个index为0）. 这样讲依旧好抽象，我们来举个栗子吧! </p>
+<p>比如(具体代码参见DEMO【1】)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entry</span>(base = <span class="string">"o=xxx,ou=study"</span>, objectClasses = &#123; <span class="string">"inetOrgPerson"</span> &#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">	<span class="meta">@DnAttribute</span>(value = <span class="string">"cn"</span>, index = <span class="number">2</span>)</span><br><span class="line">	<span class="comment">//	@Attribute(name = "cn")</span></span><br><span class="line">	<span class="meta">@Transient</span></span><br><span class="line">	<span class="keyword">private</span> String ouu;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@DnAttribute</span>(value = <span class="string">"cn"</span>, index = <span class="number">1</span>)</span><br><span class="line">	<span class="comment">//	@Attribute(name = "cn")</span></span><br><span class="line">	<span class="meta">@Transient</span></span><br><span class="line">	<span class="keyword">private</span> String ouu2;</span><br><span class="line">	<span class="meta">@DnAttribute</span>(value = <span class="string">"ou"</span>, index = <span class="number">0</span>)</span><br><span class="line">	<span class="meta">@Attribute</span>(name = <span class="string">"ou"</span>)</span><br><span class="line">	<span class="comment">//	@Transient  // 注意，这是spring ldap 包下的Transitent, 不要写错了!!!不然看不到效果的</span></span><br><span class="line">	<span class="keyword">private</span> String ouu1;</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<p>则你在创建对象的时候, 即</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapTemplate.create(person);</span><br></pre></td></tr></table></figure>
+<p>的时候, 会读取person入参的ouu(比如说study5)、ouu1（比如说vvv）、ouu2（比如说cfs）的值，然后拼成该条目的dn值</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cn=study5,cn=cfs,ou=vvv,o=xxx,ou=study,o=myorg,dc=yfs,dc=com</span><br></pre></td></tr></table></figure>
+<p>注意，上面的dn值其实分成了3部分</p>
+<ol>
+<li>cn=study5,cn=cfs,ou=vvv, 这就是 上面三个@DnAttribute属性. ouu2映射成了0号位置的ou, 其实就是从右到左, 截掉下面的2和3开始从零算起.</li>
+<li>o=xxx,ou=study  <strong>这其实就是@Entry注解中的base值</strong></li>
+<li>o=myorg,dc=yfs.dc=com  这是整个ldap连接的base dn，简记P, 在配置文件中写的. 注意，一旦这个P配置好了，则API中所有的操作要写的dn入参都是相对于P来写的, 不要再拼上P，不然报NameNotFound.</li>
+</ol>
+<p>所以就知道了为什么@DnAttribute注解的属性不能为null了. 不然的话, 无法构建dn值，那ldap怎么知道你要把这个条目放在ldap的哪个位置呢? 这里多说一句，属性的属性名是不能乱写的(不能写ouu、ouu1、ouu2，不然会报type undefined的, 所以才要使用@Attribute进行映射), 例如上面的ou、cn，因为这些都是在ldap服务器的scheme约束文件中写的.  可以自定义自己的属性名，甚至objectclass.</p>
+<p>而且要注意, 你上传一个cn=study5,cn=cfs,ou=vvv,o=xxx,ou=study,o=myorg,dc=yfs,dc=com这样的条目的话, 则必须要保证中间的条目，例如</p>
+<p>cn=cfs,ou=vvv,o=xxx,ou=study,o=myorg,dc=yfs,dc=com</p>
+<p>ou=vvv,o=xxx,ou=study,o=myorg,dc=yfs,dc=com</p>
+<p>o=xxx,ou=study,o=myorg,dc=yfs,dc=com</p>
+<p>ou=study,o=myorg,dc=yfs,dc=com</p>
+<p>o=myorg,dc=yfs,dc=com</p>
+<p>都已近建立好了，不然报NameNotFoud. 这其实并不难理解的, 因为条目中有很多属性，你不可能就给ldap服务器一个子条目，就让ldap服务器猜测所有父条目的属性一路把父条目给你自动创建出来.</p>
+<p>还要说一句，@Entry注解中的base属性并不意味着查询节点的时候从”base拼上ldap连接配置的base dn”这个地址搜索起, base和搜索的起点完全是不搭嘎的两个东西. base只是用来计算创建的条目的dn值的.  而且必须要有@DnAttribute 注解的属性, 不然报  Unable to determine id for entry com.yfs.po.Person异常. 而LdapTemplate中的find方法如不指定搜索起点（即base入参），则都是从ldap连接中的base dn开始搜起. 和@Entry中的base完全无关. </p>
+<p>其实很正常, 因为LDAP只有一个根条目，你总会在根条目下面创建子条目啊.</p>
+<p>例如我们可以</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entry</span>( objectClasses = &#123; <span class="string">"inetOrgPerson"</span> &#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Id</span></span><br><span class="line">	<span class="comment">//	@JsonIgnore // @JsonIgnore是为了将person传给前端时不报错，因为Name类型的无法自动解析成json格式。但是这里没导入json的包</span></span><br><span class="line">	<span class="keyword">private</span> Name dn;</span><br><span class="line">    </span><br><span class="line">	<span class="meta">@DnAttribute</span>(value = <span class="string">"ou"</span>, index = <span class="number">0</span>)</span><br><span class="line"><span class="comment">//	@Attribute(name = "ou")</span></span><br><span class="line">		<span class="meta">@Transient</span>  <span class="comment">// 注意，这是spring ldap 包下的Transitent, 不要写错了!!!不然看不到效果的</span></span><br><span class="line">	<span class="keyword">private</span> String ouu1;</span><br><span class="line">	<span class="meta">@Attribute</span>(name = <span class="string">"cn"</span>)</span><br><span class="line">	<span class="keyword">private</span> String commonName;</span><br><span class="line">	<span class="meta">@Attribute</span>(name = <span class="string">"sn"</span>)</span><br><span class="line">	<span class="keyword">private</span> String suerName;</span><br></pre></td></tr></table></figure>
+<p>注意，我们没有填写注解 @Entry 的base属性, 然后</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Person person = <span class="keyword">new</span> Person();</span><br><span class="line">		person.setCommonName(<span class="string">"xin"</span>);</span><br><span class="line">		person.setSuerName(<span class="string">"xin"</span>);</span><br><span class="line">		person.setOuu1(<span class="string">"vvv"</span>);</span><br><span class="line">		personRepo.create(person);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>则就可以</p>
+<img src="/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/2.png">
+<p>我们就在根条目下面创建了vvv条目. 所以@DnAttribute 属性的好处是显然的. 那就是可以在创建和更新条目的时候spring-ldap框架自动计算条目的dn值，则就知道这个条目在DIT中的位置. 特别是更新，就可以更新完毕一update则条目自动移位置了.</p>
+<p>最后我们来讲讲上面出现的@Transient注解. 首先这个注解是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.ldap.odm.annotations.Transient;</span><br></pre></td></tr></table></figure>
+<p>即ldap包下的,  还有一个</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.data.annotation.Transient</span><br></pre></td></tr></table></figure>
+<p>不要导包的时候导错了，导致最后看不到@Transient的效果. 被这个注解注解的属性将不会成为条目的属性. 首先，比较好理解的@Attribute注解的含义大家都知道（N多博客总算不至于把这个都写错）. 就是被注解的属性创建条目以及读取条目的时候，条目中的属性自动映射到成员变量. 但是学过JPA的童鞋都知道，JPA也有@Transient注解, 一旦被注解就不再会被存储到数据库中，举一反三，被此注解的成员变量就不会成为条目中的属性. 也就是创建条目的时候，此属性不会成为条目中的属性. 读取的时候自然没有被读取条目中的属性映射到此属性. 譬如一个同时被@DnAttribute 和 @Transient 注解的属性的作用就仅仅是参与dn的构建（因此不会为null），但是不会参与条目的属性的事情. 但是也有例外，例外就是条目的rdn值一定会参与属性的构建，而不论它有没有被@Transient注解，干说太抽象. 下面举一个栗子.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entry</span>(base = <span class="string">"o=xxx,ou=study"</span>, objectClasses = &#123; <span class="string">"inetOrgPerson"</span> &#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Id</span></span><br><span class="line">	<span class="comment">//	@JsonIgnore // @JsonIgnore是为了将person传给前端时不报错，因为Name类型的无法自动解析成json格式。但是这里没导入json的包</span></span><br><span class="line">	<span class="keyword">private</span> Name dn;</span><br><span class="line">	<span class="meta">@DnAttribute</span>(value = <span class="string">"cn"</span>, index = <span class="number">2</span>)</span><br><span class="line">	<span class="comment">//	@Attribute(name = "cn")</span></span><br><span class="line">	<span class="meta">@Transient</span></span><br><span class="line">	<span class="keyword">private</span> String ouu;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@DnAttribute</span>(value = <span class="string">"cn"</span>, index = <span class="number">1</span>)</span><br><span class="line">	<span class="comment">//	@Attribute(name = "cn")</span></span><br><span class="line">	<span class="meta">@Transient</span></span><br><span class="line">	<span class="keyword">private</span> String ouu2;</span><br><span class="line">	<span class="meta">@DnAttribute</span>(value = <span class="string">"ou"</span>, index = <span class="number">0</span>)</span><br><span class="line">	<span class="meta">@Attribute</span>(name = <span class="string">"ou"</span>)</span><br><span class="line">	<span class="comment">//	@Transient  // 注意，这是spring ldap 包下的Transitent, 不要写错了!!!不然看不到效果的</span></span><br><span class="line">	<span class="keyword">private</span> String ouu1;</span><br><span class="line">	<span class="meta">@Attribute</span>(name = <span class="string">"cn"</span>)</span><br><span class="line">	<span class="keyword">private</span> String commonName;</span><br><span class="line">	<span class="meta">@Attribute</span>(name = <span class="string">"sn"</span>)</span><br><span class="line">	<span class="keyword">private</span> String suerName;</span><br><span class="line">    ... 省略 gettor、settor</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Person person = <span class="keyword">new</span> Person();</span><br><span class="line">		person.setCommonName(<span class="string">"xin"</span>);</span><br><span class="line">		person.setSuerName(<span class="string">"xin"</span>);</span><br><span class="line">		person.setOuu(<span class="string">"study6"</span>);</span><br><span class="line">		person.setOuu1(<span class="string">"vvv"</span>);</span><br><span class="line">		person.setOuu2(<span class="string">"cfs"</span>);</span><br><span class="line">		personRepo.create(person);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>前提前面说了，需要想创建的子条目的所有父条目都已经创建好了，不然报NameNodeNotFound。则最后效果是</p>
+<img src="/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/3.png">
+<p>可以清晰的看到成功创建了study6条目 有ou=vvv属性. 这是因为 ouu1 被映射为ou，并且没有被 @Transient注解，所以自动成为了条目属性，而ouu2被cn，ouu2为cfs，但是条目属性中并没有cn=yfs属性. 这是因为ouu2成员上被注解了@Transient. 最后虽然ouu被映射为了cn，值为study6，而且也打上了@Transient注解，但是因为study6是rdn（也就是dn最左边的值），所以尽管你注解了@Transient, 依旧会成为属性的.</p>
+<p>如果打开第八行注释，注掉第九行的话, 结果不变. 如果打开13行注释，注掉第14行的话，则变成</p>
+<img src="/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/4.png">
+<p>可见，ouu2（值为cfs）也变成了新建条目的属性.</p>
+<p>如果继续注掉17行，打开18行注释的话，则</p>
+<img src="/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/5.png">
+<p>可以发现 ou=vvv 属性已经不见了. 因为他被transient掉了.</p>
+</li>
+</ol>
+<h4 id="分页的正确姿势"><a href="#分页的正确姿势" class="headerlink" title="分页的正确姿势"></a>分页的正确姿势</h4><p>分页网上基本抄来抄去就是那段代码，而且注释都一样抄. 就不能自己理解一下吗? 官网上给了现成的demo啊!</p>
+<p>具体代码参见DEMO【1】中的searhByPage方法，这里讲一下我对他的理解. LDAP分页其实就是我要找第5页，每页3条数据的结果集. 则ldap很笨的，会从第一页开始给你找，然后每找到一页就会执行你传入的回调, 我们只需要在一页一页找的过程中加入一个计数器，到了第5页就终止查找(如果要找的页数超过最大页数的话, 也只返回最后一页的数据)，然后返回即可. 这就是分页的原理.</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://docs.spring.io/spring-ldap/docs/current/reference/" target="_blank" rel="noopener">https://docs.spring.io/spring-ldap/docs/current/reference/</a>    Spring LDAP 2.3.2 官方文档</p>
+<p>【2】<a href="https://www.jianshu.com/p/77517e26a357" target="_blank" rel="noopener">https://www.jianshu.com/p/77517e26a357</a> Spring LDAP 2.3.2 官方文档 1-5 章翻译 </p>
+<p>【3】<a href="https://www.jianshu.com/p/835c2db4a1c4" target="_blank" rel="noopener">https://www.jianshu.com/p/835c2db4a1c4</a> Spring LDAP 2.3.2 官方文档 6-10 章（不完整）翻译</p>
+<h3 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h3><p>【1】<a href="https://github.com/yfsyfs/backend/tree/master/springboot-ldap" target="_blank" rel="noopener">https://github.com/yfsyfs/backend/tree/master/springboot-ldap</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/" data-id="cjt13e7dk00002kw67yhjhurk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">从使用 ldap 想到的 jndi 机制分析</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JDK/" style="font-size: 16.67px;">JDK</a> <a href="/tags/LDAP/" style="font-size: 13.33px;">LDAP</a> <a href="/tags/gradle/" style="font-size: 13.33px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 13.33px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 13.33px;">hdfs</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/jdbc/" style="font-size: 10px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/springboot/" style="font-size: 13.33px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 10px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/后端/" style="font-size: 20px;">后端</a> <a href="/tags/大数据/" style="font-size: 16.67px;">大数据</a> <a href="/tags/源码分析/" style="font-size: 20px;">源码分析</a> <a href="/tags/面试/" style="font-size: 10px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/">Spring LDAP 官文阅读理解 纯干货</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/">从使用 ldap 想到的 jndi 机制分析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/07/jdk-的-URL-源码浅析/">jdk 的 URL 源码浅析</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的hexo-d/">从springmvc讨厌的404说起, 谈及tomcat的servlet路径匹配规则，/* 和 / 是不一样的hexo d!</a>
+          </li>
+        
+          <li>
+            <a href="/2019/02/28/JDK之SPI机制简明分析/">JDK之SPI机制简明分析</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
