@@ -88,21 +88,15 @@
 <blockquote>
 <p>1~100000000（1亿）中68出现的总次数，例如 168068 就出现了2次68. 而且要求打印出全部包含68的数字</p>
 </blockquote>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>具体代码参见DEMO【1】. 下面只说分析</p>
-<p>蠢萌做法就是遍历, 将每个数字作为一个字符串，使用字符串操作求出答案.</p>
-<p>但是显然不是面试官想要的答案. 其实正确的做法应该是使用dp（当然，有dp做法就有递归做法，只是我偏向dp）. </p>
-<p>令 dp[n] 为1~10^n 范围内的68出现的总次数. 则根据第n位是不是6，我们可以得到下面的递推公式</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[n] = dp[n<span class="number">-1</span>]*<span class="number">10</span> + <span class="number">10</span>^(n<span class="number">-2</span>)</span><br></pre></td></tr></table></figure>
-<p>其中起始条件是</p>
-<figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="number">2</span>] = <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>程序就显然了.  这里列出两种算法之间的性能比较</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">经过测试， 对比如下</span><br><span class="line">前者是遍历1~1亿，使用字符串的方法得到的性能</span><br><span class="line">后者是通过DP动态规划得到的性能</span><br><span class="line"></span><br><span class="line">需要打印出字符串的前提下性能比较</span><br><span class="line"></span><br><span class="line">三位数</span><br><span class="line">7毫秒 vs 2毫秒</span><br><span class="line">四位数</span><br><span class="line">36毫秒 vs 12毫秒</span><br><span class="line">五位数</span><br><span class="line">256毫秒 vs 140毫秒</span><br><span class="line">六位数</span><br><span class="line">1579毫秒 vs 1285毫秒</span><br><span class="line">七位数</span><br><span class="line">17216毫秒 vs 15103毫秒</span><br><span class="line">八位数</span><br><span class="line">193358毫秒 vs 178752毫秒</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">不需要打印字符串 仅仅计算68出现次数下的性能比较</span><br><span class="line"></span><br><span class="line">三位数</span><br><span class="line">10毫秒 vs 1毫秒</span><br><span class="line">四位数</span><br><span class="line">23毫秒 vs 0毫秒</span><br><span class="line">五位数</span><br><span class="line">84毫秒毫秒 vs 1毫秒</span><br><span class="line">六位数</span><br><span class="line">350毫秒 vs 0毫秒</span><br><span class="line">七位数</span><br><span class="line">2374毫秒 vs 0毫秒</span><br><span class="line">八位数</span><br><span class="line">22058毫秒 vs 0毫秒</span><br></pre></td></tr></table></figure>
-<h3 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h3><p>【1】<a href="https://github.com/yfsyfs/algorithm/tree/master/dp_find68" target="_blank" rel="noopener">https://github.com/yfsyfs/algorithm/tree/master/dp_find68</a></p>
-
+        
+          <p class="article-more-link">
+            <a href="/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/" data-id="cjta1cuiw000iisw6at4omeoc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/" data-id="cjta44b410022a4w6nu1ulr22" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
@@ -146,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/" data-id="cjta1cuia0003isw6stb0r0ed" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/" data-id="cjta44b2m0003a4w69s5muafc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li></ul>
@@ -189,7 +183,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/07/从使用-ldap-想到的-jndi-机制分析/" data-id="cjta1cuj8000kisw67klkdkxa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/07/从使用-ldap-想到的-jndi-机制分析/" data-id="cjta44b36000ka4w6czn5xg3g" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
@@ -235,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/07/jdk-的-URL-源码浅析/" data-id="cjta1cuig0007isw6atnyqjur" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/07/jdk-的-URL-源码浅析/" data-id="cjta44b2q0007a4w6cnl6wfcc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
@@ -278,7 +272,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的hexo-d/" data-id="cjta1cuka0023isw6ydwytxrm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的hexo-d/" data-id="cjta44b33000ia4w6tkrvlrz4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/servlet/">servlet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li></ul>
@@ -321,7 +315,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/28/JDK之SPI机制简明分析/" data-id="cjta1cuhe0000isw6csbvd6cd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/28/JDK之SPI机制简明分析/" data-id="cjta44b2f0000a4w6hjv50m5b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
@@ -371,7 +365,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/" data-id="cjta1cuij000aisw65l3ws1ve" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/" data-id="cjta44b2r0008a4w635sqm8nx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
@@ -448,7 +442,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/13/一道sql面试题统计人数-1的记录id/" data-id="cjta1cuil000bisw6h7urjp7y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/13/一道sql面试题统计人数-1的记录id/" data-id="cjta44b2v000ba4w6eq6ilbxq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
@@ -494,7 +488,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" data-id="cjta1cuiq000fisw6lsswnu0y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" data-id="cjta44b2z000fa4w6l7j4xve6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
@@ -558,7 +552,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" data-id="cjta1cuio000disw6p0df5mr1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" data-id="cjta44b2y000da4w6jvktm3ej" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
