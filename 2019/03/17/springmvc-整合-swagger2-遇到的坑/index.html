@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="缘起公司最近做项目, 负责一个小组件的开发. 前端小姐姐需要我提供swagger.json 文档. 原先做过boot和swagger2整合，但是没整过 swagger.json. 其实就是swagger2框架暴露的一个以json格式描述api结构的http接口. 路径是 /v2/api-docs 但是整合之后发现 swagger-ui.html 可以妥妥的访问，但是 /v2/api-docs 死活">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-17T08:50:59.142Z">
+<meta property="og:updated_time" content="2019-03-19T06:04:05.531Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="springmvc 整合 swagger2 遇到的坑">
 <meta name="twitter:description" content="缘起公司最近做项目, 负责一个小组件的开发. 前端小姐姐需要我提供swagger.json 文档. 原先做过boot和swagger2整合，但是没整过 swagger.json. 其实就是swagger2框架暴露的一个以json格式描述api结构的http接口. 路径是 /v2/api-docs 但是整合之后发现 swagger-ui.html 可以妥妥的访问，但是 /v2/api-docs 死活">
@@ -90,7 +90,7 @@
         <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>公司最近做项目, 负责一个小组件的开发. 前端小姐姐需要我提供swagger.json 文档. 原先做过boot和swagger2整合，但是没整过 swagger.json. 其实就是swagger2框架暴露的一个以json格式描述api结构的http接口. 路径是 /v2/api-docs</p>
 <p>但是整合之后发现 swagger-ui.html 可以妥妥的访问，但是 /v2/api-docs 死活出不来.</p>
 <a id="more"></a>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>代码见 DEMO【1】</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>代码见 DEMO【1】（更新见【2】，进一步丰富了swagger注解的写法）</p>
 <p>百度了一圈, 说什么的都有，就是没有有用的. 于是只能去分析为什么这个接口没有启动? 因为访问</p>
 <p><a href="http://localhost/v2/api-docs" target="_blank" rel="noopener">http://localhost/v2/api-docs</a> 的时候，页面响应404，于是首先考虑该接口有没有被swagger暴露出来?</p>
 <p>但是在控制台查看启动日志的时候，看到了</p>
@@ -101,11 +101,12 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Docket <span class="title">createRestApi</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2).group(<span class="string">"api"</span>).apiInfo(apiInfo()).select()</span><br><span class="line">				.apis(RequestHandlerSelectors.basePackage(Constants.SWAGGER2_BASEPACKAGE)).paths(PathSelectors.any())</span><br><span class="line">				.build();</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 <p>并没有default的group. 所以自然返回NOT_FOUND了. 于是我将SwaggerConfig中的group(“api”)去掉, 再次访问 /v2/api-docs 对应的json文件就出来了</p>
 <h3 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h3><p>【1】<a href="https://github.com/yfsyfs/backend/tree/master/swagger2-demo" target="_blank" rel="noopener">https://github.com/yfsyfs/backend/tree/master/swagger2-demo</a></p>
+<p>【2】<a href="https://github.com/yfsyfs/backend/tree/master/swagger2-demo-enhance" target="_blank" rel="noopener">https://github.com/yfsyfs/backend/tree/master/swagger2-demo-enhance</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/springmvc-整合-swagger2-遇到的坑/" data-id="cjtcop246000ckow6rcjqatae" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/17/springmvc-整合-swagger2-遇到的坑/" data-id="cjtfdidsv0007vow6xxh5ug0h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swagger/">swagger</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后台/">后台</a></li></ul>
