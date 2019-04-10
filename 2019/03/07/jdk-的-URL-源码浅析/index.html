@@ -17,7 +17,7 @@
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2019/03/07/jdk-的-URL-源码浅析/1.png">
 <meta property="og:image" content="http://yoursite.com/2019/03/07/jdk-的-URL-源码浅析/2.png">
-<meta property="og:updated_time" content="2019-03-07T02:45:53.421Z">
+<meta property="og:updated_time" content="2019-04-10T11:55:22.410Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jdk 的 URL 源码浅析">
 <meta name="twitter:description" content="缘起工作中遇到了ldap使用. 后来自学了一下，不可避免的遇到了jndi这个老朋友. 后来仔细一想，jndi只需要初始化一个context就可以想拿啥就拿啥了，觉得和jdk的spi机制以及java.net.URL的构造器很像. 你想啊，URL背后其实是URLConnection, 而它本身是一个抽象类, 可以根据你传入的url的scheme自动选择使用的URLConnection子类. 这本质上都">
@@ -92,7 +92,7 @@
       
         <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>工作中遇到了ldap使用. 后来自学了一下，不可避免的遇到了jndi这个老朋友. 后来仔细一想，jndi只需要初始化一个context就可以想拿啥就拿啥了，觉得和jdk的spi机制以及java.net.URL的构造器很像. 你想啊，URL背后其实是URLConnection, 而它本身是一个抽象类, 可以根据你传入的url的scheme自动选择使用的URLConnection子类. <strong>这本质上都是类的动态加载和服务发现</strong>. 关于JDK的spi机制可以参见我写的一篇文章【1】. 关于jndi我会再写一篇文章. 最后你会发现, jndi、spi、URL 这三个东西其实用的核心思想是完全一样的.</p>
 <blockquote>
-<p>本质上都是为了打破父委托机制而引入的线程上下文类加载器.</p>
+<p>本质上都是为了打破父委托机制而引入的线程上下文类加载器啊!</p>
 </blockquote>
 <a id="more"></a>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>首先是架构图</p>
@@ -135,7 +135,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/07/jdk-的-URL-源码浅析/" data-id="cjtfjzens0007lkw6n19et72t" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/07/jdk-的-URL-源码浅析/" data-id="cjub5qkcx0003dsvmd45l269g" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
@@ -196,7 +196,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
     </div>
   </div>
 
@@ -207,6 +207,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/04/10/hello-world/">声明</a>
+          </li>
         
           <li>
             <a href="/2019/03/17/springmvc-整合-swagger2-遇到的坑/">springmvc 整合 swagger2 遇到的坑</a>
@@ -222,10 +226,6 @@
         
           <li>
             <a href="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/">从使用 ldap 想到的 jndi 机制分析</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/07/jdk-的-URL-源码浅析/">jdk 的 URL 源码浅析</a>
           </li>
         
       </ul>
