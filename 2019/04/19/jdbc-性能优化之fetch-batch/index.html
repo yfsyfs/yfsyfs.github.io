@@ -5,15 +5,20 @@
   
 
   
-  <title>Tag: servlet | Hexo</title>
+  <title>jdbc 性能优化之fetch &amp; batch | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/tags/servlet/index.html">
+  <meta name="description" content="缘起朋友（下简称P）在公司经常955, 拿着三线城市8.5K/月的薪资, 让老板十分的不爽, 于是有一天, 老板交代给他一个任务, oracle11g 单表（未分表）5000w的数据.  其中一个字段是中文姓名, 然后老板希望他能新增一个字段为拼音字段,  并且这个字段的值为中文姓名的拼音. P觉得这还不简单，首先改表结构——新增一个varchar字段（下简称V）为拼音， 然后用原生jdbc拉取所">
+<meta name="keywords" content="后端,jdbc,性能优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="jdbc 性能优化之fetch &amp; batch">
+<meta property="og:url" content="http://yoursite.com/2019/04/19/jdbc-性能优化之fetch-batch/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起朋友（下简称P）在公司经常955, 拿着三线城市8.5K/月的薪资, 让老板十分的不爽, 于是有一天, 老板交代给他一个任务, oracle11g 单表（未分表）5000w的数据.  其中一个字段是中文姓名, 然后老板希望他能新增一个字段为拼音字段,  并且这个字段的值为中文姓名的拼音. P觉得这还不简单，首先改表结构——新增一个varchar字段（下简称V）为拼音， 然后用原生jdbc拉取所">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-18T17:00:17.346Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="jdbc 性能优化之fetch &amp; batch">
+<meta name="twitter:description" content="缘起朋友（下简称P）在公司经常955, 拿着三线城市8.5K/月的薪资, 让老板十分的不爽, 于是有一天, 老板交代给他一个任务, oracle11g 单表（未分表）5000w的数据.  其中一个字段是中文姓名, 然后老板希望他能新增一个字段为拼音字段,  并且这个字段的值为中文姓名的拼音. P觉得这还不简单，首先改表结构——新增一个varchar字段（下简称V）为拼音， 然后用原生jdbc拉取所">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -60,40 +65,67 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的hexo-d/" class="archive-article-date">
-  <time datetime="2019-03-02T04:44:38.000Z" itemprop="datePublished">Mar 2</time>
+        <section id="main"><article id="post-jdbc-性能优化之fetch-batch" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/19/jdbc-性能优化之fetch-batch/" class="article-date">
+  <time datetime="2019-04-18T16:02:39.000Z" itemprop="datePublished">2019-04-19</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的hexo-d/">从springmvc讨厌的404说起, 谈及tomcat的servlet路径匹配规则，/* 和 / 是不一样的hexo d!</a>
+    <h1 class="article-title" itemprop="name">
+      jdbc 性能优化之fetch &amp; batch
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>朋友（下简称P）在公司经常955, 拿着三线城市8.5K/月的薪资, 让老板十分的不爽, 于是有一天, 老板交代给他一个任务, oracle11g 单表（未分表）5000w的数据.  其中一个字段是中文姓名, 然后老板希望他能新增一个字段为拼音字段,  并且这个字段的值为中文姓名的拼音. P觉得这还不简单，首先改表结构——新增一个varchar字段（下简称V）为拼音， 然后用原生jdbc拉取所有数据下来，然后遍历结果集, 然后逐条更新V字段. 逻辑异常的清晰和简单. 至于中文转拼音，既有成熟的API接口，也有丰富的本地jar包. 所以这就不是难事了. 写完开始跑, 一下子傻了眼, 大概是 <code>12秒/1w条</code> 的处理速度. 则这样算下来，约莫16小时才能搞定. 但是气人就气人在老板还安排一位17年毕业的小鲜肉也来做这个东西, 人家处理速度是 <code>5秒/1w条</code>. 老板很明显想diss一下我的这位朋友P. 于是他死扛了2天，来找我怎么扳回一局. 最后我通过使用fetch+batch参数将性能提高到了<code>0.35秒/1w条</code>. 着实帮他找回了面子.</p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>其实jdbc 要想优化, 要搞清楚2件事情，首先整个过程就是顺次下面2个过程</p>
+<ol>
+<li>通过resultset接口从数据库拉取数据，</li>
+<li>发送update的sql语句+commit语句到数据库服务器命令数据库服务器执行一系列的操作.</li>
+</ol>
+<p>其中过程1的优化需要fetch. 过程2的优化需要batch. </p>
+<p>​    fetch的作用在于一次从数据库通过resultset接口获取的记录条数并且缓存到内存中, oracle默认是一次拿10条. 对于本案例而言太少了, 我们需要适当将其调大, 因为一次取1w条数据到内存中处理比一次才取10条放入内存中处理要高效的多——最起码客户端的resultset接口不需要发送太多次的取数据指令到数据库服务器. 这里在DEMO【1】中我设置其为1w.  当然，不可以设置的太大，否则内存吃不消. 显然 原生jdbc 中 resultset.next() 方法滚动游标是在滚动内存中缓存来的数据. </p>
+<p><strong>PS:</strong> 在实践的过程中我发现了一个现象.  就是到最后会卡顿一下. 其实这不难理解, 因为最后不够1w条（即我们每次要fetch的数量）了, 数据库服务器会迟疑一下才把不够1w条的数据也给我们.</p>
+<p>​    batch的作用在于通过jdbc驱动包中的实现，将多条增删改的sql合并为一条sql发送给数据库服务器. 如果不用batch的话, 则就是一条一条增删改的sql的发送给数据库服务器让数据库服务器一条一条的执行. 效率显然是前者高. 如果这句话看不明白, 请参考【1】中的图片, 秒懂. 尊重版权，我就不盗图了. 经过试验，本案例中的性能瓶颈就在这个batch上. 当然，前提是你使用的jdbc驱动包实现了addBatch、executeBatch接口，当然大部分主流数据库厂商都实现了该接口.  </p>
+<p><strong>PS:</strong> 很多厂商没有尚实现 executeLargeBatch接口</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://blog.csdn.net/zhangyadick18/article/details/50294265" target="_blank" rel="noopener">https://blog.csdn.net/zhangyadick18/article/details/50294265</a> </p>
+<h3 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h3><p>【1】<a href="https://github.com/yfsyfs/backend/tree/master/jdbc%20%E4%BC%98%E5%8C%96%E4%B9%8B%20fetch%20%E5%92%8C%20batch" target="_blank" rel="noopener">https://github.com/yfsyfs/backend/tree/master/jdbc%20%E4%BC%98%E5%8C%96%E4%B9%8B%20fetch%20%E5%92%8C%20batch</a> </p>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/19/jdbc-性能优化之fetch-batch/" data-id="cjumw5oqw00038svmyi0t5osh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/04/11/学习vue的成果之cms系统/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">学习vue的成果之cms系统</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         
