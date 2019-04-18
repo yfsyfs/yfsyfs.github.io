@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="缘起朋友（下简称P）在公司经常955, 拿着三线城市8.5K/月的薪资, 让老板十分的不爽, 于是有一天, 老板交代给他一个任务, oracle11g 单表（未分表）5000w的数据.  其中一个字段是中文姓名, 然后老板希望他能新增一个字段为拼音字段,  并且这个字段的值为中文姓名的拼音. P觉得这还不简单，首先改表结构——新增一个varchar字段（下简称V）为拼音， 然后用原生jdbc拉取所">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-18T17:00:17.346Z">
+<meta property="og:updated_time" content="2019-04-18T17:35:21.643Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jdbc 性能优化之fetch &amp; batch">
 <meta name="twitter:description" content="缘起朋友（下简称P）在公司经常955, 拿着三线城市8.5K/月的薪资, 让老板十分的不爽, 于是有一天, 老板交代给他一个任务, oracle11g 单表（未分表）5000w的数据.  其中一个字段是中文姓名, 然后老板希望他能新增一个字段为拼音字段,  并且这个字段的值为中文姓名的拼音. P觉得这还不简单，首先改表结构——新增一个varchar字段（下简称V）为拼音， 然后用原生jdbc拉取所">
@@ -95,7 +95,7 @@
 <li>发送update的sql语句+commit语句到数据库服务器命令数据库服务器执行一系列的操作.</li>
 </ol>
 <p>其中过程1的优化需要fetch. 过程2的优化需要batch. </p>
-<p>​    fetch的作用在于一次从数据库通过resultset接口获取的记录条数并且缓存到内存中, oracle默认是一次拿10条. 对于本案例而言太少了, 我们需要适当将其调大, 因为一次取1w条数据到内存中处理比一次才取10条放入内存中处理要高效的多——最起码客户端的resultset接口不需要发送太多次的取数据指令到数据库服务器. 这里在DEMO【1】中我设置其为1w.  当然，不可以设置的太大，否则内存吃不消. 显然 原生jdbc 中 resultset.next() 方法滚动游标是在滚动内存中缓存来的数据. </p>
+<p>​    fetch的作用在于一次从数据库通过resultset接口获取的记录条数并且缓存到内存中, oracle默认是一次拿10条. 对于本案例而言太少了, 我们需要适当将其调大, 因为一次取1w条数据到内存中处理比一次才取10条放入内存中处理要高效的多——最起码客户端的resultset接口不需要发送太多次的取数据指令到数据库服务器. 这里在DEMO【1】中我设置其为1w.  当然，不可以设置的太大，否则内存吃不消. 显然 原生jdbc 中 resultset.next() 方法滚动游标是在滚动内存中缓存来的数据.  其实, 这完全可以看出resultset的设计思想——它里面一定封装了网络请求的方法, 但是和数据库交互的时候只会读取一定量的记录，而不会将select语句要读取的所有数据一口气拿过来(这属于jdbc协议的范畴, 因为jdbc协议就是规定jdbc客户端和服务器之间交互的契约嘛~), 因为这样的话, 首先要募集所有的要查询的数据过程就很慢, 其次即便募集齐了， 但是这对网络带宽和客户端机器的内存也是一个挑战. 所以通过每次读取fetchsize数量的记录，实现一种流式读取. 这无疑是一种高明的解决办法和设计思想. </p>
 <p><strong>PS:</strong> 在实践的过程中我发现了一个现象.  就是到最后会卡顿一下. 其实这不难理解, 因为最后不够1w条（即我们每次要fetch的数量）了, 数据库服务器会迟疑一下才把不够1w条的数据也给我们.</p>
 <p>​    batch的作用在于通过jdbc驱动包中的实现，将多条增删改的sql合并为一条sql发送给数据库服务器. 如果不用batch的话, 则就是一条一条增删改的sql的发送给数据库服务器让数据库服务器一条一条的执行. 效率显然是前者高. 如果这句话看不明白, 请参考【1】中的图片, 秒懂. 尊重版权，我就不盗图了. 经过试验，本案例中的性能瓶颈就在这个batch上. 当然，前提是你使用的jdbc驱动包实现了addBatch、executeBatch接口，当然大部分主流数据库厂商都实现了该接口.  </p>
 <p><strong>PS:</strong> 很多厂商没有尚实现 executeLargeBatch接口</p>
@@ -105,7 +105,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/19/jdbc-性能优化之fetch-batch/" data-id="cjumw5oqw00038svmyi0t5osh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/19/jdbc-性能优化之fetch-batch/" data-id="cjumxeia90003z4vmwlxs35sp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
