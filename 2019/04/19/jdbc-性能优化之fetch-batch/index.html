@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="缘起朋友（下简称P）在公司经常955, 拿着三线城市8.5K/月的薪资, 让老板十分的不爽, 于是有一天, 老板交代给他一个任务, oracle11g 单表（未分表）5000w的数据.  其中一个字段是中文姓名, 然后老板希望他能新增一个字段为拼音字段,  并且这个字段的值为中文姓名的拼音. P觉得这还不简单，首先改表结构——新增一个varchar字段（下简称V）为拼音， 然后用原生jdbc拉取所">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-18T17:35:21.643Z">
+<meta property="og:updated_time" content="2019-04-19T05:00:33.664Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jdbc 性能优化之fetch &amp; batch">
 <meta name="twitter:description" content="缘起朋友（下简称P）在公司经常955, 拿着三线城市8.5K/月的薪资, 让老板十分的不爽, 于是有一天, 老板交代给他一个任务, oracle11g 单表（未分表）5000w的数据.  其中一个字段是中文姓名, 然后老板希望他能新增一个字段为拼音字段,  并且这个字段的值为中文姓名的拼音. P觉得这还不简单，首先改表结构——新增一个varchar字段（下简称V）为拼音， 然后用原生jdbc拉取所">
@@ -101,11 +101,12 @@
 <p><strong>PS:</strong> 很多厂商没有尚实现 executeLargeBatch接口</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://blog.csdn.net/zhangyadick18/article/details/50294265" target="_blank" rel="noopener">https://blog.csdn.net/zhangyadick18/article/details/50294265</a> </p>
 <h3 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h3><p>【1】<a href="https://github.com/yfsyfs/backend/tree/master/jdbc%20%E4%BC%98%E5%8C%96%E4%B9%8B%20fetch%20%E5%92%8C%20batch" target="_blank" rel="noopener">https://github.com/yfsyfs/backend/tree/master/jdbc%20%E4%BC%98%E5%8C%96%E4%B9%8B%20fetch%20%E5%92%8C%20batch</a> </p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>小P在公司运行了DEMO【1】中的程序, 发现还是很慢，我告诉它，是因为他们公司建表的时候没有加索引(这里必须要吐槽一下，什么鬼公司，表连主键都没有, 聚簇索引都不要了吗? 我也是呵呵). 然后你想想要在5000w条数据中定位到你要更新的那一条，不慢就有鬼了. 所以小P加上了二级索引之后，速度明显上升, 据他反馈，最终完成任务只用了29分钟. 足足比竞争小鲜肉快了10倍. 因此也得到了领导的刮目相看. 从而小P过长了继续955/8.5K的性福生活. 啊呸，是幸福生活.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/19/jdbc-性能优化之fetch-batch/" data-id="cjumxeia90003z4vmwlxs35sp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/19/jdbc-性能优化之fetch-batch/" data-id="cjunlvlua0003bgvm5za5zfio" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
