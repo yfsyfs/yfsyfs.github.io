@@ -5,15 +5,20 @@
   
 
   
-  <title>Tag: 动态规划 | Hexo</title>
+  <title>vue-cli proxytable 日常踩坑之神坑 之 4000端口 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/tags/动态规划/index.html">
+  <meta name="description" content="缘起最近因为总部项目前端技术栈换成了vue而不断地入手vue. 在使用vue-cli脚手架配置本地开发跨域代理proxytable的时候死活前台无法成功调用后端RESTful接口. 而且报的错一直是  502 Bad Gateway  HPE_INVALID_VERSION">
+<meta name="keywords" content="前端,vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue-cli proxytable 日常踩坑之神坑 之 4000端口">
+<meta property="og:url" content="http://yoursite.com/2019/04/20/vue-cli-proxytable-日常踩坑之神坑-之-4000端口/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起最近因为总部项目前端技术栈换成了vue而不断地入手vue. 在使用vue-cli脚手架配置本地开发跨域代理proxytable的时候死活前台无法成功调用后端RESTful接口. 而且报的错一直是  502 Bad Gateway  HPE_INVALID_VERSION">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-20T12:50:34.286Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="vue-cli proxytable 日常踩坑之神坑 之 4000端口">
+<meta name="twitter:description" content="缘起最近因为总部项目前端技术栈换成了vue而不断地入手vue. 在使用vue-cli脚手架配置本地开发跨域代理proxytable的时候死活前台无法成功调用后端RESTful接口. 而且报的错一直是  502 Bad Gateway  HPE_INVALID_VERSION">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -60,40 +65,63 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/" class="archive-article-date">
-  <time datetime="2019-03-15T08:40:23.000Z" itemprop="datePublished">Mar 15</time>
+        <section id="main"><article id="post-vue-cli-proxytable-日常踩坑之神坑-之-4000端口" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/20/vue-cli-proxytable-日常踩坑之神坑-之-4000端口/" class="article-date">
+  <time datetime="2019-04-20T12:39:42.000Z" itemprop="datePublished">2019-04-20</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/">找1到1亿中包含68的数字并打印并记录68出现的总次数</a>
+    <h1 class="article-title" itemprop="name">
+      vue-cli proxytable 日常踩坑之神坑 之 4000端口
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>最近因为总部项目前端技术栈换成了vue而不断地入手vue. 在使用vue-cli脚手架配置本地开发跨域代理proxytable的时候死活前台无法成功调用后端RESTful接口. 而且报的错一直是</p>
+<blockquote>
+<p>502 Bad Gateway  HPE_INVALID_VERSION</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这个错误在百度、谷歌貌似都没有人遇到这个问题，甚至在node的官网上都找不到 .  我的浏览器没有开代理，而且我还重启过机器. 但是统统没用. 最后实在没办法, 自己用node写了一个简单的后台, 发现前端的proxytable设置是可以成功调用到后台接口的. 于是就好办了，不断的通过删除简化原本的后台和这个简易的后台进行比对, 直至发现原因——我后台的端口是4000，但是4000是一个极度敏感的端口——QQ、foxit都可能会占用, 于是将4000端口换成一个普通的4120端口, 就成功调用了.  惊不惊喜? 意不意外? 刺不刺激? 就这么简单, 但是一看到这个问题, 我相信大部分小白内心是慌的一批的.</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">此次采坑得到的教训是, 系统或者常用软件常见的端口不要在自己的程序中使用</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>ps: proxytable跨域的原理就是利用服务端之间不存在跨域 , 所以proxytable只是生成了一个服务转发了前端的请求而已.</p>
+</blockquote>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/20/vue-cli-proxytable-日常踩坑之神坑-之-4000端口/" data-id="cjupi3mt7000geovm8zhvjomd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/04/19/jdbc-性能优化之fetch-batch/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">jdbc 性能优化之fetch &amp; batch</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         
