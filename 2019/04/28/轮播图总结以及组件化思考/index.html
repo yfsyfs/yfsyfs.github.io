@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>轮播图总结以及组件化思考 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缘起近日不断的入坑vue, 然后看到了相应的mint-ui 中的轮播图组件, 进而想复习一下轮播图这个经典js对象. 讲真, 原先用原生js写过轮播图（貌似每个前端攻城狮都应该用原生js写过轮播图吧?）但是我们知道轮播图是相对而言有一些复杂的函数体. 涉及的逻辑控制较多(高手勿喷, 只针对初学者). 所以想彻底理一理, 朝着组件化思想去重构它. 遂有了本文.">
+<meta name="keywords" content="前端,原生js,轮播图,组件化,模块化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="轮播图总结以及组件化思考">
+<meta property="og:url" content="http://yoursite.com/2019/04/28/轮播图总结以及组件化思考/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起近日不断的入坑vue, 然后看到了相应的mint-ui 中的轮播图组件, 进而想复习一下轮播图这个经典js对象. 讲真, 原先用原生js写过轮播图（貌似每个前端攻城狮都应该用原生js写过轮播图吧?）但是我们知道轮播图是相对而言有一些复杂的函数体. 涉及的逻辑控制较多(高手勿喷, 只针对初学者). 所以想彻底理一理, 朝着组件化思想去重构它. 遂有了本文.">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="c:/Users/yfs/AppData/Local/Temp/1556458391201.png">
+<meta property="og:updated_time" content="2019-04-29T02:07:09.815Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="轮播图总结以及组件化思考">
+<meta name="twitter:description" content="缘起近日不断的入坑vue, 然后看到了相应的mint-ui 中的轮播图组件, 进而想复习一下轮播图这个经典js对象. 讲真, 原先用原生js写过轮播图（貌似每个前端攻城狮都应该用原生js写过轮播图吧?）但是我们知道轮播图是相对而言有一些复杂的函数体. 涉及的逻辑控制较多(高手勿喷, 只针对初学者). 所以想彻底理一理, 朝着组件化思想去重构它. 遂有了本文.">
+<meta name="twitter:image" content="c:/Users/yfs/AppData/Local/Temp/1556458391201.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-轮播图总结以及组件化思考" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/28/轮播图总结以及组件化思考/" class="article-date">
+  <time datetime="2019-04-28T08:47:43.000Z" itemprop="datePublished">2019-04-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      轮播图总结以及组件化思考
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>近日不断的入坑vue, 然后看到了相应的mint-ui 中的轮播图组件, 进而想复习一下轮播图这个经典js对象. 讲真, 原先用原生js写过轮播图（貌似每个前端攻城狮都应该用原生js写过轮播图吧?）但是我们知道轮播图是相对而言有一些复杂的函数体. 涉及的逻辑控制较多(高手勿喷, 只针对初学者). 所以想彻底理一理, 朝着组件化思想去重构它. 遂有了本文.</p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h4 id="1-经典的轮播图"><a href="#1-经典的轮播图" class="headerlink" title="1. 经典的轮播图"></a>1. 经典的轮播图</h4><p><img src="C:\Users\yfs\AppData\Local\Temp\1556458391201.png" alt="1556458391201"></p>
+<h4 id="2-功能点"><a href="#2-功能点" class="headerlink" title="2. 功能点"></a>2. 功能点</h4><ol>
+<li>不做任何操作的话, 轮播图会自动播放(播放属于平滑过渡). 播放的时候, 上面的箭头是不会出现的. 下方的小圆点的样式不断变化</li>
+<li>鼠标悬浮在轮播图上方, 出现箭头,并且自动轮播停止， 鼠标悬浮在箭头上方, 箭头的背景色加深，点击箭头，轮播图翻页</li>
+<li>点击下方的小圆点, 轮播图翻页, 并且小圆点的样式发生改变.</li>
+</ol>
+<h4 id="3-组件拆分"><a href="#3-组件拆分" class="headerlink" title="3. 组件拆分"></a>3. 组件拆分</h4><p>首先, 整个功能拆分为html+css+js(这符合vue组件的思想,vue中叫template+style+script)</p>
+<h5 id="3-1-html"><a href="#3-1-html" class="headerlink" title="3.1 html"></a>3.1 html</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"container"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"list"</span> <span class="attr">style</span>=<span class="string">"left: -600px;"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--5.jpg 是最后一张图片--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/5.jpg"</span> <span class="attr">alt</span>=<span class="string">"5"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--1.jpg是第一张图片--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/1.jpg"</span> <span class="attr">alt</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/2.jpg"</span> <span class="attr">alt</span>=<span class="string">"2"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/3.jpg"</span> <span class="attr">alt</span>=<span class="string">"3"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/4.jpg"</span> <span class="attr">alt</span>=<span class="string">"4"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/5.jpg"</span> <span class="attr">alt</span>=<span class="string">"5"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--衔接上--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/1.jpg"</span> <span class="attr">alt</span>=<span class="string">"1"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"buttons"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">index</span>=<span class="string">"1"</span> <span class="attr">class</span>=<span class="string">"on"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">index</span>=<span class="string">"2"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">index</span>=<span class="string">"3"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">index</span>=<span class="string">"4"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">index</span>=<span class="string">"5"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:;"</span> <span class="attr">id</span>=<span class="string">"prev"</span> <span class="attr">class</span>=<span class="string">"arrow"</span>&gt;</span>&amp;lt;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"javascript:;"</span> <span class="attr">id</span>=<span class="string">"next"</span> <span class="attr">class</span>=<span class="string">"arrow"</span>&gt;</span>&amp;gt;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>简而言之, 就是放在一个container中, container中分成三部分</p>
+<ol>
+<li>图片列表</li>
+<li>按钮</li>
+<li>箭头</li>
+</ol>
+<h5 id="3-2-css"><a href="#3-2-css" class="headerlink" title="3.2 css"></a>3.2 css</h5><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">&lt;style type="text/css"&gt;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*最外围的div*/</span></span><br><span class="line">        <span class="selector-id">#container</span> &#123;</span><br><span class="line">            <span class="attribute">margin</span>: <span class="number">0</span> auto;</span><br><span class="line">            <span class="attribute">padding</span>: <span class="number">0</span>;</span><br><span class="line">            <span class="attribute">text-decoration</span>: none; <span class="comment">/*去除内边距,没有链接下划线*/</span></span><br><span class="line">            <span class="attribute">width</span>: <span class="number">600px</span>;</span><br><span class="line">            <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">            <span class="attribute">overflow</span>: hidden; <span class="comment">/*截掉多余的, 只看到第一张图片*/</span></span><br><span class="line">            <span class="attribute">position</span>: relative; <span class="comment">/*相对定位*/</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*包含所有图片的&lt;div&gt;*/</span></span><br><span class="line">        <span class="selector-id">#list</span> &#123;</span><br><span class="line">            <span class="attribute">width</span>: <span class="number">4200px</span>; <span class="comment">/*7张图片的宽*/</span></span><br><span class="line">            <span class="attribute">height</span>: <span class="number">400px</span>;</span><br><span class="line">            <span class="attribute">position</span>: absolute; <span class="comment">/*绝对定位*/</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*所有的图片&lt;img&gt;*/</span></span><br><span class="line">        <span class="selector-id">#list</span> <span class="selector-tag">img</span> &#123;</span><br><span class="line">            <span class="attribute">float</span>: left; <span class="comment">/*浮在左侧 让所有的图片水平排列*/</span></span><br><span class="line">            <span class="attribute">width</span>: <span class="number">600px</span>;</span><br><span class="line">            <span class="attribute">height</span>: auto;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*包含所有圆点按钮的&lt;div&gt;*/</span></span><br><span class="line">        <span class="selector-id">#buttons</span> &#123;</span><br><span class="line">            <span class="attribute">position</span>: absolute;</span><br><span class="line">            <span class="attribute">height</span>: <span class="number">10px</span>;</span><br><span class="line">            <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">            <span class="attribute">z-index</span>: <span class="number">2</span>; <span class="comment">/*压在图片上方*/</span></span><br><span class="line">            <span class="attribute">bottom</span>: <span class="number">20px</span>;</span><br><span class="line">            <span class="attribute">left</span>: <span class="number">250px</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*所有的圆点&lt;span&gt;*/</span></span><br><span class="line">        <span class="selector-id">#buttons</span> <span class="selector-tag">span</span> &#123;</span><br><span class="line">            <span class="attribute">cursor</span>: pointer;</span><br><span class="line">            <span class="attribute">float</span>: left;</span><br><span class="line">            <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#fff</span>;</span><br><span class="line">            <span class="attribute">width</span>: <span class="number">10px</span>;</span><br><span class="line">            <span class="attribute">height</span>: <span class="number">10px</span>;</span><br><span class="line">            <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">            <span class="attribute">background</span>: <span class="number">#333</span>;</span><br><span class="line">            <span class="attribute">margin-right</span>: <span class="number">5px</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*第一个&lt;span&gt;*/</span></span><br><span class="line">        <span class="selector-id">#buttons</span> <span class="selector-class">.on</span> &#123;</span><br><span class="line">            <span class="attribute">background</span>: orangered;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*切换图标&lt;a&gt;*/</span></span><br><span class="line">        <span class="selector-class">.arrow</span> &#123;</span><br><span class="line">            <span class="attribute">cursor</span>: pointer;</span><br><span class="line">            <span class="attribute">display</span>: none;</span><br><span class="line">            <span class="attribute">line-height</span>: <span class="number">39px</span>;</span><br><span class="line">            <span class="attribute">text-align</span>: center;</span><br><span class="line">            <span class="attribute">font-size</span>: <span class="number">36px</span>;</span><br><span class="line">            <span class="attribute">font-weight</span>: bold;</span><br><span class="line">            <span class="attribute">width</span>: <span class="number">40px</span>;</span><br><span class="line">            <span class="attribute">height</span>: <span class="number">40px</span>;</span><br><span class="line">            <span class="attribute">position</span>: absolute;</span><br><span class="line">            <span class="attribute">z-index</span>: <span class="number">2</span>;</span><br><span class="line">            <span class="attribute">top</span>: <span class="number">180px</span>;</span><br><span class="line">            <span class="attribute">background-color</span>: <span class="built_in">RGBA</span>(0, 0, 0, 0.3);</span><br><span class="line">            <span class="attribute">color</span>: <span class="number">#fff</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*鼠标移到切换图标上时 背景色突然加深(0.3 变成 0.7)*/</span></span><br><span class="line">        <span class="selector-class">.arrow</span><span class="selector-pseudo">:hover</span> &#123;</span><br><span class="line">            <span class="attribute">background-color</span>: <span class="built_in">RGBA</span>(0, 0, 0, 0.7);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*鼠标移到整个div区域时*/</span></span><br><span class="line">        <span class="selector-id">#container</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.arrow</span> &#123;</span><br><span class="line">            <span class="attribute">display</span>: block; <span class="comment">/*显示*/</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*上一个切换图标的左外边距*/</span></span><br><span class="line">        <span class="selector-id">#prev</span> &#123;</span><br><span class="line">            <span class="attribute">left</span>: <span class="number">20px</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*下一个切换图标的右外边距*/</span></span><br><span class="line">        <span class="selector-id">#next</span> &#123;</span><br><span class="line">            <span class="attribute">right</span>: <span class="number">20px</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p>简而言之，就是</p>
+<ol>
+<li>container相对定位, 里面的三部分都是绝对定位. </li>
+<li>container的尺寸就只能容下一张图片, 而图片列表的长度就是所有图片横向浮动排列之后的总宽度. container要overflow:hidden</li>
+</ol>
+<h5 id="3-3-js"><a href="#3-3-js" class="headerlink" title="3.3 js"></a>3.3 js</h5><p>最关键的就是翻页函数了. 翻页函数有3处会被调用</p>
+<ol>
+<li>自动翻页</li>
+<li>点击箭头</li>
+<li>点击小圆点</li>
+</ol>
+<p>其中, 1、2和 3是不同的. 因为3的入参是我要展示哪张图片. 而1、2要入参的是方向参数, 即到底是向哪个方向翻页.  所以翻页函数的入参有2种. 一种是boolean值一种是整型.  而且不难想象是翻页函数要触发一个计时器，谈到计时器, 整个轮播图有2个计时器，另一个就是自动翻页这个计时器.  而且在翻页动画的过程中，该动画是被设置为不可打断的. 即存在一个标识防止动画被打断. </p>
+<p>翻页函数中最为tricky的地方在于轮播到最后再进一步的展示. 它其实是这样的</p>
+<p>假设要展示的图片是</p>
+<p>1    2    3    4    5</p>
+<p>则实际图片的排列是(1’和5’ 分别是1 和5的复制品. 使用dom复制很容易做到这一点)</p>
+<p>5’    1    2    3    4    5    1’</p>
+<p>轮播的顺序是从1~5，然后要展示1的时候，其实展示的是1’. 展示完1’之后立马将 imgList的left变成 1的left,则下一步就变成了2. 这样就衔接上了. 注意，有的童鞋可能会问，为什么不展示完5之后立马将left变成1的left呢? 这样就不需要 1’了呀~但是这样的话, 1将不会被展示而直接展示的是2. 就不连贯了. 其实这个道理对于5’的缘起是一样的. 如果1左移一张图, 则我要展示的应该是5, 但其实我展示的是5’, 展示完5’ 立马将left变成 5的left值, 则下一次展示的就是4,这样就不突兀了. 这就是轮播图的核心思想.</p>
+<p>具体代码不在这里贴了. 在DEMO【1】中参看. 这是一款即经典又简明的轮播图组件</p>
+<h4 id="4-组件化"><a href="#4-组件化" class="headerlink" title="4. 组件化"></a>4. 组件化</h4><p>在大前端的今天，组件化、模块化一直是必然的趋势. 所以我们写任何一段代码，都要考虑其封装性.  既然是封装, 我们首当其冲需要考虑的是需要对外暴露的东西是什么. </p>
+<ol>
+<li>轮播图片的张数. </li>
+<li>每张图片的宽高. imgWidth 、imgHeight</li>
+<li>每次翻页耗时 timecost</li>
+<li>自动翻页的时间间隔 pageInterval</li>
+</ol>
+<p>而我可以规定用户使用的html结构仅仅为（非常的轻量级和低污染性, 代码的侵入性很低） 注意, imgWidth、imgHeight、timecost、pageInterval 这些都有默认值 其中 swipercontainer这个id是不能改变的</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"container"</span> <span class="attr">imgWidth</span>=<span class="string">"600"</span> <span class="attr">imgHeight</span>=<span class="string">"400"</span> <span class="attr">timecost</span>=<span class="string">"400"</span> <span class="attr">pageInterval</span>=<span class="string">"1000"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/1.jpg"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/2.jpg"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/3.jpg"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/4.jpg"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"img/5.jpg"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后引入我的轮播图组件js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> href=<span class="string">"swiper.css"</span>/&gt;</span><br><span class="line">&lt;script type=<span class="string">"text/javascript"</span> src=<span class="string">"swiper.js"</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>即可展示经典轮播图效果.</p>
+<h3 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h3><p>【1】<a href="https://github.com/yfsyfs/front/tree/master/%E5%8E%9F%E7%94%9Fjs%E5%86%99%E7%9A%84%E8%BD%AE%E6%92%AD%E5%9B%BE%E7%BB%84%E4%BB%B6" target="_blank" rel="noopener">https://github.com/yfsyfs/front/tree/master/%E5%8E%9F%E7%94%9Fjs%E5%86%99%E7%9A%84%E8%BD%AE%E6%92%AD%E5%9B%BE%E7%BB%84%E4%BB%B6</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/28/轮播图总结以及组件化思考/" data-id="cjv1q3mcz000q40vmz4fjqovv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原生js/">原生js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模块化/">模块化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/组件化/">组件化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/轮播图/">轮播图</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/04/24/vue-学习-之-硅谷外卖/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">vue 学习 之 硅谷外卖</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原生js/">原生js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/轮播图/">轮播图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/JDK/" style="font-size: 15px;">JDK</a> <a href="/tags/LDAP/" style="font-size: 12.5px;">LDAP</a> <a href="/tags/gradle/" style="font-size: 12.5px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 12.5px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 12.5px;">hdfs</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/jdbc/" style="font-size: 12.5px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/springboot/" style="font-size: 12.5px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 12.5px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/前端/" style="font-size: 17.5px;">前端</a> <a href="/tags/动态规划/" style="font-size: 10px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 20px;">后端</a> <a href="/tags/大数据/" style="font-size: 15px;">大数据</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/源码分析/" style="font-size: 17.5px;">源码分析</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/面试/" style="font-size: 12.5px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/28/轮播图总结以及组件化思考/">轮播图总结以及组件化思考</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/24/vue-学习-之-硅谷外卖/">vue 学习 之 硅谷外卖</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/20/vue-cli-proxytable-日常踩坑之神坑-之-4000端口/">vue-cli proxytable 日常踩坑之神坑 之 4000端口</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/19/jdbc-性能优化之fetch-batch/">jdbc 性能优化之fetch &amp; batch</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/11/学习vue的成果之cms系统/">学习vue的成果之cms系统</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
