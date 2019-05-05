@@ -5,22 +5,15 @@
   
 
   
-  <title>gradle build和gradlew build的区别 | Hexo</title>
+  <title>Archives | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="接之前写的一篇小文《gradle项目开发环境搭建》， 我们观察一下gradle项目中的文件  其中我们看到了gradlew 和 gradlew.bat 文件, 有点经验的人都知道, 前者是linux上用的, 后者是Windows下用的, 但从作用上来讲, 两者没有本质区别. 那么接上一文的疑问, gradlew 的作用是什么呢? 它和gradle命令有什么区别?">
-<meta name="keywords" content="gradle">
-<meta property="og:type" content="article">
-<meta property="og:title" content="gradle build和gradlew build的区别">
-<meta property="og:url" content="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="接之前写的一篇小文《gradle项目开发环境搭建》， 我们观察一下gradle项目中的文件  其中我们看到了gradlew 和 gradlew.bat 文件, 有点经验的人都知道, 前者是linux上用的, 后者是Windows下用的, 但从作用上来讲, 两者没有本质区别. 那么接上一文的疑问, gradlew 的作用是什么呢? 它和gradle命令有什么区别?">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/1.png">
-<meta property="og:updated_time" content="2019-02-06T07:47:09.703Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="gradle build和gradlew build的区别">
-<meta name="twitter:description" content="接之前写的一篇小文《gradle项目开发环境搭建》， 我们观察一下gradle项目中的文件  其中我们看到了gradlew 和 gradlew.bat 文件, 有点经验的人都知道, 前者是linux上用的, 后者是Windows下用的, 但从作用上来讲, 两者没有本质区别. 那么接上一文的疑问, gradlew 的作用是什么呢? 它和gradle命令有什么区别?">
-<meta name="twitter:image" content="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/1.png">
+<meta name="twitter:title" content="Hexo">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -67,81 +60,45 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-gradle-build和gradlew-build的区别" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/06/gradle-build和gradlew-build的区别/" class="article-date">
-  <time datetime="2019-02-06T07:24:14.000Z" itemprop="datePublished">2019-02-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+        <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      gradle build和gradlew build的区别
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" class="archive-article-date">
+  <time datetime="2019-02-05T09:21:26.000Z" itemprop="datePublished">Feb 5</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/">oracle转postgresql时,使用jpa(hibernate)报错: 不良的类型值 long</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>接之前写的一篇小文<strong>《gradle项目开发环境搭建》</strong>， 我们观察一下gradle项目中的文件</p>
-<img src="/2019/02/06/gradle-build和gradlew-build的区别/1.png" title="项目结构">
-<p>其中我们看到了gradlew 和 gradlew.bat 文件, 有点经验的人都知道, 前者是linux上用的, 后者是Windows下用的, 但从作用上来讲, 两者没有本质区别. 那么接上一文的疑问, gradlew 的作用是什么呢? 它和gradle命令有什么区别?</p>
-<a id="more"></a>
-<p>答: gradle是因为我们本机安装了gradle而且配置了环境变量所以产生的命令. 而gradlew是为了统一项目组中的成员的gradle版本而引入的文件. 提到gradlew就不得不提到gradle项目根路径下面的gradle目录, 里面有一个wrapper目录，其中有2个文件, 一个是gradle-wrapper.jar，一个是gradle-wrapper.properties， 值得注意的是后者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">distributionBase=GRADLE_USER_HOME</span><br><span class="line">distributionPath=wrapper/dists</span><br><span class="line"># 发布包的基地址, 所以我们需要配置环境变量GRADLE_USER_HOME为gradle的安装目录,我的是D:\gradle-3.5.1</span><br><span class="line">zipStoreBase=GRADLE_USER_HOME</span><br><span class="line"># 发布包下载到的地址(相对于zipStoreBase)</span><br><span class="line">zipStorePath=wrapper/dists</span><br><span class="line"># 发布包的网络地址</span><br><span class="line">distributionUrl=https\://services.gradle.org/distributions/gradle-2.13-bin.zip</span><br></pre></td></tr></table></figure>
-<p>因此看到这里我们就不难明白为什么要配置GRADLE_USER_HOME环境变量, 以及为什么使用gradlew都不需要项目组成员本机事先安装好gradle了, 第一次执行</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradlew build</span><br></pre></td></tr></table></figure>
-<p>会先到上面配置文件中的distributionUrl所指示的地址去下载gradle到 %GRADLE_USER_HOME%/zipStorePath 中去, 然后使用该下载好的gradle对我们的项目进行构建. 这就起到了约束项目组成员使用gradle版本一致的作用. 但是第二次再次执行的话, 是不会下载的. </p>
-<p>所以</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle build</span><br></pre></td></tr></table></figure>
-<p>和</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradlew build</span><br></pre></td></tr></table></figure>
-<p>的区别在于, 前者使用本机安装好并配置好环境变量的gradle进行项目构建, 后者从网上下载统一的版本之后再构建.</p>
-<p>举一反三, </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradle bootRun</span><br></pre></td></tr></table></figure>
-<p>和</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gradlew bootRun</span><br></pre></td></tr></table></figure>
-<p>的区别也是如此.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/" data-id="cjvah9gfi0001a4vmhmdqjufq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradle/">gradle</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          上传文件到hdfs,结果50070web控制台的Availability为localhost
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/02/06/gradle项目开发环境搭建/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">gradle项目开发环境搭建</div>
-    </a>
-  
-</nav>
-
-  
 </article>
+  
+  
+    </div></section>
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
 
 </section>
         
