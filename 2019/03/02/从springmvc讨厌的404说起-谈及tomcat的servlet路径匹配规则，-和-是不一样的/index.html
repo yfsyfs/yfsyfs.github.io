@@ -5,20 +5,20 @@
   
 
   
-  <title>vue 学习 之 硅谷外卖 | Hexo</title>
+  <title>从springmvc讨厌的404说起, 谈及tomcat的servlet路径匹配规则，/* 和 / 是不一样的hexo d! | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缘起因为公司项目前端技术栈由react更换成了vue, 而碰巧我参与了微信端的前后台开发, 所以最近不断的入手vue. 我毕竟是一个心怀全栈的java后端开发.  吃下了一套 尚硅谷的 vue 技术视频, 跟着讲师开发了硅谷外卖项目（就是仿制饿了么）. 此项目包括的vue技术全家桶比较全面, 涉及了vue开发H5较多的插件. 比较推荐. 如果它能完全弄懂的话, 用vue 开发一般的cms系统基本没">
-<meta name="keywords" content="vue,前端">
+  <meta name="description" content="缘起提起springmvc，对于很多初学者而言, 很头痛的就是404问题. 其实本质上依旧是tomcat下的servlet的路径映射问题。 毕竟，springmvc的核心前端分发器就是DispatchServlet.">
+<meta name="keywords" content="后端,springmvc,servlet">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue 学习 之 硅谷外卖">
-<meta property="og:url" content="http://yoursite.com/2019/04/24/vue-学习-之-硅谷外卖/index.html">
+<meta property="og:title" content="从springmvc讨厌的404说起, 谈及tomcat的servlet路径匹配规则，&#x2F;* 和 &#x2F; 是不一样的hexo d!">
+<meta property="og:url" content="http://yoursite.com/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="缘起因为公司项目前端技术栈由react更换成了vue, 而碰巧我参与了微信端的前后台开发, 所以最近不断的入手vue. 我毕竟是一个心怀全栈的java后端开发.  吃下了一套 尚硅谷的 vue 技术视频, 跟着讲师开发了硅谷外卖项目（就是仿制饿了么）. 此项目包括的vue技术全家桶比较全面, 涉及了vue开发H5较多的插件. 比较推荐. 如果它能完全弄懂的话, 用vue 开发一般的cms系统基本没">
+<meta property="og:description" content="缘起提起springmvc，对于很多初学者而言, 很头痛的就是404问题. 其实本质上依旧是tomcat下的servlet的路径映射问题。 毕竟，springmvc的核心前端分发器就是DispatchServlet.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-24T07:08:25.474Z">
+<meta property="og:updated_time" content="2019-03-02T07:23:11.025Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vue 学习 之 硅谷外卖">
-<meta name="twitter:description" content="缘起因为公司项目前端技术栈由react更换成了vue, 而碰巧我参与了微信端的前后台开发, 所以最近不断的入手vue. 我毕竟是一个心怀全栈的java后端开发.  吃下了一套 尚硅谷的 vue 技术视频, 跟着讲师开发了硅谷外卖项目（就是仿制饿了么）. 此项目包括的vue技术全家桶比较全面, 涉及了vue开发H5较多的插件. 比较推荐. 如果它能完全弄懂的话, 用vue 开发一般的cms系统基本没">
+<meta name="twitter:title" content="从springmvc讨厌的404说起, 谈及tomcat的servlet路径匹配规则，&#x2F;* 和 &#x2F; 是不一样的hexo d!">
+<meta name="twitter:description" content="缘起提起springmvc，对于很多初学者而言, 很头痛的就是404问题. 其实本质上依旧是tomcat下的servlet的路径映射问题。 毕竟，springmvc的核心前端分发器就是DispatchServlet.">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -65,10 +65,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-vue-学习-之-硅谷外卖" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/04/24/vue-学习-之-硅谷外卖/" class="article-date">
-  <time datetime="2019-04-24T06:58:40.000Z" itemprop="datePublished">2019-04-24</time>
+    <a href="/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/" class="article-date">
+  <time datetime="2019-03-02T04:44:38.000Z" itemprop="datePublished">2019-03-02</time>
 </a>
     
   </div>
@@ -79,7 +79,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      vue 学习 之 硅谷外卖
+      从springmvc讨厌的404说起, 谈及tomcat的servlet路径匹配规则，/* 和 / 是不一样的hexo d!
     </h1>
   
 
@@ -87,16 +87,55 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>因为公司项目前端技术栈由react更换成了vue, 而碰巧我参与了微信端的前后台开发, 所以最近不断的入手vue. 我毕竟是一个心怀全栈的java后端开发.  吃下了一套 尚硅谷的 vue 技术视频, 跟着讲师开发了硅谷外卖项目（就是仿制饿了么）. 此项目包括的vue技术全家桶比较全面, 涉及了vue开发H5较多的插件. 比较推荐. 如果它能完全弄懂的话, 用vue 开发一般的cms系统基本没有太大问题了.</p>
-<h3 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h3><p>【1】<a href="https://github.com/yfsyfs/front/tree/master/gshop-client" target="_blank" rel="noopener">https://github.com/yfsyfs/front/tree/master/gshop-client</a> </p>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>提起springmvc，对于很多初学者而言, 很头痛的就是404问题. 其实本质上依旧是tomcat下的servlet的路径映射问题。 毕竟，springmvc的核心前端分发器就是DispatchServlet.</p>
+<a id="more"></a>
+<p>工程很简单.  具体代码参见 Demo链接【1】， 我使用tomcat容器运行此项目, 已经将上下文路径设定为 /, 将端口设置为80.</p>
+
+<p>下面我们对此springmvc工程进行测试, 有</p>
+<p>a.  <a href="http://localhost/" target="_blank" rel="noopener">http://localhost/</a></p>
+<p>b.  <a href="http://localhost/js/my.js" target="_blank" rel="noopener">http://localhost/js/my.js</a></p>
+<p>c.  <a href="http://localhost/index.jsp" target="_blank" rel="noopener">http://localhost/index.jsp</a></p>
+<p>三个地址.  项目的web.xml 中的 url-pattern依次为</p>
+<ol>
+<li><p>/ ， 则依次访问上述三个地址的结果为</p>
+<p>a. 浏览器打印 <code>首页</code>, 如果将index.jsp删除, 则将打印<code>卧槽，尼玛!</code></p>
+<p>b. 报404， 控制台打印日志</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">警告: No mapping found for HTTP request with URI [/js/my.js] in DispatcherServlet with name 'springmvc'</span><br></pre></td></tr></table></figure>
+<p>c. 浏览器打印<code>首页</code>, 如果将index.jsp删除的话, 显然404, 但是控制台没有打印任何日志. 表明就算是404，但也没有经过springmvc的DispatchServlet.</p>
+</li>
+<li><p>/*， 则依次访问上述三个地址的结果均为404，并且控制台分别打印如下日志</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">警告: No mapping found for HTTP request with URI [/WEB-INF/content/welcome.jsp] in DispatcherServlet with name 'springmvc'</span><br></pre></td></tr></table></figure>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">警告: No mapping found for HTTP request with URI [/js/my.js] in DispatcherServlet with name 'springmvc'</span><br></pre></td></tr></table></figure>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">警告: No mapping found for HTTP request with URI [/index.jsp] in DispatcherServlet with name 'springmvc'</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>*.jsp, 则依次访问上述三个地址的结果为</p>
+<p>a. 404, 控制台打印日志</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">警告: No mapping found for HTTP request with URI [/] in DispatcherServlet with name 'springmvc'</span><br></pre></td></tr></table></figure>
+<p>b. 浏览器打印 <code>alert(&quot;I am king&quot;)</code></p>
+<p>c. 404，控制台打印日志</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">警告: No mapping found for HTTP request with URI [/index.jsp] in DispatcherServlet with name 'springmvc'</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这是为什么呢? 学过springmvc的童鞋都知道, springmvc本质就是一个servlet. 即DispatchServlet. 所以一旦理解了tomcat中servlet的路径匹配原理的话, 上面的现象就都好解释了. 关于tomcat下的servlet、filter的4种路径匹配以及它们的优先级，参考【1】中的文章. 我只是简略表明和springmvc有关的观点</p>
+<ol>
+<li>/<em> 、</em>.jsp 和 / 分别属于路径匹配、扩展名匹配和缺省匹配，优先级递减.  </li>
+<li>缺省匹配/ tomcat本身就有设定（在$TOMCAT_HOME/conf/web.xml中就有设定），如果dispatchservlet也设定为/的话, 则将覆盖tomcat原本的缺省设定</li>
+<li><em>.jsp 在tomcat中本身亦有设定. 也在$TOMCAT_HOME/conf/web.xml中. 如果dispatchservlet设定\</em>.jsp的匹配规则的话, 也将覆盖缺省设定. </li>
+</ol>
+<p>有了上面3点认知，是不难理解上面的现象的. 根据1和3，我们就知道为什么springmvc设定/为拦截匹配规则的话, jsp其实是不会被拦截的. 因为优先级的缘故 会被tomcat的jsp-servlet处理. 我们也知道了 /* 是一种<strong>极为恶劣,极度不推荐</strong>的匹配规则(一般只有过滤器才会用). 因为它属于路径匹配，有着不错的优先级（仅次于精确匹配）, 但是dispatchservlet拦截下来之后其实是没有能力对一些原本由tomcat处理的资源（一般是jsp以及一些诸如css、js、图片的静态资源）进行处理的. 导致找不到handlermapping 从而报404. 那么设定为 / 就好了吗? 其实也是一样的, 只是不会拦截jsp了而已（因为 / 的优先级比 扩展匹配低）, 对于静态资源依旧会被拦截下来.  但是dispatchservlet并没有重复造轮子，所以并没有提供静态资源处理器，所以一个自然的想法就是这些静态资源交给tomcat原本的DefaultServlet处理. 所以就有了我们熟知的\&lt;mvc: default-servlet-handler /&gt; 或者 \&lt;mvc: resources /&gt; 配置. 目的就是将静态资源交给tomcat来处理. 譬如，一旦在 springmvc-config.xml 中加上</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:default-servlet-handler</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>则2.b 就不再是404，而是浏览器打印</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert("I am king")</span><br></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://blog.csdn.net/dream_mushuang/article/details/73743723" target="_blank" rel="noopener">https://blog.csdn.net/dream_mushuang/article/details/73743723</a></p>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>【1】<a href="https://github.com/yfsyfs/backend/tree/master/springmvc-learning" target="_blank" rel="noopener">https://github.com/yfsyfs/backend/tree/master/springmvc-learning</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/24/vue-学习-之-硅谷外卖/" data-id="cjvbncdci000i9kvmr2nai0mt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/" data-id="cjvbncdcl000n9kvmgkc1le9o" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/servlet/">servlet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li></ul>
 
     </footer>
   </div>
@@ -104,19 +143,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/04/28/轮播图总结以及组件化思考/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/03/07/jdk-的-URL-源码浅析/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          轮播图总结以及组件化思考
+          jdk 的 URL 源码浅析
         
       </div>
     </a>
   
   
-    <a href="/2019/04/20/vue-cli-proxytable-日常踩坑之神坑-之-4000端口/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/02/28/JDK之SPI机制简明分析/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">vue-cli proxytable 日常踩坑之神坑 之 4000端口</div>
+      <div class="article-nav-title">JDK之SPI机制简明分析</div>
     </a>
   
 </nav>
