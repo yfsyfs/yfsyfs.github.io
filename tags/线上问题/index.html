@@ -5,20 +5,15 @@
   
 
   
-  <title>学习vue的成果之cms系统 | Hexo</title>
+  <title>Tag: 线上问题 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缘起作为一个想吃全栈的java后端程序员, 一直认为前端已非09年之前的前端了. 正如某些前端自豪的称之为 大前端 时代的驾临. 所以我目前正沉下心来学习前端知识. 正好公司项目用到了vue.js 作为前端技术支撑. 所以学习了一下vue的知识. 并且做了一个小型的cms系统. 后端采用的是node.js. 参见Demo【1】">
-<meta name="keywords" content="vue,前端,node">
-<meta property="og:type" content="article">
-<meta property="og:title" content="学习vue的成果之cms系统">
-<meta property="og:url" content="http://yoursite.com/2019/04/11/学习vue的成果之cms系统/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/tags/线上问题/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="缘起作为一个想吃全栈的java后端程序员, 一直认为前端已非09年之前的前端了. 正如某些前端自豪的称之为 大前端 时代的驾临. 所以我目前正沉下心来学习前端知识. 正好公司项目用到了vue.js 作为前端技术支撑. 所以学习了一下vue的知识. 并且做了一个小型的cms系统. 后端采用的是node.js. 参见Demo【1】">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-11T05:24:56.682Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="学习vue的成果之cms系统">
-<meta name="twitter:description" content="缘起作为一个想吃全栈的java后端程序员, 一直认为前端已非09年之前的前端了. 正如某些前端自豪的称之为 大前端 时代的驾临. 所以我目前正沉下心来学习前端知识. 正好公司项目用到了vue.js 作为前端技术支撑. 所以学习了一下vue的知识. 并且做了一个小型的cms系统. 后端采用的是node.js. 参见Demo【1】">
+<meta name="twitter:title" content="Hexo">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -65,70 +60,40 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-学习vue的成果之cms系统" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/04/11/学习vue的成果之cms系统/" class="article-date">
-  <time datetime="2019-04-11T05:09:41.000Z" itemprop="datePublished">2019-04-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+        <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      学习vue的成果之cms系统
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2019/05/10/记一次因为mq连接数爆满导致异常的线上排错/" class="archive-article-date">
+  <time datetime="2019-05-10T07:22:03.000Z" itemprop="datePublished">May 10</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/05/10/记一次因为mq连接数爆满导致异常的线上排错/">记一次因为mq连接数爆满导致异常的线上排错</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>作为一个想吃全栈的java后端程序员, 一直认为前端已非09年之前的前端了. 正如某些前端自豪的称之为 大前端 时代的驾临. 所以我目前正沉下心来学习前端知识. 正好公司项目用到了vue.js 作为前端技术支撑. 所以学习了一下vue的知识. 并且做了一个小型的cms系统. 后端采用的是node.js. 参见Demo【1】</p>
-<a id="more"></a>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这里简单的讲一下我对vue的粗浅认识. 和后端的MVC平行的, 前端vue提出了 MVVM的概念. 即过去前端程序员不仅要关注于数据（ajax），还需要关注业务（dom等webapi）, 但MVVM=M(数据)+V（视图）+VM(View Model)的引入 ，使得前端程序员的代码变得有序起来（刚入行的一段时间，一直觉得前端代码比后端代码难读）.而VM起到了关键作用，它就是Vue. 其实估计其他前端框架，例如react 也是解决了这个问题.</p>
-<blockquote>
-<p>ps. 这里要纠正一下, 我们以前用的 jquery、requirejs 只能算作js库，而不能作为 框架，框架是一种解决方案，就是换框架(譬如react换成vue)代码就要大改的那种，而换js库只需要局部改动代码. </p>
-</blockquote>
-<p>所以我目前认知的大前端时代就是这种MVVM的思想导致了前端的分层也泾渭分明起来导致的. 当然，大前端时代的到来还有一个重要原因就是 js的模块化. 我们知道，es6之前，js是只有函数作用域和全局作用域的，并没有模块作用域. 但是es6提出了js模块化（import+export），其实node也有require和module.exports. 模块化导致前端的开发变得极为规整. 一旦有了秩序，代码的可维护性和可读性就提高了N多倍.  大前端的时代来临也就不奇怪了.</p>
-<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>【1】<a href="https://github.com/yfsyfs/front/tree/master/vue-cms" target="_blank" rel="noopener">https://github.com/yfsyfs/front/tree/master/vue-cms</a> </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/学习vue的成果之cms系统/" data-id="cjvht0kqj001it8vmnd9lqmpc" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2019/04/19/jdbc-性能优化之fetch-batch/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          jdbc 性能优化之fetch &amp; batch
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/04/10/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">声明</div>
-    </a>
-  
-</nav>
-
-  
 </article>
+  
+  
+    </div></section>
+  
+
 
 </section>
         
