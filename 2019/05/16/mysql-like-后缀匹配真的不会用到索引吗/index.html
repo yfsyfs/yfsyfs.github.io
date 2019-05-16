@@ -5,20 +5,22 @@
   
 
   
-  <title>从springmvc讨厌的404说起, 谈及tomcat的servlet路径匹配规则，/* 和 / 是不一样的hexo d! | Hexo</title>
+  <title>mysql like 后缀匹配真的不会用到索引吗 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缘起提起springmvc，对于很多初学者而言, 很头痛的就是404问题. 其实本质上依旧是tomcat下的servlet的路径映射问题。 毕竟，springmvc的核心前端分发器就是DispatchServlet.">
-<meta name="keywords" content="后端,springmvc,servlet">
+  <meta name="description" content="缘起业余草大哥问（kao）了我一个问题 123456789101112131415161718create table xttblog_like (	ID int primary key,	test_like VARCHAR(20) NOT NULL DEFAULT 0,	index test_like(test_like))engine=InnoDB;insert into xttblog_li">
+<meta name="keywords" content="后端，数据库, mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从springmvc讨厌的404说起, 谈及tomcat的servlet路径匹配规则，&#x2F;* 和 &#x2F; 是不一样的hexo d!">
-<meta property="og:url" content="http://yoursite.com/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/index.html">
+<meta property="og:title" content="mysql like 后缀匹配真的不会用到索引吗">
+<meta property="og:url" content="http://yoursite.com/2019/05/16/mysql-like-后缀匹配真的不会用到索引吗/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="缘起提起springmvc，对于很多初学者而言, 很头痛的就是404问题. 其实本质上依旧是tomcat下的servlet的路径映射问题。 毕竟，springmvc的核心前端分发器就是DispatchServlet.">
+<meta property="og:description" content="缘起业余草大哥问（kao）了我一个问题 123456789101112131415161718create table xttblog_like (	ID int primary key,	test_like VARCHAR(20) NOT NULL DEFAULT 0,	index test_like(test_like))engine=InnoDB;insert into xttblog_li">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-02T07:23:11.025Z">
+<meta property="og:image" content="http://yoursite.com/2019/05/16/mysql-like-后缀匹配真的不会用到索引吗/1.png">
+<meta property="og:updated_time" content="2019-05-16T07:42:18.808Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从springmvc讨厌的404说起, 谈及tomcat的servlet路径匹配规则，&#x2F;* 和 &#x2F; 是不一样的hexo d!">
-<meta name="twitter:description" content="缘起提起springmvc，对于很多初学者而言, 很头痛的就是404问题. 其实本质上依旧是tomcat下的servlet的路径映射问题。 毕竟，springmvc的核心前端分发器就是DispatchServlet.">
+<meta name="twitter:title" content="mysql like 后缀匹配真的不会用到索引吗">
+<meta name="twitter:description" content="缘起业余草大哥问（kao）了我一个问题 123456789101112131415161718create table xttblog_like (	ID int primary key,	test_like VARCHAR(20) NOT NULL DEFAULT 0,	index test_like(test_like))engine=InnoDB;insert into xttblog_li">
+<meta name="twitter:image" content="http://yoursite.com/2019/05/16/mysql-like-后缀匹配真的不会用到索引吗/1.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -65,10 +67,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-mysql-like-后缀匹配真的不会用到索引吗" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/" class="article-date">
-  <time datetime="2019-03-02T04:44:38.000Z" itemprop="datePublished">2019-03-02</time>
+    <a href="/2019/05/16/mysql-like-后缀匹配真的不会用到索引吗/" class="article-date">
+  <time datetime="2019-05-16T07:31:48.000Z" itemprop="datePublished">2019-05-16</time>
 </a>
     
   </div>
@@ -79,7 +81,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      从springmvc讨厌的404说起, 谈及tomcat的servlet路径匹配规则，/* 和 / 是不一样的hexo d!
+      mysql like 后缀匹配真的不会用到索引吗
     </h1>
   
 
@@ -87,55 +89,25 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>提起springmvc，对于很多初学者而言, 很头痛的就是404问题. 其实本质上依旧是tomcat下的servlet的路径映射问题。 毕竟，springmvc的核心前端分发器就是DispatchServlet.</p>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>业余草大哥问（kao）了我一个问题</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> xttblog_like (</span><br><span class="line">	<span class="keyword">ID</span> <span class="built_in">int</span> primary <span class="keyword">key</span>,</span><br><span class="line">	test_like <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="number">0</span>,</span><br><span class="line">	<span class="keyword">index</span> test_like(test_like)</span><br><span class="line">)<span class="keyword">engine</span>=<span class="keyword">InnoDB</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> xttblog_like <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'公众号：业余草'</span>),</span><br><span class="line">	(<span class="number">2</span>,<span class="string">'微信号：xttblog'</span>),</span><br><span class="line">	(<span class="number">3</span>,<span class="string">'感谢转发！'</span>),</span><br><span class="line">	(<span class="number">4</span>,<span class="string">'MySQL like'</span>),</span><br><span class="line">	(<span class="number">5</span>,<span class="string">'MySQL in'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> xttblog_like;</span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> xttblog_like <span class="keyword">WHERE</span> test_like <span class="keyword">LIKE</span> <span class="string">'y'</span>;</span><br><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> xttblog_like <span class="keyword">WHERE</span> test_like <span class="keyword">LIKE</span> <span class="string">'y%'</span>;</span><br><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> xttblog_like <span class="keyword">WHERE</span> test_like <span class="keyword">LIKE</span> <span class="string">'%y'</span>;</span><br><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> xttblog_like <span class="keyword">WHERE</span> test_like <span class="keyword">LIKE</span> <span class="string">'%y%'</span>;</span><br></pre></td></tr></table></figure>
+<p>%y 是用索引了吗? </p>
 <a id="more"></a>
-<p>工程很简单.  具体代码参见 Demo链接【1】， 我使用tomcat容器运行此项目, 已经将上下文路径设定为 /, 将端口设置为80.</p>
-
-<p>下面我们对此springmvc工程进行测试, 有</p>
-<p>a.  <a href="http://localhost/" target="_blank" rel="noopener">http://localhost/</a></p>
-<p>b.  <a href="http://localhost/js/my.js" target="_blank" rel="noopener">http://localhost/js/my.js</a></p>
-<p>c.  <a href="http://localhost/index.jsp" target="_blank" rel="noopener">http://localhost/index.jsp</a></p>
-<p>三个地址.  项目的web.xml 中的 url-pattern依次为</p>
-<ol>
-<li><p>/ ， 则依次访问上述三个地址的结果为</p>
-<p>a. 浏览器打印 <code>首页</code>, 如果将index.jsp删除, 则将打印<code>卧槽，尼玛!</code></p>
-<p>b. 报404， 控制台打印日志</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">警告: No mapping found for HTTP request with URI [/js/my.js] in DispatcherServlet with name 'springmvc'</span><br></pre></td></tr></table></figure>
-<p>c. 浏览器打印<code>首页</code>, 如果将index.jsp删除的话, 显然404, 但是控制台没有打印任何日志. 表明就算是404，但也没有经过springmvc的DispatchServlet.</p>
-</li>
-<li><p>/*， 则依次访问上述三个地址的结果均为404，并且控制台分别打印如下日志</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">警告: No mapping found for HTTP request with URI [/WEB-INF/content/welcome.jsp] in DispatcherServlet with name 'springmvc'</span><br></pre></td></tr></table></figure>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">警告: No mapping found for HTTP request with URI [/js/my.js] in DispatcherServlet with name 'springmvc'</span><br></pre></td></tr></table></figure>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">警告: No mapping found for HTTP request with URI [/index.jsp] in DispatcherServlet with name 'springmvc'</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>*.jsp, 则依次访问上述三个地址的结果为</p>
-<p>a. 404, 控制台打印日志</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">警告: No mapping found for HTTP request with URI [/] in DispatcherServlet with name 'springmvc'</span><br></pre></td></tr></table></figure>
-<p>b. 浏览器打印 <code>alert(&quot;I am king&quot;)</code></p>
-<p>c. 404，控制台打印日志</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">警告: No mapping found for HTTP request with URI [/index.jsp] in DispatcherServlet with name 'springmvc'</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这是为什么呢? 学过springmvc的童鞋都知道, springmvc本质就是一个servlet. 即DispatchServlet. 所以一旦理解了tomcat中servlet的路径匹配原理的话, 上面的现象就都好解释了. 关于tomcat下的servlet、filter的4种路径匹配以及它们的优先级，参考【1】中的文章. 我只是简略表明和springmvc有关的观点</p>
-<ol>
-<li>/<em> 、</em>.jsp 和 / 分别属于路径匹配、扩展名匹配和缺省匹配，优先级递减.  </li>
-<li>缺省匹配/ tomcat本身就有设定（在$TOMCAT_HOME/conf/web.xml中就有设定），如果dispatchservlet也设定为/的话, 则将覆盖tomcat原本的缺省设定</li>
-<li><em>.jsp 在tomcat中本身亦有设定. 也在$TOMCAT_HOME/conf/web.xml中. 如果dispatchservlet设定\</em>.jsp的匹配规则的话, 也将覆盖缺省设定. </li>
-</ol>
-<p>有了上面3点认知，是不难理解上面的现象的. 根据1和3，我们就知道为什么springmvc设定/为拦截匹配规则的话, jsp其实是不会被拦截的. 因为优先级的缘故 会被tomcat的jsp-servlet处理. 我们也知道了 /* 是一种<strong>极为恶劣,极度不推荐</strong>的匹配规则(一般只有过滤器才会用). 因为它属于路径匹配，有着不错的优先级（仅次于精确匹配）, 但是dispatchservlet拦截下来之后其实是没有能力对一些原本由tomcat处理的资源（一般是jsp以及一些诸如css、js、图片的静态资源）进行处理的. 导致找不到handlermapping 从而报404. 那么设定为 / 就好了吗? 其实也是一样的, 只是不会拦截jsp了而已（因为 / 的优先级比 扩展匹配低）, 对于静态资源依旧会被拦截下来.  但是dispatchservlet并没有重复造轮子，所以并没有提供静态资源处理器，所以一个自然的想法就是这些静态资源交给tomcat原本的DefaultServlet处理. 所以就有了我们熟知的\&lt;mvc: default-servlet-handler /&gt; 或者 \&lt;mvc: resources /&gt; 配置. 目的就是将静态资源交给tomcat来处理. 譬如，一旦在 springmvc-config.xml 中加上</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mvc:default-servlet-handler</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p>则2.b 就不再是404，而是浏览器打印</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert("I am king")</span><br></pre></td></tr></table></figure>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://blog.csdn.net/dream_mushuang/article/details/73743723" target="_blank" rel="noopener">https://blog.csdn.net/dream_mushuang/article/details/73743723</a></p>
-<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>【1】<a href="https://github.com/yfsyfs/backend/tree/master/springmvc-learning" target="_blank" rel="noopener">https://github.com/yfsyfs/backend/tree/master/springmvc-learning</a></p>
+<p>起初不假思索，答曰: 不会，因为是后缀匹配. 但是上机实操之后, 傻了眼.</p>
+<img src="/2019/05/16/mysql-like-后缀匹配真的不会用到索引吗/1.png" title="索引">
+<p>会用到index类型索引的!!!</p>
+<p>但是稍后查了一下《高性能msql》 又放了心.</p>
+<blockquote>
+<p>explain计划中的index类型的策略和全表扫描一样。只是扫描表的时候按照索引次序进行而不是行。主要优点就是避免了排序, 但是开销仍然非常大。一般保证查询至少达到range级别，最好能达到ref。 </p>
+</blockquote>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/" data-id="cjvqci0oz0020qcvmtk0u8am1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/16/mysql-like-后缀匹配真的不会用到索引吗/" data-id="cjvqcj8st0000v8vma16ftd3o" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/servlet/">servlet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端，数据库-mysql/">后端，数据库, mysql</a></li></ul>
 
     </footer>
   </div>
@@ -143,19 +115,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/03/07/jdk-的-URL-源码浅析/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          jdk 的 URL 源码浅析
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/02/28/JDK之SPI机制简明分析/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/05/15/微信小程序demo-及一个重要的日子/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">JDK之SPI机制简明分析</div>
+      <div class="article-nav-title">微信小程序demo 及一个重要的日子</div>
     </a>
   
 </nav>
