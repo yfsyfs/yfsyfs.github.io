@@ -62,10 +62,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-springmvc-整合-swagger2-遇到的坑" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-mysql-like-后缀匹配真的不会用到索引吗" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/17/springmvc-整合-swagger2-遇到的坑/" class="article-date">
-  <time datetime="2019-03-17T08:26:24.000Z" itemprop="datePublished">2019-03-17</time>
+    <a href="/2019/05/16/mysql-like-后缀匹配真的不会用到索引吗/" class="article-date">
+  <time datetime="2019-05-16T07:31:48.000Z" itemprop="datePublished">2019-05-16</time>
 </a>
     
   </div>
@@ -76,7 +76,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/17/springmvc-整合-swagger2-遇到的坑/">springmvc 整合 swagger2 遇到的坑</a>
+      <a class="article-title" href="/2019/05/16/mysql-like-后缀匹配真的不会用到索引吗/">mysql like 后缀匹配真的不会用到索引吗</a>
     </h1>
   
 
@@ -84,20 +84,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>公司最近做项目, 负责一个小组件的开发. 前端小姐姐需要我提供swagger.json 文档. 原先做过boot和swagger2整合，但是没整过 swagger.json. 其实就是swagger2框架暴露的一个以json格式描述api结构的http接口. 路径是 /v2/api-docs</p>
-<p>但是整合之后发现 swagger-ui.html 可以妥妥的访问，但是 /v2/api-docs 死活出不来.</p>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>业余草大哥问（kao）了我一个问题</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> xttblog_like (</span><br><span class="line">	<span class="keyword">ID</span> <span class="built_in">int</span> primary <span class="keyword">key</span>,</span><br><span class="line">	test_like <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="number">0</span>,</span><br><span class="line">	<span class="keyword">index</span> test_like(test_like)</span><br><span class="line">)<span class="keyword">engine</span>=<span class="keyword">InnoDB</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> xttblog_like <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'公众号：业余草'</span>),</span><br><span class="line">	(<span class="number">2</span>,<span class="string">'微信号：xttblog'</span>),</span><br><span class="line">	(<span class="number">3</span>,<span class="string">'感谢转发！'</span>),</span><br><span class="line">	(<span class="number">4</span>,<span class="string">'MySQL like'</span>),</span><br><span class="line">	(<span class="number">5</span>,<span class="string">'MySQL in'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> xttblog_like;</span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> xttblog_like <span class="keyword">WHERE</span> test_like <span class="keyword">LIKE</span> <span class="string">'y'</span>;</span><br><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> xttblog_like <span class="keyword">WHERE</span> test_like <span class="keyword">LIKE</span> <span class="string">'y%'</span>;</span><br><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> xttblog_like <span class="keyword">WHERE</span> test_like <span class="keyword">LIKE</span> <span class="string">'%y'</span>;</span><br><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> xttblog_like <span class="keyword">WHERE</span> test_like <span class="keyword">LIKE</span> <span class="string">'%y%'</span>;</span><br></pre></td></tr></table></figure>
+<p>%y 是用索引了吗? </p>
         
           <p class="article-more-link">
-            <a href="/2019/03/17/springmvc-整合-swagger2-遇到的坑/#more">Read More</a>
+            <a href="/2019/05/16/mysql-like-后缀匹配真的不会用到索引吗/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/springmvc-整合-swagger2-遇到的坑/" data-id="cjvqci0nu000aqcvm3m8l5amw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/16/mysql-like-后缀匹配真的不会用到索引吗/" data-id="cjvvnf3sf0017icvmlvcai9jc" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swagger/">swagger</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后台/">后台</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端，数据库-mysql/">后端，数据库, mysql</a></li></ul>
 
     </footer>
   </div>
@@ -106,10 +107,10 @@
 
 
   
-    <article id="post-找1到1亿中包含68的数字并打印并记录68出现的总次数" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-微信小程序demo-及一个重要的日子" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/" class="article-date">
-  <time datetime="2019-03-15T08:40:23.000Z" itemprop="datePublished">2019-03-15</time>
+    <a href="/2019/05/15/微信小程序demo-及一个重要的日子/" class="article-date">
+  <time datetime="2019-05-15T14:41:15.000Z" itemprop="datePublished">2019-05-15</time>
 </a>
     
   </div>
@@ -120,7 +121,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/">找1到1亿中包含68的数字并打印并记录68出现的总次数</a>
+      <a class="article-title" href="/2019/05/15/微信小程序demo-及一个重要的日子/">微信小程序demo 及一个重要的日子</a>
     </h1>
   
 
@@ -128,22 +129,249 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>这是我朋友面试一家公司的时候机试的题目. 题目很简单，就是求出</p>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>花了2天的时间，照着尚硅谷的小程序视频敲了一个CRUD的项目（DEMO【1】）, 算是入了个小程序的门. 感觉小程序是一个 高仿的Vue, 但是没做数据劫持. 数据的设定要反应到界面上必须要调用setData. 其他的感觉都差不多. 其实, 要是有扎实的前端功底, 上手小程序最多2天. </p>
+<p>ps: 吐槽一下,  微信开发者工具这个IDE太烂了, 代码提示做的真心不行.</p>
+<h3 id="重要的日子"><a href="#重要的日子" class="headerlink" title="重要的日子"></a>重要的日子</h3><p>今天我已经完成了第一阶段的修行——广泛的接触Javaee 中要使用的前+后端技术. 也就是说，现在如果再要我学习并使用一门技术或者框架，已经不是太难的事情，也不需要花费太长的时间. 因为基本的常识与素养都已经有了. 下面我要开启我重要的<strong>第二阶段之旅.</strong> </p>
+<p>第二阶段我的重心会重新回到<strong>后端</strong>. 毕竟我是后端工程师出身, 但是不会再将精力放在新技术、新框架的学习上. 不断的学习新框架、调用别人写好的API已经没有意义——我已经入行2.5年了.  不能继续这样吃快餐下去. 会被35岁定律淘汰以及会被后辈所diss的. 我要做一个真正有实力、受人尊敬的程序员先生.</p>
 <blockquote>
-<p>1~100000000（1亿）中68出现的总次数，例如 168068 就出现了2次68. 而且要求打印出全部包含68的数字</p>
+<p>我为我今天能有这个能力而感到骄傲. 我值得这种骄傲. 我这2.5年没有一天松懈过自己. 不断的精进, 最庆幸的是，一如既往的保持着对IT技术的浓厚兴趣.</p>
+</blockquote>
+<p>第二阶段, 以</p>
+<blockquote>
+<p>算法+源码+网络底层+数据库</p>
+</blockquote>
+<p>为核心方向. </p>
+<p>其中</p>
+<ol>
+<li>算法要重新开始刷OJ.并且要用C/C++写. </li>
+<li>源码分析的话, 以视频入手, 先看spring+mybatis（这是每个高级javaee工程师必须掌握的源码），后面研究RPC框架(dubbo、netty). </li>
+<li>网络底层研究各种开发中常见的协议. </li>
+<li>数据库重心放在mysql上. </li>
+</ol>
+<h4 id="我一定要封神"><a href="#我一定要封神" class="headerlink" title="我一定要封神!!!"></a>我一定要封神!!!</h4><h3 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h3><p>【1】<a href="https://github.com/yfsyfs/front/tree/master/mini%20program%20study" target="_blank" rel="noopener">https://github.com/yfsyfs/front/tree/master/mini%20program%20study</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/15/微信小程序demo-及一个重要的日子/" data-id="cjvvnf3sw001vicvm63r49oiv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小程序/">小程序</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-记一次因为mq连接数爆满导致异常的线上排错" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/10/记一次因为mq连接数爆满导致异常的线上排错/" class="article-date">
+  <time datetime="2019-05-10T07:22:03.000Z" itemprop="datePublished">2019-05-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/10/记一次因为mq连接数爆满导致异常的线上排错/">记一次因为mq连接数爆满导致异常的线上排错</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>现场技术支持波兄找到我,  说是页面保存保存不了. 我试了一下, 浏览器转啊转~  而且是重启服务器之后每过一段时间就会发生无法保存的现象. 于是我开始了侦查工作. </p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/10/记一次因为mq连接数爆满导致异常的线上排错/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/10/记一次因为mq连接数爆满导致异常的线上排错/" data-id="cjvvnf3st001qicvm3jlop3dg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activemq/">activemq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/抓包/">抓包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/线上问题/">线上问题</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-My-Resume" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/05/My-Resume/" class="article-date">
+  <time datetime="2019-05-05T05:09:44.000Z" itemprop="datePublished">2019-05-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/05/My-Resume/">My Resume</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="教育背景"><a href="#教育背景" class="headerlink" title="教育背景"></a>教育背景</h3>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/05/My-Resume/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/05/My-Resume/" data-id="cjvvnf3rv000ficvmt813vfls" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/简历/">简历</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-轮播图总结以及组件化思考" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/28/轮播图总结以及组件化思考/" class="article-date">
+  <time datetime="2019-04-28T08:47:43.000Z" itemprop="datePublished">2019-04-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/28/轮播图总结以及组件化思考/">轮播图总结以及组件化思考</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>近日不断的入坑vue, 然后看到了相应的mint-ui 中的轮播图组件, 进而想复习一下轮播图这个经典js对象. 讲真, 原先用原生js写过轮播图（貌似每个前端攻城狮都应该用原生js写过轮播图吧?）但是我们知道轮播图是相对而言有一些复杂的函数体. 涉及的逻辑控制较多(高手勿喷, 只针对初学者). 所以想彻底理一理, 朝着组件化思想去重构它. 遂有了本文.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/04/28/轮播图总结以及组件化思考/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/28/轮播图总结以及组件化思考/" data-id="cjvvnf3sp001jicvmgfawa5md" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原生js/">原生js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模块化/">模块化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/组件化/">组件化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/轮播图/">轮播图</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vue-学习-之-硅谷外卖" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/24/vue-学习-之-硅谷外卖/" class="article-date">
+  <time datetime="2019-04-24T06:58:40.000Z" itemprop="datePublished">2019-04-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/24/vue-学习-之-硅谷外卖/">vue 学习 之 硅谷外卖</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>因为公司项目前端技术栈由react更换成了vue, 而碰巧我参与了微信端的前后台开发, 所以最近不断的入手vue. 我毕竟是一个心怀全栈的java后端开发.  吃下了一套 尚硅谷的 vue 技术视频, 跟着讲师开发了硅谷外卖项目（就是仿制饿了么）. 此项目包括的vue技术全家桶比较全面, 涉及了vue开发H5较多的插件. 比较推荐. 如果它能完全弄懂的话, 用vue 开发一般的cms系统基本没有太大问题了.</p>
+<h3 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h3><p>【1】<a href="https://github.com/yfsyfs/front/tree/master/gshop-client" target="_blank" rel="noopener">https://github.com/yfsyfs/front/tree/master/gshop-client</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/24/vue-学习-之-硅谷外卖/" data-id="cjvvnf3sc0012icvmqh38ebdh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vue-cli-proxytable-日常踩坑之神坑-之-4000端口" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/20/vue-cli-proxytable-日常踩坑之神坑-之-4000端口/" class="article-date">
+  <time datetime="2019-04-20T12:39:42.000Z" itemprop="datePublished">2019-04-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/20/vue-cli-proxytable-日常踩坑之神坑-之-4000端口/">vue-cli proxytable 日常踩坑之神坑 之 4000端口</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>最近因为总部项目前端技术栈换成了vue而不断地入手vue. 在使用vue-cli脚手架配置本地开发跨域代理proxytable的时候死活前台无法成功调用后端RESTful接口. 而且报的错一直是</p>
+<blockquote>
+<p>502 Bad Gateway  HPE_INVALID_VERSION</p>
 </blockquote>
         
           <p class="article-more-link">
-            <a href="/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/#more">Read More</a>
+            <a href="/2019/04/20/vue-cli-proxytable-日常踩坑之神坑-之-4000端口/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/" data-id="cjvqci0p40027qcvmpaonqizi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/20/vue-cli-proxytable-日常踩坑之神坑-之-4000端口/" data-id="cjvvnf3si001cicvm5tk1roun" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
 
     </footer>
   </div>
@@ -152,10 +380,10 @@
 
 
   
-    <article id="post-Spring-LDAP-官文阅读理解-纯干货" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-jdbc-性能优化之fetch-batch" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/" class="article-date">
-  <time datetime="2019-03-08T03:56:46.000Z" itemprop="datePublished">2019-03-08</time>
+    <a href="/2019/04/19/jdbc-性能优化之fetch-batch/" class="article-date">
+  <time datetime="2019-04-18T16:02:39.000Z" itemprop="datePublished">2019-04-19</time>
 </a>
     
   </div>
@@ -166,7 +394,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/">Spring LDAP 官文阅读理解 纯干货</a>
+      <a class="article-title" href="/2019/04/19/jdbc-性能优化之fetch-batch/">jdbc 性能优化之fetch &amp; batch</a>
     </h1>
   
 
@@ -174,20 +402,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>公司项目需要使用LDAP服务, 遂研究了2天.  昨天下午想写个LDAP分页, 百度万千, 结果都是抄来抄去的不可用的代码. 感觉博客的作者自己都没弄懂Spring LDAP的API分类就瞎抄一气. 我极为光火. 遂花了一晚上阅读了Spring LDAP 2.3.2 的官方文档. 豁然开朗, 并且写了基于最新的spring-ldap2.3.2分页的demo.  关于参考文档，见【1-3】</p>
-<p>本文并不想仔细分析其中的API，其实这一点直接去看官文就很容易看懂了. 英文不好的童鞋直接看中文翻译的1-5章. 秒懂. <strong>比百度搜的抄来抄去作者都不知所谓的博文好上百倍</strong>.</p>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>朋友（下简称P）在公司经常955, 拿着三线城市8.5K/月的薪资, 让老板十分的不爽, 于是有一天, 老板交代给他一个任务, oracle11g 单表（未分表）5000w的数据.  其中一个字段是中文姓名, 然后老板希望他能新增一个字段为拼音字段,  并且这个字段的值为中文姓名的拼音. P觉得这还不简单，首先改表结构——新增一个varchar字段（下简称V）为拼音， 然后用原生jdbc拉取所有数据下来，然后遍历结果集, 然后逐条更新V字段. 逻辑异常的清晰和简单. 至于中文转拼音，既有成熟的API接口，也有丰富的本地jar包. 所以这就不是难事了. 写完开始跑, 一下子傻了眼, 大概是 <code>12秒/1w条</code> 的处理速度. 则这样算下来，约莫16小时才能搞定. 但是气人就气人在老板还安排一位17年毕业的小鲜肉也来做这个东西, 人家处理速度是 <code>5秒/1w条</code>. 老板很明显想diss一下我的这位朋友P. 于是他死扛了2天，来找我怎么扳回一局. 最后我通过使用fetch+batch参数将性能提高到了<code>0.35秒/1w条</code>. 着实帮他找回了面子.</p>
         
           <p class="article-more-link">
-            <a href="/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/#more">Read More</a>
+            <a href="/2019/04/19/jdbc-性能优化之fetch-batch/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/" data-id="cjvqci0mq0000qcvm1e68fwhh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/19/jdbc-性能优化之fetch-batch/" data-id="cjvvnf3s3000picvmehlknkkv" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
 
     </footer>
   </div>
@@ -196,10 +423,10 @@
 
 
   
-    <article id="post-从使用-ldap-想到的-jndi-机制分析" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-学习vue的成果之cms系统" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/" class="article-date">
-  <time datetime="2019-03-07T02:52:14.000Z" itemprop="datePublished">2019-03-07</time>
+    <a href="/2019/04/11/学习vue的成果之cms系统/" class="article-date">
+  <time datetime="2019-04-11T05:09:41.000Z" itemprop="datePublished">2019-04-11</time>
 </a>
     
   </div>
@@ -210,7 +437,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/">从使用 ldap 想到的 jndi 机制分析</a>
+      <a class="article-title" href="/2019/04/11/学习vue的成果之cms系统/">学习vue的成果之cms系统</a>
     </h1>
   
 
@@ -218,19 +445,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>​    最近做总部定制，一个组件开发任务. 要查询数据库，但是总部对接人说这边不提供直接数据库访问，只暴露ldap服务.  听过没用过是最令人兴奋的啦. 于是兴奋的花了一天时间了解了ldap, 并且写了ldap 的 demo（参见【1】）.  但是依旧觉得不过瘾，因为写demo的时候发现了JNDI的影子.  JNDI 最初是在学jdbc的时候，学过一种使用jndi技术将mysql数据源使用tomcat容器之类的Servlet容器管理起来. 然后在代码里面直接使用统一的JNDI API获取数据源即可. 而不论数据源是mysql数据源还是oracle数据源. 现在发现ldap、JDK内置DNS查询程序DnsContextFactory、甚至 MQ的资源都可以使用JNDI技术管理起来. 于是就产生了浓厚的兴趣想了解JDK是怎么做到的.</p>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>作为一个想吃全栈的java后端程序员, 一直认为前端已非09年之前的前端了. 正如某些前端自豪的称之为 大前端 时代的驾临. 所以我目前正沉下心来学习前端知识. 正好公司项目用到了vue.js 作为前端技术支撑. 所以学习了一下vue的知识. 并且做了一个小型的cms系统. 后端采用的是node.js. 参见Demo【1】</p>
         
           <p class="article-more-link">
-            <a href="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/#more">Read More</a>
+            <a href="/2019/04/11/学习vue的成果之cms系统/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/07/从使用-ldap-想到的-jndi-机制分析/" data-id="cjvqci0p10022qcvmg848jw5o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/11/学习vue的成果之cms系统/" data-id="cjvvnf3sq001licvmcbecjqsu" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
 
     </footer>
   </div>
@@ -239,10 +466,10 @@
 
 
   
-    <article id="post-jdk-的-URL-源码浅析" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/03/07/jdk-的-URL-源码浅析/" class="article-date">
-  <time datetime="2019-03-07T01:34:31.000Z" itemprop="datePublished">2019-03-07</time>
+    <a href="/2019/04/10/hello-world/" class="article-date">
+  <time datetime="2019-04-10T11:30:50.238Z" itemprop="datePublished">2019-04-10</time>
 </a>
     
   </div>
@@ -253,7 +480,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/07/jdk-的-URL-源码浅析/">jdk 的 URL 源码浅析</a>
+      <a class="article-title" href="/2019/04/10/hello-world/">声明</a>
     </h1>
   
 
@@ -261,282 +488,37 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>工作中遇到了ldap使用. 后来自学了一下，不可避免的遇到了jndi这个老朋友. 后来仔细一想，jndi只需要初始化一个context就可以想拿啥就拿啥了，觉得和jdk的spi机制以及java.net.URL的构造器很像. 你想啊，URL背后其实是URLConnection, 而它本身是一个抽象类, 可以根据你传入的url的scheme自动选择使用的URLConnection子类. <strong>这本质上都是类的动态加载和服务发现</strong>. 关于JDK的spi机制可以参见我写的一篇文章【1】. 关于jndi我会再写一篇文章. 最后你会发现, jndi、spi、URL 这三个东西其实用的核心思想是完全一样的.</p>
+        <ol>
+<li><p>领域包括但不限于</p>
+<p><strong>前端</strong></p>
+<p><strong>后端</strong></p>
+<p><strong>大数据</strong></p>
+<p><strong>数据结构和算法</strong></p>
+<p><strong>操作系统</strong></p>
+<p><strong>网络原理</strong></p>
+<p><strong>编译原理</strong></p>
+<p><strong>数据库理论</strong></p>
+</li>
+<li><p>力争短小精悍,用最少的话把问题讲清楚</p>
+</li>
+<li><p>每篇原创, 引用必然附上链接.</p>
+</li>
+<li><p>源码全部分享在github上</p>
+</li>
+</ol>
 <blockquote>
-<p>本质上都是为了打破父委托机制而引入的线程上下文类加载器啊!</p>
+<p>联系方式: </p>
+<p>影法師</p>
+<p>QQ 2803751415</p>
+<p>WeChat 13718955357</p>
 </blockquote>
-        
-          <p class="article-more-link">
-            <a href="/2019/03/07/jdk-的-URL-源码浅析/#more">Read More</a>
-          </p>
-        
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/07/jdk-的-URL-源码浅析/" data-id="cjvqci0nj0007qcvmfjm7txyi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/10/hello-world/" data-id="cjvvnf3rr000aicvmxtgcs5xp" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/" class="article-date">
-  <time datetime="2019-03-02T04:44:38.000Z" itemprop="datePublished">2019-03-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/">从springmvc讨厌的404说起, 谈及tomcat的servlet路径匹配规则，/* 和 / 是不一样的hexo d!</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>提起springmvc，对于很多初学者而言, 很头痛的就是404问题. 其实本质上依旧是tomcat下的servlet的路径映射问题。 毕竟，springmvc的核心前端分发器就是DispatchServlet.</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/" data-id="cjvqci0oz0020qcvmtk0u8am1" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/servlet/">servlet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JDK之SPI机制简明分析" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/28/JDK之SPI机制简明分析/" class="article-date">
-  <time datetime="2019-02-28T06:44:16.000Z" itemprop="datePublished">2019-02-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/28/JDK之SPI机制简明分析/">JDK之SPI机制简明分析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>最近在看公司代码, 发现一些公司自己封装的老框架中并没有使用spring. 而是使用了大量的XXXServiceLoader的东西. 后来google了一下，发现这是JDK本身提供的SPI（Service Provider Interface）机制. </p>
-        
-          <p class="article-more-link">
-            <a href="/2019/02/28/JDK之SPI机制简明分析/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/28/JDK之SPI机制简明分析/" data-id="cjvqci0nc0001qcvms9jj7nl7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-mapreduce程序提交job源码分析" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/20/mapreduce程序提交job源码分析/" class="article-date">
-  <time datetime="2019-02-19T22:49:27.000Z" itemprop="datePublished">2019-02-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/20/mapreduce程序提交job源码分析/">mapreduce程序提交job源码分析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>继续入门, 运行mapreduce的helloworld程序——wordcount. 运行mr程序的方式有两种</p>
-<ol>
-<li>本地模式，你导入的hadoop的jar包包括了本地模拟器</li>
-<li>集群模式, 打成（普通）jar包（未必要是可运行jar包），扔到hadoop集群上使用hadoop jar 命令运行</li>
-</ol>
-<p>这不是本文讨论的重点, 本文讨论的重点在于最后提交(job)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">job.waitForCompletion(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
-<p>本文就在于分析其提交过程</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/02/20/mapreduce程序提交job源码分析/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/" data-id="cjvqci0nn0008qcvm8ghkmbfu" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-一道sql面试题统计人数-1的记录id" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/13/一道sql面试题统计人数-1的记录id/" class="article-date">
-  <time datetime="2019-02-13T07:54:09.000Z" itemprop="datePublished">2019-02-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/13/一道sql面试题统计人数-1的记录id/">一道sql面试题统计人数&gt;1的记录id</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>朋友面试, 问我面到的题目, 哎，每次sql的问题, 其实想吧想吧都能答出来，但是如果要求你短时间，特别是面试官就站在你对面的话, 还真有点压力.</p>
-<p>题目: 如下一张表 T_PUB_MEMBER</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">PUB_ID</th>
-<th style="text-align:center">JOB_TITLE</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">采集人员</td>
-</tr>
-<tr>
-<td style="text-align:center">3</td>
-<td style="text-align:center">财务人员</td>
-</tr>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">采集人员</td>
-</tr>
-<tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center">采集人员</td>
-</tr>
-</tbody>
-</table>
-<p>要统计这张表中JOB_TITLE为<strong>采集人员</strong>的数量&gt;1的PUB_ID</p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>sql题一般都是逐步写出答案的.</p>
-<ol>
-<li><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> PUB_ID <span class="keyword">AS</span> <span class="keyword">id</span> <span class="keyword">FROM</span> T_PUB_MEMBER <span class="keyword">WHERE</span> JOB_TITLE=<span class="string">'采集人员'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> JOB_TITLE</span><br></pre></td></tr></table></figure>
-<p>得到所有JOB_TITLE为采集人员的ID列表. 将此表记做c</p>
-</li>
-<li><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> c.id <span class="keyword">FROM</span> c <span class="keyword">GROUP</span> <span class="keyword">BY</span> c.id <span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(<span class="number">1</span>)&gt;<span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>得到答案</p>
-</li>
-</ol>
-<p>综上，答案是</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> c.id <span class="keyword">FROM</span></span><br><span class="line">(<span class="keyword">SELECT</span> PUB_ID <span class="keyword">AS</span> <span class="keyword">id</span> <span class="keyword">FROM</span> T_PUB_MEMBER <span class="keyword">WHERE</span> JOB_TITLE=<span class="string">'采集人员'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> JOB_TITLE) c <span class="keyword">GROUP</span> <span class="keyword">BY</span> c.id <span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(<span class="number">1</span>)&gt;<span class="number">1</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/13/一道sql面试题统计人数-1的记录id/" data-id="cjvqci0ow001xqcvm75bvvco6" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" class="article-date">
-  <time datetime="2019-02-12T11:09:07.000Z" itemprop="datePublished">2019-02-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/">win10 java客户端连接hdfs集群报 java.io.Exception: Could not locate executable null/bin/winutils.exe in the Hadoop binaries</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>小白继续入门. 使用java客户端连接hdfs集群, 本地环境是<code>win10 Home Basic</code>.搭建好hadoop集群, 配置好HADOOP_HOME环境变量.以及PATH环境变量.  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">upload</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line">	FileSystem fs = FileSystem.get(<span class="keyword">new</span> URI(<span class="string">"hdfs://hadoop01:9000"</span>), configuration, <span class="string">"root"</span>);</span><br><span class="line">	fs.copyFromLocalFile(<span class="keyword">new</span> Path(<span class="string">"e:/hello.txt"</span>), <span class="keyword">new</span> Path(<span class="string">"/hello.txt"</span>));</span><br><span class="line">	fs.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中hadoop01是hdfs的namenode所在节点. 运行之后报错</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.io.Exception: Could not locate executable null<span class="tag">\<span class="name">bin</span></span><span class="tag">\<span class="name">winutils</span></span>.exe in the Hadoop binaries.</span><br></pre></td></tr></table></figure>
-        
-          <p class="article-more-link">
-            <a href="/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" data-id="cjvqci0o4000iqcvmrl2pid1o" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
-
     </footer>
   </div>
   
@@ -548,7 +530,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -562,7 +544,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原生js/">原生js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端，数据库-mysql/">后端，数据库, mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抓包/">抓包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简历/">简历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线上问题/">线上问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/轮播图/">轮播图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分答案/">二分答案</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原生js/">原生js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端，数据库-mysql/">后端，数据库, mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抓包/">抓包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/板子/">板子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栈/">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简历/">简历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线上问题/">线上问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/轮播图/">轮播图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归/">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
     </div>
   </div>
 
@@ -572,7 +554,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/JDK/" style="font-size: 14px;">JDK</a> <a href="/tags/LDAP/" style="font-size: 12px;">LDAP</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/gradle/" style="font-size: 12px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 12px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 12px;">hdfs</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/jdbc/" style="font-size: 12px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/springboot/" style="font-size: 12px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 12px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/vue/" style="font-size: 14px;">vue</a> <a href="/tags/前端/" style="font-size: 18px;">前端</a> <a href="/tags/动态规划/" style="font-size: 10px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 20px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/大数据/" style="font-size: 14px;">大数据</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/源码分析/" style="font-size: 16px;">源码分析</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/面试/" style="font-size: 12px;">面试</a>
+      <a href="/tags/JDK/" style="font-size: 13.33px;">JDK</a> <a href="/tags/LDAP/" style="font-size: 11.67px;">LDAP</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/gradle/" style="font-size: 11.67px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 11.67px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 11.67px;">hdfs</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/jdbc/" style="font-size: 11.67px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/springboot/" style="font-size: 11.67px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 11.67px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/vue/" style="font-size: 13.33px;">vue</a> <a href="/tags/二分查找/" style="font-size: 10px;">二分查找</a> <a href="/tags/二分答案/" style="font-size: 10px;">二分答案</a> <a href="/tags/前端/" style="font-size: 16.67px;">前端</a> <a href="/tags/动态规划/" style="font-size: 10px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 18.33px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/大数据/" style="font-size: 13.33px;">大数据</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/板子/" style="font-size: 10px;">板子</a> <a href="/tags/栈/" style="font-size: 16.67px;">栈</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/源码分析/" style="font-size: 15px;">源码分析</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/递归/" style="font-size: 11.67px;">递归</a> <a href="/tags/面试/" style="font-size: 11.67px;">面试</a>
     </div>
   </div>
 
@@ -594,23 +576,23 @@
       <ul>
         
           <li>
-            <a href="/2019/05/16/mysql-like-后缀匹配真的不会用到索引吗/">mysql like 后缀匹配真的不会用到索引吗</a>
+            <a href="/2019/05/20/二分查找模板/">二分查找模板</a>
           </li>
         
           <li>
-            <a href="/2019/05/15/微信小程序demo-及一个重要的日子/">微信小程序demo 及一个重要的日子</a>
+            <a href="/2019/05/19/归并排序/">归并排序</a>
           </li>
         
           <li>
-            <a href="/2019/05/10/记一次因为mq连接数爆满导致异常的线上排错/">记一次因为mq连接数爆满导致异常的线上排错</a>
+            <a href="/2019/05/19/插入排序/">插入排序</a>
           </li>
         
           <li>
-            <a href="/2019/05/05/My-Resume/">My Resume</a>
+            <a href="/2019/05/19/冒泡排序/">冒泡排序</a>
           </li>
         
           <li>
-            <a href="/2019/04/28/轮播图总结以及组件化思考/">轮播图总结以及组件化思考</a>
+            <a href="/2019/05/19/选择排序/">选择排序</a>
           </li>
         
       </ul>
