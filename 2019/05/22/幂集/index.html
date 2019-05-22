@@ -5,15 +5,20 @@
   
 
   
-  <title>Archives: 2019/3 | Hexo</title>
+  <title>幂集 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2019/03/index.html">
+  <meta name="description" content="缘起高一数学讲集合的时候就指出  n个元素构成的集合幂集有 2^n 个  现在的需求是将这2^n个幂集枚举出来.">
+<meta name="keywords" content="算法,教材,dfs,深搜">
+<meta property="og:type" content="article">
+<meta property="og:title" content="幂集">
+<meta property="og:url" content="http://yoursite.com/2019/05/22/幂集/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起高一数学讲集合的时候就指出  n个元素构成的集合幂集有 2^n 个  现在的需求是将这2^n个幂集枚举出来.">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-22T14:36:32.198Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="幂集">
+<meta name="twitter:description" content="缘起高一数学讲集合的时候就指出  n个元素构成的集合幂集有 2^n 个  现在的需求是将这2^n个幂集枚举出来.">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -60,135 +65,69 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/17/springmvc-整合-swagger2-遇到的坑/" class="archive-article-date">
-  <time datetime="2019-03-17T08:26:24.000Z" itemprop="datePublished">Mar 17</time>
+        <section id="main"><article id="post-幂集" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/22/幂集/" class="article-date">
+  <time datetime="2019-05-22T13:34:09.000Z" itemprop="datePublished">2019-05-22</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/17/springmvc-整合-swagger2-遇到的坑/">springmvc 整合 swagger2 遇到的坑</a>
+    <h1 class="article-title" itemprop="name">
+      幂集
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/" class="archive-article-date">
-  <time datetime="2019-03-15T08:40:23.000Z" itemprop="datePublished">Mar 15</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/">找1到1亿中包含68的数字并打印并记录68出现的总次数</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/" class="archive-article-date">
-  <time datetime="2019-03-08T03:56:46.000Z" itemprop="datePublished">Mar 8</time>
-</a>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>高一数学讲集合的时候就指出</p>
+<blockquote>
+<p>n个元素构成的集合幂集有 2^n 个</p>
+</blockquote>
+<p>现在的需求是将这2^n个幂集枚举出来.</p>
+<a id="more"></a>
+<p>一共n个元素, 每个元素有取与不取之分. 这就是典型的深搜.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> <span class="meta-keyword">warning</span>(disable:4996) <span class="comment">// 防止scanf 等不带_s的api报错</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOCAL</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_N = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,cnt; <span class="comment">// n是表示我们求的是 [1,...,n]的幂集，而cnt 表示是第几个幂集</span></span><br><span class="line"><span class="keyword">bool</span> choice[MAX_N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">powerset</span><span class="params">(<span class="keyword">int</span> i)</span> <span class="comment">// i表示决定i是否要选取</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (i==n+<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"第%d个幂集是:&#123;"</span>, ++cnt);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (choice[j])</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"&#125;\n"</span>);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	choice[i] = <span class="literal">false</span>; <span class="comment">// 不选i</span></span><br><span class="line">	powerset(i+<span class="number">1</span>);</span><br><span class="line">	choice[i] = <span class="literal">true</span>; <span class="comment">// 选i</span></span><br><span class="line">	powerset(i+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"一共"</span> &lt;&lt; <span class="built_in">pow</span>(<span class="number">2.0</span>, n) &lt;&lt; <span class="string">"个幂集"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	powerset(<span class="number">1</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/">Spring LDAP 官文阅读理解 纯干货</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/" class="archive-article-date">
-  <time datetime="2019-03-07T02:52:14.000Z" itemprop="datePublished">Mar 7</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/22/幂集/" data-id="cjvzbz0bk0000bwvmcfclkvfj" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/">从使用 ldap 想到的 jndi 机制分析</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/07/jdk-的-URL-源码浅析/" class="archive-article-date">
-  <time datetime="2019-03-07T01:34:31.000Z" itemprop="datePublished">Mar 7</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/07/jdk-的-URL-源码浅析/">jdk 的 URL 源码浅析</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dfs/">dfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深搜/">深搜</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/" class="archive-article-date">
-  <time datetime="2019-03-02T04:44:38.000Z" itemprop="datePublished">Mar 2</time>
-</a>
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/">从springmvc讨厌的404说起, 谈及tomcat的servlet路径匹配规则，/* 和 / 是不一样的hexo d!</a>
-    </h1>
+    <a href="/2019/05/22/树的双亲表示法转换为长子兄弟表示法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          树的双亲表示法转换为长子兄弟表示法
+        
+      </div>
+    </a>
   
+  
+    <a href="/2019/05/22/树的四种表示方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">树的三种表示方法</div>
+    </a>
+  
+</nav>
 
-    </header>
-  </div>
+  
 </article>
-  
-  
-    </div></section>
-  
-
 
 </section>
         
