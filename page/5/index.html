@@ -62,6 +62,49 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-从使用-ldap-想到的-jndi-机制分析" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/" class="article-date">
+  <time datetime="2019-03-07T02:52:14.000Z" itemprop="datePublished">2019-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/">从使用 ldap 想到的 jndi 机制分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>​    最近做总部定制，一个组件开发任务. 要查询数据库，但是总部对接人说这边不提供直接数据库访问，只暴露ldap服务.  听过没用过是最令人兴奋的啦. 于是兴奋的花了一天时间了解了ldap, 并且写了ldap 的 demo（参见【1】）.  但是依旧觉得不过瘾，因为写demo的时候发现了JNDI的影子.  JNDI 最初是在学jdbc的时候，学过一种使用jndi技术将mysql数据源使用tomcat容器之类的Servlet容器管理起来. 然后在代码里面直接使用统一的JNDI API获取数据源即可. 而不论数据源是mysql数据源还是oracle数据源. 现在发现ldap、JDK内置DNS查询程序DnsContextFactory、甚至 MQ的资源都可以使用JNDI技术管理起来. 于是就产生了浓厚的兴趣想了解JDK是怎么做到的.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/03/07/从使用-ldap-想到的-jndi-机制分析/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/07/从使用-ldap-想到的-jndi-机制分析/" data-id="cjvzc2y3r0013ekvme9gaayrd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-jdk-的-URL-源码浅析" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/07/jdk-的-URL-源码浅析/" class="article-date">
@@ -96,7 +139,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/07/jdk-的-URL-源码浅析/" data-id="cjvzbxqur000e10vmlcg5pq34" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/07/jdk-的-URL-源码浅析/" data-id="cjvzc2y35000fekvmzuhc9jnl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
@@ -139,7 +182,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/" data-id="cjvzbxqv3000w10vmrtenuvml" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/" data-id="cjvzc2y3q0011ekvmlor68qxl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/servlet/">servlet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li></ul>
@@ -182,7 +225,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/28/JDK之SPI机制简明分析/" data-id="cjvzbxquf000310vmcktqtujc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/28/JDK之SPI机制简明分析/" data-id="cjvzc2y2u0004ekvm7hu3s96i" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
@@ -232,7 +275,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/" data-id="cjvzbxquq000d10vm7m9d19dk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/" data-id="cjvzc2y37000gekvm6g1906b0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
@@ -309,7 +352,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/13/一道sql面试题统计人数-1的记录id/" data-id="cjvzbxquy000p10vm1f122nm9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/13/一道sql面试题统计人数-1的记录id/" data-id="cjvzc2y3g000pekvmucoiu1tv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
@@ -355,7 +398,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" data-id="cjvzbxqvv002010vmme6be0q4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" data-id="cjvzc2y3k000uekvmtb6j93f0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
@@ -419,7 +462,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" data-id="cjvzbxqv0000s10vmm16u98fs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" data-id="cjvzc2y3h000rekvm9j9kpwco" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
@@ -464,7 +507,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/" data-id="cjvzbxqul000810vm6to44j3f" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/" data-id="cjvzc2y2v0005ekvmo4o821mp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradle/">gradle</a></li></ul>
@@ -508,56 +551,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/" data-id="cjvzbxqun000a10vmuoerghy3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/" data-id="cjvzc2y2y0008ekvmwn14zb7d" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradle/">gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" class="article-date">
-  <time datetime="2019-02-05T09:21:26.000Z" itemprop="datePublished">2019-02-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/">oracle转postgresql时,使用jpa(hibernate)报错: 不良的类型值 long</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>近日, 公司要和第三方对接, 而第三方不能和我方标准接口对接, 因此只能我方定时从他们的数据库中拉取数据, 然后调用我方标准接口将数据推送到我方服务器中去. 即要实现一个中间层的功能.  </p>
-<img src="/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/1.png" title="对接说明">
-<p>这个功能的实现思路是极为简单的, 就是写一个定时任务去第三方的数据库中拉取数据就是. 而且公司原本就有定时任务的代码, 可以copy. 但是公司的数据库是oracle的, 而第三方是pg数据库, 本想都是关系型的,最多数据类型有点不一致, 微调一下就行了, 结果在使用springboot+jpa读取第三方的pg数据库的时候报错</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.postgresql.util.PSQLException: 不良的类型值 long : <span class="tag">\<span class="name">xffd</span></span>8...</span><br></pre></td></tr></table></figure>
-        
-          <p class="article-more-link">
-            <a href="/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" data-id="cjvzbxquu000i10vm2pnhqu0r" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jpa/">jpa</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oracle/">oracle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
 
     </footer>
   </div>
@@ -570,7 +567,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
   </nav>
 
 </section>
@@ -616,6 +613,10 @@
       <ul>
         
           <li>
+            <a href="/2019/05/22/有向图的强连通分支之朴素求法-利用深搜/">有向图的强连通分支之朴素求法---利用深搜</a>
+          </li>
+        
+          <li>
             <a href="/2019/05/22/树的双亲表示法转换为长子兄弟表示法/">树的双亲表示法转换为长子兄弟表示法</a>
           </li>
         
@@ -629,10 +630,6 @@
         
           <li>
             <a href="/2019/05/22/有向图的强连通分支/">有向图的强连通分支</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/22/有向图的强连通分支之Gabow算法/">有向图的强连通分支之Gabow算法</a>
           </li>
         
       </ul>
