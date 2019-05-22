@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>关键路径 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缘起 如上图所示, V1表示工程的开始, V9表示工程的结束. 其中的边表示相应的活动，而边上的数值表示活动要进行的天数. 对于上图节点的解读以V5为例. V5 表示要开始V5之后的活动（即v7和v8）的话, 需要完成V2和V3.  那么我们感兴趣的是, 完工最短要几天? 而且那一条图上的路径对应这个工期? 换言之, 图中哪条路径拖慢了整个工期. 再或者说, 哪条路径是这个工期的短板? 这条路径我">
+<meta name="keywords" content="算法,图,dfs,拓扑序,教材&#39;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关键路径">
+<meta property="og:url" content="http://yoursite.com/2019/05/21/关键路径/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起 如上图所示, V1表示工程的开始, V9表示工程的结束. 其中的边表示相应的活动，而边上的数值表示活动要进行的天数. 对于上图节点的解读以V5为例. V5 表示要开始V5之后的活动（即v7和v8）的话, 需要完成V2和V3.  那么我们感兴趣的是, 完工最短要几天? 而且那一条图上的路径对应这个工期? 换言之, 图中哪条路径拖慢了整个工期. 再或者说, 哪条路径是这个工期的短板? 这条路径我">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="c:/Users/yfs/AppData/Local/Temp/1558449081626.png">
+<meta property="og:updated_time" content="2019-05-22T05:42:03.039Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关键路径">
+<meta name="twitter:description" content="缘起 如上图所示, V1表示工程的开始, V9表示工程的结束. 其中的边表示相应的活动，而边上的数值表示活动要进行的天数. 对于上图节点的解读以V5为例. V5 表示要开始V5之后的活动（即v7和v8）的话, 需要完成V2和V3.  那么我们感兴趣的是, 完工最短要几天? 而且那一条图上的路径对应这个工期? 换言之, 图中哪条路径拖慢了整个工期. 再或者说, 哪条路径是这个工期的短板? 这条路径我">
+<meta name="twitter:image" content="c:/Users/yfs/AppData/Local/Temp/1558449081626.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-关键路径" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/21/关键路径/" class="article-date">
+  <time datetime="2019-05-21T14:24:00.000Z" itemprop="datePublished">2019-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      关键路径
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p><img src="C:\Users\yfs\AppData\Local\Temp\1558449081626.png" alt="1558449081626"></p>
+<p>如上图所示, V1表示工程的开始, V9表示工程的结束. 其中的边表示相应的活动，而边上的数值表示活动要进行的天数. 对于上图节点的解读以V5为例. V5 表示要开始V5之后的活动（即v7和v8）的话, 需要完成V2和V3.  那么我们感兴趣的是, 完工最短要几天? 而且那一条图上的路径对应这个工期? 换言之, 图中哪条路径拖慢了整个工期. 再或者说, 哪条路径是这个工期的短板? 这条路径我们把它称为关键路径. 显然, 根据目测,v1-&gt;v2-&gt;v5-&gt;v8-&gt;v9 是关键路径, 整个工期是18天.</p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>令 e[i]和l[i] 为边i的最早开始时间和最晚开始时间. e即early，l即last. 例如边 i=&lt;4,6&gt;, 则</p>
+<p>e[i] = 5; l[i] = 6</p>
+<p>即活动a6最早第五天开始（毕竟要等活动a3搞完）, 最晚第6天开始（如果再晚的话, 则到达V8就大于&gt;12天，而关键路径 V1-&gt;V3-&gt;V5-&gt;V8 是4+1+7=12，就影响了工期了）.</p>
+<p>不难知道, 关键路径上的边一定是满足 e[i]=l[i]的. 即最早开工和最晚开工时间要一致.  我们想把求e[i]和l[i]这种求边的转换为求顶点的. 令 ve[i] 是顶点i的最早发生时间, 而vl[i]是顶点i(即事件i)的最晚发生时间, </p>
+<p>令 i=&lt;j,k&gt;</p>
+<p>则</p>
+<p>e[i] = ve[j]</p>
+<p>l[i] = vl[k] - i的权重</p>
+<p>于是, 我们可以将求边的值转换为求顶点的值. 为什么要做这种转换呢? 因为求顶点的值能够更好的使用到我们的搜索算法. </p>
+<p>我们下面考虑 ve和vl怎么求. 需要使用dp</p>
+<p>ve[i] = max{ve[j]+&lt;j,i&gt;的权重}, j的取值范围是有边&lt;j,i&gt;,原因是我下一个节点的最早到达时间也一定要等之前最晚的那个</p>
+<p>vl[i] = min{vl[j]-&lt;i,j&gt;的权重}，j的取值范围是有边&lt;i,j&gt;,原因是不能再晚了, 否则，vl[j]就更晚了.</p>
+<p>注意上面的dp公式. 尤其是第一个, 表明 ve数组后一个的计算有赖于有边到它的顶点的相应值. 也就是说，计算任何一个顶点的ve值, 有一些值是必须计算的, 这不就是拓扑序吗? 而反观 vl数组的计算,  它是逆拓扑序. 所以我们必须要在拓扑序的过程中记下整个拓扑序.  或者使用dfs. 注意,为什么 ve的计算不方便使用dfs? 因为ve是根据所有入的边来计算的. 而vl 是根据所有出的边来计算的. 所以显然前者不方便使用dfs而只能使用拓扑序, 后者才方便使用dfs或者使用拓扑序.</p>
+<p>综上, 我们知道如何判定一条边是关键活动，就是</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ve[j]==vl[k] - i的权重，其中 i是从j到k的边</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> <span class="meta-keyword">warning</span>(disable:4996) <span class="comment">// 防止scanf 等不带_s的api报错</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOCAL</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX_VERTEX_NUM 10</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Graph</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">Edge</span></span></span><br><span class="line"><span class="class">	&#123;</span></span><br><span class="line">		<span class="keyword">int</span> end, weight; <span class="comment">// end是边的终点. weight是边的权重</span></span><br><span class="line">		Edge(<span class="keyword">int</span> end, <span class="keyword">int</span> weight):end(end), weight(weight)&#123;&#125;</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">vector</span>&lt;Edge&gt; vertex[MAX_VERTEX_NUM]; <span class="comment">// 顶点数组</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">typedef</span> <span class="built_in">vector</span>&lt;Edge&gt;::iterator it; <span class="comment">// 定义迭代器</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> vertexnum, cnt, ve[MAX_VERTEX_NUM], vl[MAX_VERTEX_NUM], indeg[MAX_VERTEX_NUM]; <span class="comment">// 实际的顶点个数, 实际顶点数的副本</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">stack</span>&lt;<span class="keyword">int</span>&gt; s,t; <span class="comment">// 用于维护拓扑序的两个栈</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">bool</span> isvisited[MAX_VERTEX_NUM]; <span class="comment">// 是否访问过</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> path[MAX_VERTEX_NUM]; <span class="comment">// 用于保存关键路径</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> n; <span class="comment">// 关键路径的条数</span></span><br><span class="line"></span><br><span class="line">	Graph()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">memset</span>(indeg, <span class="number">0</span>, <span class="keyword">sizeof</span>(indeg)); <span class="comment">// 初始化入度域</span></span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"请输入顶点的个数\n"</span>);</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;vertexnum);</span><br><span class="line">		cnt = vertexnum;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"请输入各边的起点、终点和权重,起点在前, 终点在后, 不同边换行"</span>);</span><br><span class="line">		<span class="keyword">int</span> start, end, weight;</span><br><span class="line">		<span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;start, &amp;end, &amp;weight))</span><br><span class="line">		&#123;</span><br><span class="line">			vertex[start].push_back(Edge(end, weight));</span><br><span class="line">			indeg[end]++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">bool</span> <span class="title">keypath</span><span class="params">()</span> <span class="comment">// 关键路径算法</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		n = <span class="number">0</span>;</span><br><span class="line">		<span class="built_in">memset</span>(isvisited, <span class="number">0</span>, <span class="keyword">sizeof</span>(isvisited));</span><br><span class="line">		<span class="built_in">memset</span>(ve,<span class="number">0</span>,<span class="keyword">sizeof</span>(ve)); <span class="comment">// 因为ve是求最大</span></span><br><span class="line">		<span class="built_in">memset</span>(vl, <span class="number">0x3f</span>, <span class="keyword">sizeof</span>(vl)); <span class="comment">// 因为 vl 是求最小</span></span><br><span class="line">		<span class="comment">// 初始化栈s</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; vertexnum;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (!indeg[i])</span><br><span class="line">			&#123;</span><br><span class="line">				ve[i] = <span class="number">0</span>; <span class="comment">// 拓扑序起点的最早开始时间是0</span></span><br><span class="line">				s.push(i);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">while</span>(!s.empty())</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> top = s.top();</span><br><span class="line">			s.pop();</span><br><span class="line">			cnt--;</span><br><span class="line">			t.push(top); <span class="comment">// 不能抛弃top, 因为计算vl依赖逆拓扑序. 而t的出栈顺序就是逆拓扑序，当然，如果你使用的是dfs求vl的话, 可以不使用t进行存储.</span></span><br><span class="line">			<span class="keyword">for</span> (it x = vertex[top].begin(); x!=vertex[top].end(); x++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (!(--indeg[x-&gt;end])) s.push(x-&gt;end);</span><br><span class="line">				ve[x-&gt;end] = max(ve[x-&gt;end], ve[top] + x-&gt;weight); <span class="comment">// 不论是否堕入0入度. 都是要更新ve[x-&gt;end]的, 因为top拓扑序位于x的前面 所以可以这样更新的, 这是ve的算法决定的</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="comment">// 此while循环结束之后, ve计算完毕.</span></span><br><span class="line">		<span class="keyword">if</span> (cnt) <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">// 说明不是dag, 算法结束</span></span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">"最短工期是"</span>&lt;&lt;ve[t.top()] &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 最短工期就是拓扑序的终点的ve值</span></span><br><span class="line">		vl[t.top()] = ve[t.top()]; <span class="comment">// 拓扑序的末端的 ve和vl的值是一样的</span></span><br><span class="line">		<span class="comment">// 开始计算vl</span></span><br><span class="line">		<span class="keyword">while</span>(!t.empty()) <span class="comment">// t弹栈的顺序是逆拓扑序</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> top = t.top();</span><br><span class="line">			t.pop();</span><br><span class="line">			<span class="keyword">for</span> (it x = vertex[top].begin(); x!=vertex[top].end(); x++) vl[top] = min(vl[top], vl[x-&gt;end] - x-&gt;weight); <span class="comment">// 这是vl的算法, 注意, 不用担心, 计算vl[top]的时候, 它需要的vl[x-&gt;end] 都存在 因为这是拓扑序决定的.</span></span><br><span class="line">		&#125; <span class="comment">// 此while循环结束后, vl计算完毕</span></span><br><span class="line">		<span class="comment">// 上面的while和下面的for 二择一, 本质上就是 使用拓扑序或者 dfs 求 vl</span></span><br><span class="line">		<span class="comment">/*for (int i = 0; i&lt; vertexnum; i++)</span></span><br><span class="line"><span class="comment">		&#123;</span></span><br><span class="line"><span class="comment">			if (!isvisited[i])</span></span><br><span class="line"><span class="comment">			&#123;</span></span><br><span class="line"><span class="comment">				isvisited[i] = true;</span></span><br><span class="line"><span class="comment">				dfs(i);</span></span><br><span class="line"><span class="comment">			&#125;</span></span><br><span class="line"><span class="comment">		&#125;*/</span></span><br><span class="line">		<span class="comment">// 扫描所有边， 根据 ve和vl 比较判定哪些是关键活动，这种办法不好, 因为会打印出</span></span><br><span class="line">		<span class="comment">/*</span></span><br><span class="line"><span class="comment">		&lt;0, 1&gt;</span></span><br><span class="line"><span class="comment">		&lt;1, 4&gt;</span></span><br><span class="line"><span class="comment">		&lt;4, 6&gt;</span></span><br><span class="line"><span class="comment">		&lt;4, 7&gt;</span></span><br><span class="line"><span class="comment">		&lt;6, 8&gt;</span></span><br><span class="line"><span class="comment">		&lt;7, 8&gt;</span></span><br><span class="line"><span class="comment">		因为有多重选择  所以下面的 for 算法不好</span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line">		<span class="comment">/*for (int i = 0;i&lt;vertexnum;i++)</span></span><br><span class="line"><span class="comment">		&#123;</span></span><br><span class="line"><span class="comment">			for (it x = vertex[i].begin(); x!=vertex[i].end(); x++)</span></span><br><span class="line"><span class="comment">			&#123;</span></span><br><span class="line"><span class="comment">				if (ve[i] == vl[x-&gt;end]-x-&gt;weight)</span></span><br><span class="line"><span class="comment">				&#123;</span></span><br><span class="line"><span class="comment">					printf("&lt;%d, %d&gt;\n", i, x-&gt;end);</span></span><br><span class="line"><span class="comment">				&#125;</span></span><br><span class="line"><span class="comment">			&#125;</span></span><br><span class="line"><span class="comment">		&#125;*/</span></span><br><span class="line">		<span class="comment">// 推荐使用下面的输出关键路径的算法</span></span><br><span class="line">		<span class="built_in">memset</span>(isvisited, <span class="number">0</span>, <span class="keyword">sizeof</span>(isvisited));</span><br><span class="line">		isvisited[<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">		path[<span class="number">0</span>] = <span class="string">'0'</span>;</span><br><span class="line">		dfs_key(<span class="number">0</span>,<span class="number">1</span>);</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">"一共"</span> &lt;&lt; n &lt;&lt; <span class="string">"条关键路径"</span> &lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> i)</span> <span class="comment">// i是当前节点</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (it x = vertex[i].begin(); x!=vertex[i].end();x++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (!isvisited[x-&gt;end])</span><br><span class="line">			&#123;</span><br><span class="line">				isvisited[x-&gt;end] = <span class="literal">true</span>;</span><br><span class="line">				dfs(x-&gt;end);</span><br><span class="line">			&#125;</span><br><span class="line">			vl[i] = min(vl[i], vl[x-&gt;end] - x-&gt;weight); <span class="comment">// 按照vl的算法</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">dfs_key</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> top)</span> <span class="comment">// i是当前节点, path[0,...top-1] 是进入此函数时的已经有的路径</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (i == <span class="number">8</span>) <span class="comment">// 这里仅仅对测试数据写了该算法, 细致一点, 应该不难一般化, 譬如这里的8 其实就是拓扑序的终点</span></span><br><span class="line">		&#123;</span><br><span class="line">			n++;</span><br><span class="line">			path[top] = <span class="number">0</span>;</span><br><span class="line">			<span class="built_in">puts</span>(path);</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (it x = vertex[i].begin(); x!=vertex[i].end(); x++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (!isvisited[x-&gt;end] &amp;&amp; vl[x-&gt;end] == ve[i]+x-&gt;weight)</span><br><span class="line">			&#123;</span><br><span class="line">				isvisited[x-&gt;end] = <span class="literal">true</span>;</span><br><span class="line">				path[top] = <span class="string">'0'</span>+x-&gt;end; </span><br><span class="line">				dfs_key(x-&gt;end, top+<span class="number">1</span>); <span class="comment">// 注意, 这里必须要用top+1 而不是 top++ 因为for循环到下一次还要用top本身 而不是 top+1</span></span><br><span class="line">				isvisited[x-&gt;end] = <span class="literal">false</span>; <span class="comment">// 改回来, 因为是搜索</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">	Graph g;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; (g.keypath()? <span class="string">"无环"</span>:<span class="string">"不是dag"</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试数据</p>
+<p>9<br>0 1 6<br>0 2 4<br>0 3 5<br>1 4 1<br>2 4 1<br>3 5 2<br>5 7 4<br>7 8 4<br>4 6 9<br>6 8 2<br>4 7 7</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/21/关键路径/" data-id="cjvyt3rm3000yxovmp0c72zon" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dfs/">dfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/拓扑序/">拓扑序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材'</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/05/21/DAG判定的除拓扑序之外的另一种方法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">DAG判定的除拓扑序之外的另一种方法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DAG/">DAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bfs/">bfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfs/">dfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分答案/">二分答案</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原生js/">原生js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端，数据库-mysql/">后端，数据库, mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图/">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/宽搜/">宽搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抓包/">抓包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓扑序/">拓扑序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓扑排序/">拓扑排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教材/">教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教材/">教材'</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/板子/">板子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栈/">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树/">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深搜/">深搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简历/">简历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线上问题/">线上问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/轮播图/">轮播图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归/">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DAG/" style="font-size: 11.43px;">DAG</a> <a href="/tags/JDK/" style="font-size: 12.86px;">JDK</a> <a href="/tags/LDAP/" style="font-size: 11.43px;">LDAP</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/bfs/" style="font-size: 10px;">bfs</a> <a href="/tags/dfs/" style="font-size: 11.43px;">dfs</a> <a href="/tags/gradle/" style="font-size: 11.43px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 11.43px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 11.43px;">hdfs</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/jdbc/" style="font-size: 11.43px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/springboot/" style="font-size: 11.43px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 11.43px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/vue/" style="font-size: 12.86px;">vue</a> <a href="/tags/二分查找/" style="font-size: 10px;">二分查找</a> <a href="/tags/二分答案/" style="font-size: 10px;">二分答案</a> <a href="/tags/二叉树/" style="font-size: 10px;">二叉树</a> <a href="/tags/前端/" style="font-size: 15.71px;">前端</a> <a href="/tags/动态规划/" style="font-size: 10px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 17.14px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/图/" style="font-size: 17.14px;">图</a> <a href="/tags/大数据/" style="font-size: 12.86px;">大数据</a> <a href="/tags/宽搜/" style="font-size: 10px;">宽搜</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/拓扑序/" style="font-size: 10px;">拓扑序</a> <a href="/tags/拓扑排序/" style="font-size: 10px;">拓扑排序</a> <a href="/tags/排序/" style="font-size: 14.29px;">排序</a> <a href="/tags/教材/" style="font-size: 18.57px;">教材</a> <a href="/tags/教材/" style="font-size: 10px;">教材'</a> <a href="/tags/板子/" style="font-size: 10px;">板子</a> <a href="/tags/栈/" style="font-size: 17.14px;">栈</a> <a href="/tags/树/" style="font-size: 10px;">树</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/深搜/" style="font-size: 10px;">深搜</a> <a href="/tags/源码分析/" style="font-size: 14.29px;">源码分析</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/递归/" style="font-size: 11.43px;">递归</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/面试/" style="font-size: 11.43px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/21/关键路径/">关键路径</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/21/DAG判定的除拓扑序之外的另一种方法/">DAG判定的除拓扑序之外的另一种方法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/21/无向图判定是否存在环/">无向图判定是否存在环</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/21/拓扑排序/">拓扑排序</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/21/图的遍历之BFS-DFS/">图的遍历之BFS&amp;DFS</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
