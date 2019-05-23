@@ -62,6 +62,93 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-关键路径" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/21/关键路径/" class="article-date">
+  <time datetime="2019-05-21T14:24:00.000Z" itemprop="datePublished">2019-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/21/关键路径/">关键路径</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><img src="/2019/05/21/关键路径/1.png" title="关键路径">
+<p>如上图所示, V1表示工程的开始, V9表示工程的结束. 其中的边表示相应的活动，而边上的数值表示活动要进行的天数. 对于上图节点的解读以V5为例. V5 表示要开始V5之后的活动（即v7和v8）的话, 需要完成V2和V3.  那么我们感兴趣的是, 完工最短要几天? 而且那一条图上的路径对应这个工期? 换言之, 图中哪条路径拖慢了整个工期. 再或者说, 哪条路径是这个工期的短板? 这条路径我们把它称为关键路径. 显然, 根据目测,v1-&gt;v2-&gt;v5-&gt;v8-&gt;v9 是关键路径, 整个工期是18天.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/21/关键路径/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/21/关键路径/" data-id="cjvzwb1fj001b2kvmascfjd63" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dfs/">dfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/拓扑序/">拓扑序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-DAG判定的除拓扑序之外的另一种方法" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/21/DAG判定的除拓扑序之外的另一种方法/" class="article-date">
+  <time datetime="2019-05-21T12:43:36.000Z" itemprop="datePublished">2019-05-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/21/DAG判定的除拓扑序之外的另一种方法/">DAG判定的除拓扑序之外的另一种方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>在参考【1】和【2】中，我们分别提出了无向图是否有环的判定和有向图是否有环的判定（亦即是否是DAG图）. 并指出了有向图是否有环和无向图是否有环的判定方法是不一样的. 因为有向图在遍历过程中边的终点有被遍历到并不能断言存在环，因为这两个顶点很可能在不同的dfs树上.  即这条边仅仅是横叉边. 但是无向图就不一样,无向图的边没有方向. 不存在存在边相连而不在一个连通分支的情形. 所以才有了另辟蹊径的拓扑序判定DAG的方法. 但是本文将介绍依旧是dfs的架子来判定有向图是否含环.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/21/DAG判定的除拓扑序之外的另一种方法/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/21/DAG判定的除拓扑序之外的另一种方法/" data-id="cjvzwb1en000i2kvm33fciztu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DAG/">DAG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-无向图判定是否存在环" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/21/无向图判定是否存在环/" class="article-date">
@@ -93,7 +180,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/21/无向图判定是否存在环/" data-id="cjvzc2y4a001sekvmo95g5zqi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/21/无向图判定是否存在环/" data-id="cjvzwb1g300272kvmgos5gzex" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -149,7 +236,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/21/拓扑排序/" data-id="cjvzc2y45001nekvm9myidvg1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/21/拓扑排序/" data-id="cjvzwb1g300252kvmz95xgxmq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DAG/">DAG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/拓扑排序/">拓扑排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -192,7 +279,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/21/图的遍历之BFS-DFS/" data-id="cjvzc2y3z001dekvmjnqgql28" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/21/图的遍历之BFS-DFS/" data-id="cjvzwb1fq001m2kvmv6djui5r" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bfs/">bfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dfs/">dfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/宽搜/">宽搜</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深搜/">深搜</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -235,7 +322,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/20/图的四种刻画方式/" data-id="cjvzc2y3x001aekvmqi2nqgfx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/20/图的四种刻画方式/" data-id="cjvzwb1fv001t2kvm2hop21o0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -310,7 +397,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/20/huffman编码/" data-id="cjvzc2y2x0007ekvmy9jm6vzu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/20/huffman编码/" data-id="cjvzwb1ee000a2kvmla63k469" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -353,7 +440,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/20/栈和队列的互相转换/" data-id="cjvzc2y4i0027ekvm0dz1urm5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/20/栈和队列的互相转换/" data-id="cjvzwb1g400282kvmcmroifgx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/栈/">栈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/队列/">队列</a></li></ul>
@@ -396,7 +483,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/20/二叉树遍历/" data-id="cjvzc2y3n000zekvmwxm3g4yf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/20/二叉树遍历/" data-id="cjvzwb1ez000u2kvmfgx1rbeb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -439,96 +526,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/20/二分查找模板/" data-id="cjvzc2y3l000wekvm26jbigvb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/20/二分查找模板/" data-id="cjvzwb1fo001j2kvmz7c4zifz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二分答案/">二分答案</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/板子/">板子</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-归并排序" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/19/归并排序/" class="article-date">
-  <time datetime="2019-05-19T14:18:57.000Z" itemprop="datePublished">2019-05-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/19/归并排序/">归并排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>邓俊辉 数据结构和算法 第三章 例子. </p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/19/归并排序/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/归并排序/" data-id="cjvzc2y42001iekvm8d0pp7yk" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-插入排序" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/19/插入排序/" class="article-date">
-  <time datetime="2019-05-19T13:51:38.000Z" itemprop="datePublished">2019-05-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/19/插入排序/">插入排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>邓俊辉 数据结构与算法(C++语言版) 第三章</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/19/插入排序/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/插入排序/" data-id="cjvzc2y4b001vekvmadi2zt29" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
 
     </footer>
   </div>
@@ -565,7 +566,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/DAG/" style="font-size: 11.25px;">DAG</a> <a href="/tags/JDK/" style="font-size: 12.5px;">JDK</a> <a href="/tags/LDAP/" style="font-size: 11.25px;">LDAP</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/bfs/" style="font-size: 10px;">bfs</a> <a href="/tags/dfs/" style="font-size: 12.5px;">dfs</a> <a href="/tags/gradle/" style="font-size: 11.25px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 11.25px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 11.25px;">hdfs</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/jdbc/" style="font-size: 11.25px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/springboot/" style="font-size: 11.25px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 11.25px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/二分查找/" style="font-size: 10px;">二分查找</a> <a href="/tags/二分答案/" style="font-size: 10px;">二分答案</a> <a href="/tags/二叉树/" style="font-size: 10px;">二叉树</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/动态规划/" style="font-size: 10px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 16.25px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/图/" style="font-size: 17.5px;">图</a> <a href="/tags/大数据/" style="font-size: 12.5px;">大数据</a> <a href="/tags/宽搜/" style="font-size: 10px;">宽搜</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/强连通分支/" style="font-size: 10px;">强连通分支</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/拓扑序/" style="font-size: 10px;">拓扑序</a> <a href="/tags/拓扑排序/" style="font-size: 10px;">拓扑排序</a> <a href="/tags/排序/" style="font-size: 13.75px;">排序</a> <a href="/tags/教材/" style="font-size: 18.75px;">教材</a> <a href="/tags/板子/" style="font-size: 10px;">板子</a> <a href="/tags/栈/" style="font-size: 16.25px;">栈</a> <a href="/tags/树/" style="font-size: 12.5px;">树</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/深搜/" style="font-size: 11.25px;">深搜</a> <a href="/tags/源码分析/" style="font-size: 13.75px;">源码分析</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/连通性/" style="font-size: 10px;">连通性</a> <a href="/tags/递归/" style="font-size: 11.25px;">递归</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/面试/" style="font-size: 11.25px;">面试</a>
+      <a href="/tags/DAG/" style="font-size: 11.25px;">DAG</a> <a href="/tags/JDK/" style="font-size: 12.5px;">JDK</a> <a href="/tags/LDAP/" style="font-size: 11.25px;">LDAP</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/bfs/" style="font-size: 10px;">bfs</a> <a href="/tags/dfs/" style="font-size: 12.5px;">dfs</a> <a href="/tags/gradle/" style="font-size: 11.25px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 11.25px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 11.25px;">hdfs</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/jdbc/" style="font-size: 11.25px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/springboot/" style="font-size: 11.25px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 11.25px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/二分查找/" style="font-size: 10px;">二分查找</a> <a href="/tags/二分答案/" style="font-size: 10px;">二分答案</a> <a href="/tags/二叉树/" style="font-size: 10px;">二叉树</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/动态规划/" style="font-size: 10px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 16.25px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/图/" style="font-size: 17.5px;">图</a> <a href="/tags/大数据/" style="font-size: 12.5px;">大数据</a> <a href="/tags/宽搜/" style="font-size: 10px;">宽搜</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/强连通分支/" style="font-size: 10px;">强连通分支</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/拓扑序/" style="font-size: 10px;">拓扑序</a> <a href="/tags/拓扑排序/" style="font-size: 10px;">拓扑排序</a> <a href="/tags/排序/" style="font-size: 13.75px;">排序</a> <a href="/tags/教材/" style="font-size: 18.75px;">教材</a> <a href="/tags/板子/" style="font-size: 10px;">板子</a> <a href="/tags/栈/" style="font-size: 16.25px;">栈</a> <a href="/tags/树/" style="font-size: 15px;">树</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/深搜/" style="font-size: 11.25px;">深搜</a> <a href="/tags/源码分析/" style="font-size: 13.75px;">源码分析</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/连通性/" style="font-size: 10px;">连通性</a> <a href="/tags/递归/" style="font-size: 11.25px;">递归</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/面试/" style="font-size: 11.25px;">面试</a>
     </div>
   </div>
 
@@ -587,6 +588,14 @@
       <ul>
         
           <li>
+            <a href="/2019/05/23/树和森林之间的转换/">树和森林之间的转换</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/23/孩子-双亲-表示法转换为长子兄弟法/">孩子(双亲)表示法转换为长子兄弟法</a>
+          </li>
+        
+          <li>
             <a href="/2019/05/22/有向图的强连通分支之朴素求法-利用深搜/">有向图的强连通分支之朴素求法---利用深搜</a>
           </li>
         
@@ -596,14 +605,6 @@
         
           <li>
             <a href="/2019/05/22/幂集/">幂集</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/22/树的四种表示方法/">树的三种表示方法</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/22/有向图的强连通分支/">有向图的强连通分支</a>
           </li>
         
       </ul>
