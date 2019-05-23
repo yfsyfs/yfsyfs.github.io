@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="缘起图的连通分支的定义是 &amp;lt;S,E&amp;gt; 是图G的子集, 如果S中任何顶点之间可以互相到达的话, 则称S是G的一个连通子集. 如果按照包含偏序关系的极大子集便是连通分支.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-22T10:01:03.387Z">
+<meta property="og:updated_time" content="2019-05-23T05:28:56.297Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="有向图的强连通分支">
 <meta name="twitter:description" content="缘起图的连通分支的定义是 &amp;lt;S,E&amp;gt; 是图G的子集, 如果S中任何顶点之间可以互相到达的话, 则称S是G的一个连通子集. 如果按照包含偏序关系的极大子集便是连通分支.">
@@ -91,14 +91,14 @@
 <p>&lt;S,E&gt; 是图G的子集, 如果S中任何顶点之间可以互相到达的话, 则称S是G的一个连通子集. 如果按照包含偏序关系的极大子集便是连通分支. </p>
 <a id="more"></a>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>对于有向图和无向图而言, 连通分支的含义是不一样的, 因为在有向图中u能到v, 则v一定能到u, 但是有向图中未必.</p>
-<p>所以有向图的连通分支又叫做强连通分支, 而有向图的连通分支就叫做连通分支.</p>
+<p>所以有向图的连通分支又叫做强连通分支, 而无向图的连通分支就叫做连通分支.</p>
 <p>无向图的连通分支是容易求的, 只需要遍历即可（不论是bfs还是dfs）.因为无向图u能到v, 则v 一定能到u. 所以只需要遍历而不需要搜索. 就代码细节而言, 就是 isvisited数组不需要改回来. 但是有向图中u 能到v, 反之v不一定能到u. 所以靠遍历是无法求出有向图的强连通分支的（因为遍历只能得到有向图单向的通路，而未必存在反向的通路）.</p>
-<p>为此，诞生了有向图强连通分支的 tarjan、kosaraju、gabow算法. 后面慢慢讲. </p>
+<p>为此，诞生了有向图强连通分支的朴素算法、tarjan、kosaraju、gabow算法. 后面慢慢讲. </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/22/有向图的强连通分支/" data-id="cjw06nsct002jnkvmv05cxhtk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/22/有向图的强连通分支/" data-id="cjw0d4j1g0087csvmcl57eydm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/强连通分支/">强连通分支</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/连通性/">连通性</a></li></ul>
@@ -172,6 +172,10 @@
       <ul>
         
           <li>
+            <a href="/2019/05/23/无向图的搜索树和森林/">无向图的搜索树和森林</a>
+          </li>
+        
+          <li>
             <a href="/2019/05/23/树和森林之间的转换/">树和森林之间的转换</a>
           </li>
         
@@ -185,10 +189,6 @@
         
           <li>
             <a href="/2019/05/22/树的双亲表示法转换为长子兄弟表示法/">树的双亲表示法转换为长子兄弟表示法</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/22/幂集/">幂集</a>
           </li>
         
       </ul>
