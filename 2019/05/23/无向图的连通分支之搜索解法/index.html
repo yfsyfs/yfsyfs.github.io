@@ -5,23 +5,20 @@
   
 
   
-  <title>上传文件到hdfs,结果50070web控制台的Availability为localhost | Hexo</title>
+  <title>无向图的连通分支之搜索解法 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缘起大数据最近入门. 3台centos虚拟机搭建了hadoop环境.  集群部署规划如下     hadoop01 hadoop02 hadoop03     HDFS namenode/datanode datanode secondarynamenode/datanode    但是上传本地文件到hdfs上去之后, 打开50070端口的hdfsのweb控制台一看  我明明有三台hadoop节点">
-<meta name="keywords" content="大数据,hadoop,hdfs">
+  <meta name="description" content="缘起无向图的连通分支定义在【1】中给出. 本文将基于搜索方法得到无向图的连通分支. 使用的搜索方法是深搜. 宽搜是一样的.">
+<meta name="keywords" content="算法,图,教材,连通分支">
 <meta property="og:type" content="article">
-<meta property="og:title" content="上传文件到hdfs,结果50070web控制台的Availability为localhost">
-<meta property="og:url" content="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/index.html">
+<meta property="og:title" content="无向图的连通分支之搜索解法">
+<meta property="og:url" content="http://yoursite.com/2019/05/23/无向图的连通分支之搜索解法/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="缘起大数据最近入门. 3台centos虚拟机搭建了hadoop环境.  集群部署规划如下     hadoop01 hadoop02 hadoop03     HDFS namenode/datanode datanode secondarynamenode/datanode    但是上传本地文件到hdfs上去之后, 打开50070端口的hdfsのweb控制台一看  我明明有三台hadoop节点">
+<meta property="og:description" content="缘起无向图的连通分支定义在【1】中给出. 本文将基于搜索方法得到无向图的连通分支. 使用的搜索方法是深搜. 宽搜是一样的.">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/1.png">
-<meta property="og:image" content="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/2.png">
-<meta property="og:updated_time" content="2019-02-11T09:47:43.646Z">
+<meta property="og:updated_time" content="2019-05-23T09:16:53.339Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="上传文件到hdfs,结果50070web控制台的Availability为localhost">
-<meta name="twitter:description" content="缘起大数据最近入门. 3台centos虚拟机搭建了hadoop环境.  集群部署规划如下     hadoop01 hadoop02 hadoop03     HDFS namenode/datanode datanode secondarynamenode/datanode    但是上传本地文件到hdfs上去之后, 打开50070端口的hdfsのweb控制台一看  我明明有三台hadoop节点">
-<meta name="twitter:image" content="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/1.png">
+<meta name="twitter:title" content="无向图的连通分支之搜索解法">
+<meta name="twitter:description" content="缘起无向图的连通分支定义在【1】中给出. 本文将基于搜索方法得到无向图的连通分支. 使用的搜索方法是深搜. 宽搜是一样的.">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -68,10 +65,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-上传文件到hdfs-结果50070web控制台的Availability为localhost" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-无向图的连通分支之搜索解法" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" class="article-date">
-  <time datetime="2019-02-11T08:07:34.000Z" itemprop="datePublished">2019-02-11</time>
+    <a href="/2019/05/23/无向图的连通分支之搜索解法/" class="article-date">
+  <time datetime="2019-05-23T08:04:23.000Z" itemprop="datePublished">2019-05-23</time>
 </a>
     
   </div>
@@ -82,7 +79,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      上传文件到hdfs,结果50070web控制台的Availability为localhost
+      无向图的连通分支之搜索解法
     </h1>
   
 
@@ -90,50 +87,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>大数据最近入门. 3台centos虚拟机搭建了hadoop环境.  集群部署规划如下</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">hadoop01</th>
-<th style="text-align:center">hadoop02</th>
-<th style="text-align:center">hadoop03</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">HDFS</td>
-<td style="text-align:center">namenode/datanode</td>
-<td style="text-align:center">datanode</td>
-<td style="text-align:center">secondarynamenode/datanode</td>
-</tr>
-</tbody>
-</table>
-<p>但是上传本地文件到hdfs上去之后, 打开50070端口的hdfsのweb控制台一看</p>
-<img src="/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/1.png" title="上传hdfs的文件的Availability异常">
-<p>我明明有三台hadoop节点, 为什么该block的副本全部在localhost?</p>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>无向图的连通分支定义在【1】中给出. 本文将基于搜索方法得到无向图的连通分支. 使用的搜索方法是深搜. 宽搜是一样的.</p>
 <a id="more"></a>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>hadoop02的日志如下</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop02 hadoop-2.7.2]# vim logs/hadoop-root-datanode-hadoop02.log </span><br><span class="line">...</span><br><span class="line">2019-02-11 16:35:52,721 INFO org.apache.hadoop.ipc.Client: Retrying connect to server: hadoop01/192.168.119.130:9000. Already tried 7 time(s); retry policy is RetryUpToMaximumCountWithFixedSleep(maxRetries=10, sleepTime=1000 MILLISECONDS)</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>日志表明, datanode节点联系不上namenode的9000端口. 百度了一波, 无非说什么防火墙没关之类的. 但是我是禁用掉了防火墙的（讲真，稍有点开发经验的人应该都不会犯这种错误或者因此水一篇博客）. 后来百度到了一篇文章, 参见参考文献【1】 . 在hadoop01上</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop01 ~]# netstat -nltp | grep 9000</span><br><span class="line">tcp        0      0 127.0.0.1:9000          0.0.0.0:*               LISTEN      9349/java</span><br></pre></td></tr></table></figure>
-<p>原来我可爱的9000端口正在127.0.0.1这个回环地址上listen呢! 那么我的datanode怎么可能访问到这个服务呢? 于是不禁要问，为什么ip是127.0.0.1，而不是hadoop01的机器的ip呢? 查看hosts记录</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop01 hadoop-2.7.2]# cat /etc/hosts</span><br><span class="line"><span class="meta">#</span>127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line">127.0.0.1 hadoop01 localhost</span><br><span class="line">192.168.119.130 hadoop01</span><br><span class="line">192.168.119.132 hadoop02</span><br><span class="line">192.168.119.133 hadoop03</span><br></pre></td></tr></table></figure>
-<p>发现第四行手贱了.</p>
-<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>修改hadoop01的/etc/hosts记录为</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop01 hadoop-2.7.2]# cat /etc/hosts</span><br><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line">192.168.119.130 hadoop01</span><br><span class="line">192.168.119.132 hadoop02</span><br><span class="line">192.168.119.133 hadoop03</span><br></pre></td></tr></table></figure>
-<p>则正常了</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@hadoop01 ~]# netstat -nltp | grep 9000</span><br><span class="line">tcp        0      0 192.168.119.130:9000    0.0.0.0:*               LISTEN      4490/java</span><br></pre></td></tr></table></figure>
-<img src="/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/2.png" title="上传hdfs的文件的Availability正常">
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://blog.csdn.net/yjc_1111/article/details/53817750" target="_blank" rel="noopener">https://blog.csdn.net/yjc_1111/article/details/53817750</a></p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> <span class="meta-keyword">warning</span>(disable:4996) <span class="comment">// 防止scanf 等不带_s的api报错</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOCAL</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_VERTEX_NUM = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Graph</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vertex[MAX_VERTEX_NUM]; <span class="comment">// 邻接链表</span></span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; cc[MAX_VERTEX_NUM]; <span class="comment">// 连通分支</span></span><br><span class="line">	<span class="keyword">int</span> n; <span class="comment">// 无向图的顶点的个数</span></span><br><span class="line"></span><br><span class="line">	Graph()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"输入顶点的个数"</span>);</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">		<span class="keyword">int</span> start, end;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"输入边,不同边换行"</span>);</span><br><span class="line">		<span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;start,&amp;end))</span><br><span class="line">		&#123;</span><br><span class="line">			vertex[start].push_back(end);</span><br><span class="line">			vertex[end].push_back(start);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> cnt; <span class="comment">// 连通分量的个数(亦即生成树的棵数)</span></span><br><span class="line">	<span class="keyword">bool</span> isvisited[MAX_VERTEX_NUM];</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">memset</span>(isvisited, <span class="number">0</span>, <span class="keyword">sizeof</span>(isvisited));</span><br><span class="line">		cnt = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;n; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (!isvisited[i])</span><br><span class="line">			&#123;</span><br><span class="line">				isvisited[i] = <span class="literal">true</span>;</span><br><span class="line">				subdfs(i);</span><br><span class="line">				cnt++;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">subdfs</span><span class="params">(<span class="keyword">int</span> cur)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		cc[cnt].push_back(cur);</span><br><span class="line">		<span class="keyword">for</span> (it x = vertex[cur].begin(); x!=vertex[cur].end(); x++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (!isvisited[*x])</span><br><span class="line">			&#123;</span><br><span class="line">				isvisited[*x] = <span class="literal">true</span>;</span><br><span class="line">				subdfs(*x);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	Graph g;</span><br><span class="line">	g.dfs();</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"一共%d个连通分支\n"</span>, g.cnt);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;g.cnt; i++) <span class="keyword">for</span> (it x = g.cc[i].begin(); x!=g.cc[i].end(); x++) <span class="built_in">cout</span> &lt;&lt; *x; <span class="comment">// 打印所有无向图的连通分支</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">测试数据</span></span><br><span class="line"><span class="comment">13</span></span><br><span class="line"><span class="comment">0 1</span></span><br><span class="line"><span class="comment">0 2</span></span><br><span class="line"><span class="comment">0 5</span></span><br><span class="line"><span class="comment">1 12</span></span><br><span class="line"><span class="comment">11 12</span></span><br><span class="line"><span class="comment">11 9</span></span><br><span class="line"><span class="comment">9 12</span></span><br><span class="line"><span class="comment">0 11</span></span><br><span class="line"><span class="comment">3 4</span></span><br><span class="line"><span class="comment">8 6</span></span><br><span class="line"><span class="comment">10 6</span></span><br><span class="line"><span class="comment">6 7</span></span><br><span class="line"><span class="comment">7 10</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/05/22/%E6%9C%89%E5%90%91%E5%9B%BE%E7%9A%84%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E6%94%AF/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/05/22/%E6%9C%89%E5%90%91%E5%9B%BE%E7%9A%84%E5%BC%BA%E8%BF%9E%E9%80%9A%E5%88%86%E6%94%AF/</a> </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" data-id="cjw0g15gg000xucvmxu980mn7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/23/无向图的连通分支之搜索解法/" data-id="cjw0g15ji005jucvmhyjqglet" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/连通分支/">连通分支</a></li></ul>
 
     </footer>
   </div>
@@ -141,19 +106,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          win10 java客户端连接hdfs集群报 java.io.Exception: Could not locate executable null/bin/winutils.exe in the Hadoop binaries
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/02/06/gradle-build和gradlew-build的区别/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/05/23/无向图的搜索树和森林/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">gradle build和gradlew build的区别</div>
+      <div class="article-nav-title">无向图的搜索树和森林</div>
     </a>
   
 </nav>
