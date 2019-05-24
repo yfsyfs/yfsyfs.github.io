@@ -62,6 +62,44 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-无向连通图的边双连通分量" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/25/无向连通图的边双连通分量/" class="article-date">
+  <time datetime="2019-05-24T19:52:00.000Z" itemprop="datePublished">2019-05-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/25/无向连通图的边双连通分量/">无向连通图的边双连通分量</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/25/无向连通图的边双连通分量/" data-id="cjw2i5ria0031r4vmvfs34yx0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-无向图的点双连通分量-又称块" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/24/无向图的点双连通分量-又称块/" class="article-date">
@@ -89,11 +127,13 @@
 <p>点连通度的意思是这个图最少删除掉多少个点可以使得图不再连通.边连通度的意思是这个图最少删掉多少条边可以使得图不再连通. </p>
 <p>点（边）连通度&gt;1的图叫做点（边）双连通图（或者叫重连通图），或者简称就是双连通图. 双连通分支（或者叫重连通分支）的概念就很明显了（双连通极大子图嘛），特别地，点双连通分支又叫做块.</p>
 <p>本文就是要给出求块的算法. 其实就是在求割点的tarjan算法的过程中顺便干点事情.</p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> <span class="meta-keyword">warning</span>(disable:4996)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOCAL</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_NUM = <span class="number">20</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x,y;</span><br><span class="line"></span><br><span class="line">	Edge(<span class="keyword">int</span> x, <span class="keyword">int</span> y):x(x),y(y)&#123;&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span> ==(Edge e) <span class="comment">//重载边的相等运算符, 即重新定义什么叫做边相等</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> e.x ==<span class="keyword">this</span>-&gt;x &amp;&amp;e.y==<span class="keyword">this</span>-&gt;y || e.x==<span class="keyword">this</span>-&gt;y&amp;&amp;e.y ==<span class="keyword">this</span>-&gt;x;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span> !=(Edge e)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> !(*<span class="keyword">this</span>==e);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"(%d, %d)"</span>, x,y);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">vector</span>&lt;Edge*&gt;::iterator ite;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator it;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Graph</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; vertex[MAX_NUM]; <span class="comment">// 邻接链表法表示图</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> index; </span><br><span class="line">	<span class="keyword">int</span> timestamp[MAX_NUM]; </span><br><span class="line">	<span class="keyword">int</span> low[MAX_NUM]; <span class="comment">// 不通过它的父亲能回到的最早时刻</span></span><br><span class="line"></span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">	<span class="built_in">stack</span>&lt;Edge*&gt; s; <span class="comment">// 边栈</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> bccnum; <span class="comment">// 块的数量</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">vector</span>&lt;Edge*&gt; bcc[MAX_NUM*(MAX_NUM<span class="number">-1</span>)&gt;&gt;<span class="number">1</span>]; <span class="comment">// 块， 注意, 块是使用边进行刻画的. 因为每个块是包含割点的, 所以使用边刻画更好</span></span><br><span class="line"></span><br><span class="line">	Graph()</span><br><span class="line">	&#123;</span><br><span class="line">		index = bccnum =  <span class="number">0</span>;</span><br><span class="line">		<span class="built_in">memset</span>(timestamp,<span class="number">0</span>,<span class="keyword">sizeof</span>(timestamp));</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"输入顶点的个数"</span>);</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"输入各边"</span>);</span><br><span class="line">		<span class="keyword">int</span> start, end;</span><br><span class="line">		<span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;start, &amp;end))</span><br><span class="line">		&#123;</span><br><span class="line">			vertex[end].push_back(start);</span><br><span class="line">			vertex[start].push_back(end);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">getbcc</span><span class="params">(<span class="keyword">int</span> cur, <span class="keyword">int</span> father)</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		timestamp[cur] = low[cur] = ++index;</span><br><span class="line">		<span class="keyword">int</span> child = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (it x = vertex[cur].begin(); x!=vertex[cur].end();x++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (!timestamp[*x])</span><br><span class="line">			&#123;</span><br><span class="line">				child++;</span><br><span class="line">				s.push(<span class="keyword">new</span> Edge(cur,*x)); <span class="comment">// 树边入栈</span></span><br><span class="line">				getbcc(*x, cur);</span><br><span class="line">				low[cur] = min(low[cur], low[*x]);</span><br><span class="line">				<span class="keyword">if</span> (low[*x]&gt;=timestamp[cur]) <span class="comment">// 注意, 这里的算法虽然基于割点, 但是也没有对根节点做特别处理, 因为就算根节点不是割点(即cur=1&amp;&amp;child=1), 出栈的时候该树边也出栈了, 所以依旧是没有问题的, 重申一下, bcc是包含割点的!</span></span><br><span class="line">				&#123;</span><br><span class="line">					Edge *tmp = <span class="keyword">new</span> Edge(cur, *x);</span><br><span class="line">					<span class="keyword">while</span>(*(s.top())!=*tmp) <span class="comment">// 这里不能使用 do...while</span></span><br><span class="line">					&#123;</span><br><span class="line">						bcc[bccnum].push_back(s.top()); <span class="comment">// 弹栈成为bcc(双连通分量)</span></span><br><span class="line">						s.pop();</span><br><span class="line">					&#125;</span><br><span class="line">					bcc[bccnum].push_back(tmp);</span><br><span class="line">					s.pop();</span><br><span class="line">					bccnum++;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (*x != father &amp;&amp; timestamp[*x]&lt;timestamp[cur]) <span class="comment">// 限定 timestamp[*x]&lt;timestamp[cur]，是因为 min(low[cur], timestamp[*x]) 在  timestamp[*x]&gt;=timestamp[cur]（注意, 其实不会等于）的情况下没有意义, 因为timestamp[cur]&gt;=low[cur]</span></span><br><span class="line">			&#123;</span><br><span class="line">				low[cur] = min(low[cur], timestamp[*x]); </span><br><span class="line">				s.push(<span class="keyword">new</span> Edge(cur, *x));  <span class="comment">// 返祖边入栈</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	Graph g;</span><br><span class="line">	g.getbcc(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"一共%d个双连通分量\n"</span>, g.bccnum);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;g.bccnum;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (ite x = g.bcc[i].begin(); x!=g.bcc[i].end(); x++)</span><br><span class="line">		&#123;</span><br><span class="line">			(*x)-&gt;print();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">测试数据(结合测试数据理解bcc算法是容易的)</span></span><br><span class="line"><span class="comment">6</span></span><br><span class="line"><span class="comment">1 4</span></span><br><span class="line"><span class="comment">1 3</span></span><br><span class="line"><span class="comment">4 2</span></span><br><span class="line"><span class="comment">3 2</span></span><br><span class="line"><span class="comment">2 5</span></span><br><span class="line"><span class="comment">5 6</span></span><br><span class="line"><span class="comment">6 2</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>而且本算法就算整个无向连通图不存在割点也是没有问题的, 因为此时 根节点为1并且根节点的child=1, 所以最后弹栈的时候, 边栈中的边就是整个无向连通图</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/24/无向图的点双连通分量-又称块/" data-id="cjw1xj33f0028i0vmdauyu2mi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/24/无向图的点双连通分量-又称块/" data-id="cjw2i5rhy002pr4vmh5t1mgau" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/连通/">连通</a></li></ul>
@@ -136,7 +176,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/24/无向连通图的割边-又称桥/" data-id="cjw1xj33q002ni0vmyk62cp52" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/24/无向连通图的割边-又称桥/" data-id="cjw2i5ri2002ur4vm8tukozbc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/连通性/">连通性</a></li></ul>
@@ -179,7 +219,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/24/无向连通图的割点/" data-id="cjw1xj33k002di0vmwcos375b" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/24/无向连通图的割点/" data-id="cjw2i5ri8002zr4vmbtres9sm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/连通/">连通</a></li></ul>
@@ -222,7 +262,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/24/Catalan数/" data-id="cjw1xj31l0000i0vmc9dg9bj9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/24/Catalan数/" data-id="cjw2i5rds0000r4vmglb3f2xg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -265,7 +305,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/24/等价类/" data-id="cjw1xj3400033i0vmnyy7bd5i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/24/等价类/" data-id="cjw2i5rjg004cr4vmf2tujqzl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并查集/">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -308,7 +348,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/24/并查集模板/" data-id="cjw1xj33d0025i0vmn5ls9dfo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/24/并查集模板/" data-id="cjw2i5rhm002fr4vmsgpg1snc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并查集/">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模板/">模板</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -351,7 +391,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/23/无向图的连通分支之搜索解法/" data-id="cjw1xj33h002ai0vmgjzned9f" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/23/无向图的连通分支之搜索解法/" data-id="cjw2i5ric0034r4vmzky7jre8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/连通分支/">连通分支</a></li></ul>
@@ -395,7 +435,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/23/无向图的搜索树和森林/" data-id="cjw1xj33c0023i0vmnb2cvk0n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/23/无向图的搜索树和森林/" data-id="cjw2i5rif0036r4vmbfumsm10" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -438,50 +478,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/23/树和森林之间的转换/" data-id="cjw1xj33x002yi0vmrx1e4vxh" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-孩子-双亲-表示法转换为长子兄弟法" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/23/孩子-双亲-表示法转换为长子兄弟法/" class="article-date">
-  <time datetime="2019-05-22T22:49:08.000Z" itemprop="datePublished">2019-05-23</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/23/孩子-双亲-表示法转换为长子兄弟法/">孩子(双亲)表示法转换为长子兄弟法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>接《树的双亲表示法转换为长子兄弟表示法》一文【1】， 我们继续将孩子表示法转化为长子兄弟法.</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/23/孩子-双亲-表示法转换为长子兄弟法/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/23/孩子-双亲-表示法转换为长子兄弟法/" data-id="cjw1xj330001ji0vmfo2apgql" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/23/树和森林之间的转换/" data-id="cjw2i5riv003qr4vm7chzvg78" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -543,6 +540,10 @@
       <ul>
         
           <li>
+            <a href="/2019/05/25/无向连通图的边双连通分量/">无向连通图的边双连通分量</a>
+          </li>
+        
+          <li>
             <a href="/2019/05/24/无向图的点双连通分量-又称块/">无向图的点双连通分量(又称块)</a>
           </li>
         
@@ -556,10 +557,6 @@
         
           <li>
             <a href="/2019/05/24/Catalan数/">Catalan数</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/24/等价类/">等价类</a>
           </li>
         
       </ul>
