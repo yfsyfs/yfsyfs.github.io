@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Catalan数 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缘起BAT面试中的算法中经常考察Catalan数. 下面研究一下">
+<meta name="keywords" content="算法,数学,教材">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Catalan数">
+<meta property="og:url" content="http://yoursite.com/2019/05/24/Catalan数/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起BAT面试中的算法中经常考察Catalan数. 下面研究一下">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-24T01:58:41.484Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Catalan数">
+<meta name="twitter:description" content="缘起BAT面试中的算法中经常考察Catalan数. 下面研究一下">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Catalan数" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/24/Catalan数/" class="article-date">
+  <time datetime="2019-05-24T01:33:19.000Z" itemprop="datePublished">2019-05-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Catalan数
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>BAT面试中的算法中经常考察Catalan数. 下面研究一下</p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>catalan数诞生的背景有如下两个</p>
+<ol>
+<li>凸多边形的三角形分割问题,即一个由n+1条边组成的凸n+1边形P(必须是凸的,否则如果是凹的话,连线都在P的外面),n-2条不相交的对角线将把P分成n-1个三角形,问不同的分割方式有多少种?算法是添加两条辅助线,设v0,…,vn是P的n+1个顶点,则对于k=1,…,n-1,添加v0vk与vnvk两条边,则P被分成P1(凸k+1边形),P2(凸n-k+1边形)以及一个三角形,则根据加法原理,设hn是P(凸n+1边形)的划分方法(n&gt;=2),则hn=\Sigma_{k=1}^{k=n-1}hk*h_{n-k}(n&gt;=2),其中h1=1(虽然h1对应与2边形没意义,但是规定h1=1可以导出正确的h2=1),构造母函数,g(x)=h1x+h2x^2+h3x^3+…(无穷级数)则g^2(x)=g(x)-x,则解出g(x)再泰勒展开,便可以得到hn=C_{n-1}</li>
+<li>n个1与n个-1组成的序列a1…,a_{2n},则满足其部分和序列全部非负的排列数目是Cn,经典的题目就是电影院找零问题.算法是反射原理,设An是满足条件的排列种数,Un是不满足条件的排列种数,则An+Un=C(n,2n),则计算Un是关键,对于不满足条件的一个序列,一定存在第一个k使得a1+..+ak=0,但是a_{k+1}=-1,那么我们就将a1,…,a_{k+1}中的-1变成1,1变成-1,但是a_{k+2},…,an不变.则序列就变成了一个含有n+1个1,n-1个-1的序列,并且这种变换是单射.反之,对于每个含有n+1个1,n-1个-1的序列,一定存在某个k使得前k个元素和为0,但是第k+1个元素是1,则将前k+1个元素-1变1,1变-1,而之后的元素不变,则得到的序列就是含有n个1,n个-1的序列,但是不满足要求.则Un=C(n+1,2n),从而An=C(n,2n)-Un=Cn.</li>
+</ol>
+<p>其中背景2是高中数学在排列组合那一章学过的著名的”电影院排队买票找零”问题. 而且它极容易变形为进栈出栈问题——n次push、n次pop，操作，没有任何一次非法. 问有几种可能. </p>
+<p>知道了catalan数的计算公式，求解就极为简单了——使用递推公式即可</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> <span class="meta-keyword">warning</span>(disable:4996)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//#define LOCAL</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"></span><br><span class="line"><span class="function">LL <span class="title">catalan</span><span class="params">(<span class="keyword">int</span> n)</span> <span class="comment">// 计算n阶catalan数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	LL ret = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&lt;=n)</span><br><span class="line">	&#123;</span><br><span class="line">		ret = (<span class="number">4</span>*i<span class="number">-2</span>)*ret/(i+<span class="number">1</span>);</span><br><span class="line">		i++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	<span class="function">ifstream <span class="title">fin</span><span class="params">(<span class="string">"d:\\data.in"</span>)</span></span>;</span><br><span class="line">	<span class="built_in">cin</span>.rdbuf(fin.rdbuf());</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="comment">// 3814986502092304</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, catalan(<span class="number">30</span>));</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/24/Catalan数/" data-id="cjw1jb2g100005cvmmx1znhsx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/05/24/等价类/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">等价类</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DAG/">DAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bfs/">bfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfs/">dfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分答案/">二分答案</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原生js/">原生js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端，数据库-mysql/">后端，数据库, mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图/">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/宽搜/">宽搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并查集/">并查集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通/">强连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通分支/">强连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抓包/">抓包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓扑序/">拓扑序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓扑排序/">拓扑排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教材/">教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有向图/">有向图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/板子/">板子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栈/">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树/">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模板/">模板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深搜/">深搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简历/">简历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线上问题/">线上问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/轮播图/">轮播图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通/">连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通分支/">连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通性/">连通性</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归/">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DAG/" style="font-size: 11.25px;">DAG</a> <a href="/tags/JDK/" style="font-size: 12.5px;">JDK</a> <a href="/tags/LDAP/" style="font-size: 11.25px;">LDAP</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/bfs/" style="font-size: 10px;">bfs</a> <a href="/tags/dfs/" style="font-size: 12.5px;">dfs</a> <a href="/tags/gradle/" style="font-size: 11.25px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 11.25px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 11.25px;">hdfs</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/jdbc/" style="font-size: 11.25px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/springboot/" style="font-size: 11.25px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 11.25px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/二分查找/" style="font-size: 10px;">二分查找</a> <a href="/tags/二分答案/" style="font-size: 10px;">二分答案</a> <a href="/tags/二叉树/" style="font-size: 10px;">二叉树</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/动态规划/" style="font-size: 10px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 16.25px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/图/" style="font-size: 17.5px;">图</a> <a href="/tags/大数据/" style="font-size: 12.5px;">大数据</a> <a href="/tags/宽搜/" style="font-size: 10px;">宽搜</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/并查集/" style="font-size: 11.25px;">并查集</a> <a href="/tags/强连通/" style="font-size: 10px;">强连通</a> <a href="/tags/强连通分支/" style="font-size: 10px;">强连通分支</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/拓扑序/" style="font-size: 10px;">拓扑序</a> <a href="/tags/拓扑排序/" style="font-size: 10px;">拓扑排序</a> <a href="/tags/排序/" style="font-size: 13.75px;">排序</a> <a href="/tags/教材/" style="font-size: 18.75px;">教材</a> <a href="/tags/数学/" style="font-size: 10px;">数学</a> <a href="/tags/有向图/" style="font-size: 10px;">有向图</a> <a href="/tags/板子/" style="font-size: 10px;">板子</a> <a href="/tags/栈/" style="font-size: 16.25px;">栈</a> <a href="/tags/树/" style="font-size: 15px;">树</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/模板/" style="font-size: 10px;">模板</a> <a href="/tags/深搜/" style="font-size: 11.25px;">深搜</a> <a href="/tags/源码分析/" style="font-size: 13.75px;">源码分析</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/连通/" style="font-size: 11.25px;">连通</a> <a href="/tags/连通分支/" style="font-size: 10px;">连通分支</a> <a href="/tags/连通性/" style="font-size: 10px;">连通性</a> <a href="/tags/递归/" style="font-size: 11.25px;">递归</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/面试/" style="font-size: 11.25px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/24/Catalan数/">Catalan数</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/等价类/">等价类</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/并查集模板/">并查集模板</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/23/无向图的连通分支之搜索解法/">无向图的连通分支之搜索解法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/23/无向图的搜索树和森林/">无向图的搜索树和森林</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
