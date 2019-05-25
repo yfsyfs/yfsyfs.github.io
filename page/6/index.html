@@ -62,6 +62,152 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-jdbc-性能优化之fetch-batch" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/19/jdbc-性能优化之fetch-batch/" class="article-date">
+  <time datetime="2019-04-18T16:02:39.000Z" itemprop="datePublished">2019-04-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/19/jdbc-性能优化之fetch-batch/">jdbc 性能优化之fetch &amp; batch</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>朋友（下简称P）在公司经常955, 拿着三线城市8.5K/月的薪资, 让老板十分的不爽, 于是有一天, 老板交代给他一个任务, oracle11g 单表（未分表）5000w的数据.  其中一个字段是中文姓名, 然后老板希望他能新增一个字段为拼音字段,  并且这个字段的值为中文姓名的拼音. P觉得这还不简单，首先改表结构——新增一个varchar字段（下简称V）为拼音， 然后用原生jdbc拉取所有数据下来，然后遍历结果集, 然后逐条更新V字段. 逻辑异常的清晰和简单. 至于中文转拼音，既有成熟的API接口，也有丰富的本地jar包. 所以这就不是难事了. 写完开始跑, 一下子傻了眼, 大概是 <code>12秒/1w条</code> 的处理速度. 则这样算下来，约莫16小时才能搞定. 但是气人就气人在老板还安排一位17年毕业的小鲜肉也来做这个东西, 人家处理速度是 <code>5秒/1w条</code>. 老板很明显想diss一下我的这位朋友P. 于是他死扛了2天，来找我怎么扳回一局. 最后我通过使用fetch+batch参数将性能提高到了<code>0.35秒/1w条</code>. 着实帮他找回了面子.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/04/19/jdbc-性能优化之fetch-batch/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/19/jdbc-性能优化之fetch-batch/" data-id="cjw2zbybo000b6ovmeimas5fz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-学习vue的成果之cms系统" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/11/学习vue的成果之cms系统/" class="article-date">
+  <time datetime="2019-04-11T05:09:41.000Z" itemprop="datePublished">2019-04-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/11/学习vue的成果之cms系统/">学习vue的成果之cms系统</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>作为一个想吃全栈的java后端程序员, 一直认为前端已非09年之前的前端了. 正如某些前端自豪的称之为 大前端 时代的驾临. 所以我目前正沉下心来学习前端知识. 正好公司项目用到了vue.js 作为前端技术支撑. 所以学习了一下vue的知识. 并且做了一个小型的cms系统. 后端采用的是node.js. 参见Demo【1】</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/04/11/学习vue的成果之cms系统/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/11/学习vue的成果之cms系统/" data-id="cjw2zbycd001j6ovme5jsi8fp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/10/hello-world/" class="article-date">
+  <time datetime="2019-04-10T11:30:50.238Z" itemprop="datePublished">2019-04-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/10/hello-world/">声明</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>领域包括但不限于</p>
+<p><strong>前端</strong></p>
+<p><strong>后端</strong></p>
+<p><strong>大数据</strong></p>
+<p><strong>数据结构和算法</strong>（个人认为, 不ac的算法就是在耍流氓）</p>
+<p><strong>操作系统</strong></p>
+<p><strong>网络原理</strong></p>
+<p><strong>编译原理</strong></p>
+<p><strong>数据库理论</strong></p>
+</li>
+<li><p>力争短小精悍,用最少的话把问题讲清楚</p>
+</li>
+<li><p>每篇原创, 引用必然附上链接.</p>
+</li>
+<li><p>源码全部分享在github上</p>
+</li>
+</ol>
+<blockquote>
+<p>联系方式: </p>
+<p>影法師</p>
+<p>QQ 2803751415</p>
+<p>WeChat 13718955357</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/10/hello-world/" data-id="cjw2zbybn000a6ovmpz6630bn" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-springmvc-整合-swagger2-遇到的坑" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/17/springmvc-整合-swagger2-遇到的坑/" class="article-date">
@@ -94,7 +240,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/springmvc-整合-swagger2-遇到的坑/" data-id="cjw2vbp3e000hy0vm1z3l13ga" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/17/springmvc-整合-swagger2-遇到的坑/" data-id="cjw2zbybu000l6ovm8pb3z7wc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swagger/">swagger</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后台/">后台</a></li></ul>
@@ -140,7 +286,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/" data-id="cjw2vbp5n005dy0vmu3l9d6jk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/" data-id="cjw2zbyec00646ovm93s239qa" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
@@ -184,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/" data-id="cjw2vbp39000by0vmbr5lwmri" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/" data-id="cjw2zbybl00076ovmoyuz5h4z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li></ul>
@@ -227,7 +373,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/07/从使用-ldap-想到的-jndi-机制分析/" data-id="cjw2vbp3o000vy0vm09qtkfru" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/07/从使用-ldap-想到的-jndi-机制分析/" data-id="cjw2zbyc500136ovmnv4k8v5h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
@@ -273,7 +419,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/07/jdk-的-URL-源码浅析/" data-id="cjw2vbp3a000cy0vmtucstydc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/07/jdk-的-URL-源码浅析/" data-id="cjw2zbybs000i6ovmzxq91fue" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
@@ -316,7 +462,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/" data-id="cjw2vbp3n000uy0vmee0u2uft" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/" data-id="cjw2zbycb001e6ovms2s3hosx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/servlet/">servlet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li></ul>
@@ -359,183 +505,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/28/JDK之SPI机制简明分析/" data-id="cjw2vbp370009y0vm021njswd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/28/JDK之SPI机制简明分析/" data-id="cjw2zbybd00016ovml619zl1j" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-mapreduce程序提交job源码分析" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/20/mapreduce程序提交job源码分析/" class="article-date">
-  <time datetime="2019-02-19T22:49:27.000Z" itemprop="datePublished">2019-02-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/20/mapreduce程序提交job源码分析/">mapreduce程序提交job源码分析</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>继续入门, 运行mapreduce的helloworld程序——wordcount. 运行mr程序的方式有两种</p>
-<ol>
-<li>本地模式，你导入的hadoop的jar包包括了本地模拟器</li>
-<li>集群模式, 打成（普通）jar包（未必要是可运行jar包），扔到hadoop集群上使用hadoop jar 命令运行</li>
-</ol>
-<p>这不是本文讨论的重点, 本文讨论的重点在于最后提交(job)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">job.waitForCompletion(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
-<p>本文就在于分析其提交过程</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/02/20/mapreduce程序提交job源码分析/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/" data-id="cjw2vbp3b000ey0vmvd1a5ljx" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-一道sql面试题统计人数-1的记录id" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/13/一道sql面试题统计人数-1的记录id/" class="article-date">
-  <time datetime="2019-02-13T07:54:09.000Z" itemprop="datePublished">2019-02-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/13/一道sql面试题统计人数-1的记录id/">一道sql面试题统计人数&gt;1的记录id</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>朋友面试, 问我面到的题目, 哎，每次sql的问题, 其实想吧想吧都能答出来，但是如果要求你短时间，特别是面试官就站在你对面的话, 还真有点压力.</p>
-<p>题目: 如下一张表 T_PUB_MEMBER</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">PUB_ID</th>
-<th style="text-align:center">JOB_TITLE</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">采集人员</td>
-</tr>
-<tr>
-<td style="text-align:center">3</td>
-<td style="text-align:center">财务人员</td>
-</tr>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">采集人员</td>
-</tr>
-<tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center">采集人员</td>
-</tr>
-</tbody>
-</table>
-<p>要统计这张表中JOB_TITLE为<strong>采集人员</strong>的数量&gt;1的PUB_ID</p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>sql题一般都是逐步写出答案的.</p>
-<ol>
-<li><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> PUB_ID <span class="keyword">AS</span> <span class="keyword">id</span> <span class="keyword">FROM</span> T_PUB_MEMBER <span class="keyword">WHERE</span> JOB_TITLE=<span class="string">'采集人员'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> JOB_TITLE</span><br></pre></td></tr></table></figure>
-<p>得到所有JOB_TITLE为采集人员的ID列表. 将此表记做c</p>
-</li>
-<li><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> c.id <span class="keyword">FROM</span> c <span class="keyword">GROUP</span> <span class="keyword">BY</span> c.id <span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(<span class="number">1</span>)&gt;<span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>得到答案</p>
-</li>
-</ol>
-<p>综上，答案是</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> c.id <span class="keyword">FROM</span></span><br><span class="line">(<span class="keyword">SELECT</span> PUB_ID <span class="keyword">AS</span> <span class="keyword">id</span> <span class="keyword">FROM</span> T_PUB_MEMBER <span class="keyword">WHERE</span> JOB_TITLE=<span class="string">'采集人员'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> JOB_TITLE) c <span class="keyword">GROUP</span> <span class="keyword">BY</span> c.id <span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(<span class="number">1</span>)&gt;<span class="number">1</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/13/一道sql面试题统计人数-1的记录id/" data-id="cjw2vbp3i000my0vmo9yd2erg" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" class="article-date">
-  <time datetime="2019-02-12T11:09:07.000Z" itemprop="datePublished">2019-02-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/">win10 java客户端连接hdfs集群报 java.io.Exception: Could not locate executable null/bin/winutils.exe in the Hadoop binaries</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>小白继续入门. 使用java客户端连接hdfs集群, 本地环境是<code>win10 Home Basic</code>.搭建好hadoop集群, 配置好HADOOP_HOME环境变量.以及PATH环境变量.  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">upload</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line">	FileSystem fs = FileSystem.get(<span class="keyword">new</span> URI(<span class="string">"hdfs://hadoop01:9000"</span>), configuration, <span class="string">"root"</span>);</span><br><span class="line">	fs.copyFromLocalFile(<span class="keyword">new</span> Path(<span class="string">"e:/hello.txt"</span>), <span class="keyword">new</span> Path(<span class="string">"/hello.txt"</span>));</span><br><span class="line">	fs.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中hadoop01是hdfs的namenode所在节点. 运行之后报错</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.io.Exception: Could not locate executable null<span class="tag">\<span class="name">bin</span></span><span class="tag">\<span class="name">winutils</span></span>.exe in the Hadoop binaries.</span><br></pre></td></tr></table></figure>
-        
-          <p class="article-more-link">
-            <a href="/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" data-id="cjw2vbp3j000oy0vmtdiul1hw" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
 
     </footer>
   </div>
@@ -572,7 +545,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/DAG/" style="font-size: 11.25px;">DAG</a> <a href="/tags/JDK/" style="font-size: 12.5px;">JDK</a> <a href="/tags/LDAP/" style="font-size: 11.25px;">LDAP</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/bfs/" style="font-size: 10px;">bfs</a> <a href="/tags/dfs/" style="font-size: 12.5px;">dfs</a> <a href="/tags/gradle/" style="font-size: 11.25px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 11.25px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 11.25px;">hdfs</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/jdbc/" style="font-size: 11.25px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/springboot/" style="font-size: 11.25px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 11.25px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/二分查找/" style="font-size: 10px;">二分查找</a> <a href="/tags/二分答案/" style="font-size: 10px;">二分答案</a> <a href="/tags/二叉树/" style="font-size: 10px;">二叉树</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/动态规划/" style="font-size: 10px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 16.25px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/图/" style="font-size: 17.5px;">图</a> <a href="/tags/大数据/" style="font-size: 12.5px;">大数据</a> <a href="/tags/宽搜/" style="font-size: 10px;">宽搜</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/并查集/" style="font-size: 12.5px;">并查集</a> <a href="/tags/强连通/" style="font-size: 11.25px;">强连通</a> <a href="/tags/强连通分支/" style="font-size: 10px;">强连通分支</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/拓扑序/" style="font-size: 10px;">拓扑序</a> <a href="/tags/拓扑排序/" style="font-size: 10px;">拓扑排序</a> <a href="/tags/排序/" style="font-size: 13.75px;">排序</a> <a href="/tags/教材/" style="font-size: 18.75px;">教材</a> <a href="/tags/数学/" style="font-size: 10px;">数学</a> <a href="/tags/有向图/" style="font-size: 10px;">有向图</a> <a href="/tags/板子/" style="font-size: 10px;">板子</a> <a href="/tags/栈/" style="font-size: 16.25px;">栈</a> <a href="/tags/树/" style="font-size: 15px;">树</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/模板/" style="font-size: 10px;">模板</a> <a href="/tags/深搜/" style="font-size: 11.25px;">深搜</a> <a href="/tags/源码分析/" style="font-size: 13.75px;">源码分析</a> <a href="/tags/生成树/" style="font-size: 11.25px;">生成树</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/贪心/" style="font-size: 10px;">贪心</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/连通/" style="font-size: 13.75px;">连通</a> <a href="/tags/连通分支/" style="font-size: 10px;">连通分支</a> <a href="/tags/连通性/" style="font-size: 15px;">连通性</a> <a href="/tags/递归/" style="font-size: 11.25px;">递归</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/面试/" style="font-size: 11.25px;">面试</a>
+      <a href="/tags/DAG/" style="font-size: 11.25px;">DAG</a> <a href="/tags/JDK/" style="font-size: 12.5px;">JDK</a> <a href="/tags/LDAP/" style="font-size: 11.25px;">LDAP</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/bfs/" style="font-size: 10px;">bfs</a> <a href="/tags/dfs/" style="font-size: 12.5px;">dfs</a> <a href="/tags/gradle/" style="font-size: 11.25px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 11.25px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 11.25px;">hdfs</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/jdbc/" style="font-size: 11.25px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/springboot/" style="font-size: 11.25px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 11.25px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/二分查找/" style="font-size: 10px;">二分查找</a> <a href="/tags/二分答案/" style="font-size: 10px;">二分答案</a> <a href="/tags/二叉树/" style="font-size: 10px;">二叉树</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/动态规划/" style="font-size: 10px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 16.25px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/图/" style="font-size: 17.5px;">图</a> <a href="/tags/大数据/" style="font-size: 12.5px;">大数据</a> <a href="/tags/宽搜/" style="font-size: 10px;">宽搜</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/并查集/" style="font-size: 12.5px;">并查集</a> <a href="/tags/强连通/" style="font-size: 11.25px;">强连通</a> <a href="/tags/强连通分支/" style="font-size: 10px;">强连通分支</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/拓扑序/" style="font-size: 10px;">拓扑序</a> <a href="/tags/拓扑排序/" style="font-size: 10px;">拓扑排序</a> <a href="/tags/排序/" style="font-size: 16.25px;">排序</a> <a href="/tags/教材/" style="font-size: 18.75px;">教材</a> <a href="/tags/数学/" style="font-size: 10px;">数学</a> <a href="/tags/有向图/" style="font-size: 10px;">有向图</a> <a href="/tags/板子/" style="font-size: 10px;">板子</a> <a href="/tags/栈/" style="font-size: 16.25px;">栈</a> <a href="/tags/树/" style="font-size: 15px;">树</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/模板/" style="font-size: 11.25px;">模板</a> <a href="/tags/深搜/" style="font-size: 11.25px;">深搜</a> <a href="/tags/源码分析/" style="font-size: 13.75px;">源码分析</a> <a href="/tags/生成树/" style="font-size: 11.25px;">生成树</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/贪心/" style="font-size: 10px;">贪心</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/连通/" style="font-size: 13.75px;">连通</a> <a href="/tags/连通分支/" style="font-size: 10px;">连通分支</a> <a href="/tags/连通性/" style="font-size: 15px;">连通性</a> <a href="/tags/递归/" style="font-size: 11.25px;">递归</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/面试/" style="font-size: 11.25px;">面试</a>
     </div>
   </div>
 
@@ -594,23 +567,23 @@
       <ul>
         
           <li>
+            <a href="/2019/05/25/交换两个数/">交换两个数</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/25/洗牌算法/">洗牌算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/25/快速排序/">快速排序</a>
+          </li>
+        
+          <li>
             <a href="/2019/05/25/无向连通图的最小生成树-MST-之Kruskal算法/">无向连通图的最小生成树(MST)之Kruskal算法</a>
           </li>
         
           <li>
             <a href="/2019/05/25/无向连通图的最小生成树之Prim算法/">无向连通图的最小生成树之Prim算法</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/25/无向连通图的边双连通分量/">无向连通图的边双连通分量</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/24/无向图的点双连通分量-又称块/">无向图的点双连通分量(又称块)</a>
-          </li>
-        
-          <li>
-            <a href="/2019/05/24/无向连通图的割边-又称桥/">无向连通图的割边(又称桥)</a>
           </li>
         
       </ul>
