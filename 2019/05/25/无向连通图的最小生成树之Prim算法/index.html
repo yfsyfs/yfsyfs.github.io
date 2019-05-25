@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>无向连通图的最小生成树之Prim算法 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缘起【1】中我们引进了无向连通图的生成树的概念.  这里 将介绍最小生成树（MST minimal spanning tree）的概念. 即【1】中介绍的是无向连通图, 而本文准确的说, 介绍的是无向连通网——即在无向生成图的前提下，边是带权重的.  要求出所有生成树中边的权重之和最小的那棵生成树, 就是MST. MST在现实世界显然是有意义的, 例如整个城市要铺设网线, 打通各个城区, 但是两个">
+<meta name="keywords" content="算法,教材,图,生成树,连通性,贪心">
+<meta property="og:type" content="article">
+<meta property="og:title" content="无向连通图的最小生成树之Prim算法">
+<meta property="og:url" content="http://yoursite.com/2019/05/25/无向连通图的最小生成树之Prim算法/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起【1】中我们引进了无向连通图的生成树的概念.  这里 将介绍最小生成树（MST minimal spanning tree）的概念. 即【1】中介绍的是无向连通图, 而本文准确的说, 介绍的是无向连通网——即在无向生成图的前提下，边是带权重的.  要求出所有生成树中边的权重之和最小的那棵生成树, 就是MST. MST在现实世界显然是有意义的, 例如整个城市要铺设网线, 打通各个城区, 但是两个">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-25T01:58:37.439Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="无向连通图的最小生成树之Prim算法">
+<meta name="twitter:description" content="缘起【1】中我们引进了无向连通图的生成树的概念.  这里 将介绍最小生成树（MST minimal spanning tree）的概念. 即【1】中介绍的是无向连通图, 而本文准确的说, 介绍的是无向连通网——即在无向生成图的前提下，边是带权重的.  要求出所有生成树中边的权重之和最小的那棵生成树, 就是MST. MST在现实世界显然是有意义的, 例如整个城市要铺设网线, 打通各个城区, 但是两个">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-无向连通图的最小生成树之Prim算法" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/25/无向连通图的最小生成树之Prim算法/" class="article-date">
+  <time datetime="2019-05-24T23:24:39.000Z" itemprop="datePublished">2019-05-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      无向连通图的最小生成树之Prim算法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>【1】中我们引进了无向连通图的生成树的概念.  这里</p>
+<p>将介绍最小生成树（MST minimal spanning tree）的概念. 即【1】中介绍的是无向连通图, 而本文准确的说, 介绍的是无向连通网——即在无向生成图的前提下，边是带权重的.  要求出所有生成树中边的权重之和最小的那棵生成树, 就是MST. MST在现实世界显然是有意义的, 例如整个城市要铺设网线, 打通各个城区, 但是两个城市之间铺设光缆的成本是不一样的. 这就是MST大显身手的舞台.</p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>显然, 从任意一个顶点出发，通过dfs搜索（而不是遍历，即isvisited是要改回来的）可以遍历所有的搜索树, 从中取得权重这和最小的就是MST. 这种蛮力算法显然是时间复杂度无法承受的.时间复杂度高达O(n^n), 所以有了如下基于贪心的Prim算法.</p>
+<p>Prim算法思考的角度类似于最短路径的dijkstra算法. Prim算法要做的事情就是从任意选取一个顶点出发（随便选, 反正这个点最后是要被加进来的），以最小的代价扩张到整个点集合. 每次扩张仅仅一个点. 那么问题来了, 这个点怎么选? 其实换个角度来看待MST, 令U是已经加入MST的点集, V是尚未加入MST的点集, 则每次扩张的时候, 就是从V中选取一个点加入到U中去. 而选哪个点呢? 当然是选取V中到集合U中最近的那个点. 这就是贪心. 所以为了能快速选取出到U最近的那个点.  我们必须对每个顶点维护其到集合U的距离. 注意, U和V都是在不断变化的, 其中U在不断壮大, V在不断缩小. （因为每次都是从V中选取一个点加入到U中, U伊始只有一个点，就是你伊始任意选取的那个点）. 所以Prim算法的复杂度是O(N^2), 但是因为每次选取到U距离最短的点都是基于比较, 所以根据CBA（comparison-based-algorithm）理论, Prim算法是可以优化到O(NlogN)的，这个后面加入了堆优化再讲. </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> <span class="meta-keyword">warning</span>(disable:4996)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOCAL</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_NUM = <span class="number">20</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Graph</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="keyword">int</span> adj[MAX_NUM][MAX_NUM]; <span class="comment">// 邻接矩阵表示法</span></span><br><span class="line">	<span class="keyword">int</span> u; <span class="comment">// 目前尚未加入MST的点（令集合为V）的个数，已经加入MST的顶点集合令为U</span></span><br><span class="line">	<span class="keyword">int</span> distance[MAX_NUM]; <span class="comment">// V中顶点到U的距离数组</span></span><br><span class="line">	<span class="keyword">bool</span> isIn[MAX_NUM];<span class="comment">// 是否已经加入到MST中去</span></span><br><span class="line">	<span class="keyword">int</span> neighbor[MAX_NUM]; <span class="comment">// neighbor[i] = j 表示是j将i拉入U中去的. 这个数组的作用是确定最后MST由哪些边组成</span></span><br><span class="line"></span><br><span class="line">	Graph()</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">memset</span>(adj, <span class="number">0x3f</span>, <span class="keyword">sizeof</span>(adj)); <span class="comment">// 全部最大</span></span><br><span class="line">		<span class="built_in">memset</span>(isIn, <span class="number">0</span>,<span class="keyword">sizeof</span>(isIn));</span><br><span class="line">		u = <span class="number">1</span>; <span class="comment">// 伊始只有一个顶点加入MST, 就是1这个顶点</span></span><br><span class="line">		isIn[<span class="number">1</span>] = <span class="literal">true</span>; <span class="comment">// 1这个顶点在MST中</span></span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"输入顶点的个数"</span>);</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"输入各边及其权重"</span>);</span><br><span class="line">		<span class="keyword">int</span> x,y,w;</span><br><span class="line">		<span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;x, &amp;y, &amp;w)) adj[x][y] = adj[y][x] = w;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i&lt;=n; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			distance[i] = adj[<span class="number">1</span>][i]; <span class="comment">// 初始化V到U的距离</span></span><br><span class="line">			neighbor[i] = <span class="number">1</span>; <span class="comment">// 伊始都是1将其拉入MST</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">prim</span><span class="params">()</span> <span class="comment">// prim算法得到MST，算法用到了2个选择排序, 这就是堆优化的契机</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">int</span> cost = <span class="number">0</span>; <span class="comment">// 总花销</span></span><br><span class="line">		<span class="keyword">int</span> m = n<span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">while</span>(m--) <span class="comment">// 每次拉进一个点入MST</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> _min = <span class="number">0</span>; <span class="comment">// 选择拉谁入MST</span></span><br><span class="line">			<span class="keyword">int</span> mindistance = INF;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i&lt;=n;i++) <span class="keyword">if</span> (!isIn[i] &amp;&amp; mindistance&gt;distance[i]) mindistance = distance[_min = i];</span><br><span class="line">			isIn[_min] = <span class="literal">true</span>; <span class="comment">// _min 加入MST</span></span><br><span class="line">			cost += mindistance;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i&lt;=n;i++)  <span class="comment">// 最后发现还是要把 _min 拉入MST , 然后来更新distance, 以及决定neighbor</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (!isIn[i] &amp;&amp; distance[i] &gt; adj[i][_min])</span><br><span class="line">				&#123;</span><br><span class="line">					distance[i] = adj[i][_min];</span><br><span class="line">					neighbor[i] = _min;  <span class="comment">// 更新neighbor</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"MST如下"</span>);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i&lt;=n; i++) <span class="built_in">printf</span>(<span class="string">"(%d,%d)\n"</span>, i, neighbor[i]);</span><br><span class="line">		<span class="keyword">return</span> cost;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	Graph g;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"MST总花销为%d\n"</span>,g.prim());</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">测试数据</span></span><br><span class="line"><span class="comment">6</span></span><br><span class="line"><span class="comment">3 1 1</span></span><br><span class="line"><span class="comment">3 2 5</span></span><br><span class="line"><span class="comment">3 4 5</span></span><br><span class="line"><span class="comment">3 5 6</span></span><br><span class="line"><span class="comment">3 6 4</span></span><br><span class="line"><span class="comment">1 2 6</span></span><br><span class="line"><span class="comment">2 5 3</span></span><br><span class="line"><span class="comment">5 6 6</span></span><br><span class="line"><span class="comment">6 4 2</span></span><br><span class="line"><span class="comment">1 4 5</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>上面的算法比较tricky的地方在于, 按照前面所述的思路, 理应确定了_min 之后,  就应该确定是谁拉_min 入MST的, 但是除了1之外第一个入MST的点一定是1拉他入伙的. 其次, 所有的点反正都是要入MST的, 所以更新neighbor就放到了算法的后半部分(即第二个for). 这是没毛病的.</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/05/23/%E6%97%A0%E5%90%91%E5%9B%BE%E7%9A%84%E6%90%9C%E7%B4%A2%E6%A0%91%E5%92%8C%E6%A3%AE%E6%9E%97/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/05/23/%E6%97%A0%E5%90%91%E5%9B%BE%E7%9A%84%E6%90%9C%E7%B4%A2%E6%A0%91%E5%92%8C%E6%A3%AE%E6%9E%97/</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/25/无向连通图的最小生成树之Prim算法/" data-id="cjw2vbp61005zy0vmbt37mrze" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/生成树/">生成树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/贪心/">贪心</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/连通性/">连通性</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/05/25/无向连通图的最小生成树-MST-之Kruskal算法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          无向连通图的最小生成树(MST)之Kruskal算法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/05/25/无向连通图的边双连通分量/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">无向连通图的边双连通分量</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/DAG/">DAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bfs/">bfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfs/">dfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分答案/">二分答案</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原生js/">原生js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端，数据库-mysql/">后端，数据库, mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图/">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/宽搜/">宽搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并查集/">并查集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通/">强连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通分支/">强连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抓包/">抓包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓扑序/">拓扑序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓扑排序/">拓扑排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教材/">教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有向图/">有向图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/板子/">板子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栈/">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树/">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模板/">模板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深搜/">深搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生成树/">生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简历/">简历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线上问题/">线上问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心/">贪心</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/轮播图/">轮播图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通/">连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通分支/">连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通性/">连通性</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归/">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/DAG/" style="font-size: 11.25px;">DAG</a> <a href="/tags/JDK/" style="font-size: 12.5px;">JDK</a> <a href="/tags/LDAP/" style="font-size: 11.25px;">LDAP</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/bfs/" style="font-size: 10px;">bfs</a> <a href="/tags/dfs/" style="font-size: 12.5px;">dfs</a> <a href="/tags/gradle/" style="font-size: 11.25px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 11.25px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 11.25px;">hdfs</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/jdbc/" style="font-size: 11.25px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/springboot/" style="font-size: 11.25px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 11.25px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/vue/" style="font-size: 12.5px;">vue</a> <a href="/tags/二分查找/" style="font-size: 10px;">二分查找</a> <a href="/tags/二分答案/" style="font-size: 10px;">二分答案</a> <a href="/tags/二叉树/" style="font-size: 10px;">二叉树</a> <a href="/tags/前端/" style="font-size: 15px;">前端</a> <a href="/tags/动态规划/" style="font-size: 10px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 16.25px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/图/" style="font-size: 17.5px;">图</a> <a href="/tags/大数据/" style="font-size: 12.5px;">大数据</a> <a href="/tags/宽搜/" style="font-size: 10px;">宽搜</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/并查集/" style="font-size: 12.5px;">并查集</a> <a href="/tags/强连通/" style="font-size: 11.25px;">强连通</a> <a href="/tags/强连通分支/" style="font-size: 10px;">强连通分支</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/拓扑序/" style="font-size: 10px;">拓扑序</a> <a href="/tags/拓扑排序/" style="font-size: 10px;">拓扑排序</a> <a href="/tags/排序/" style="font-size: 13.75px;">排序</a> <a href="/tags/教材/" style="font-size: 18.75px;">教材</a> <a href="/tags/数学/" style="font-size: 10px;">数学</a> <a href="/tags/有向图/" style="font-size: 10px;">有向图</a> <a href="/tags/板子/" style="font-size: 10px;">板子</a> <a href="/tags/栈/" style="font-size: 16.25px;">栈</a> <a href="/tags/树/" style="font-size: 15px;">树</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/模板/" style="font-size: 10px;">模板</a> <a href="/tags/深搜/" style="font-size: 11.25px;">深搜</a> <a href="/tags/源码分析/" style="font-size: 13.75px;">源码分析</a> <a href="/tags/生成树/" style="font-size: 11.25px;">生成树</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/贪心/" style="font-size: 10px;">贪心</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/连通/" style="font-size: 13.75px;">连通</a> <a href="/tags/连通分支/" style="font-size: 10px;">连通分支</a> <a href="/tags/连通性/" style="font-size: 15px;">连通性</a> <a href="/tags/递归/" style="font-size: 11.25px;">递归</a> <a href="/tags/队列/" style="font-size: 10px;">队列</a> <a href="/tags/面试/" style="font-size: 11.25px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/05/25/无向连通图的最小生成树-MST-之Kruskal算法/">无向连通图的最小生成树(MST)之Kruskal算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/25/无向连通图的最小生成树之Prim算法/">无向连通图的最小生成树之Prim算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/25/无向连通图的边双连通分量/">无向连通图的边双连通分量</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/无向图的点双连通分量-又称块/">无向图的点双连通分量(又称块)</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/无向连通图的割边-又称桥/">无向连通图的割边(又称桥)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
