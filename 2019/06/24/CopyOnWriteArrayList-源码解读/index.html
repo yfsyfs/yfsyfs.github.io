@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>CopyOnWriteArrayList 源码解读 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缘起CopyOnWriteArrayList（下简称COW） 是常见的线程安全的集合类. 它的源码是比较好读的—— 从它的源码你也知道为什么它的名字会是”写时复制”，其实这里所谓的”写时”指的是”增删改”.  其基本思路是，从一开始大家都在共享同一个内容，当某个人想要修改这个内容的时候，才会加（可重入）锁然后把原内容 Copy 出去形成一个新的内容然后再改，从而不影响别的线程读（读操作不加锁, 所">
+<meta name="keywords" content="源码,后端,JDK,并发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CopyOnWriteArrayList 源码解读">
+<meta property="og:url" content="http://yoursite.com/2019/06/24/CopyOnWriteArrayList-源码解读/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起CopyOnWriteArrayList（下简称COW） 是常见的线程安全的集合类. 它的源码是比较好读的—— 从它的源码你也知道为什么它的名字会是”写时复制”，其实这里所谓的”写时”指的是”增删改”.  其基本思路是，从一开始大家都在共享同一个内容，当某个人想要修改这个内容的时候，才会加（可重入）锁然后把原内容 Copy 出去形成一个新的内容然后再改，从而不影响别的线程读（读操作不加锁, 所">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-24T14:19:48.750Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CopyOnWriteArrayList 源码解读">
+<meta name="twitter:description" content="缘起CopyOnWriteArrayList（下简称COW） 是常见的线程安全的集合类. 它的源码是比较好读的—— 从它的源码你也知道为什么它的名字会是”写时复制”，其实这里所谓的”写时”指的是”增删改”.  其基本思路是，从一开始大家都在共享同一个内容，当某个人想要修改这个内容的时候，才会加（可重入）锁然后把原内容 Copy 出去形成一个新的内容然后再改，从而不影响别的线程读（读操作不加锁, 所">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-CopyOnWriteArrayList-源码解读" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/24/CopyOnWriteArrayList-源码解读/" class="article-date">
+  <time datetime="2019-06-24T09:41:34.000Z" itemprop="datePublished">2019-06-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CopyOnWriteArrayList 源码解读
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>CopyOnWriteArrayList（下简称COW） 是常见的线程安全的集合类. 它的源码是比较好读的—— 从它的源码你也知道为什么它的名字会是”写时复制”，其实这里所谓的”写时”指的是”增删改”.  其基本思路是，从一开始大家都在共享同一个内容，当某个人想要修改这个内容的时候，才会加（可重入）锁然后把原内容 Copy 出去形成一个新的内容然后再改，从而不影响别的线程读（读操作不加锁, 所以提高了效率,支持并发读）. 所以也可以说COW借鉴了读写分离(读的和写的数据不是同一个)的思想.</p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>增</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> ReentrantLock lock = <span class="keyword">this</span>.lock;</span><br><span class="line">        lock.lock(); <span class="comment">// 加（可重入）锁，因为COW支持的是并发读，但是不支持并发改</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Object[] elements = getArray();</span><br><span class="line">            <span class="keyword">int</span> len = elements.length;</span><br><span class="line">            Object[] newElements = Arrays.copyOf(elements, len + <span class="number">1</span>); <span class="comment">// 先copy出去一份内容，然后在copy出去的内容的基础上修改.</span></span><br><span class="line">            newElements[len] = e; <span class="comment">// 在copy出去的内容上修改</span></span><br><span class="line">            setArray(newElements); <span class="comment">// 添加完元素之后，再将原数组的引用指向新的数组</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock(); <span class="comment">// 释放锁</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>​                                                                                源码1</p>
+<p>其中源码1的第五行的源码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/** The array, accessed only via getArray/setArray. */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">transient</span> <span class="keyword">volatile</span> Object[] array; </span><br><span class="line"><span class="keyword">final</span> Object[] getArray() &#123;</span><br><span class="line">        <span class="keyword">return</span> array;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>​                                                                                源码2</p>
+<p>注意，array就是真正COW中存储数据的. 它是transient的理由在我原先写的HashMap源码解读中讲过. 而且并不因为transient就不序列化了，因为COW自己实现了private的readObject和writeObject方法.</p>
+<p><strong>本文其实更加关注的是array的volitale属性.</strong></p>
+<p>源码1的其他部分都加了注释的，比较容易懂.</p>
+<p>从源码1的add方法很容易看出COW的一个缺点——占用内存，写时 copy 效率低。因为 CopyOnWrite 的写时复制机制，所以在进行写操作的时候，内存里会同时驻扎两个对象的内存，旧的对象和新写入的对象（注意:在复制的时候只是复制容器里的引用，只是在写的时候会创建新对象添加到新容器里，而旧容器的对象还在使用，所以<br>有两份对象内存）。如果这些对象占用的内存比较大，比如说 200M 左右，那么再写入 100M数据进去，内存就会占用 300M，那么这个时候很有可能造成频繁的 Yong GC 和 Full GC。在高性能的互联网应用中，这种操作分分钟引起故障 .</p>
+<p>查</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> get(getArray(), index);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">private</span> E <span class="title">get</span><span class="params">(Object[] a, <span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (E) a[index];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>​                                                                            源码3</p>
+<p>COW查的算法很简单——简单的数组索引. 但是结合add方法就能看出COW第二个致命的缺点</p>
+<blockquote>
+<p>为了效率牺牲了一致性</p>
+</blockquote>
+<p>因为需要支持并发读，这就意味着读一定不能加锁. 但是这样的话，你在读的时候，写方法就可以进入导致其实你读的可能是过期的数据了（甚至COW的array都被清空了说不定）. 但是COW可以保证的是最终一致性. 即COW只能保证数据的最终一致性，不能保证数据的实时一致性。所以如果你希望写入的的数据，马上能读到，请不要使用 COW。 </p>
+<p>删</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> ReentrantLock lock = <span class="keyword">this</span>.lock;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Object[] elements = getArray();</span><br><span class="line">            <span class="keyword">int</span> len = elements.length;</span><br><span class="line">            E oldValue = get(elements, index);</span><br><span class="line">            <span class="keyword">int</span> numMoved = len - index - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (numMoved == <span class="number">0</span>) <span class="comment">// 如果删除的就是最末位的元素，直接拷贝过去即可</span></span><br><span class="line">                setArray(Arrays.copyOf(elements, len - <span class="number">1</span>));</span><br><span class="line">            <span class="keyword">else</span> &#123; <span class="comment">// 原数组elements分成两截拷贝到新数组newElements</span></span><br><span class="line">                Object[] newElements = <span class="keyword">new</span> Object[len - <span class="number">1</span>];</span><br><span class="line">                System.arraycopy(elements, <span class="number">0</span>, newElements, <span class="number">0</span>, index);</span><br><span class="line">                System.arraycopy(elements, index + <span class="number">1</span>, newElements, index,</span><br><span class="line">                                 numMoved);</span><br><span class="line">                setArray(newElements);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> oldValue;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>​                                                                        源码4</p>
+<p>迭代(因为COW实现了java.util.List接口，而List接口是Collection的子接口，Collection实现了Iterable接口)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> COWIterator&lt;E&gt;(getArray(), <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">COWIterator</span>&lt;<span class="title">E</span>&gt; <span class="keyword">implements</span> <span class="title">ListIterator</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">        <span class="comment">/** Snapshot of the array */</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Object[] snapshot;</span><br><span class="line">        <span class="comment">/** Index of element to be returned by subsequent call to next.  */</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> cursor;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="title">COWIterator</span><span class="params">(Object[] elements, <span class="keyword">int</span> initialCursor)</span> </span>&#123;</span><br><span class="line">            cursor = initialCursor;</span><br><span class="line">            snapshot = elements;</span><br><span class="line">        &#125;</span><br><span class="line">    ...</span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">        <span class="function"><span class="keyword">public</span> E <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (! hasNext())</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchElementException();</span><br><span class="line">            <span class="keyword">return</span> (E) snapshot[cursor++];</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>​                                                                            源码5</p>
+<p>源码5中的snapshot就是将当前数组array传进去. 考虑到增删改的方法，这里叫snapshot（快照）是再合适不过了.</p>
+<p>改</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, E element)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//(1)获得独占锁</span></span><br><span class="line">    <span class="keyword">final</span> ReentrantLock lock = <span class="keyword">this</span>.lock;</span><br><span class="line">    lock.lock();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Object[] elements = getArray();<span class="comment">//(2)获得array</span></span><br><span class="line">        E oldValue = get(elements, index);<span class="comment">//(3)根据下标,获得旧的元素</span></span><br><span class="line"> </span><br><span class="line">        <span class="keyword">if</span> (oldValue != element) &#123;<span class="comment">//(4)如果旧的元素不等于新的元素</span></span><br><span class="line">            <span class="keyword">int</span> len = elements.length;<span class="comment">//(5)获得旧数组的长度</span></span><br><span class="line">            Object[] newElements = Arrays.copyOf(elements, len);<span class="comment">//(6)复制出新的数组</span></span><br><span class="line">            newElements[index] = element;<span class="comment">//(7)修改</span></span><br><span class="line">            setArray(newElements);<span class="comment">//(8)替换</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">//(9)为了保证volatile 语义，即使没有修改，也要替换成新的数组</span></span><br><span class="line">            <span class="comment">// Not quite a no-op; ensures volatile write semantics</span></span><br><span class="line">            setArray(elements);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> oldValue;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        lock.unlock();<span class="comment">//(10)释放独占锁</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​                                                                        源码6</p>
+<p>其实源码6的其他代码都容易看懂，唯独第17行会令初学者费解. 因为这里不得不提及volatile关键字的内存语义（参见【1】）</p>
+<p>如果有了【1】的认知，我们考虑下面一种情形就不难知道为什么需要第17行了（大师就是大师，考虑的如此精密！！！）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">有<span class="number">2</span>根线程 thread1和thread2</span><br><span class="line">thread1:</span><br><span class="line"> 动作x:a = calValue;</span><br><span class="line"> 动作y:coal.set….</span><br><span class="line"> ———————</span><br><span class="line"> thread2:</span><br><span class="line"> 动作m:coal.get…</span><br><span class="line"> 动作n:<span class="keyword">int</span> tmp = a;</span><br></pre></td></tr></table></figure>
+<p>假设y在m前发生，则根据happens-before规则，有happen-before(y,m),根据线程内的操作相关规定（happens-before准则之程序次序规则）有happen-before(x,y), happen-before(m,n)，根据happen-before的传递性读写a变量就有happen-before(x,n)，所以thread1对a的写操作对thread2中a的读操作可见。如果COW中的set的else里没有setArray(elements) 的话，happens-before(y,m)就不再有了，上述的可见性也就无法保证。<br> 所以实际上else中的setArray(elements)不是为了保证COW本身的可见性，而是保证外部的非volatile变量的happens-before。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/06/24/volatile关键字的内存语义/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/06/24/volatile%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E5%86%85%E5%AD%98%E8%AF%AD%E4%B9%89/</a></p>
+<p>【2】<a href="https://yfsyfs.github.io/2019/06/07/java-util-HashMap-源码分析/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/06/07/java-util-HashMap-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/06/24/CopyOnWriteArrayList-源码解读/" data-id="cjymwuwiy002u1svm6li2w5xh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/06/24/volatile关键字的内存语义/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          volatile关键字的内存语义
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/06/24/java-内存模型（JMM）-之我之见/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">java 内存模型（JMM） 之我之见</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BST/">BST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-Primer/">C++ Primer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C和指针/">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DAG/">DAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HotSpot/">HotSpot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JMM/">JMM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JRE/">JRE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KMP/">KMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/">LCA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Manacher算法/">Manacher算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oauth2-0/">Oauth2.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMQ/">RMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ST/">ST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVN/">SVN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tarjan/">Tarjan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bfs/">bfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-c/">c/c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfs/">dfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dp/">dp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fzu/">fzu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdu/">hdu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd树/">kd树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kmp/">kmp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oj/">oj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poj/">poj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sbt/">sbt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/treap/">treap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/trie/">trie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volatile/">volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分答案/">二分答案</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/优先队列/">优先队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/位图/">位图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存模型/">内存模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治/">分治</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态查找/">动态查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原生js/">原生js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同步/">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端，数据库-mysql/">后端，数据库, mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/启发式搜索/">启发式搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/哈希/">哈希</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/回文/">回文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图/">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/在线算法/">在线算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆排序/">堆排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串/">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串匹配/">字符串匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/宽搜/">宽搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/左式堆/">左式堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/平衡查找树/">平衡查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并查集/">并查集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通/">强连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通分支/">强连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/归并排序/">归并排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心语/">心语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快排/">快排</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速幂/">快速幂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扩展KMP/">扩展KMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抓包/">抓包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓扑排序/">拓扑排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教材/">教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小生成树/">最小生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最长回文子串/">最长回文子串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有向图/">有向图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂/">杂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/板子/">板子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找/">查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找树/">查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栈/">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树/">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树堆/">树堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组/">树状数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模板/">模板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/欧拉环游/">欧拉环游</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/洛谷/">洛谷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深搜/">深搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/滚动数组/">滚动数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本控制/">版本控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/牛客网/">牛客网</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生成树/">生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简历/">简历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线上问题/">线上问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树/">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络协议/">网络协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自己动手用java写编译器/">自己动手用java写编译器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/菜鸟教材/">菜鸟教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词典/">词典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心/">贪心</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/轮播图/">轮播图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通/">连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通分支/">连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通性/">连通性</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逆序数/">逆序数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归/">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/链表/">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集合/">集合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态查找树/">静态查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/C/" style="font-size: 18.26px;">C</a> <a href="/tags/C/" style="font-size: 11.3px;">C++</a> <a href="/tags/C-Primer/" style="font-size: 10px;">C++ Primer</a> <a href="/tags/C和指针/" style="font-size: 17.83px;">C和指针</a> <a href="/tags/DAG/" style="font-size: 10.87px;">DAG</a> <a href="/tags/DFS/" style="font-size: 10.43px;">DFS</a> <a href="/tags/DP/" style="font-size: 10.87px;">DP</a> <a href="/tags/HotSpot/" style="font-size: 10px;">HotSpot</a> <a href="/tags/JDK/" style="font-size: 16.52px;">JDK</a> <a href="/tags/JMM/" style="font-size: 10.43px;">JMM</a> <a href="/tags/JRE/" style="font-size: 10px;">JRE</a> <a href="/tags/JVM/" style="font-size: 10.87px;">JVM</a> <a href="/tags/KMP/" style="font-size: 10px;">KMP</a> <a href="/tags/LCA/" style="font-size: 10.87px;">LCA</a> <a href="/tags/LDAP/" style="font-size: 10.43px;">LDAP</a> <a href="/tags/MST/" style="font-size: 10px;">MST</a> <a href="/tags/Manacher算法/" style="font-size: 10px;">Manacher算法</a> <a href="/tags/Oauth2-0/" style="font-size: 10px;">Oauth2.0</a> <a href="/tags/RMQ/" style="font-size: 11.74px;">RMQ</a> <a href="/tags/ST/" style="font-size: 10px;">ST</a> <a href="/tags/SVN/" style="font-size: 10px;">SVN</a> <a href="/tags/Spring/" style="font-size: 14.78px;">Spring</a> <a href="/tags/String/" style="font-size: 10.43px;">String</a> <a href="/tags/Tarjan/" style="font-size: 10px;">Tarjan</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/bfs/" style="font-size: 10.43px;">bfs</a> <a href="/tags/c-c/" style="font-size: 10px;">c/c++</a> <a href="/tags/dfs/" style="font-size: 11.74px;">dfs</a> <a href="/tags/dp/" style="font-size: 10.87px;">dp</a> <a href="/tags/fzu/" style="font-size: 10px;">fzu</a> <a href="/tags/gradle/" style="font-size: 10.43px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 10.43px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 10.43px;">hdfs</a> <a href="/tags/hdu/" style="font-size: 14.35px;">hdu</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/java并发编程实践/" style="font-size: 16.09px;">java并发编程实践</a> <a href="/tags/jdbc/" style="font-size: 10.43px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/kd树/" style="font-size: 10px;">kd树</a> <a href="/tags/kmp/" style="font-size: 10px;">kmp</a> <a href="/tags/leetcode/" style="font-size: 10.43px;">leetcode</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oj/" style="font-size: 15.65px;">oj</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/poj/" style="font-size: 11.3px;">poj</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/spring/" style="font-size: 12.61px;">spring</a> <a href="/tags/springboot/" style="font-size: 10.87px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 10.43px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/synchronized/" style="font-size: 10.43px;">synchronized</a> <a href="/tags/treap/" style="font-size: 10px;">treap</a> <a href="/tags/trie/" style="font-size: 12.61px;">trie</a> <a href="/tags/volatile/" style="font-size: 10.43px;">volatile</a> <a href="/tags/vue/" style="font-size: 10.87px;">vue</a> <a href="/tags/事务/" style="font-size: 11.74px;">事务</a> <a href="/tags/二分查找/" style="font-size: 10px;">二分查找</a> <a href="/tags/二分答案/" style="font-size: 10px;">二分答案</a> <a href="/tags/二叉树/" style="font-size: 10px;">二叉树</a> <a href="/tags/优先队列/" style="font-size: 11.3px;">优先队列</a> <a href="/tags/位图/" style="font-size: 10px;">位图</a> <a href="/tags/内存模型/" style="font-size: 10.43px;">内存模型</a> <a href="/tags/分治/" style="font-size: 10px;">分治</a> <a href="/tags/前端/" style="font-size: 11.74px;">前端</a> <a href="/tags/动态查找/" style="font-size: 10px;">动态查找</a> <a href="/tags/动态规划/" style="font-size: 11.74px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/同步/" style="font-size: 10.43px;">同步</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 19.13px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/启发式搜索/" style="font-size: 10px;">启发式搜索</a> <a href="/tags/哈希/" style="font-size: 11.3px;">哈希</a> <a href="/tags/回文/" style="font-size: 10px;">回文</a> <a href="/tags/图/" style="font-size: 17.39px;">图</a> <a href="/tags/在线算法/" style="font-size: 10px;">在线算法</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/堆排序/" style="font-size: 10px;">堆排序</a> <a href="/tags/大数据/" style="font-size: 10.87px;">大数据</a> <a href="/tags/字符串/" style="font-size: 13.48px;">字符串</a> <a href="/tags/字符串匹配/" style="font-size: 10px;">字符串匹配</a> <a href="/tags/宽搜/" style="font-size: 10.43px;">宽搜</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/左式堆/" style="font-size: 10px;">左式堆</a> <a href="/tags/平衡查找树/" style="font-size: 10px;">平衡查找树</a> <a href="/tags/并发/" style="font-size: 16.96px;">并发</a> <a href="/tags/并查集/" style="font-size: 11.74px;">并查集</a> <a href="/tags/强连通/" style="font-size: 10.43px;">强连通</a> <a href="/tags/强连通分支/" style="font-size: 10px;">强连通分支</a> <a href="/tags/归并排序/" style="font-size: 10px;">归并排序</a> <a href="/tags/心语/" style="font-size: 10px;">心语</a> <a href="/tags/快排/" style="font-size: 10px;">快排</a> <a href="/tags/快速幂/" style="font-size: 10.43px;">快速幂</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/扩展KMP/" style="font-size: 10.87px;">扩展KMP</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/拓扑排序/" style="font-size: 10.43px;">拓扑排序</a> <a href="/tags/排序/" style="font-size: 15.22px;">排序</a> <a href="/tags/操作系统/" style="font-size: 10.43px;">操作系统</a> <a href="/tags/教材/" style="font-size: 19.57px;">教材</a> <a href="/tags/数学/" style="font-size: 11.3px;">数学</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/最小生成树/" style="font-size: 10px;">最小生成树</a> <a href="/tags/最短路径/" style="font-size: 12.61px;">最短路径</a> <a href="/tags/最长回文子串/" style="font-size: 10px;">最长回文子串</a> <a href="/tags/有向图/" style="font-size: 10px;">有向图</a> <a href="/tags/杂/" style="font-size: 10px;">杂</a> <a href="/tags/板子/" style="font-size: 10px;">板子</a> <a href="/tags/查找/" style="font-size: 10px;">查找</a> <a href="/tags/查找树/" style="font-size: 13.48px;">查找树</a> <a href="/tags/栈/" style="font-size: 12.61px;">栈</a> <a href="/tags/树/" style="font-size: 17.39px;">树</a> <a href="/tags/树堆/" style="font-size: 10px;">树堆</a> <a href="/tags/树状数组/" style="font-size: 11.3px;">树状数组</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/模板/" style="font-size: 13.04px;">模板</a> <a href="/tags/欧拉环游/" style="font-size: 10px;">欧拉环游</a> <a href="/tags/洛谷/" style="font-size: 10px;">洛谷</a> <a href="/tags/深搜/" style="font-size: 11.3px;">深搜</a> <a href="/tags/源码/" style="font-size: 18.7px;">源码</a> <a href="/tags/源码分析/" style="font-size: 11.3px;">源码分析</a> <a href="/tags/滚动数组/" style="font-size: 10px;">滚动数组</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/牛客网/" style="font-size: 10.43px;">牛客网</a> <a href="/tags/生成树/" style="font-size: 10.43px;">生成树</a> <a href="/tags/离散化/" style="font-size: 10px;">离散化</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/线段树/" style="font-size: 12.17px;">线段树</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/编译原理/" style="font-size: 13.91px;">编译原理</a> <a href="/tags/网络协议/" style="font-size: 10px;">网络协议</a> <a href="/tags/自己动手用java写编译器/" style="font-size: 13.91px;">自己动手用java写编译器</a> <a href="/tags/菜鸟教材/" style="font-size: 10.87px;">菜鸟教材</a> <a href="/tags/设计模式/" style="font-size: 10.87px;">设计模式</a> <a href="/tags/词典/" style="font-size: 10px;">词典</a> <a href="/tags/贪心/" style="font-size: 10.43px;">贪心</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/连通/" style="font-size: 11.3px;">连通</a> <a href="/tags/连通分支/" style="font-size: 10px;">连通分支</a> <a href="/tags/连通性/" style="font-size: 11.74px;">连通性</a> <a href="/tags/逆序数/" style="font-size: 10.43px;">逆序数</a> <a href="/tags/递归/" style="font-size: 11.3px;">递归</a> <a href="/tags/链表/" style="font-size: 10.87px;">链表</a> <a href="/tags/锁/" style="font-size: 10.87px;">锁</a> <a href="/tags/队列/" style="font-size: 10.43px;">队列</a> <a href="/tags/集合/" style="font-size: 10px;">集合</a> <a href="/tags/静态查找树/" style="font-size: 10.43px;">静态查找树</a> <a href="/tags/面试/" style="font-size: 13.91px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/28/hello-world/">声明</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/27/自己动手用java写编译器-课时8-Thompson构造，将正则表达式转换为有限状态自动机/">自己动手用java写编译器 课时8 Thompson构造，将正则表达式转换为有限状态自动机</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/27/C-菜鸟教程之-继承/">C++ 菜鸟教程之 继承</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/27/C-菜鸟教程之接口（抽象类）/">C++ 菜鸟教程之接口（抽象类）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/26/C-菜鸟教程之-类-对象/">C++菜鸟教程之 类&amp;对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

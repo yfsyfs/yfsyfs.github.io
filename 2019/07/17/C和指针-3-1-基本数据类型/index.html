@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>C和指针 3.1 基本数据类型 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缘起《C和指针》 3.1节">
+<meta name="keywords" content="C,C和指针">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C和指针 3.1 基本数据类型">
+<meta property="og:url" content="http://yoursite.com/2019/07/17/C和指针-3-1-基本数据类型/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起《C和指针》 3.1节">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/07/17/C和指针-3-1-基本数据类型/1.png">
+<meta property="og:updated_time" content="2019-07-17T02:26:50.739Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C和指针 3.1 基本数据类型">
+<meta name="twitter:description" content="缘起《C和指针》 3.1节">
+<meta name="twitter:image" content="http://yoursite.com/2019/07/17/C和指针-3-1-基本数据类型/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-C和指针-3-1-基本数据类型" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/17/C和指针-3-1-基本数据类型/" class="article-date">
+  <time datetime="2019-07-16T23:22:36.000Z" itemprop="datePublished">2019-07-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      C和指针 3.1 基本数据类型
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>《C和指针》 3.1节</p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>C仅有四种基本数据类型</p>
+<ol>
+<li>整型</li>
+<li>浮点型</li>
+<li>指针</li>
+<li>数组或者结构体</li>
+</ol>
+<p>其他皆由此四种派生而来.</p>
+<p>本节介绍基本数据类型之整型和浮点型.</p>
+<p>整型包括字符、短整型、整型、长整型——它们都分为有符号和无符号两种版本. 听上去好像长整型要比短整型大，但事实上，KR C标准仅仅规定</p>
+<p>整型还包括枚举.</p>
+<blockquote>
+<p>长整型范围&gt;=整型范围&gt;=短整型范围</p>
+</blockquote>
+<p>ANSI C在此基础之上又加入了一条规定——说明各种整型类型的最小允许范围.  如下表所示</p>
+<img src="/2019/07/17/C和指针-3-1-基本数据类型/1.png">
+<p>这相比KR C是一个巨大的进步——因为提高了程序的可移植性.</p>
+<p>可能读者就会有问题了——短整型（short int）至少16位，长整型（long int）至少32位——那么默认int到底是16位还是32位的? 或者是其他值? 这由编译器的设计者决定. ANSI C没有规定这三种类型的范围必须要不一样——甚至可能三种类型（短整型、整型、长整型）规定的都是32位.</p>
+<p>还有一个值得注意的事情——char类型，本质上讲就是小整型，默认的char是signed char还是 unsigned char，这取决于编译器. 这意味着不同机器上的char可能拥有不同的范围——只有所有的char类型的变量的实际值在signed char 和 unsigned char交集内（例如 ASCII字符集），这个程序才是可移植的. </p>
+<p>在一个把char当做小整型的程序中，如果显式的声明signed char或者 unsigned char，可以提高程序的可移植性. 因为它显式指出了字符是否有符号. 但是如果有些机器处理unsigned char效率比较高的话，你强制改成unsigned char的话，就会影响效率. 所以把所有char硬生生的改成signed或者 unsigned并不是上上之策. 而且所有C标准库函数的char变量统一声明为char而不是 signed或者unsigned char，所以你在程序中显式指出unsigned char或者 char的话，可能带来程序的兼容性问题.</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hint: 一般最好将char型变量的值限制在signed 和 unsigned交集内，这样既保证了程序的可移植</span><br><span class="line">性，又不会牺牲效率, 而且保证了程序的兼容性.</span><br></pre></td></tr></table></figure>
+<p>字面量（literal）和常量是同义词. 只是表达的习惯不一致而已. -275 并不是literal，而是常量表达式. 因为负号被解释为单目运算符而不是数值的一部分. 但是实践中这个没什么歧义的——编译器总是按照我们预想的去计算.</p>
+<p>当一个程序中出现整型字面量的时候，它是属于int，还是short int 还是 long int呢?   这取决于字面量的写法.  <strong>默认情况下，字母值的类型就是所有类型中范围最小但是足以容纳这个值的类型.</strong> 那么不默认的情况呢? 比如如果字面量后面加L或者l, 则被解释为long int，如果后面加 U或者u, 则被解释为unsigned 类型的. 如果后面加UL，则被解释为unsigned long. 一般signed、unsigned只针对char，对于其他类型默认都是signed. 至于char是signed还是unsigned，因编译器而异. 所以char可能是signed char 也可能是unsigned char.</p>
+<p>八进制用0开头，16进制用0x开头. 如果一个多字节字符常量前面加一个L，那么它就是宽字符常量（wide character literal），如</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">L'abc'</span><br></pre></td></tr></table></figure>
+<p>当运行时环境支持宽字符集，就有可能使用到他们.</p>
+<p>枚举类型</p>
+<p>声明</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enum Jar_Type &#123;CPU, PINT, QUART, GALLON&#125;;</span><br></pre></td></tr></table></figure>
+<p>上述语句声明了一个Jar_Type的枚举类型. 实际上是以整型方式存储. 这里默认CPU是0，PINT 是1，以此类推. 当然，也可以指定代表的值</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enum Jar_Type &#123;CPU, PINT=9, QUART, GALLON&#125;;</span><br></pre></td></tr></table></figure>
+<p>则CPU是0，PINT是9，QUART是10，GALLON是11</p>
+<p>声明枚举类型变量的方式是</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enum Jar_Type a,b,c;</span><br></pre></td></tr></table></figure>
+<p>上面语句声明了三个枚举类型Jar_Type 的变量a,b,c</p>
+<p>上面两行完全可以合并为</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enum Jar_Type &#123;CPU, PINT, QUART, GALLON&#125; a,b,c;</span><br></pre></td></tr></table></figure>
+<p>浮点型包括float、double、long double. 分别提供单精度、双精度、在某些支持扩展精度的机器上提供扩展精度. ANSI C 仅仅规定</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">long double的范围&gt;=double的范围&gt;=float的范围,</span><br><span class="line">并且所有浮点类型至少能容纳 -10^37到10^37范围的任何值.</span><br></pre></td></tr></table></figure>
+<p>以Windows平台下的C标准库为例</p>
+<p>D:\vs2010\VC\include\float.h 中定义了FLT_MAX、DBL_MAX和 LDBL_MAX （自然还有相应的MIN）分别表示float、double、long double 所能存储的最大值.</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#define FLT_MAX         3.402823466e+38F        /* max value */</span><br><span class="line">#define DBL_MAX         1.7976931348623158e+308</span><br><span class="line">#define LDBL_MAX        DBL_MAX</span><br><span class="line"></span><br><span class="line">#define FLT_MIN         1.175494351e-38F</span><br><span class="line">#define DBL_MIN         2.2250738585072014e-308</span><br><span class="line">#define LDBL_MIN        DBL_MIN</span><br></pre></td></tr></table></figure>
+<p>浮点类型总是写成十进制，必须要有一个小数点或者一个指数.也可以两者皆有.</p>
+<p>浮点缺省情况下是double，除非后面跟着一个L表示它是long double，或者跟着一个f表示他是一个float.</p>
+<blockquote>
+<p>指针(常量或者字面量)是变量的地址，指针变量存储的就是指针.</p>
+</blockquote>
+<p>C语言中没有字符串类型，但是C规定字符串常量就是一串以\0结尾（\0是字符串的休止符，碰到它，就意味着本字符串结束了，注意，即便是”” 空字符串，也存在 \0的）的字符数组.</p>
+<p>这里说一句KR C和 ANSI C对待字符串常量（或者字面量）的区别</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">KR C规定程序中在不同地方出现的"abc"这种字符串常量存储在内存不同地方. 例如</span><br><span class="line">char a[] = "abc";</span><br><span class="line">char b[] = "abc";</span><br><span class="line">则这两个"abc"存在于内存中不同地方. 所以虽然KR C并没有提及一个字符串常量中的字符是否可以被</span><br><span class="line">程序修改，但是许多KR C的编译器允许程序修改字符串常量。</span><br><span class="line"></span><br><span class="line">但是ANSI C不同，ANSI C中说了，对一个字符串常量进行修改效果是未定义的. ANSI C允许编译器</span><br><span class="line">把一个字符串存在内存同一个地方(即便这个字符串在程序中多次出现，就像上面的两个"abc"，在内存</span><br><span class="line">中是存在一个地方的.).这样就使得ANSI C标准下修改字符串常量这种操作变得极为危险. 因此很多</span><br><span class="line">ANSI C编译器不允许修改字符串常量, 或者提供相应的编译选项——让我们自己选择是否允许修改字符串常量. 如果你需要修改字符串，请把它存储于字符数组中.</span><br></pre></td></tr></table></figure>
+<p>因为我们在表达式中使用字符串常量其实是在使用存储这些字符的地址而不是字符本身，所以我们可以将字符串常量赋予一个指向字符的指针,就像下面一样</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">char *p = "abc";</span><br></pre></td></tr></table></figure>
+<p>ANSI C 并不规定编译器对数组越界进行检查——避免了额外的性能消耗.</p>
+<p>声明指针变量的时候要注意</p>
+<p>int <em>a和  int\</em> a 是等价的. 因为C是自由的语言（所谓自由，指的是并没有规定什么地方可以书写语句，一行中可以出现多少条语句，什么地方该留空白以及应该出现多少个空白等）</p>
+<p>而且如果有java背景的童鞋可能认为</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int* a 比  int *a更易读.</span><br></pre></td></tr></table></figure>
+<p>但是 int* a这种写法其实是容易混淆的</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int* a,b,c;</span><br></pre></td></tr></table></figure>
+<p>容易让人误以为是声明了三个指向整型的指针变量, 但实际上只有a是指向整型的指针变量，b和c仅仅是整型变量而已. 如果要声明三个指向整型变量的指针变量的话，则正确的写法是</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int *a, *b, *c;</span><br></pre></td></tr></table></figure>
+<p>声明并定义指针变量可以</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> *message = <span class="string">"Hello World!"</span>;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/17/C和指针-3-1-基本数据类型/" data-id="cjymwuwic001x1svm6s9mr2zx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C和指针/">C和指针</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/17/C和指针-3-3-typedef/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          C和指针 3.3 typedef
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/17/华为面试题-最多换几瓶汽水喝/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">华为面试题 最多换几瓶汽水喝</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BST/">BST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-Primer/">C++ Primer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C和指针/">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DAG/">DAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HotSpot/">HotSpot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JMM/">JMM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JRE/">JRE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KMP/">KMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/">LCA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Manacher算法/">Manacher算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oauth2-0/">Oauth2.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMQ/">RMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ST/">ST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVN/">SVN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tarjan/">Tarjan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bfs/">bfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-c/">c/c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfs/">dfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dp/">dp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fzu/">fzu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdu/">hdu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd树/">kd树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kmp/">kmp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oj/">oj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poj/">poj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sbt/">sbt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/treap/">treap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/trie/">trie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volatile/">volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分答案/">二分答案</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/优先队列/">优先队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/位图/">位图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存模型/">内存模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治/">分治</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态查找/">动态查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原生js/">原生js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同步/">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端，数据库-mysql/">后端，数据库, mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/启发式搜索/">启发式搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/哈希/">哈希</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/回文/">回文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图/">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/在线算法/">在线算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆排序/">堆排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串/">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串匹配/">字符串匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/宽搜/">宽搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/左式堆/">左式堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/平衡查找树/">平衡查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并查集/">并查集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通/">强连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通分支/">强连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/归并排序/">归并排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心语/">心语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快排/">快排</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速幂/">快速幂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扩展KMP/">扩展KMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抓包/">抓包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓扑排序/">拓扑排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教材/">教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小生成树/">最小生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最长回文子串/">最长回文子串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有向图/">有向图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂/">杂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/板子/">板子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找/">查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找树/">查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栈/">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树/">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树堆/">树堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组/">树状数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模板/">模板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/欧拉环游/">欧拉环游</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/洛谷/">洛谷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深搜/">深搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/滚动数组/">滚动数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本控制/">版本控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/牛客网/">牛客网</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生成树/">生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简历/">简历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线上问题/">线上问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树/">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络协议/">网络协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自己动手用java写编译器/">自己动手用java写编译器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/菜鸟教材/">菜鸟教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词典/">词典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心/">贪心</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/轮播图/">轮播图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通/">连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通分支/">连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通性/">连通性</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逆序数/">逆序数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归/">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/链表/">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集合/">集合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态查找树/">静态查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/C/" style="font-size: 18.26px;">C</a> <a href="/tags/C/" style="font-size: 11.3px;">C++</a> <a href="/tags/C-Primer/" style="font-size: 10px;">C++ Primer</a> <a href="/tags/C和指针/" style="font-size: 17.83px;">C和指针</a> <a href="/tags/DAG/" style="font-size: 10.87px;">DAG</a> <a href="/tags/DFS/" style="font-size: 10.43px;">DFS</a> <a href="/tags/DP/" style="font-size: 10.87px;">DP</a> <a href="/tags/HotSpot/" style="font-size: 10px;">HotSpot</a> <a href="/tags/JDK/" style="font-size: 16.52px;">JDK</a> <a href="/tags/JMM/" style="font-size: 10.43px;">JMM</a> <a href="/tags/JRE/" style="font-size: 10px;">JRE</a> <a href="/tags/JVM/" style="font-size: 10.87px;">JVM</a> <a href="/tags/KMP/" style="font-size: 10px;">KMP</a> <a href="/tags/LCA/" style="font-size: 10.87px;">LCA</a> <a href="/tags/LDAP/" style="font-size: 10.43px;">LDAP</a> <a href="/tags/MST/" style="font-size: 10px;">MST</a> <a href="/tags/Manacher算法/" style="font-size: 10px;">Manacher算法</a> <a href="/tags/Oauth2-0/" style="font-size: 10px;">Oauth2.0</a> <a href="/tags/RMQ/" style="font-size: 11.74px;">RMQ</a> <a href="/tags/ST/" style="font-size: 10px;">ST</a> <a href="/tags/SVN/" style="font-size: 10px;">SVN</a> <a href="/tags/Spring/" style="font-size: 14.78px;">Spring</a> <a href="/tags/String/" style="font-size: 10.43px;">String</a> <a href="/tags/Tarjan/" style="font-size: 10px;">Tarjan</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/bfs/" style="font-size: 10.43px;">bfs</a> <a href="/tags/c-c/" style="font-size: 10px;">c/c++</a> <a href="/tags/dfs/" style="font-size: 11.74px;">dfs</a> <a href="/tags/dp/" style="font-size: 10.87px;">dp</a> <a href="/tags/fzu/" style="font-size: 10px;">fzu</a> <a href="/tags/gradle/" style="font-size: 10.43px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 10.43px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 10.43px;">hdfs</a> <a href="/tags/hdu/" style="font-size: 14.35px;">hdu</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/java并发编程实践/" style="font-size: 16.09px;">java并发编程实践</a> <a href="/tags/jdbc/" style="font-size: 10.43px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/kd树/" style="font-size: 10px;">kd树</a> <a href="/tags/kmp/" style="font-size: 10px;">kmp</a> <a href="/tags/leetcode/" style="font-size: 10.43px;">leetcode</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oj/" style="font-size: 15.65px;">oj</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/poj/" style="font-size: 11.3px;">poj</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/spring/" style="font-size: 12.61px;">spring</a> <a href="/tags/springboot/" style="font-size: 10.87px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 10.43px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/synchronized/" style="font-size: 10.43px;">synchronized</a> <a href="/tags/treap/" style="font-size: 10px;">treap</a> <a href="/tags/trie/" style="font-size: 12.61px;">trie</a> <a href="/tags/volatile/" style="font-size: 10.43px;">volatile</a> <a href="/tags/vue/" style="font-size: 10.87px;">vue</a> <a href="/tags/事务/" style="font-size: 11.74px;">事务</a> <a href="/tags/二分查找/" style="font-size: 10px;">二分查找</a> <a href="/tags/二分答案/" style="font-size: 10px;">二分答案</a> <a href="/tags/二叉树/" style="font-size: 10px;">二叉树</a> <a href="/tags/优先队列/" style="font-size: 11.3px;">优先队列</a> <a href="/tags/位图/" style="font-size: 10px;">位图</a> <a href="/tags/内存模型/" style="font-size: 10.43px;">内存模型</a> <a href="/tags/分治/" style="font-size: 10px;">分治</a> <a href="/tags/前端/" style="font-size: 11.74px;">前端</a> <a href="/tags/动态查找/" style="font-size: 10px;">动态查找</a> <a href="/tags/动态规划/" style="font-size: 11.74px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/同步/" style="font-size: 10.43px;">同步</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 19.13px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/启发式搜索/" style="font-size: 10px;">启发式搜索</a> <a href="/tags/哈希/" style="font-size: 11.3px;">哈希</a> <a href="/tags/回文/" style="font-size: 10px;">回文</a> <a href="/tags/图/" style="font-size: 17.39px;">图</a> <a href="/tags/在线算法/" style="font-size: 10px;">在线算法</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/堆排序/" style="font-size: 10px;">堆排序</a> <a href="/tags/大数据/" style="font-size: 10.87px;">大数据</a> <a href="/tags/字符串/" style="font-size: 13.48px;">字符串</a> <a href="/tags/字符串匹配/" style="font-size: 10px;">字符串匹配</a> <a href="/tags/宽搜/" style="font-size: 10.43px;">宽搜</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/左式堆/" style="font-size: 10px;">左式堆</a> <a href="/tags/平衡查找树/" style="font-size: 10px;">平衡查找树</a> <a href="/tags/并发/" style="font-size: 16.96px;">并发</a> <a href="/tags/并查集/" style="font-size: 11.74px;">并查集</a> <a href="/tags/强连通/" style="font-size: 10.43px;">强连通</a> <a href="/tags/强连通分支/" style="font-size: 10px;">强连通分支</a> <a href="/tags/归并排序/" style="font-size: 10px;">归并排序</a> <a href="/tags/心语/" style="font-size: 10px;">心语</a> <a href="/tags/快排/" style="font-size: 10px;">快排</a> <a href="/tags/快速幂/" style="font-size: 10.43px;">快速幂</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/扩展KMP/" style="font-size: 10.87px;">扩展KMP</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/拓扑排序/" style="font-size: 10.43px;">拓扑排序</a> <a href="/tags/排序/" style="font-size: 15.22px;">排序</a> <a href="/tags/操作系统/" style="font-size: 10.43px;">操作系统</a> <a href="/tags/教材/" style="font-size: 19.57px;">教材</a> <a href="/tags/数学/" style="font-size: 11.3px;">数学</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/最小生成树/" style="font-size: 10px;">最小生成树</a> <a href="/tags/最短路径/" style="font-size: 12.61px;">最短路径</a> <a href="/tags/最长回文子串/" style="font-size: 10px;">最长回文子串</a> <a href="/tags/有向图/" style="font-size: 10px;">有向图</a> <a href="/tags/杂/" style="font-size: 10px;">杂</a> <a href="/tags/板子/" style="font-size: 10px;">板子</a> <a href="/tags/查找/" style="font-size: 10px;">查找</a> <a href="/tags/查找树/" style="font-size: 13.48px;">查找树</a> <a href="/tags/栈/" style="font-size: 12.61px;">栈</a> <a href="/tags/树/" style="font-size: 17.39px;">树</a> <a href="/tags/树堆/" style="font-size: 10px;">树堆</a> <a href="/tags/树状数组/" style="font-size: 11.3px;">树状数组</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/模板/" style="font-size: 13.04px;">模板</a> <a href="/tags/欧拉环游/" style="font-size: 10px;">欧拉环游</a> <a href="/tags/洛谷/" style="font-size: 10px;">洛谷</a> <a href="/tags/深搜/" style="font-size: 11.3px;">深搜</a> <a href="/tags/源码/" style="font-size: 18.7px;">源码</a> <a href="/tags/源码分析/" style="font-size: 11.3px;">源码分析</a> <a href="/tags/滚动数组/" style="font-size: 10px;">滚动数组</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/牛客网/" style="font-size: 10.43px;">牛客网</a> <a href="/tags/生成树/" style="font-size: 10.43px;">生成树</a> <a href="/tags/离散化/" style="font-size: 10px;">离散化</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/线段树/" style="font-size: 12.17px;">线段树</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/编译原理/" style="font-size: 13.91px;">编译原理</a> <a href="/tags/网络协议/" style="font-size: 10px;">网络协议</a> <a href="/tags/自己动手用java写编译器/" style="font-size: 13.91px;">自己动手用java写编译器</a> <a href="/tags/菜鸟教材/" style="font-size: 10.87px;">菜鸟教材</a> <a href="/tags/设计模式/" style="font-size: 10.87px;">设计模式</a> <a href="/tags/词典/" style="font-size: 10px;">词典</a> <a href="/tags/贪心/" style="font-size: 10.43px;">贪心</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/连通/" style="font-size: 11.3px;">连通</a> <a href="/tags/连通分支/" style="font-size: 10px;">连通分支</a> <a href="/tags/连通性/" style="font-size: 11.74px;">连通性</a> <a href="/tags/逆序数/" style="font-size: 10.43px;">逆序数</a> <a href="/tags/递归/" style="font-size: 11.3px;">递归</a> <a href="/tags/链表/" style="font-size: 10.87px;">链表</a> <a href="/tags/锁/" style="font-size: 10.87px;">锁</a> <a href="/tags/队列/" style="font-size: 10.43px;">队列</a> <a href="/tags/集合/" style="font-size: 10px;">集合</a> <a href="/tags/静态查找树/" style="font-size: 10.43px;">静态查找树</a> <a href="/tags/面试/" style="font-size: 13.91px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/28/hello-world/">声明</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/27/自己动手用java写编译器-课时8-Thompson构造，将正则表达式转换为有限状态自动机/">自己动手用java写编译器 课时8 Thompson构造，将正则表达式转换为有限状态自动机</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/27/C-菜鸟教程之-继承/">C++ 菜鸟教程之 继承</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/27/C-菜鸟教程之接口（抽象类）/">C++ 菜鸟教程之接口（抽象类）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/26/C-菜鸟教程之-类-对象/">C++菜鸟教程之 类&amp;对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

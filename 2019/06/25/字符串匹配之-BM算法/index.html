@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>字符串匹配之 BM算法 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缘起字符串匹配算法中有三个单模式算法，暴力算法、KMP算法和BM算法。本文介绍BM（Boyer-Moore）算法，据说BM比KMP快3~5倍，还有文本处理软件中的查找(CTRL+F)和替换(CTRL+H)命令用的就是BM算法。">
+<meta name="keywords" content="算法,教材,字符串">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符串匹配之 BM算法">
+<meta property="og:url" content="http://yoursite.com/2019/06/25/字符串匹配之-BM算法/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起字符串匹配算法中有三个单模式算法，暴力算法、KMP算法和BM算法。本文介绍BM（Boyer-Moore）算法，据说BM比KMP快3~5倍，还有文本处理软件中的查找(CTRL+F)和替换(CTRL+H)命令用的就是BM算法。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/06/25/字符串匹配之-BM算法/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/25/字符串匹配之-BM算法/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/25/字符串匹配之-BM算法/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/25/字符串匹配之-BM算法/4.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/25/字符串匹配之-BM算法/5.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/25/字符串匹配之-BM算法/8.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/25/字符串匹配之-BM算法/6.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/25/字符串匹配之-BM算法/7.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/25/字符串匹配之-BM算法/9.png">
+<meta property="og:updated_time" content="2019-06-27T02:53:29.046Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="字符串匹配之 BM算法">
+<meta name="twitter:description" content="缘起字符串匹配算法中有三个单模式算法，暴力算法、KMP算法和BM算法。本文介绍BM（Boyer-Moore）算法，据说BM比KMP快3~5倍，还有文本处理软件中的查找(CTRL+F)和替换(CTRL+H)命令用的就是BM算法。">
+<meta name="twitter:image" content="http://yoursite.com/2019/06/25/字符串匹配之-BM算法/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-字符串匹配之-BM算法" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/25/字符串匹配之-BM算法/" class="article-date">
+  <time datetime="2019-06-25T02:19:11.000Z" itemprop="datePublished">2019-06-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      字符串匹配之 BM算法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>字符串匹配算法中有三个单模式算法，暴力算法、KMP算法和BM算法。本文介绍BM（Boyer-Moore）算法，据说<br>BM比KMP快3~5倍，还有文本处理软件中的查找(CTRL+F)和替换(CTRL+H)命令用的就是BM算法。 </p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>回顾【2】中KMP算法的核心思想——就是前缀匹配如果失败的话，我该怎么办的问题. 抓住这个问题，我们就引入了next跳转数组. 注意, KMP是前缀匹配算法, 也就是字符的匹配是从前开始进行的. 而BM算法是后缀匹配算法，也就是字符的匹配是从后到前的. 类比于KMP关心——“text和pattern从对齐位开始匹配到失配了，我该跳转到pattern的那个位置继续进行匹配.” BM算法关心的是</p>
+<blockquote>
+<p>text和pattern的后缀匹配失败了的话，我该向右移动pattern到何处继续和text的当前位置进行匹配?</p>
+</blockquote>
+<p>也就是下图</p>
+<img src="/2019/06/25/字符串匹配之-BM算法/1.png">
+<p>​                                                                            图1</p>
+<p>我们需要知道长度L=?, 即向右移动多少才能是潜在的、或者说可能的匹配成功的位置? </p>
+<blockquote>
+<p>即BM和KMP相同点都是——text的指针绝不后退. 不同点是KMP是前缀匹配算法，而BM是后缀匹配算法.</p>
+</blockquote>
+<p>注意哈，在失配的情况下，pattern是绝不会向左移动的，只会向右移动（图1），为什么呢？ 向左移动没有意义啊~  因为就是一路右移动过来的啊~ </p>
+<p>和KMP的基调是一致的——寻找有潜力的下一个匹配位置. 什么叫做有潜力呢? 就是所谓的必要条件——如果你连这个都不满足，肯定不会是匹配成功的.</p>
+<p>那么什么是必要条件呢? 现在图1中A和B这两段已经是完全匹配了（再说一遍，BM是后缀匹配算法），根据KMP的思路，我们是不是不能浪费这点信息?</p>
+<p>如果图1的L是匹配位置的话，我们来看看能推导出什么? 显然就是P和A,进而和B匹配咯~</p>
+<blockquote>
+<p>你看看，和KMP一样，我们又化归为了pattern自身的性质.</p>
+</blockquote>
+<p>因此，我们针对pattern的每个位置——pattern[i] 都要计算它的suffix[i]的值，即</p>
+<p>对0&lt;=i&lt;m, suffix[i]=max{ 0&lt;=k&lt;=i+1 |  pattern[i-k+1,…,i] = pattern[m-k, …, m-1]} , 其中m是pattern的长度</p>
+<p>则因为求取max的集合不空——至少k=0在里面, 所以 0&lt;=suffix[i]&lt;=i+1</p>
+<p>下面讲述 BM 算法的两个规则</p>
+<ol>
+<li>坏字符规则</li>
+<li>好后缀规则</li>
+</ol>
+<p>什么叫做坏字符？什么叫做好后缀? 一图胜千言</p>
+<img src="/2019/06/25/字符串匹配之-BM算法/2.png">
+<p>​                                                                                    图2</p>
+<p>BM算法的思路是，如果当前text和pattern失配了，则pattern该如何移动？ 按照坏字符规则，可以移动一个距离，按照好后缀规则，可以移动一个距离，那么两个距离之间 取max，就是本次应该移动的距离.</p>
+<p>下面分别讲述坏字符规则和好后缀规则应该移动的距离. 注意，下面讨论的距离都是以向右为正. </p>
+<h4 id="坏字符规则"><a href="#坏字符规则" class="headerlink" title="坏字符规则"></a>坏字符规则</h4><p>分两种情况</p>
+<ol>
+<li><p>坏字符（下图是c）没出现在模式串P中，这时可以把模式串P移动到坏字符的下一个字符，继续比较，如下图：</p>
+<img src="/2019/06/25/字符串匹配之-BM算法/3.png">
+<p>​                                                                            图3</p>
+<p>即模式串移动的距离=i+1=m-(m-1-i), 其中m-1-i 是字符pattern[i]距离pattern右端的距离。m是pattern的长度.</p>
+</li>
+<li><p>坏字符出现在模式串中，这时可以把模式串从右算起第一个出现的坏字符和母串的坏字符对齐，当然，这样可能造成模式串倒退移动（但是下图没有倒退，但其实因为是好后缀和坏字符规则取大，所以其实倒退的情况并不会发生——因为好后缀不会倒退），如下图：</p>
+<img src="/2019/06/25/字符串匹配之-BM算法/4.png">
+<p>​                                                                                    图4</p>
+<p>则模式串移动的距离=bmbc[‘f’]-(m-1-i), 其中m-1-i是失配处(即pattern[i]!=text[j+i])离模式串最右端的距离. 而      bmbc[‘f’] 是pattern中从右算起第一个字符’f’（注意，本情形的前提是坏字符’f’在模式串中存在）距离pattern最右端的距离. 为什么是最右边的’f’? 因为这样就不会漏掉匹配（谨慎）.</p>
+<p>综上，坏字符导致pattern（或者说text的指针，因为又是重新开始比较后缀，其实就是一个动，另一个不动嘛~）向右移动的距离是 bmbc[text[j+i]]-(m-i-1), 其中bmbc[i]表示字符i(强转为字符型数据)距离pattern最右端的距离. 对于在pattern中不存在的字符i， bmbc[i] 规定为m(这样，坏字符情形1也被纳入进来了)</p>
+</li>
+</ol>
+<h4 id="好后缀规则"><a href="#好后缀规则" class="headerlink" title="好后缀规则"></a>好后缀规则</h4><p>还是回归图1,  其实必要条件就是Pattern上有一段P和后缀B完全相同.  所以我们可以换个姿势来看这个问题，就是</p>
+<img src="/2019/06/25/字符串匹配之-BM算法/5.png">
+<p>​                                                                                图5</p>
+<p>从上图，我们可以知道</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bmgs[m-<span class="number">1</span>-suffix[i]] = m-<span class="number">1</span>-i</span><br></pre></td></tr></table></figure>
+<p>成立</p>
+<p>其中 bmgs[i] 的含义是如果在pattern[i]失配的话（即text[j+i]!=pattern[i]）,则模式串应该向右移动的距离（或者说是text的指针向右移动的距离）</p>
+<p>而suffix[i]的含义你在图5也可以看出来了——就是从它出发的能与后缀匹配的最大长度.  或者看下图</p>
+<img src="/2019/06/25/字符串匹配之-BM算法/8.png">
+<p>​                                                                                图8</p>
+<p>但是我们想谨慎的移动，所以如果有x=suffix[i]=suffix[j], 但是i&lt;j, 则m-1-i&gt;m-1-j, 所以</p>
+<p>bmgs[m-1-x] = m-1-j, 用图说话，就是图5中pattern[m-1-suffix[i]] 失配的话，如果存在2段儿和后缀</p>
+<p>pattern[m-suffix[i],…,m-1] 匹配的话，则选择最靠右的那一段儿X，移动模式串，使X与pattern[m-suffix[i],…,m-1]匹配在一起. 这样移动的距离最小，不会错失匹配.</p>
+<p>注意，对于所有的pattern[m-1-suffix[i]] 失配而言，它一定要移动m-1-i的距离. 因为你不是要匹配么? 那必要条件就是pattern[m-1-suffix[i]]右边完全匹配的那一段儿必须要匹配. 所以你可以放心大胆的移动到最靠右的和pattern[m-suffix[i],…,m-1] 匹配的那一段儿.</p>
+<p>但是不是每个失配的pattern[i]都和pattern[m-1-suffix[i]]那样那么幸运——都有pattern中间的一段儿（即图5中间的非后缀的”bcde”）等着它. 你可以想象一下，将图5中间的这段儿”bcde”向左滑动，直至”bcde”被pattern的左端”吞没”, 关于这一点，你可以看看下图</p>
+<img src="/2019/06/25/字符串匹配之-BM算法/6.png">
+<p>​                                                                            图6</p>
+<p>即如果不存在像上面那样一个完整后缀（图5中的”bcde”）的情形，但是存在一段前缀（图6中的”cde”）的情形，则只需要移动前缀(图6的”cde”)使之与后缀（图6的”bcde”）的一部分(“cde”)重合即可. 注意，此时失配的字符可以是模式串首位的c到g字符中的任意一个，不可能不需要移动图6那么多，否则的话，就存在后缀情形了.</p>
+<p>如果更差一点，既不存在前缀情形（图6）又不存在后缀（图5）呢? 那么就应该毫不犹豫的移动整个pattern的长度m. 就像下图</p>
+<img src="/2019/06/25/字符串匹配之-BM算法/7.png">
+<p>​                                                                        图7</p>
+<p>这很容易明白，因为如果一旦移动&lt;m就可以匹配的话，一定存在前缀情形（图6）或者后缀情形（图5）.</p>
+<p>但是有个问题要搞清楚——对于一个既存在前缀情形又存在后缀情形的情形，如下图所示</p>
+<img src="/2019/06/25/字符串匹配之-BM算法/9.png">
+<p>​                                                                        图9</p>
+<p>如上图所示，在pattern[i]!=text[j+i] 失配（即细实线处），但是pattern[i]既是后缀情形——即pattern[i+1,..,m-1]和两根细虚线之间的段儿是匹配的. 则按照后缀情形，pattern需要右移动L2的距离. 但是如果pattern[i]也属于前缀情形——也就是如果pattern[0]到粗实线这一段前缀中包含pattern[i](pattern[0,…,粗实线]=pattern[粗虚线,…,m-1]), 则按照前缀规则，应该移动L1的距离.  为了谨慎起见，还是以L2为准.</p>
+<p>还有一个问题：比如图9，pattern[i]隶属于多个前缀的话（即有多根粗实线），则 要选最长的前缀，因为最长的前缀导致的pattern的移动最短, 这样最谨慎.</p>
+<p>综上，我们使用c++实现BM算法如下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOCAL</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> SIZE  = <span class="number">256</span>, MAX_P = <span class="number">20</span>, MAX_T = <span class="number">30</span>; <span class="comment">// 最多256个字符, 模式串最长20个字符,  文本串最长30个字符</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> bc[SIZE]; <span class="comment">// 坏字符数组, bc[i] 表示字符i距离pattern最右端的距离， 如果pattern中有多个字符i,选取最靠右的那个</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> gs[MAX_P]; <span class="comment">// 好后缀数组, gs[i]表示在好后缀规则下，如果pattern[i]失配的话，模式串向右移动的距离</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> suffix[MAX_P]; <span class="comment">// 后缀数组</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> p[MAX_P]; <span class="comment">// 模式串</span></span><br><span class="line"><span class="keyword">int</span> m; <span class="comment">// 模式串长度</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> text[MAX_T]; <span class="comment">// 文本串</span></span><br><span class="line"><span class="keyword">int</span> n; <span class="comment">// 文本串长度</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bmbc</span><span class="params">()</span> <span class="comment">// 坏字符规则</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;SIZE; i++) bc[i] = m; <span class="comment">// 伊始都是m</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;m; i++) bc[(<span class="keyword">unsigned</span> <span class="keyword">char</span>) p[i]] = m-i<span class="number">-1</span>; <span class="comment">// 所以最后在pattern中不存在的字符的bc值就是m, 后缀匹配过程中遇到这种字符，则模式串直接移动bc值-(m-1-i)=m-(m-1-i)=i+1, 因为如果存在多个字符，则以最右边的为准, 所以i的顺序从0到m-1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bmsuffix</span><span class="params">()</span> <span class="comment">// 处理pattern得到其相应的后缀数组</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	suffix[m<span class="number">-1</span>] = m; <span class="comment">// pattern[m-1]的后缀数组长度自然就是m</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; m<span class="number">-1</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(j&lt;=i &amp;&amp; p[i-j] == p[m<span class="number">-1</span>-j])j++;</span><br><span class="line">		suffix[i] = j;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bmgs</span><span class="params">()</span> <span class="comment">// 好后缀规则</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	bmsuffix();</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;m; i++) gs[i] = m; <span class="comment">// 初始化都是默认既不是前缀规则又不是后缀情形的</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = m<span class="number">-2</span>; ~i; i--) <span class="comment">// i=m-1的时候, 下面的for不会进行的，所以干脆放掉</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (suffix[i] == i+<span class="number">1</span>) <span class="comment">// 如果是前缀情形, 则只需要处理最长前缀就可以了，所以i是从m-1往0跑的</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j&lt;m-i<span class="number">-1</span>;j++) gs[j] = m-i<span class="number">-1</span>;</span><br><span class="line">			<span class="keyword">break</span>; <span class="comment">// 一旦发现，就只做一次</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;m<span class="number">-1</span>; i++) gs[m<span class="number">-1</span>-suffix[i]] = m<span class="number">-1</span>-i; <span class="comment">// 显然，i不能等于m-1, 否则suffix[m-1]=m, 难道gs[-1]啊?</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bm</span><span class="params">()</span> <span class="comment">// bm算法</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	bmbc();</span><br><span class="line">	bmgs(); <span class="comment">// 预处理pattern</span></span><br><span class="line">	<span class="keyword">int</span> j = <span class="number">0</span>, i;</span><br><span class="line">	<span class="keyword">while</span>(j&lt;=n-m)</span><br><span class="line">	&#123;</span><br><span class="line">		i = m<span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">while</span>(~i &amp;&amp; text[j+i]==p[i])i--; <span class="comment">// 开始进行后缀匹配</span></span><br><span class="line">		<span class="keyword">if</span> (!~i)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, j); <span class="comment">// 发现一次匹配</span></span><br><span class="line">			j+=gs[<span class="number">0</span>]; <span class="comment">// 注意，没有坏字符, 这里按照好后缀规则移动, 这里选择gs[0] 是因为假设pattern[0]失配了. 因为你要匹配的话，必要条件是pattern[1,...,m-1]也都匹配吧? 所以根据必要条件，这里选择gs[0]是可以的.</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="comment">// 失配</span></span><br><span class="line">		&#123;</span><br><span class="line">			j+=max(gs[i], bc[text[j+i]]-(m-i<span class="number">-1</span>)); <span class="comment">//坏字符规则和好后缀规则移动距离取大</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s%s"</span>, text, p);</span><br><span class="line">	n = <span class="built_in">strlen</span>(text);</span><br><span class="line">	m = <span class="built_in">strlen</span>(p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	init();</span><br><span class="line">	bm();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">测试数据</span></span><br><span class="line"><span class="comment">GoogleyouGooglelove</span></span><br><span class="line"><span class="comment">Google</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://www.cnblogs.com/xubenben/p/3359364.html" target="_blank" rel="noopener">https://www.cnblogs.com/xubenben/p/3359364.html</a></p>
+<p>【2】<a href="https://yfsyfs.github.io/2019/06/17/字符串匹配算法之kmp/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/06/17/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95%E4%B9%8Bkmp/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/06/25/字符串匹配之-BM算法/" data-id="cjymwux7n00zz1svmaeimqka3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/字符串/">字符串</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/06/25/纠错利器-BK树/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          纠错利器 BK树
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/06/24/volatile关键字的内存语义/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">volatile关键字的内存语义</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BST/">BST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-Primer/">C++ Primer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C和指针/">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DAG/">DAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HotSpot/">HotSpot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JMM/">JMM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JRE/">JRE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KMP/">KMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/">LCA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Manacher算法/">Manacher算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oauth2-0/">Oauth2.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMQ/">RMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ST/">ST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVN/">SVN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tarjan/">Tarjan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bfs/">bfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-c/">c/c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfs/">dfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dp/">dp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fzu/">fzu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdu/">hdu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd树/">kd树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kmp/">kmp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oj/">oj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poj/">poj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sbt/">sbt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/treap/">treap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/trie/">trie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volatile/">volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分答案/">二分答案</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/优先队列/">优先队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/位图/">位图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存模型/">内存模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治/">分治</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态查找/">动态查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原生js/">原生js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同步/">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端，数据库-mysql/">后端，数据库, mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/启发式搜索/">启发式搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/哈希/">哈希</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/回文/">回文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图/">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/在线算法/">在线算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆排序/">堆排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串/">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串匹配/">字符串匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/宽搜/">宽搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/左式堆/">左式堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/平衡查找树/">平衡查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并查集/">并查集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通/">强连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通分支/">强连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/归并排序/">归并排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心语/">心语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快排/">快排</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速幂/">快速幂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扩展KMP/">扩展KMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抓包/">抓包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓扑排序/">拓扑排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教材/">教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小生成树/">最小生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最长回文子串/">最长回文子串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有向图/">有向图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂/">杂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/板子/">板子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找/">查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找树/">查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栈/">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树/">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树堆/">树堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组/">树状数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模板/">模板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/欧拉环游/">欧拉环游</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/洛谷/">洛谷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深搜/">深搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/滚动数组/">滚动数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本控制/">版本控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/牛客网/">牛客网</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生成树/">生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简历/">简历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线上问题/">线上问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树/">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络协议/">网络协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自己动手用java写编译器/">自己动手用java写编译器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/菜鸟教材/">菜鸟教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词典/">词典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心/">贪心</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/轮播图/">轮播图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通/">连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通分支/">连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通性/">连通性</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逆序数/">逆序数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归/">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/链表/">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集合/">集合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态查找树/">静态查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/C/" style="font-size: 18.26px;">C</a> <a href="/tags/C/" style="font-size: 11.3px;">C++</a> <a href="/tags/C-Primer/" style="font-size: 10px;">C++ Primer</a> <a href="/tags/C和指针/" style="font-size: 17.83px;">C和指针</a> <a href="/tags/DAG/" style="font-size: 10.87px;">DAG</a> <a href="/tags/DFS/" style="font-size: 10.43px;">DFS</a> <a href="/tags/DP/" style="font-size: 10.87px;">DP</a> <a href="/tags/HotSpot/" style="font-size: 10px;">HotSpot</a> <a href="/tags/JDK/" style="font-size: 16.52px;">JDK</a> <a href="/tags/JMM/" style="font-size: 10.43px;">JMM</a> <a href="/tags/JRE/" style="font-size: 10px;">JRE</a> <a href="/tags/JVM/" style="font-size: 10.87px;">JVM</a> <a href="/tags/KMP/" style="font-size: 10px;">KMP</a> <a href="/tags/LCA/" style="font-size: 10.87px;">LCA</a> <a href="/tags/LDAP/" style="font-size: 10.43px;">LDAP</a> <a href="/tags/MST/" style="font-size: 10px;">MST</a> <a href="/tags/Manacher算法/" style="font-size: 10px;">Manacher算法</a> <a href="/tags/Oauth2-0/" style="font-size: 10px;">Oauth2.0</a> <a href="/tags/RMQ/" style="font-size: 11.74px;">RMQ</a> <a href="/tags/ST/" style="font-size: 10px;">ST</a> <a href="/tags/SVN/" style="font-size: 10px;">SVN</a> <a href="/tags/Spring/" style="font-size: 14.78px;">Spring</a> <a href="/tags/String/" style="font-size: 10.43px;">String</a> <a href="/tags/Tarjan/" style="font-size: 10px;">Tarjan</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/bfs/" style="font-size: 10.43px;">bfs</a> <a href="/tags/c-c/" style="font-size: 10px;">c/c++</a> <a href="/tags/dfs/" style="font-size: 11.74px;">dfs</a> <a href="/tags/dp/" style="font-size: 10.87px;">dp</a> <a href="/tags/fzu/" style="font-size: 10px;">fzu</a> <a href="/tags/gradle/" style="font-size: 10.43px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 10.43px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 10.43px;">hdfs</a> <a href="/tags/hdu/" style="font-size: 14.35px;">hdu</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/java并发编程实践/" style="font-size: 16.09px;">java并发编程实践</a> <a href="/tags/jdbc/" style="font-size: 10.43px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/kd树/" style="font-size: 10px;">kd树</a> <a href="/tags/kmp/" style="font-size: 10px;">kmp</a> <a href="/tags/leetcode/" style="font-size: 10.43px;">leetcode</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oj/" style="font-size: 15.65px;">oj</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/poj/" style="font-size: 11.3px;">poj</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/spring/" style="font-size: 12.61px;">spring</a> <a href="/tags/springboot/" style="font-size: 10.87px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 10.43px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/synchronized/" style="font-size: 10.43px;">synchronized</a> <a href="/tags/treap/" style="font-size: 10px;">treap</a> <a href="/tags/trie/" style="font-size: 12.61px;">trie</a> <a href="/tags/volatile/" style="font-size: 10.43px;">volatile</a> <a href="/tags/vue/" style="font-size: 10.87px;">vue</a> <a href="/tags/事务/" style="font-size: 11.74px;">事务</a> <a href="/tags/二分查找/" style="font-size: 10px;">二分查找</a> <a href="/tags/二分答案/" style="font-size: 10px;">二分答案</a> <a href="/tags/二叉树/" style="font-size: 10px;">二叉树</a> <a href="/tags/优先队列/" style="font-size: 11.3px;">优先队列</a> <a href="/tags/位图/" style="font-size: 10px;">位图</a> <a href="/tags/内存模型/" style="font-size: 10.43px;">内存模型</a> <a href="/tags/分治/" style="font-size: 10px;">分治</a> <a href="/tags/前端/" style="font-size: 11.74px;">前端</a> <a href="/tags/动态查找/" style="font-size: 10px;">动态查找</a> <a href="/tags/动态规划/" style="font-size: 11.74px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/同步/" style="font-size: 10.43px;">同步</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 19.13px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/启发式搜索/" style="font-size: 10px;">启发式搜索</a> <a href="/tags/哈希/" style="font-size: 11.3px;">哈希</a> <a href="/tags/回文/" style="font-size: 10px;">回文</a> <a href="/tags/图/" style="font-size: 17.39px;">图</a> <a href="/tags/在线算法/" style="font-size: 10px;">在线算法</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/堆排序/" style="font-size: 10px;">堆排序</a> <a href="/tags/大数据/" style="font-size: 10.87px;">大数据</a> <a href="/tags/字符串/" style="font-size: 13.48px;">字符串</a> <a href="/tags/字符串匹配/" style="font-size: 10px;">字符串匹配</a> <a href="/tags/宽搜/" style="font-size: 10.43px;">宽搜</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/左式堆/" style="font-size: 10px;">左式堆</a> <a href="/tags/平衡查找树/" style="font-size: 10px;">平衡查找树</a> <a href="/tags/并发/" style="font-size: 16.96px;">并发</a> <a href="/tags/并查集/" style="font-size: 11.74px;">并查集</a> <a href="/tags/强连通/" style="font-size: 10.43px;">强连通</a> <a href="/tags/强连通分支/" style="font-size: 10px;">强连通分支</a> <a href="/tags/归并排序/" style="font-size: 10px;">归并排序</a> <a href="/tags/心语/" style="font-size: 10px;">心语</a> <a href="/tags/快排/" style="font-size: 10px;">快排</a> <a href="/tags/快速幂/" style="font-size: 10.43px;">快速幂</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/扩展KMP/" style="font-size: 10.87px;">扩展KMP</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/拓扑排序/" style="font-size: 10.43px;">拓扑排序</a> <a href="/tags/排序/" style="font-size: 15.22px;">排序</a> <a href="/tags/操作系统/" style="font-size: 10.43px;">操作系统</a> <a href="/tags/教材/" style="font-size: 19.57px;">教材</a> <a href="/tags/数学/" style="font-size: 11.3px;">数学</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/最小生成树/" style="font-size: 10px;">最小生成树</a> <a href="/tags/最短路径/" style="font-size: 12.61px;">最短路径</a> <a href="/tags/最长回文子串/" style="font-size: 10px;">最长回文子串</a> <a href="/tags/有向图/" style="font-size: 10px;">有向图</a> <a href="/tags/杂/" style="font-size: 10px;">杂</a> <a href="/tags/板子/" style="font-size: 10px;">板子</a> <a href="/tags/查找/" style="font-size: 10px;">查找</a> <a href="/tags/查找树/" style="font-size: 13.48px;">查找树</a> <a href="/tags/栈/" style="font-size: 12.61px;">栈</a> <a href="/tags/树/" style="font-size: 17.39px;">树</a> <a href="/tags/树堆/" style="font-size: 10px;">树堆</a> <a href="/tags/树状数组/" style="font-size: 11.3px;">树状数组</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/模板/" style="font-size: 13.04px;">模板</a> <a href="/tags/欧拉环游/" style="font-size: 10px;">欧拉环游</a> <a href="/tags/洛谷/" style="font-size: 10px;">洛谷</a> <a href="/tags/深搜/" style="font-size: 11.3px;">深搜</a> <a href="/tags/源码/" style="font-size: 18.7px;">源码</a> <a href="/tags/源码分析/" style="font-size: 11.3px;">源码分析</a> <a href="/tags/滚动数组/" style="font-size: 10px;">滚动数组</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/牛客网/" style="font-size: 10.43px;">牛客网</a> <a href="/tags/生成树/" style="font-size: 10.43px;">生成树</a> <a href="/tags/离散化/" style="font-size: 10px;">离散化</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/线段树/" style="font-size: 12.17px;">线段树</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/编译原理/" style="font-size: 13.91px;">编译原理</a> <a href="/tags/网络协议/" style="font-size: 10px;">网络协议</a> <a href="/tags/自己动手用java写编译器/" style="font-size: 13.91px;">自己动手用java写编译器</a> <a href="/tags/菜鸟教材/" style="font-size: 10.87px;">菜鸟教材</a> <a href="/tags/设计模式/" style="font-size: 10.87px;">设计模式</a> <a href="/tags/词典/" style="font-size: 10px;">词典</a> <a href="/tags/贪心/" style="font-size: 10.43px;">贪心</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/连通/" style="font-size: 11.3px;">连通</a> <a href="/tags/连通分支/" style="font-size: 10px;">连通分支</a> <a href="/tags/连通性/" style="font-size: 11.74px;">连通性</a> <a href="/tags/逆序数/" style="font-size: 10.43px;">逆序数</a> <a href="/tags/递归/" style="font-size: 11.3px;">递归</a> <a href="/tags/链表/" style="font-size: 10.87px;">链表</a> <a href="/tags/锁/" style="font-size: 10.87px;">锁</a> <a href="/tags/队列/" style="font-size: 10.43px;">队列</a> <a href="/tags/集合/" style="font-size: 10px;">集合</a> <a href="/tags/静态查找树/" style="font-size: 10.43px;">静态查找树</a> <a href="/tags/面试/" style="font-size: 13.91px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/28/hello-world/">声明</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/27/自己动手用java写编译器-课时8-Thompson构造，将正则表达式转换为有限状态自动机/">自己动手用java写编译器 课时8 Thompson构造，将正则表达式转换为有限状态自动机</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/27/C-菜鸟教程之-继承/">C++ 菜鸟教程之 继承</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/27/C-菜鸟教程之接口（抽象类）/">C++ 菜鸟教程之接口（抽象类）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/26/C-菜鸟教程之-类-对象/">C++菜鸟教程之 类&amp;对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

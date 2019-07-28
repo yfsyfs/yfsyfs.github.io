@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>动态存储管理 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缘起在学习数据结构的过程中，每一种数据结构我们都介绍了它们在内存中的映像. 但那是借助高级语言（C/C++）实现的. 高级语言的特点是使用变量标识符取代了低级语言(汇编)的内存地址.  程序员已经不需要和内存地址直接打交道了. 而这些变量对应的标识符都是由编译器在编译或者执行的时候进行内存分配的. 因此内存管理不论对于操作系统还是编译器而言，都是一个极为重要的问题(内存管理是操作系统的基本问题之一">
+<meta name="keywords" content="算法,教材,链表,操作系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="动态存储管理">
+<meta property="og:url" content="http://yoursite.com/2019/06/12/动态存储管理之边界标识法/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起在学习数据结构的过程中，每一种数据结构我们都介绍了它们在内存中的映像. 但那是借助高级语言（C/C++）实现的. 高级语言的特点是使用变量标识符取代了低级语言(汇编)的内存地址.  程序员已经不需要和内存地址直接打交道了. 而这些变量对应的标识符都是由编译器在编译或者执行的时候进行内存分配的. 因此内存管理不论对于操作系统还是编译器而言，都是一个极为重要的问题(内存管理是操作系统的基本问题之一">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/06/12/动态存储管理之边界标识法/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/12/动态存储管理之边界标识法/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/12/动态存储管理之边界标识法/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/12/动态存储管理之边界标识法/4.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/12/动态存储管理之边界标识法/5.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/12/动态存储管理之边界标识法/6.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/12/动态存储管理之边界标识法/7.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/12/动态存储管理之边界标识法/8.png">
+<meta property="og:updated_time" content="2019-06-16T04:13:11.178Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="动态存储管理">
+<meta name="twitter:description" content="缘起在学习数据结构的过程中，每一种数据结构我们都介绍了它们在内存中的映像. 但那是借助高级语言（C/C++）实现的. 高级语言的特点是使用变量标识符取代了低级语言(汇编)的内存地址.  程序员已经不需要和内存地址直接打交道了. 而这些变量对应的标识符都是由编译器在编译或者执行的时候进行内存分配的. 因此内存管理不论对于操作系统还是编译器而言，都是一个极为重要的问题(内存管理是操作系统的基本问题之一">
+<meta name="twitter:image" content="http://yoursite.com/2019/06/12/动态存储管理之边界标识法/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-动态存储管理之边界标识法" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/12/动态存储管理之边界标识法/" class="article-date">
+  <time datetime="2019-06-12T05:45:11.000Z" itemprop="datePublished">2019-06-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      动态存储管理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>在学习数据结构的过程中，每一种数据结构我们都介绍了它们在内存中的映像. 但那是借助高级语言（C/C++）实现的. 高级语言的特点是使用变量标识符取代了低级语言(汇编)的内存地址.  程序员已经不需要和内存地址直接打交道了. 而这些变量对应的标识符都是由编译器在编译或者执行的时候进行内存分配的. 因此内存管理不论对于操作系统还是编译器而言，都是一个极为重要的问题(内存管理是操作系统的基本问题之一). 我们来简易探究一下.</p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>先来看看动态内存管理的应用场景.</p>
+<p>显然，不管是什么样的动态存储管理系统，在刚开工的时候，整块内存就是一个大的空闲块（在编译器中称之为”堆（Heap）”）. 随着系统进程和用户进程的并起，它们纷纷提出内存申请, 则编译器或者操作系统响应请求并一一分配内存给相应进程使用. 比如我们假设每次分配内存从地地址开始. 则经过若干次分配之后，堆变成如下的样子</p>
+<img src="/2019/06/12/动态存储管理之边界标识法/1.png">
+<p>但是有些进程运行完毕之后，操作系统必须要回收其内存, 则一段时间之后，堆变成了如下的样子</p>
+<img src="/2019/06/12/动态存储管理之边界标识法/2.png">
+<p>如果此时再来一个进程，要申请内存空间的话，我该拿哪块内存分配给这个进程呢?  显然有以下两种方案</p>
+<ol>
+<li>不理会已经空余出来的内存, 继续往高地址段分配内存，直至再也无法继续下去，则重新组织内存. 将空闲内存合并成大块的内存（这个过程叫做回收），再分配给该进程</li>
+<li>每当一个进程结束，内存空闲，就要考虑回收内存</li>
+</ol>
+<p>所以总结上面的讨论，我们可以得出如下结论</p>
+<blockquote>
+<p>动态内存管理要考虑的两个基本问题就是 1. 内存的分配 2. 内存的回收</p>
+</blockquote>
+<p>显然，如果仅仅按照上面的1和2进回收的话，效率很低的. 所以我们想到了空间换时间——也就是使用可用空间链表来维护可用内存块. （很多数据库引擎（例如mysql的innodb）甚至是操作系统，用的就是这种办法）.</p>
+<p>即可用空间链表（下简称ASL available space linkedlist）长下面这个样子</p>
+<img src="/2019/06/12/动态存储管理之边界标识法/3.png">
+<p>也即刻画了下面的内存使用情况</p>
+<img src="/2019/06/12/动态存储管理之边界标识法/4.png">
+<p>或者用图示</p>
+<img src="/2019/06/12/动态存储管理之边界标识法/5.png">
+<p>ASL的每个节点的数据结构是</p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">MemoryBlock</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> tag = <span class="number">0</span>; <span class="comment">// 0表示空闲，1表示占用</span></span><br><span class="line">    <span class="keyword">int</span> size; <span class="comment">// 表示内存块的大小</span></span><br><span class="line">    MemoryBlock *nxt; <span class="comment">// 指向ASL下一个节点的指针变量</span></span><br><span class="line">    <span class="keyword">char</span> space[INITIALSIZE]; <span class="comment">// 占据的内存块空间，INITIALSIZE是初始内存的大小</span></span><br><span class="line">&#125; MemoryBlock, *Space; <span class="comment">// Space指针指向了可用列表的首地址</span></span><br></pre></td></tr></table></figure>
+<p>也就是说，目前的内存块的结构是</p>
+<img src="/2019/06/12/动态存储管理之边界标识法/6.png">
+<p>​                                            图1</p>
+<p>那么第一个基本问题就好解决了，即内存分配问题. 假设一个进程P申请M内存， 至少有以下三种方案</p>
+<ol>
+<li><p>首次分配法</p>
+<p>遍历ASL, 遇到第一个&gt;=M的ASL节点first，就将M大小的内存分配给P. 并修改first的size域，如果size域归零，则从ASL中移除first节点. </p>
+</li>
+<li><p>差距最小分配法</p>
+<p>首先ASL需要按照size域大小升序排序，然后遍历ASL,  找到第一个size域&gt;=M的ASL节点first，分配M内存出去，然后修改first的size域（如果归零的话，直接从ASL中移除first节点，否则的话，需要卸下first，重新找位置插入, 毕竟要维护升序嘛~）</p>
+</li>
+<li><p>差距最大分配法</p>
+<p>首先ASL需要按照size域降序排序，然后只需要取出第一个节点first（这点比较好——无需遍历ASL），如果其size&gt;=M, 则分配M内存出去并修改first的size域. 然后卸下first,重新找到位置插入.</p>
+</li>
+</ol>
+<p>至于回收的基本问题，我们<strong>至少</strong>可以做到</p>
+<ol>
+<li>对于首次分配法，直接将空闲内存块头插到ASL</li>
+<li>对于差距最小分配法，需要找到合适位置插入</li>
+<li>对于差距最大分配法，需要找到合适位置插入</li>
+</ol>
+<p>所以我们不难得出以下结论</p>
+<p>首次分配法只需要在分配的时候遍历ASL，差距最大分配法只需在回收的时候遍历ASL，而差距最小分配法在分配和回收的时候都需要遍历ASL. 从效率上看，因为ASL不是双向链表，所以差距最小分配法的性能最差. 但是应用场景是</p>
+<ol>
+<li>差距最小分配法因为总拿最恰如其分的内存块来分配, 所以最后ASL上节点之间size域的差距很大. 所以差距最小分配法适用于进程请求内存分布比较两极分化的情况.（即方差较大的情形）</li>
+<li>差距最大分配法因为总拿最大的那块内存来消费，所以最后ASL上节点之间size域的差距比较小，所以差距最大分配法适用于进程请求内存分布比较集中（即方差较小）的情况</li>
+<li>首次分配法介于1和2，适用于操作系统对于进程申请内存的分布尚无知的应用场景.</li>
+</ol>
+<p>所以不难臆测一下操作系统分配内存算法的形式——应该是启发式的, 一开始是首次分配法，系统运行一段时间之后，等到操作系统收集到了足够多的统计信息，就可以改变策略，使用更加适合的内存管理算法.</p>
+<p>到这里就完了? nonono!!! 内存分配基本完了，但是回收只是做了一部分. 因为可能回收之后，导致ASL上相邻若干个节点的内存块其实是相邻的. 则可以合并为一块大的内存(这就是所谓的内存碎片整理). 那么内存的碎片整理怎么做呢? 简而言之就是一旦回收一块内存的话，则根据回收内存的范围，如果左边右边的内存块也是空闲的, 则合并. 否则仅仅插入（采用头插法）. 那么怎么判断相邻的内存块是空闲的呢? 目前的数据结构是无法支撑这种判断的. 所以我们需要将内存块的结构变成下图</p>
+<img src="/2019/06/12/动态存储管理之边界标识法/7.png">
+<p>​                                                    图2</p>
+<p>即比图1多了一个foot.  新的MemoryBlock的数据结构是</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">typedef struct MemoryBlock&#123;</span><br><span class="line">    union &#123;</span><br><span class="line">        MemoryBlock *llink; <span class="comment">// 对于head，这里是ASL前驱节点指针</span></span><br><span class="line">        MemoryBlock *uplink; <span class="comment">// 对于foot, 这里指向本MemoryBlock</span></span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">int</span> tag; <span class="comment">// 同图1</span></span><br><span class="line">    <span class="keyword">int</span> size; <span class="comment">// 同图1</span></span><br><span class="line">    MemoryBlock *rlink; <span class="comment">// ASL链表的后继节点</span></span><br><span class="line">    <span class="keyword">char</span> space[INITIALSIZE]; <span class="comment">// 同图1</span></span><br><span class="line">&#125; MemoryBlock, *Space; <span class="comment">// Space指针指向了可用列表的首地址</span></span><br></pre></td></tr></table></figure>
+<p>因为采用了双向链表，所以ASL长的像下面的样子</p>
+<img src="/2019/06/12/动态存储管理之边界标识法/8.png">
+<p>具体边界标识法的算法实现如下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INITIALSIZE = <span class="number">200</span>; <span class="comment">// 模拟200字节的堆空间</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> e = <span class="number">3</span>; <span class="comment">// 表示如果一块内存空间-申请的内存空间大小&lt;=3字节的话，就干脆把整块内存空间分配给它, 不要留着3字节这么小的空间了.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">MemoryBlock</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">union</span>&#123;</span><br><span class="line">		MemoryBlock *llink; <span class="comment">// ASL链表的前驱</span></span><br><span class="line">		MemoryBlock *uplink; <span class="comment">// 指向本MemoryBlock节点</span></span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">int</span> tag; <span class="comment">// 0表示空闲，1表示占用</span></span><br><span class="line">	<span class="keyword">int</span> size; <span class="comment">// 本内存块大小,是整个节点的大小，不仅仅是space的大小</span></span><br><span class="line">	MemoryBlock *rlink; <span class="comment">// ASL链表的后继</span></span><br><span class="line">	<span class="keyword">char</span> space[INITIALSIZE]; <span class="comment">// 内存块</span></span><br><span class="line"></span><br><span class="line">	MemoryBlock():size(INITIALSIZE), tag(<span class="number">0</span>), rlink(<span class="keyword">this</span>), llink(<span class="keyword">this</span>)&#123;&#125;</span><br><span class="line"></span><br><span class="line">&#125;MemoryBlock, *Space; <span class="comment">// Space表示初始的堆（模拟了200字节）</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">footsize</span><span class="params">()</span> <span class="comment">// 底部的大小</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">sizeof</span>(Space) + <span class="keyword">sizeof</span>(<span class="keyword">int</span>); <span class="comment">// 一个uplink一个tag</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">headsize</span><span class="params">()</span> <span class="comment">// 头部的大小</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (<span class="keyword">sizeof</span>(Space)+<span class="keyword">sizeof</span>(<span class="keyword">int</span>))&lt;&lt;<span class="number">1</span>; <span class="comment">// 2个link 2个int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">controlsize</span><span class="params">()</span> <span class="comment">// 一个块的控制信息（是一个块至少要占据的大小）</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> footsize()+headsize();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> Space <span class="title">getFoot</span><span class="params">(Space p)</span> <span class="comment">// 得到p指向块的底部位置(即foot指针)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (Space)((<span class="keyword">int</span>)p+p-&gt;size-footsize()); <span class="comment">// 注意, 不能直接写 p+p-&gt;size-footsize(), 指针加1和指针地址值+1是完全不同的, 举个例子就是p=int *的话, p+1其实是加了4, 但是(int)p+1 才是加了1, 如果只是想地址值+1的话, 可以这样做——体现了C语言指针的强大</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> Space <span class="title">leftneighbor</span><span class="params">(Space p)</span> <span class="comment">// p的左邻</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> ((Space)((<span class="keyword">int</span>)p-footsize()))-&gt;uplink;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> Space <span class="title">rightneighbor</span><span class="params">(Space p)</span> <span class="comment">// p的右舍</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (Space)((<span class="keyword">int</span>)p+p-&gt;size);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Space <span class="title">alloc</span><span class="params">(Space &amp;pav, <span class="keyword">int</span> n)</span> <span class="comment">// 分配n字节的内存空间(但是算法中我们其实会再为n加上控制信息的空间, 因为回收回来的时候, 我要往该内存块中写控制信息的, 如果不额外奉送控制信息的内存块的话(虽然是奉送，但是用户不能在这控制信息中写内容,不然回收时会有问题),则回收后怎么写控制信息呢? 比如申请9个字节空间，不额外分配24字节控制信息，则回收回来，9字节里面怎么存放控制信息呢? 所以这里分配的时候额外将24字节的控制信息也分配出去了 ), pav 是链表的可用空间列表的头结点 分配策略是首次分配法</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Space p; <span class="comment">// p开始扫描</span></span><br><span class="line">	<span class="keyword">for</span> (p = pav; p-&gt;size&lt;n+controlsize()&amp;&amp;p-&gt;rlink!=pav; p=p-&gt;rlink); <span class="comment">// p从pav开始, 只要p还不够大小，并且p还不是最后那块，p就继续沿着rlink游动. 注意，这里不能用 p!=pav, 不然的话，for的初始条件就不满足而跳出循环了</span></span><br><span class="line">	<span class="keyword">if</span> (p-&gt;size&lt;n+controlsize()*<span class="number">2</span>) <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// 跳出上述循环要么是已经足够大了，要么是已经是最后那块了，如果还是不够大（注意，我们要保留控制信息的空间），那么说明无法分配n字节的内存 返回NULL,</span></span><br><span class="line">	<span class="comment">// 走到这里说明存在一块内存p的size&gt;=n, 可以分配</span></span><br><span class="line">	Space foot = getFoot(p); <span class="comment">//  foot指针的位置</span></span><br><span class="line">	pav = p-&gt;rlink; <span class="comment">// pav 移动到下一块地址（这是为了防止每次都从头结点查找，势必造成大量小的节点密集在pav附近集结，这样会增加查询较大块内存空间的时间. ）</span></span><br><span class="line">	<span class="keyword">if</span> (p-&gt;size-n &lt;= e + controlsize()) <span class="comment">// 如果这块内存和待分配的差距不大的话, 就直接分配给请求了</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (pav == p) <span class="comment">// 如果仅剩一块内存了，则分配掉，pav也别剩下了.</span></span><br><span class="line">		&#123;</span><br><span class="line">			pav  = <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="comment">// 注意，此时pav已经是p的rlink那块内存了,现在要把p这块内存从链表上卸载掉</span></span><br><span class="line">		&#123;</span><br><span class="line">			pav-&gt;llink = p-&gt;llink;</span><br><span class="line">			p-&gt;llink-&gt;rlink = pav;</span><br><span class="line">		&#125;</span><br><span class="line">		foot-&gt;tag = <span class="number">1</span>; <span class="comment">// 此块已经是占用块了</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="comment">// 如果远比需求的n个字节来的大, 则可不能豪放的一口气给他——我们仅仅打算将此节点p的后n个字节分配给他, 而且此块不需要从链表上移除</span></span><br><span class="line">	&#123;</span><br><span class="line">		foot-&gt;tag = <span class="number">1</span>; <span class="comment">// 此块(即分配出去的块)已被占用，这样设置的目的是为了后面回收算法（边界标识法）做准备</span></span><br><span class="line">		foot-&gt;uplink = (Space)((<span class="keyword">int</span>)p+p-&gt;size-n-controlsize()); <span class="comment">// 此时被占用块的底部的uplink指针要回指到正确的地方, 不然的话, 回收算法的时候leftneighbor就会错误.</span></span><br><span class="line">		p-&gt;size -=(n+controlsize()); <span class="comment">// 此块大小要减掉n个字节外加控制信息</span></span><br><span class="line">		foot = getFoot(p); <span class="comment">// p不是瘦身了么? 我们要得到p新的底部.</span></span><br><span class="line">		foot-&gt;tag = <span class="number">0</span>; <span class="comment">// 依旧没被占用（是空闲块），因为p瘦身后的块是没被占用的.</span></span><br><span class="line">		foot-&gt;uplink = p; <span class="comment">// 回指顶部</span></span><br><span class="line">		p = (Space)((<span class="keyword">int</span>)foot+footsize()); <span class="comment">// p指向分配出去去的那个块</span></span><br><span class="line">		p-&gt;tag = <span class="number">1</span>;</span><br><span class="line">		p-&gt;size = n +controlsize(); <span class="comment">// 设置分配出去的块</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> p; <span class="comment">// 返回Space（一根指针）给请求，至于请求者要在这块大小为n(或者n+e)的内存中干什么，本内存管理系统管不着（注意，申请者只能在n个字节的空间中写东西, 不能覆盖了控制信息, 不然回收算法的时候，就无法判断左邻右舍了(回收算法第一行就要用)）, 其实这里只管内存的分配，并未对客户程序往未授权分配区域写数据的时候报错，这个就涉及操作系统中的权限问题了</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">recycle</span><span class="params">(Space &amp;pav, Space p)</span> <span class="comment">// 回收内存块p到pav链表中去, 份四种情形</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// 情形1. p的左邻右舍都是占用块, 则简单将p修改属性后插入到pav链表中去即可, 这里采用的实现是插入到pav之前</span></span><br><span class="line">	<span class="keyword">if</span> (leftneighbor(p)-&gt;tag &amp;&amp; rightneighbor(p)-&gt;tag)</span><br><span class="line">	&#123;</span><br><span class="line">		p-&gt;tag = <span class="number">0</span>;</span><br><span class="line">		getFoot(p)-&gt;tag = <span class="number">0</span>; <span class="comment">// 修改p为空闲块</span></span><br><span class="line">		<span class="keyword">if</span> (!pav) <span class="comment">// 如果原本可用空间链表就是一个空链表的话，则将p设置为pav节点即可，即p本身就是头结点</span></span><br><span class="line">		&#123;</span><br><span class="line">			pav = p-&gt;llink = p-&gt;rlink = p;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="comment">// 则将p插入到pav的前面</span></span><br><span class="line">		&#123;</span><br><span class="line">			Space q = pav-&gt;llink;</span><br><span class="line">			p-&gt;rlink = pav;</span><br><span class="line">			p-&gt;llink = q;</span><br><span class="line">			q-&gt;rlink = pav-&gt;llink = p;</span><br><span class="line">			pav = p; <span class="comment">// pav 头指针指向p 去了 ,回收和分配都是要移动头指针的</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 情形2. p的左邻是空闲块，p的右舍是占用块, 则p应该要和左邻合并成大的空闲块即可，注意, 因为左邻是空闲块，所以已经在链表中了，所以可以直接修改左邻属性即可（因为llink和rlink都在左邻的头部, 所以很方便）</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (rightneighbor(p)-&gt;tag) </span><br><span class="line">	&#123;</span><br><span class="line">		Space ln = leftneighbor(p); <span class="comment">// 左邻</span></span><br><span class="line">		<span class="keyword">int</span> n = p-&gt;size; <span class="comment">// 回收块的大小</span></span><br><span class="line">		ln-&gt;size+=n; <span class="comment">// 因为回收，所以大小增加</span></span><br><span class="line">		getFoot(p)-&gt;uplink = ln; <span class="comment">// 原先p的底部的uplink要指向p的左邻的头部</span></span><br><span class="line">		getFoot(p)-&gt;tag = <span class="number">0</span>; <span class="comment">// p已经回收了, 所以为空闲块</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 清新3. p的左邻是占用块，p的右舍是空闲块, 注意，右舍是在pav链表中的，但是如果合并进入p的右舍的话，则右舍的地址就要发生变化了，则原先链表就要发生异动，这是和情形2不同的地方</span></span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (leftneighbor(p)-&gt;tag)</span><br><span class="line">	&#123;</span><br><span class="line">		Space rn = rightneighbor(p); <span class="comment">// 右舍</span></span><br><span class="line">		p-&gt;tag = <span class="number">0</span>; <span class="comment">// 合并之后,p 才是新的头部, 取代了原先右邻的头部</span></span><br><span class="line">		Space q = rn-&gt;llink;</span><br><span class="line">		p-&gt;llink = q; <span class="comment">// 开始改变原本q, 原本q的右邻是rn,但是现在要改成p了</span></span><br><span class="line">		q-&gt;rlink = p;</span><br><span class="line">		Space ql = rn-&gt;rlink; <span class="comment">// 同样修改原本rn的右邻, 它的左邻原本是rn, 现在要改成p</span></span><br><span class="line">		p-&gt;rlink = ql;</span><br><span class="line">		ql-&gt;llink = p;</span><br><span class="line">		p-&gt;size += rn-&gt;size; <span class="comment">// 更新节点大小</span></span><br><span class="line">		getFoot(p)-&gt;uplink = p; <span class="comment">// 更新底部的回指指针指向不再是rn，而是p</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 情形4. p的左邻右舍都是空闲块，则全部并入左邻</span></span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> n = p-&gt;size; <span class="comment">// 回收块的大小</span></span><br><span class="line">		Space ln = leftneighbor(p); <span class="comment">// 左邻</span></span><br><span class="line">		Space rn = rightneighbor(p); <span class="comment">// 右舍</span></span><br><span class="line">		ln-&gt;size += (n+rn-&gt;size); <span class="comment">// 因为左邻将成为新的节点，所以全部加入到左邻的大小.</span></span><br><span class="line">		Space q = rn-&gt;llink; <span class="comment">// 右邻的左邻</span></span><br><span class="line">		Space ql = rn-&gt;rlink; <span class="comment">// 右邻的右邻</span></span><br><span class="line">		q-&gt;rlink = ql; <span class="comment">// 删除右邻</span></span><br><span class="line">		ql-&gt;llink = q;</span><br><span class="line">		getFoot(rn)-&gt;uplink = ln; <span class="comment">// 指向新的头结点——ln</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Space heap = <span class="keyword">new</span> MemoryBlock(); <span class="comment">// 初始化堆内存</span></span><br><span class="line">	Space m1 =  alloc(heap, <span class="number">13</span>); <span class="comment">// 请求分配13字节的内存空间, 但是因为要奉送额外的控制信息，所以其实初始堆少了13+24（controlsize大小为24字节）=37字节</span></span><br><span class="line">	<span class="keyword">if</span> (!m1) <span class="built_in">puts</span>(<span class="string">"空间不足, 请求失败!"</span>);</span><br><span class="line">	Space m2 = alloc(heap, <span class="number">35</span>);  <span class="comment">// 请求分配35字节的内存空间，同上，堆其实少了35+24=59字节</span></span><br><span class="line">	<span class="keyword">if</span> (!m2) <span class="built_in">puts</span>(<span class="string">"空间不足, 请求失败!"</span>);</span><br><span class="line">	Space m3 = alloc(heap, <span class="number">38</span>); <span class="comment">// 请求分配38字节的内存空间，堆少了38+24=62字节</span></span><br><span class="line">	<span class="keyword">if</span> (!m3) <span class="built_in">puts</span>(<span class="string">"空间不足, 请求失败!"</span>);</span><br><span class="line">	Space m4 = alloc(heap, <span class="number">9</span>); <span class="comment">// 请求分配9字节的内存空间，实际需要9+24=33字节，但因为200-37-59-62-33&lt;24(最后这个24字节要为剩下的内存空间的控制信息做准备的, 所以不能分配了此次请求后就少于24字节了),所以m4申请失败，因为空间不足了</span></span><br><span class="line">	<span class="keyword">if</span> (!m4) <span class="built_in">puts</span>(<span class="string">"空间不足, 请求失败!"</span>);</span><br><span class="line">	Space m5 = alloc(heap, <span class="number">19</span>); <span class="comment">// 请求分配19字节的内存空间</span></span><br><span class="line">	<span class="keyword">if</span> (!m5) <span class="built_in">puts</span>(<span class="string">"空间不足, 请求失败!"</span>);</span><br><span class="line">	recycle(heap, m2); <span class="comment">// 回收m2这块内存空间(比较大的一块内存)</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上述算法实现可以看到，正因为我们在每个内存块（MemoryBlock结构体）中加了控制信息（头部的和尾部的），所以能快速定位到左邻右舍，所以碎片的整理就能被支持了. 从而更加高效的利用整个堆空间.</p>
+<p>注意，回收的时候只需要判断左邻右舍一次即可，因为不可能存在左邻空闲，左邻的左邻依旧空闲这种情况，否则的话，在左邻回收的时候就被左邻合并了。</p>
+<p>这就是动态内存管理之边界标识法.</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】严蔚敏，吴伟民 数据结构（C语言版） 清华大学出版社</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/06/12/动态存储管理之边界标识法/" data-id="cjymwux7m00zw1svmjtyir8i0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/操作系统/">操作系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链表/">链表</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/06/12/左式堆/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          左式堆
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/06/12/hashCode和equals官方注释译文/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">hashCode和equals官方注释译文</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BST/">BST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-Primer/">C++ Primer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C和指针/">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DAG/">DAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HotSpot/">HotSpot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JMM/">JMM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JRE/">JRE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KMP/">KMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/">LCA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Manacher算法/">Manacher算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oauth2-0/">Oauth2.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMQ/">RMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ST/">ST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVN/">SVN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tarjan/">Tarjan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bfs/">bfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-c/">c/c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfs/">dfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dp/">dp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fzu/">fzu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdu/">hdu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd树/">kd树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kmp/">kmp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oj/">oj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poj/">poj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sbt/">sbt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/treap/">treap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/trie/">trie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volatile/">volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分答案/">二分答案</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/优先队列/">优先队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/位图/">位图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存模型/">内存模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治/">分治</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态查找/">动态查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原生js/">原生js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同步/">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端，数据库-mysql/">后端，数据库, mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/启发式搜索/">启发式搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/哈希/">哈希</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/回文/">回文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图/">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/在线算法/">在线算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆排序/">堆排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串/">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串匹配/">字符串匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/宽搜/">宽搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/左式堆/">左式堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/平衡查找树/">平衡查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并查集/">并查集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通/">强连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通分支/">强连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/归并排序/">归并排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心语/">心语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快排/">快排</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速幂/">快速幂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扩展KMP/">扩展KMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抓包/">抓包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓扑排序/">拓扑排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教材/">教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小生成树/">最小生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最长回文子串/">最长回文子串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有向图/">有向图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂/">杂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/板子/">板子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找/">查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找树/">查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栈/">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树/">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树堆/">树堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组/">树状数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模板/">模板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/欧拉环游/">欧拉环游</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/洛谷/">洛谷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深搜/">深搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/滚动数组/">滚动数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本控制/">版本控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/牛客网/">牛客网</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生成树/">生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简历/">简历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线上问题/">线上问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树/">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络协议/">网络协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自己动手用java写编译器/">自己动手用java写编译器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/菜鸟教材/">菜鸟教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词典/">词典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心/">贪心</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/轮播图/">轮播图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通/">连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通分支/">连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通性/">连通性</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逆序数/">逆序数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归/">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/链表/">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集合/">集合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态查找树/">静态查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/C/" style="font-size: 18.26px;">C</a> <a href="/tags/C/" style="font-size: 11.3px;">C++</a> <a href="/tags/C-Primer/" style="font-size: 10px;">C++ Primer</a> <a href="/tags/C和指针/" style="font-size: 17.83px;">C和指针</a> <a href="/tags/DAG/" style="font-size: 10.87px;">DAG</a> <a href="/tags/DFS/" style="font-size: 10.43px;">DFS</a> <a href="/tags/DP/" style="font-size: 10.87px;">DP</a> <a href="/tags/HotSpot/" style="font-size: 10px;">HotSpot</a> <a href="/tags/JDK/" style="font-size: 16.52px;">JDK</a> <a href="/tags/JMM/" style="font-size: 10.43px;">JMM</a> <a href="/tags/JRE/" style="font-size: 10px;">JRE</a> <a href="/tags/JVM/" style="font-size: 10.87px;">JVM</a> <a href="/tags/KMP/" style="font-size: 10px;">KMP</a> <a href="/tags/LCA/" style="font-size: 10.87px;">LCA</a> <a href="/tags/LDAP/" style="font-size: 10.43px;">LDAP</a> <a href="/tags/MST/" style="font-size: 10px;">MST</a> <a href="/tags/Manacher算法/" style="font-size: 10px;">Manacher算法</a> <a href="/tags/Oauth2-0/" style="font-size: 10px;">Oauth2.0</a> <a href="/tags/RMQ/" style="font-size: 11.74px;">RMQ</a> <a href="/tags/ST/" style="font-size: 10px;">ST</a> <a href="/tags/SVN/" style="font-size: 10px;">SVN</a> <a href="/tags/Spring/" style="font-size: 14.78px;">Spring</a> <a href="/tags/String/" style="font-size: 10.43px;">String</a> <a href="/tags/Tarjan/" style="font-size: 10px;">Tarjan</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/bfs/" style="font-size: 10.43px;">bfs</a> <a href="/tags/c-c/" style="font-size: 10px;">c/c++</a> <a href="/tags/dfs/" style="font-size: 11.74px;">dfs</a> <a href="/tags/dp/" style="font-size: 10.87px;">dp</a> <a href="/tags/fzu/" style="font-size: 10px;">fzu</a> <a href="/tags/gradle/" style="font-size: 10.43px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 10.43px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 10.43px;">hdfs</a> <a href="/tags/hdu/" style="font-size: 14.35px;">hdu</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/java并发编程实践/" style="font-size: 16.09px;">java并发编程实践</a> <a href="/tags/jdbc/" style="font-size: 10.43px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/kd树/" style="font-size: 10px;">kd树</a> <a href="/tags/kmp/" style="font-size: 10px;">kmp</a> <a href="/tags/leetcode/" style="font-size: 10.43px;">leetcode</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oj/" style="font-size: 15.65px;">oj</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/poj/" style="font-size: 11.3px;">poj</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/spring/" style="font-size: 12.61px;">spring</a> <a href="/tags/springboot/" style="font-size: 10.87px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 10.43px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/synchronized/" style="font-size: 10.43px;">synchronized</a> <a href="/tags/treap/" style="font-size: 10px;">treap</a> <a href="/tags/trie/" style="font-size: 12.61px;">trie</a> <a href="/tags/volatile/" style="font-size: 10.43px;">volatile</a> <a href="/tags/vue/" style="font-size: 10.87px;">vue</a> <a href="/tags/事务/" style="font-size: 11.74px;">事务</a> <a href="/tags/二分查找/" style="font-size: 10px;">二分查找</a> <a href="/tags/二分答案/" style="font-size: 10px;">二分答案</a> <a href="/tags/二叉树/" style="font-size: 10px;">二叉树</a> <a href="/tags/优先队列/" style="font-size: 11.3px;">优先队列</a> <a href="/tags/位图/" style="font-size: 10px;">位图</a> <a href="/tags/内存模型/" style="font-size: 10.43px;">内存模型</a> <a href="/tags/分治/" style="font-size: 10px;">分治</a> <a href="/tags/前端/" style="font-size: 11.74px;">前端</a> <a href="/tags/动态查找/" style="font-size: 10px;">动态查找</a> <a href="/tags/动态规划/" style="font-size: 11.74px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/同步/" style="font-size: 10.43px;">同步</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 19.13px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/启发式搜索/" style="font-size: 10px;">启发式搜索</a> <a href="/tags/哈希/" style="font-size: 11.3px;">哈希</a> <a href="/tags/回文/" style="font-size: 10px;">回文</a> <a href="/tags/图/" style="font-size: 17.39px;">图</a> <a href="/tags/在线算法/" style="font-size: 10px;">在线算法</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/堆排序/" style="font-size: 10px;">堆排序</a> <a href="/tags/大数据/" style="font-size: 10.87px;">大数据</a> <a href="/tags/字符串/" style="font-size: 13.48px;">字符串</a> <a href="/tags/字符串匹配/" style="font-size: 10px;">字符串匹配</a> <a href="/tags/宽搜/" style="font-size: 10.43px;">宽搜</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/左式堆/" style="font-size: 10px;">左式堆</a> <a href="/tags/平衡查找树/" style="font-size: 10px;">平衡查找树</a> <a href="/tags/并发/" style="font-size: 16.96px;">并发</a> <a href="/tags/并查集/" style="font-size: 11.74px;">并查集</a> <a href="/tags/强连通/" style="font-size: 10.43px;">强连通</a> <a href="/tags/强连通分支/" style="font-size: 10px;">强连通分支</a> <a href="/tags/归并排序/" style="font-size: 10px;">归并排序</a> <a href="/tags/心语/" style="font-size: 10px;">心语</a> <a href="/tags/快排/" style="font-size: 10px;">快排</a> <a href="/tags/快速幂/" style="font-size: 10.43px;">快速幂</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/扩展KMP/" style="font-size: 10.87px;">扩展KMP</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/拓扑排序/" style="font-size: 10.43px;">拓扑排序</a> <a href="/tags/排序/" style="font-size: 15.22px;">排序</a> <a href="/tags/操作系统/" style="font-size: 10.43px;">操作系统</a> <a href="/tags/教材/" style="font-size: 19.57px;">教材</a> <a href="/tags/数学/" style="font-size: 11.3px;">数学</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/最小生成树/" style="font-size: 10px;">最小生成树</a> <a href="/tags/最短路径/" style="font-size: 12.61px;">最短路径</a> <a href="/tags/最长回文子串/" style="font-size: 10px;">最长回文子串</a> <a href="/tags/有向图/" style="font-size: 10px;">有向图</a> <a href="/tags/杂/" style="font-size: 10px;">杂</a> <a href="/tags/板子/" style="font-size: 10px;">板子</a> <a href="/tags/查找/" style="font-size: 10px;">查找</a> <a href="/tags/查找树/" style="font-size: 13.48px;">查找树</a> <a href="/tags/栈/" style="font-size: 12.61px;">栈</a> <a href="/tags/树/" style="font-size: 17.39px;">树</a> <a href="/tags/树堆/" style="font-size: 10px;">树堆</a> <a href="/tags/树状数组/" style="font-size: 11.3px;">树状数组</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/模板/" style="font-size: 13.04px;">模板</a> <a href="/tags/欧拉环游/" style="font-size: 10px;">欧拉环游</a> <a href="/tags/洛谷/" style="font-size: 10px;">洛谷</a> <a href="/tags/深搜/" style="font-size: 11.3px;">深搜</a> <a href="/tags/源码/" style="font-size: 18.7px;">源码</a> <a href="/tags/源码分析/" style="font-size: 11.3px;">源码分析</a> <a href="/tags/滚动数组/" style="font-size: 10px;">滚动数组</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/牛客网/" style="font-size: 10.43px;">牛客网</a> <a href="/tags/生成树/" style="font-size: 10.43px;">生成树</a> <a href="/tags/离散化/" style="font-size: 10px;">离散化</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/线段树/" style="font-size: 12.17px;">线段树</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/编译原理/" style="font-size: 13.91px;">编译原理</a> <a href="/tags/网络协议/" style="font-size: 10px;">网络协议</a> <a href="/tags/自己动手用java写编译器/" style="font-size: 13.91px;">自己动手用java写编译器</a> <a href="/tags/菜鸟教材/" style="font-size: 10.87px;">菜鸟教材</a> <a href="/tags/设计模式/" style="font-size: 10.87px;">设计模式</a> <a href="/tags/词典/" style="font-size: 10px;">词典</a> <a href="/tags/贪心/" style="font-size: 10.43px;">贪心</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/连通/" style="font-size: 11.3px;">连通</a> <a href="/tags/连通分支/" style="font-size: 10px;">连通分支</a> <a href="/tags/连通性/" style="font-size: 11.74px;">连通性</a> <a href="/tags/逆序数/" style="font-size: 10.43px;">逆序数</a> <a href="/tags/递归/" style="font-size: 11.3px;">递归</a> <a href="/tags/链表/" style="font-size: 10.87px;">链表</a> <a href="/tags/锁/" style="font-size: 10.87px;">锁</a> <a href="/tags/队列/" style="font-size: 10.43px;">队列</a> <a href="/tags/集合/" style="font-size: 10px;">集合</a> <a href="/tags/静态查找树/" style="font-size: 10.43px;">静态查找树</a> <a href="/tags/面试/" style="font-size: 13.91px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/28/hello-world/">声明</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/27/自己动手用java写编译器-课时8-Thompson构造，将正则表达式转换为有限状态自动机/">自己动手用java写编译器 课时8 Thompson构造，将正则表达式转换为有限状态自动机</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/27/C-菜鸟教程之-继承/">C++ 菜鸟教程之 继承</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/27/C-菜鸟教程之接口（抽象类）/">C++ 菜鸟教程之接口（抽象类）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/26/C-菜鸟教程之-类-对象/">C++菜鸟教程之 类&amp;对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

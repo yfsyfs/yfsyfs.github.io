@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>跳表(SkipList) | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缘起数组和链表各有所长——前者便于静态查找， 但动态维护成本较高； 后者便于增量式的动态维护， 但只能支持顺序查找。为结合二者的优点， 同时弥补其不足，才逐步引入了二叉树、平衡二叉搜索树，其查找、插入和删除操作均可在O(logn)时间内完成。尽管如此，这些结构的相关算法往往较为复杂，代码实现和调试的难度较大，其正确性、鲁棒性和可维护性也很难保证。设计并引入跳表（skip list） 结构的初衷，正">
+<meta name="keywords" content="算法,教材,哈希,词典,动态查找">
+<meta property="og:type" content="article">
+<meta property="og:title" content="跳表(SkipList)">
+<meta property="og:url" content="http://yoursite.com/2019/06/17/跳表-SkipList/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起数组和链表各有所长——前者便于静态查找， 但动态维护成本较高； 后者便于增量式的动态维护， 但只能支持顺序查找。为结合二者的优点， 同时弥补其不足，才逐步引入了二叉树、平衡二叉搜索树，其查找、插入和删除操作均可在O(logn)时间内完成。尽管如此，这些结构的相关算法往往较为复杂，代码实现和调试的难度较大，其正确性、鲁棒性和可维护性也很难保证。设计并引入跳表（skip list） 结构的初衷，正">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/06/17/跳表-SkipList/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/17/跳表-SkipList/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/17/跳表-SkipList/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/17/跳表-SkipList/4.png">
+<meta property="og:image" content="http://yoursite.com/2019/06/17/跳表-SkipList/5.png">
+<meta property="og:updated_time" content="2019-06-20T09:12:55.125Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="跳表(SkipList)">
+<meta name="twitter:description" content="缘起数组和链表各有所长——前者便于静态查找， 但动态维护成本较高； 后者便于增量式的动态维护， 但只能支持顺序查找。为结合二者的优点， 同时弥补其不足，才逐步引入了二叉树、平衡二叉搜索树，其查找、插入和删除操作均可在O(logn)时间内完成。尽管如此，这些结构的相关算法往往较为复杂，代码实现和调试的难度较大，其正确性、鲁棒性和可维护性也很难保证。设计并引入跳表（skip list） 结构的初衷，正">
+<meta name="twitter:image" content="http://yoursite.com/2019/06/17/跳表-SkipList/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-跳表-SkipList" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/17/跳表-SkipList/" class="article-date">
+  <time datetime="2019-06-17T01:09:57.000Z" itemprop="datePublished">2019-06-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      跳表(SkipList)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>数组和链表各有所长——前者便于静态查找， 但动态维护成本较高； 后者便于增量式的动态维护， 但只能支持顺序查找。为结合二者的优点， 同时弥补其不足，才逐步引入了二叉树、平衡二叉搜索树，其查找、插入和删除操作均可在O(logn)时间内完成。尽管如此，这些结构的相关算法往往较为复杂，代码实现和调试的难度较大，其正<br>确性、鲁棒性和可维护性也很难保证。设计并引入跳表（skip list） 结构的初衷，正是在于试图找到另外一种简便直观的方式，来完成这一任务。具体地，跳转表是一种高效的词典结构，它的定义与实现完全基于（多层）有序链表结构，其查询和维护操作在平均的意义下均仅需O(logn)时间。</p>
+<p>跳表的性能上与红黑树(例如c++ STL中的set与map都是用红黑树实现的)、AVL（绝对平衡的结构，红黑树是稍差一些的平衡）等等匹敌,但是缺点是跳表比较吃内存(原因也很直观——红黑树、AVL中是没有重复的元素的(有人对平衡类型的动态查找树只进行惰性删除，但是主流实现不是),但是跳表有很多重复元素)</p>
+<p>但因为其简单性、易维护性，所以很多开源软件，如Redis 和 LevelDB 都有用到它.</p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>首先我们来看看跳表长什么样子</p>
+<img src="/2019/06/17/跳表-SkipList/1.png">
+<p>为什么跳表搜索比较快?</p>
+<p>举个例子, 上图中搜索117</p>
+<img src="/2019/06/17/跳表-SkipList/2.png">
+<p>要经过如下几个步骤</p>
+<p>(1) 比较 21， 比 21 大，往后面找</p>
+<p>(2) 比较 37,   比 37大，比链表最大值小，从 37 的下面一层开始找</p>
+<p>(3) 比较 71,  比 71 大，比链表最大值小，从 71 的下面一层开始找</p>
+<p>(4) 比较 85， 比 85 大，从后面找</p>
+<p>(5) 比较 117， 等于 117， 找到了节点。</p>
+<p>看到了吧? 跳着、跳着（相比于链表（哪怕有序,也得老老实实一个一个遍历）的顺序遍历）就把元素找到了. 所以跳表的名字取的还是很到位的.</p>
+<p>跳表的插入</p>
+<p>首先丢硬币决定要插入的层数（level）K，即打算将这个元素插入到底基层， 则自K层以下，都要插入此元素</p>
+<p>分两种情况</p>
+<ol>
+<li><p>如果1&lt;=K&lt;=当前最大层次（即top-&gt;level）,注意，我的最低层次是1，则在level1~levelK，都要插入此元素</p>
+<p>下面的例子是插入119，K=2</p>
+<img src="/2019/06/17/跳表-SkipList/3.png">
+</li>
+<li><p>如果K&gt;当前最大层次，则需要新建一层，并从上往下都要插入, 例如下图最大层次原本是3，同样是插入119，结果你来一个K=4，注意，这种情况是有必要的，不然跳表的层次要是上不去的话，都在一层，那岂不是退化为有序链表O（n）的查询速度了?  </p>
+<img src="/2019/06/17/跳表-SkipList/4.png">
+</li>
+</ol>
+<p>跳表的删除</p>
+<p>算法就是先找到，然后一溜删除（标准的链表删除，其实链表的删除采不采用惰性删除都一样，都是O（1）复杂度）</p>
+<p>例如，删除71</p>
+<img src="/2019/06/17/跳表-SkipList/5.png">
+<p>跳表有如下性质</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">跳表具有如下性质：</span><br><span class="line"></span><br><span class="line">(1) 由很多层结构组成</span><br><span class="line"></span><br><span class="line">(2) 每一层都是一个有序的单向链表（一般默认是升序）</span><br><span class="line"></span><br><span class="line">(3) 最底层(Level 1)的链表包含所有元素</span><br><span class="line"></span><br><span class="line">(4) 如果一个元素出现在 Level i 的链表中，则它在 Level i 之下的链表也都会出现（正下方）。(所以跳表比较吃内存， 因为重复元素的存在)</span><br><span class="line"></span><br><span class="line">(5) 每个节点包含两个指针，一个指向同一链表中的下一个元素，一个指向下面一层的元素。</span><br></pre></td></tr></table></figure>
+<p>关于跳表算法和之前的树型算法比较总结如下</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">不仅逻辑上比AVL、红黑树，B树简单而且代码的长度是它们的一半..</span><br><span class="line">尽管 AVL 树和红黑树在数据搜索和排序方面都是有效的数据结构，但是这两种数据结构都需要重新平衡操作来</span><br><span class="line">保持树的平衡，这就导致大量费用和复杂性。,我的理解就是前两种是维持某种绝对的平衡（最坏情况下都是O(NlogN)复杂度）,</span><br><span class="line">但是正如静态查找树表中的次优二叉查找树虽然不如最优二叉查找树那么最优，但是建立起来的时间耗费要低得多(次优二叉查找树的建立的时间复杂度是O(NlogN)【<span class="number">2</span>】,但是最优二叉查找树的建立的时间复杂度是O（N^<span class="number">3</span>）)【<span class="number">1</span>】</span><br><span class="line">但其实实际工作中次优并不比最优效率低多少...</span><br><span class="line">跳跃表特别适用于查找。这种数据结构提供了树的功效且不需要担心重新平衡问题。</span><br><span class="line">跳跃表（Skip List）是<span class="number">1987</span>年才诞生的一种崭新的数据结构，它在进行查找、插入、删除等操作时的期望时间复杂度均为O(logn),有着近乎替代平衡树的本领。而且最重要的一点，就是它的编程复杂度较同类的AVL树，红黑树等要低得多，这使得其无论是在理解还是在推广性上，都有着十分明显的优势。</span><br><span class="line">跳跃表其实真心简单！跳跃表也是有序链表（即链表中的元素是按照从小到大排序的），有人会问那么为什么不用折半查找呢? 那是因为折半只适用于静态查找表,并且必须按照数组存储(即可以随机访问元素)</span><br><span class="line">但是静态查找的缺点就在于不能很方便的插入与删除,尤其是插入(删除你可以采用惰性删除,即打算删除某个元素的时候,只是标记这个元素被删除了，而不是真的删除了它)</span><br><span class="line">插入的话,折半这种方法必定导致大量元素的移动而产生大量的时间耗费,所以我们就想到了链表——链表的优势不在查找(一个链表，哪怕是有序链表，你要找一个元素也要O(N),因为你必须一个一个找过去,而有序数组的话，只需要折半算法的O(logN)),而在于插入与删除(O(<span class="number">1</span>)级别的时间)</span><br><span class="line">所以跳跃表干的事情就是保留了链表插入与删除的优势，利用额外的空间来换时间克服查找慢的弱点,所以跳跃表就是空间换时间(我觉得所有快速的算法本质上都是hash，即空间换时间)</span><br></pre></td></tr></table></figure>
+<p>跳表的空间复杂度分析:</p>
+<p>如果确定高度的算法是抛硬币，只要没抛到正面就继续抛，直至抛到为止，然后拿抛硬币的次数作为此次高度值，则遵从几何分布，期望是1/0.5=2, 所以期望跳表的高度是2，则跳表的空间复杂度是O(n). </p>
+<p>不难知道，空间复杂度越高，跳表的性能也越好(因为跳的也越频繁). </p>
+<p>跳表实现</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctime&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOCAL</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">0x3f3f3f3f</span>; </span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">SkipListNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> val, level;</span><br><span class="line">	SkipListNode *right, *down;</span><br><span class="line">	SkipListNode(<span class="keyword">int</span> val, <span class="keyword">int</span> level):val(val),level(level),right(<span class="number">0</span>),down(<span class="number">0</span>)&#123;&#125;</span><br><span class="line">&#125; SkipListNode, *SkipList; <span class="comment">// 跳表节点和跳表</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(SkipList &amp;top)</span> <span class="comment">// 初始化跳表，其中top是跳表的查询入口，就是图示中的top</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	top = <span class="keyword">new</span> SkipListNode(-INF, <span class="number">1</span>);</span><br><span class="line">	SkipList tail = <span class="keyword">new</span> SkipListNode(INF, <span class="number">1</span>); <span class="comment">// 层数从1开始，最低1层, 该层最小是-INF，最大是INF</span></span><br><span class="line">	top-&gt;right = tail;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">search</span><span class="params">(SkipList top, <span class="keyword">int</span> val, SkipList &amp;loc, SkipList pos[], <span class="keyword">bool</span> flag, <span class="keyword">int</span> &amp;lv)</span> <span class="comment">// 在跳表top中搜索val，如果找到的话，其指针存放在loc中，一路待插入的位置保存在insertPos中,这样在插入的时候就可以直接插入了，而不需要再次扫描</span></span></span><br><span class="line"><span class="function"></span>&#123; <span class="comment">// flag=true表示只是想单纯的查询有木有，false为false的话，表示目的是想得到插入位置信息</span></span><br><span class="line">	<span class="keyword">int</span> level = top-&gt;level;</span><br><span class="line">	<span class="keyword">bool</span> found = <span class="literal">false</span>;</span><br><span class="line">	SkipList p = top; <span class="comment">// 从top开始移动</span></span><br><span class="line">	<span class="keyword">while</span>(p)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">while</span> (p-&gt;right-&gt;val &lt; val) p = p-&gt;right; <span class="comment">// 首先在每根链表从左至右扫描，直至p的右节点&gt;=val(肯定会的，因为每层升序链表的最后一个节点是INF节点)，注意，因为每层链表的起始节点都是-INF节点，所以p-&gt;right都是有实际意义的, 可见每层加一个无穷的头尾是多么的重要</span></span><br><span class="line">		<span class="keyword">if</span> (p-&gt;right-&gt;val == val) <span class="comment">// 找到了, 则因为跳表需要上层有的话，则自他以下的所有层都要有， 所以这里不能return.</span></span><br><span class="line">		&#123;</span><br><span class="line">			 loc = p-&gt;right;</span><br><span class="line">			 <span class="keyword">if</span> (flag) <span class="keyword">return</span>; <span class="comment">// 这样对于单纯的查询操作就不需要再往下搜了（加快一般查询操作, 即不是insert或者delete调用的search），否则的话，因为插入或者删除需要知道自顶以下位置信息, 所以还是要往下搜索的——不能停止的</span></span><br><span class="line">			 <span class="keyword">if</span> (!found) <span class="comment">// 第一次找到val，记录其所在层次, 这个删除要用,因为删除要用 pos[lv,...,1]</span></span><br><span class="line">			 &#123;</span><br><span class="line">				  lv = level;</span><br><span class="line">				  found = <span class="literal">true</span>;</span><br><span class="line">			 &#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 说明 p-&gt;right-&gt;val &gt; val &amp;&amp; p-&gt;val &lt; val, 所以如果要插入的话，val就应该作为p的后继</span></span><br><span class="line">		pos[level--] = p;</span><br><span class="line">		p = p-&gt;down; <span class="comment">// 到下层去， 继续</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">randomlevel</span><span class="params">()</span> <span class="comment">// 掷硬币决定新插入的元素在第几层（最低层是1）, 这个数既可能小于当前跳表的层次，也可能&gt;当前跳表的层次</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ret = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(rand()&lt;<span class="number">20000</span>) ret++; <span class="comment">// 只要没超过2w，就继续掷硬币</span></span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">subinsert</span><span class="params">(SkipList insertPos[], <span class="keyword">int</span> level, <span class="keyword">int</span> val)</span> <span class="comment">// 根据插入位置信息insertPos[level,...,1] 插入val到跳表top中去,val在第i层应该成为insertPos[i]的后继</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	SkipList prev = <span class="number">0</span>; <span class="comment">// 上一层插入的节点</span></span><br><span class="line">	<span class="keyword">do</span></span><br><span class="line">	&#123;</span><br><span class="line">		SkipList newNode = <span class="keyword">new</span> SkipListNode(val, level); <span class="comment">// 新插入的跳表节点</span></span><br><span class="line">		<span class="keyword">if</span> (prev) &#123;prev-&gt;down = newNode;&#125;</span><br><span class="line">		prev = newNode;</span><br><span class="line">		newNode-&gt;right = insertPos[level]-&gt;right; <span class="comment">// 标准的链表插入</span></span><br><span class="line">		insertPos[level]-&gt;right = newNode;</span><br><span class="line">	&#125;<span class="keyword">while</span>(--level);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(SkipList &amp;top, <span class="keyword">int</span> val)</span> <span class="comment">// 注意，如果掷硬币&gt;当前跳表的层数，则跳表的入口可能变化，所以要 &amp;</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	SkipList loc = <span class="number">0</span>; <span class="comment">// 插入位置</span></span><br><span class="line">	SkipList *insertPos = <span class="keyword">new</span> SkipList[top-&gt;level+<span class="number">2</span>]; <span class="comment">// 插入位置，因为最底层是1，而insertPos[top-&gt;level+1]是给如果掷硬币决定的插入层次&gt;当前跳表的层次的话，需要新盖一层, insertPos[top-&gt;level+1]指的就是这个插入位置</span></span><br><span class="line">	<span class="keyword">int</span> level = top-&gt;level; <span class="comment">//从顶层开始搜索</span></span><br><span class="line">	search(top,val,loc,insertPos, <span class="literal">false</span>, level);</span><br><span class="line">	<span class="keyword">if</span> (loc)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"该元素已存在，禁止插入!"</span>);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 该元素不存在，要决定它的插入层次</span></span><br><span class="line">	level = randomlevel();</span><br><span class="line">	<span class="keyword">if</span> (level &gt; top-&gt;level) <span class="comment">// 如果超过当前跳表的高度</span></span><br><span class="line">	&#123;</span><br><span class="line">		SkipList newTop = <span class="number">0</span>; <span class="comment">// 新的跳表入口</span></span><br><span class="line">		init(newTop); <span class="comment">// 新盖一层, newTop是新的跳表的入口</span></span><br><span class="line">		newTop-&gt;level = newTop-&gt;right-&gt;level = level = top-&gt;level+<span class="number">1</span>;</span><br><span class="line">		newTop-&gt;down = top;</span><br><span class="line">		top = insertPos[level] = newTop;</span><br><span class="line">	&#125;</span><br><span class="line">	subinsert(insertPos, level, val);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">subdel</span><span class="params">(SkipList &amp;top, SkipList delpos[], <span class="keyword">int</span> level)</span> <span class="comment">// 用 delPos[level,...,1]信息删除跳表</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">do</span> </span><br><span class="line">	&#123;</span><br><span class="line">		SkipList todel = delpos[level]-&gt;right; <span class="comment">// 要移除的节点</span></span><br><span class="line">		delpos[level]-&gt;right = todel-&gt;right; <span class="comment">// 移除 todel</span></span><br><span class="line">		<span class="keyword">delete</span> todel; <span class="comment">// 释放空间</span></span><br><span class="line">		todel = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span> (top-&gt;right-&gt;val == INF)  <span class="comment">// 如果这一层删空了(就跟俄罗斯方块一样)</span></span><br><span class="line">		&#123;</span><br><span class="line">			SkipList pretop = top;</span><br><span class="line">			top = top-&gt;down;</span><br><span class="line">			<span class="keyword">delete</span> pretop-&gt;right;</span><br><span class="line">			<span class="keyword">delete</span> pretop;</span><br><span class="line">			pretop = <span class="number">0</span>; <span class="comment">// 回收此层的两INF节点</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">while</span> (--level);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">del</span><span class="params">(SkipList &amp;top, <span class="keyword">int</span> val)</span> <span class="comment">// 跳表top 删除val, 因为可能跳表的最高一层就只有一个节点，而如果此节点刚好就是要删除的节点的话，则这一层就都没有了，即跳表的入口可能变化</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	SkipList loc = <span class="number">0</span>;</span><br><span class="line">	SkipList *delPos = <span class="keyword">new</span> SkipList[top-&gt;level+<span class="number">1</span>]; <span class="comment">// 保存删除位置信息</span></span><br><span class="line">	<span class="keyword">int</span> level = top-&gt;level; <span class="comment">// 从顶层开始搜索</span></span><br><span class="line">	search(top, val, loc, delPos,<span class="literal">false</span>, level); <span class="comment">// 查询val的时候保存删除位置</span></span><br><span class="line">	<span class="keyword">if</span> (!loc)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">"此元素不存在，删除失败！"</span>);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	subdel(top, delPos, level);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	srand((<span class="keyword">unsigned</span> <span class="keyword">int</span>)time(<span class="literal">NULL</span>));</span><br><span class="line">	SkipList top = <span class="number">0</span>;</span><br><span class="line">	init(top);</span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">8</span>]=&#123;<span class="number">7</span>,<span class="number">14</span>,<span class="number">21</span>,<span class="number">32</span>,<span class="number">37</span>,<span class="number">71</span>,<span class="number">85</span>,<span class="number">117</span>&#125;;</span><br><span class="line">	<span class="comment">//测试跳表的插入</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		insert(top,a[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//测试跳表的删除</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		del(top,a[i]);	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>和原先写的相比，这里简化了一些操作. 特别是search函数    </p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/06/17/最优二叉搜索树/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/06/17/%E6%9C%80%E4%BC%98%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</a></p>
+<p>【2】<a href="https://yfsyfs.github.io/2019/06/17/次优二叉搜索树/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/06/17/%E6%AC%A1%E4%BC%98%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</a></p>
+<p>【3】<a href="https://kenby.iteye.com/blog/1187303" target="_blank" rel="noopener">https://kenby.iteye.com/blog/1187303</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/06/17/跳表-SkipList/" data-id="cjymwux87010l1svm7p0nljpy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态查找/">动态查找</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/哈希/">哈希</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/词典/">词典</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/06/17/最优二叉搜索树/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          最优二叉搜索树
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/06/17/字符串匹配算法之kmp/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">字符串匹配算法之kmp</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BST/">BST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-Primer/">C++ Primer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C和指针/">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DAG/">DAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HotSpot/">HotSpot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JMM/">JMM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JRE/">JRE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KMP/">KMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/">LCA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Manacher算法/">Manacher算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oauth2-0/">Oauth2.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMQ/">RMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ST/">ST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVN/">SVN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tarjan/">Tarjan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bfs/">bfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-c/">c/c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfs/">dfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dp/">dp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fzu/">fzu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdu/">hdu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd树/">kd树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kmp/">kmp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oj/">oj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poj/">poj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sbt/">sbt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/treap/">treap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/trie/">trie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volatile/">volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分答案/">二分答案</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/优先队列/">优先队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/位图/">位图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存模型/">内存模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治/">分治</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态查找/">动态查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原生js/">原生js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同步/">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端，数据库-mysql/">后端，数据库, mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/启发式搜索/">启发式搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/哈希/">哈希</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/回文/">回文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图/">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/在线算法/">在线算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆排序/">堆排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串/">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串匹配/">字符串匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/宽搜/">宽搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/左式堆/">左式堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/平衡查找树/">平衡查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并查集/">并查集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通/">强连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通分支/">强连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/归并排序/">归并排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心语/">心语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快排/">快排</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速幂/">快速幂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扩展KMP/">扩展KMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抓包/">抓包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓扑排序/">拓扑排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教材/">教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小生成树/">最小生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最长回文子串/">最长回文子串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有向图/">有向图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂/">杂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/板子/">板子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找/">查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找树/">查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栈/">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树/">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树堆/">树堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组/">树状数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模板/">模板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/欧拉环游/">欧拉环游</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/洛谷/">洛谷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深搜/">深搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/滚动数组/">滚动数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本控制/">版本控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/牛客网/">牛客网</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生成树/">生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简历/">简历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线上问题/">线上问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树/">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络协议/">网络协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自己动手用java写编译器/">自己动手用java写编译器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/菜鸟教材/">菜鸟教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词典/">词典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心/">贪心</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/轮播图/">轮播图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通/">连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通分支/">连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通性/">连通性</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逆序数/">逆序数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归/">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/链表/">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集合/">集合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态查找树/">静态查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/C/" style="font-size: 18.26px;">C</a> <a href="/tags/C/" style="font-size: 11.3px;">C++</a> <a href="/tags/C-Primer/" style="font-size: 10px;">C++ Primer</a> <a href="/tags/C和指针/" style="font-size: 17.83px;">C和指针</a> <a href="/tags/DAG/" style="font-size: 10.87px;">DAG</a> <a href="/tags/DFS/" style="font-size: 10.43px;">DFS</a> <a href="/tags/DP/" style="font-size: 10.87px;">DP</a> <a href="/tags/HotSpot/" style="font-size: 10px;">HotSpot</a> <a href="/tags/JDK/" style="font-size: 16.52px;">JDK</a> <a href="/tags/JMM/" style="font-size: 10.43px;">JMM</a> <a href="/tags/JRE/" style="font-size: 10px;">JRE</a> <a href="/tags/JVM/" style="font-size: 10.87px;">JVM</a> <a href="/tags/KMP/" style="font-size: 10px;">KMP</a> <a href="/tags/LCA/" style="font-size: 10.87px;">LCA</a> <a href="/tags/LDAP/" style="font-size: 10.43px;">LDAP</a> <a href="/tags/MST/" style="font-size: 10px;">MST</a> <a href="/tags/Manacher算法/" style="font-size: 10px;">Manacher算法</a> <a href="/tags/Oauth2-0/" style="font-size: 10px;">Oauth2.0</a> <a href="/tags/RMQ/" style="font-size: 11.74px;">RMQ</a> <a href="/tags/ST/" style="font-size: 10px;">ST</a> <a href="/tags/SVN/" style="font-size: 10px;">SVN</a> <a href="/tags/Spring/" style="font-size: 14.78px;">Spring</a> <a href="/tags/String/" style="font-size: 10.43px;">String</a> <a href="/tags/Tarjan/" style="font-size: 10px;">Tarjan</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/bfs/" style="font-size: 10.43px;">bfs</a> <a href="/tags/c-c/" style="font-size: 10px;">c/c++</a> <a href="/tags/dfs/" style="font-size: 11.74px;">dfs</a> <a href="/tags/dp/" style="font-size: 10.87px;">dp</a> <a href="/tags/fzu/" style="font-size: 10px;">fzu</a> <a href="/tags/gradle/" style="font-size: 10.43px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 10.43px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 10.43px;">hdfs</a> <a href="/tags/hdu/" style="font-size: 14.35px;">hdu</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/java并发编程实践/" style="font-size: 16.09px;">java并发编程实践</a> <a href="/tags/jdbc/" style="font-size: 10.43px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/kd树/" style="font-size: 10px;">kd树</a> <a href="/tags/kmp/" style="font-size: 10px;">kmp</a> <a href="/tags/leetcode/" style="font-size: 10.43px;">leetcode</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oj/" style="font-size: 15.65px;">oj</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/poj/" style="font-size: 11.3px;">poj</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/spring/" style="font-size: 12.61px;">spring</a> <a href="/tags/springboot/" style="font-size: 10.87px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 10.43px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/synchronized/" style="font-size: 10.43px;">synchronized</a> <a href="/tags/treap/" style="font-size: 10px;">treap</a> <a href="/tags/trie/" style="font-size: 12.61px;">trie</a> <a href="/tags/volatile/" style="font-size: 10.43px;">volatile</a> <a href="/tags/vue/" style="font-size: 10.87px;">vue</a> <a href="/tags/事务/" style="font-size: 11.74px;">事务</a> <a href="/tags/二分查找/" style="font-size: 10px;">二分查找</a> <a href="/tags/二分答案/" style="font-size: 10px;">二分答案</a> <a href="/tags/二叉树/" style="font-size: 10px;">二叉树</a> <a href="/tags/优先队列/" style="font-size: 11.3px;">优先队列</a> <a href="/tags/位图/" style="font-size: 10px;">位图</a> <a href="/tags/内存模型/" style="font-size: 10.43px;">内存模型</a> <a href="/tags/分治/" style="font-size: 10px;">分治</a> <a href="/tags/前端/" style="font-size: 11.74px;">前端</a> <a href="/tags/动态查找/" style="font-size: 10px;">动态查找</a> <a href="/tags/动态规划/" style="font-size: 11.74px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/同步/" style="font-size: 10.43px;">同步</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 19.13px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/启发式搜索/" style="font-size: 10px;">启发式搜索</a> <a href="/tags/哈希/" style="font-size: 11.3px;">哈希</a> <a href="/tags/回文/" style="font-size: 10px;">回文</a> <a href="/tags/图/" style="font-size: 17.39px;">图</a> <a href="/tags/在线算法/" style="font-size: 10px;">在线算法</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/堆排序/" style="font-size: 10px;">堆排序</a> <a href="/tags/大数据/" style="font-size: 10.87px;">大数据</a> <a href="/tags/字符串/" style="font-size: 13.48px;">字符串</a> <a href="/tags/字符串匹配/" style="font-size: 10px;">字符串匹配</a> <a href="/tags/宽搜/" style="font-size: 10.43px;">宽搜</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/左式堆/" style="font-size: 10px;">左式堆</a> <a href="/tags/平衡查找树/" style="font-size: 10px;">平衡查找树</a> <a href="/tags/并发/" style="font-size: 16.96px;">并发</a> <a href="/tags/并查集/" style="font-size: 11.74px;">并查集</a> <a href="/tags/强连通/" style="font-size: 10.43px;">强连通</a> <a href="/tags/强连通分支/" style="font-size: 10px;">强连通分支</a> <a href="/tags/归并排序/" style="font-size: 10px;">归并排序</a> <a href="/tags/心语/" style="font-size: 10px;">心语</a> <a href="/tags/快排/" style="font-size: 10px;">快排</a> <a href="/tags/快速幂/" style="font-size: 10.43px;">快速幂</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/扩展KMP/" style="font-size: 10.87px;">扩展KMP</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/拓扑排序/" style="font-size: 10.43px;">拓扑排序</a> <a href="/tags/排序/" style="font-size: 15.22px;">排序</a> <a href="/tags/操作系统/" style="font-size: 10.43px;">操作系统</a> <a href="/tags/教材/" style="font-size: 19.57px;">教材</a> <a href="/tags/数学/" style="font-size: 11.3px;">数学</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/最小生成树/" style="font-size: 10px;">最小生成树</a> <a href="/tags/最短路径/" style="font-size: 12.61px;">最短路径</a> <a href="/tags/最长回文子串/" style="font-size: 10px;">最长回文子串</a> <a href="/tags/有向图/" style="font-size: 10px;">有向图</a> <a href="/tags/杂/" style="font-size: 10px;">杂</a> <a href="/tags/板子/" style="font-size: 10px;">板子</a> <a href="/tags/查找/" style="font-size: 10px;">查找</a> <a href="/tags/查找树/" style="font-size: 13.48px;">查找树</a> <a href="/tags/栈/" style="font-size: 12.61px;">栈</a> <a href="/tags/树/" style="font-size: 17.39px;">树</a> <a href="/tags/树堆/" style="font-size: 10px;">树堆</a> <a href="/tags/树状数组/" style="font-size: 11.3px;">树状数组</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/模板/" style="font-size: 13.04px;">模板</a> <a href="/tags/欧拉环游/" style="font-size: 10px;">欧拉环游</a> <a href="/tags/洛谷/" style="font-size: 10px;">洛谷</a> <a href="/tags/深搜/" style="font-size: 11.3px;">深搜</a> <a href="/tags/源码/" style="font-size: 18.7px;">源码</a> <a href="/tags/源码分析/" style="font-size: 11.3px;">源码分析</a> <a href="/tags/滚动数组/" style="font-size: 10px;">滚动数组</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/牛客网/" style="font-size: 10.43px;">牛客网</a> <a href="/tags/生成树/" style="font-size: 10.43px;">生成树</a> <a href="/tags/离散化/" style="font-size: 10px;">离散化</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/线段树/" style="font-size: 12.17px;">线段树</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/编译原理/" style="font-size: 13.91px;">编译原理</a> <a href="/tags/网络协议/" style="font-size: 10px;">网络协议</a> <a href="/tags/自己动手用java写编译器/" style="font-size: 13.91px;">自己动手用java写编译器</a> <a href="/tags/菜鸟教材/" style="font-size: 10.87px;">菜鸟教材</a> <a href="/tags/设计模式/" style="font-size: 10.87px;">设计模式</a> <a href="/tags/词典/" style="font-size: 10px;">词典</a> <a href="/tags/贪心/" style="font-size: 10.43px;">贪心</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/连通/" style="font-size: 11.3px;">连通</a> <a href="/tags/连通分支/" style="font-size: 10px;">连通分支</a> <a href="/tags/连通性/" style="font-size: 11.74px;">连通性</a> <a href="/tags/逆序数/" style="font-size: 10.43px;">逆序数</a> <a href="/tags/递归/" style="font-size: 11.3px;">递归</a> <a href="/tags/链表/" style="font-size: 10.87px;">链表</a> <a href="/tags/锁/" style="font-size: 10.87px;">锁</a> <a href="/tags/队列/" style="font-size: 10.43px;">队列</a> <a href="/tags/集合/" style="font-size: 10px;">集合</a> <a href="/tags/静态查找树/" style="font-size: 10.43px;">静态查找树</a> <a href="/tags/面试/" style="font-size: 13.91px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/28/hello-world/">声明</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/27/自己动手用java写编译器-课时8-Thompson构造，将正则表达式转换为有限状态自动机/">自己动手用java写编译器 课时8 Thompson构造，将正则表达式转换为有限状态自动机</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/27/C-菜鸟教程之-继承/">C++ 菜鸟教程之 继承</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/27/C-菜鸟教程之接口（抽象类）/">C++ 菜鸟教程之接口（抽象类）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/26/C-菜鸟教程之-类-对象/">C++菜鸟教程之 类&amp;对象</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
