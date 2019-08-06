@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>hdu 3518 Boring counting 后缀树 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缘起借本题我们讲解了后缀树这种数据结构,. 所以找到了 hdu 3518 Boring counting 来练习一下.">
+<meta name="keywords" content="算法,oj,字符串,hdu,后缀树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hdu 3518 Boring counting 后缀树">
+<meta property="og:url" content="http://yoursite.com/2019/08/03/hdu-3518-Boring-counting-后缀树/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起借本题我们讲解了后缀树这种数据结构,. 所以找到了 hdu 3518 Boring counting 来练习一下.">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2019/08/03/hdu-3518-Boring-counting-后缀树/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/03/hdu-3518-Boring-counting-后缀树/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/03/hdu-3518-Boring-counting-后缀树/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/03/hdu-3518-Boring-counting-后缀树/4.png">
+<meta property="og:updated_time" content="2019-08-06T06:56:28.093Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="hdu 3518 Boring counting 后缀树">
+<meta name="twitter:description" content="缘起借本题我们讲解了后缀树这种数据结构,. 所以找到了 hdu 3518 Boring counting 来练习一下.">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/03/hdu-3518-Boring-counting-后缀树/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-hdu-3518-Boring-counting-后缀树" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/03/hdu-3518-Boring-counting-后缀树/" class="article-date">
+  <time datetime="2019-08-03T08:17:00.000Z" itemprop="datePublished">2019-08-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      hdu 3518 Boring counting 后缀树
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>借本题我们讲解了后缀树这种数据结构,. 所以找到了 <a href="https://vjudge.net/problem/HDU-3518" target="_blank" rel="noopener">hdu 3518 Boring counting</a> 来练习一下.</p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>题意是这样的</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">035现在面临一个棘手的问题，他的英语老师给了他一个字符串，其中包含n个小写字母，他必须弄清楚有多少子串出</span><br><span class="line">现至少两次，而且，重复子串不能有相互重叠。</span><br><span class="line">以aaaa为例。“a”apears四次，“aa”apears两次没有重叠。但是，aaa不能超过一次而没有重叠。因为我们可以从</span><br><span class="line">[0-2]得到“aaa”,也可以从[1-3]得到"aaa"。 但是[0-2]和[1-3]有重叠。所以“aaa”不能计入结果.</span><br><span class="line">因此，答案是2（“a”和“aa”）。</span><br><span class="line"></span><br><span class="line">【输入】</span><br><span class="line">输入数据由几个测试用例组成。输入以“＃”行结束。每个测试用例包含一个由小写字母组成的字符串，长度n不超过</span><br><span class="line">1000（n &lt;= 1000）。</span><br><span class="line"></span><br><span class="line">【输出】</span><br><span class="line">对于每个测试用例输出一个整数ans，它代表测试用例的答案。你最好使用int64来避免不必要的麻烦。</span><br><span class="line"></span><br><span class="line">【样例输入】</span><br><span class="line">aaaa</span><br><span class="line">ababcabb</span><br><span class="line">aaaaaa</span><br><span class="line">#</span><br><span class="line"></span><br><span class="line">【样例输出】</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">3</span><br><span class="line"></span><br><span class="line">【限制】</span><br><span class="line">Time limit 1000 ms</span><br><span class="line">Memory limit 32768 kB</span><br></pre></td></tr></table></figure>
+<p>本题的思路就是先使用给定的字符串拼上 $ 之后 建立后缀树, 然后在后缀树上进行dfs. </p>
+<p>我们首先介绍本文的主角——后缀树. 后缀树又叫做后缀trie. 即将一个字符串拼上一个不在这个字符串中出现的字符（特别的，我们取’{‘）之后，它的所有后缀构成的字符串构成的压缩trie. 例如 XMADAMYX 的后缀树如下</p>
+<img src="/2019/08/03/hdu-3518-Boring-counting-后缀树/1.png">
+<p>​                                                                                图1</p>
+<p>构建S的后缀树显然不能使用构造压缩trie的方式进行暴力构造——因为那样的算法是O(n^2)的. 本文介绍O(n)构造后缀树的Ukkonen（以下简称ukk）算法.</p>
+<p>ukk算法网上介绍很多，但是很多代码实现都是错的（我很好奇，我要是他们，学习了一个数据结构之后，一定会找一道板题来测一下, 不测一下自己写的板子就网上贴算怎么回事?）</p>
+<p>ukk算法的过程就是每次读入一个字符. 例如 “abcabxabcd”, 第一次读入 “a”（其实表示插入后缀 [0,11)）</p>
+<p>第二次读入 “b” （表示插入后缀[1, 11)）, 第三次读入 “c” （表示插入后缀 [2,11)）, 最后读入 ‘{‘ （表示读入后缀 [10,11)）. 所以要想O(n)时间完成后缀树的构建就需要每次插入都是 O(1) 时间完成.  所以理想的情形是有一个数据结构A能维护下一次要插入的位置. 这样下一次插入的时候，我们根据A就能O(1)找到插入的位置，然后插入即可. 所以ukk算法的核心就是这个A(代码中的cur)，而维护这个A需要一个后缀链接（即代码中的link）来高效维护.</p>
+<p>下面以一种意识流的方式讲解后缀树的构建方法. 并且讲解过程完全就是后面代码的过程</p>
+<p>假设我们已经读入了前i个字符，也就是插入了 S[0,..,i-1], 则可以知道这i个后缀已经全部在后缀树中了. 下面读入字符 Si, 假设隐式读入的字符索引在Sm</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">（所谓隐式读入，例如i=3读入S3='a'， 但是后缀树中已经有'以a'开头的后缀了（S0='a'开头的后缀就是）, 则m</span><br><span class="line">就=3不增加了，表示我们没有显式插入后缀[3,11)，则下次i=4的时候, 读入S4='a'的时候, 我们的j其实从j=m=3</span><br><span class="line">开始, 表示我们要插入的后缀是S3S4和S4，为什么要带上S3? 因为S3在上一步没有显式插入啊）</span><br></pre></td></tr></table></figure>
+<p>则此次要插入的后缀是 S[m,…,i],.,,,S[i,i]</p>
+<p>首先要插入 S[m,…,i]：根据A，O(1)时间找到插入的位置pos.  然后看看w[pos]和要插入的字符是否相等? 如果相等，则继续隐式插入，S[m,..,i]一直到S[i,i] 都不需要显式插入了（因为S[m…,i]都隐式插入了，而因为S[m-1,…,i-1]肯定存在后缀树中，所以S[m-1,…,i]肯定也可以隐式插入后缀树, 所以本步骤可以结束了，不需要继续进行下去了）. 如果不相等，就会产生分裂，分裂的结果就是我们已经显式插入了后缀 S[m,…,i] 然后考虑插入后缀 S[m+1,…,i] 而我们知道S[m+1,…,i-1]是已经存在后缀树中了. 所以我们需要快速(O(1)时间)找到该后缀在后缀树中的位置. 这就是后缀链接link的用武之地. 如果S[m,..,i-1] 存在后缀链接的话, 直接用后缀链接跳就可以了, 如果没有的话（link为NULL），则需要自己找了，也就是使用S[m+1,…,i) 从root开始走（也就是代码中的find_node）.找到了就可以考虑为后缀S[m+1,…,i-1]插入S[i]了（该分裂分裂，该隐式插入隐式插入）. 前后两次相邻发生的分裂，前面发生分裂的节点需要将其link指向后面发生的分裂的节点， 这是后缀链接的构造——用于快速定位下次插入的位置. </p>
+<p>下面我们考虑本题的场景——要统计至少不重复的出现2次的子串的个数. 我们记符合条件的字符串为p, 我们知道，任何一个子串都是一个后缀的前缀. 所以p一定会终结于后缀树上的某个节点处.  而p能不重叠的出现2次（以上），假设出现的两次分别为p1和p2, 例如</p>
+<img src="/2019/08/03/hdu-3518-Boring-counting-后缀树/2.png">
+<p>​                                                                            图2</p>
+<p>则 |L1-L2|&gt;=|p|, 其实这也是充要条件. 也就是</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p能不重叠的至少在S中出现2次的充要条件是p的所有到达字符串末尾最远距离减去最近距离</span><br></pre></td></tr></table></figure>
+<p>而将图1放在后缀树中看的话, 就是下面这个样子</p>
+<img src="/2019/08/03/hdu-3518-Boring-counting-后缀树/3.png">
+<p>​                                                                        图3</p>
+<p>所以要解决问题的话, 就只需要在后缀树上dfs. 对于后缀树上每个节点,  通过dfs找到它到叶子需要经历的最少字符数（最长字符数是不需要dfs的, 因为就是n+1-p-&gt;e, n是字符串的长度, +1是因为我们把 $ 也算进来了）</p>
+<p>然后就可以计算出该节点上满足条件的后缀数量了.</p>
+<img src="/2019/08/03/hdu-3518-Boring-counting-后缀树/4.png">
+<p>​                                                                                图4</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOCAL</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX(a,b) ((a)&gt;(b)?(a):(b))</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_N=<span class="number">1005</span>, SIZE = <span class="number">27</span>, MAX_NODE = <span class="number">10000</span>, _min=<span class="number">0x3f3f3f3f</span>; <span class="comment">// MAX_N 是单词的最大长度, SIZE是孩子节点的个数, MAX_NODE是后缀树节点的最大个数</span></span><br><span class="line"><span class="keyword">char</span> w[<span class="number">1005</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">SuffixTreeNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> s,e,num,len; <span class="comment">// 本节点表示 w[s,e), 从根节点到此节点的字符串长度为num, e-s=len</span></span><br><span class="line">	SuffixTreeNode *next[SIZE]; <span class="comment">// 孩子指针</span></span><br><span class="line">	SuffixTreeNode *parent,*link; <span class="comment">// 父节点, 后缀链接</span></span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;<span class="built_in">memset</span>(next, <span class="number">0</span>, <span class="keyword">sizeof</span>(next));&#125;</span><br><span class="line">	<span class="function">SuffixTreeNode *<span class="title">find_node</span><span class="params">(<span class="keyword">int</span> j, <span class="keyword">int</span> i, <span class="keyword">int</span> &amp;pos)</span> <span class="comment">// 其实只有root会调用这个方法, 此方法是寻找w[j,...,i)从root出发,找插入的位置</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (i==j)</span><br><span class="line">		&#123;</span><br><span class="line">			pos = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		SuffixTreeNode *p = <span class="keyword">this</span>-&gt;next[w[j]-<span class="string">'a'</span>];</span><br><span class="line">		pos = p-&gt;s;</span><br><span class="line">		<span class="keyword">while</span>(p-&gt;e-p-&gt;s&lt;i-j) <span class="comment">// 只要当前节点满足不了</span></span><br><span class="line">		&#123;</span><br><span class="line">			j+=(p-&gt;e-p-&gt;s); <span class="comment">// 就减掉这么多实现越过当前节点p这个效果</span></span><br><span class="line">			pos = p-&gt;e;</span><br><span class="line">			p = p-&gt;next[w[j]-<span class="string">'a'</span>];</span><br><span class="line">			pos = p-&gt;s;</span><br><span class="line">		&#125; <span class="comment">// 最后 i-j 可以被 p=w[s,e) 吃住了</span></span><br><span class="line">		pos += (i-j);</span><br><span class="line">		<span class="keyword">return</span> p;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;SuffixTreeNode, *SuffixTree;</span><br><span class="line"></span><br><span class="line">SuffixTreeNode nodes[MAX_NODE]; <span class="comment">// 节点数组, 相当于是一块内存池, 则不需要new了(new比较慢，不如这样一开始就开辟一片来得快)</span></span><br><span class="line"><span class="keyword">int</span> nodecount, count, n; <span class="comment">// nodecount是节点个数, count 是答案, n是字符串w的长度</span></span><br><span class="line"></span><br><span class="line">SuffixTree root;</span><br><span class="line"></span><br><span class="line"><span class="function">SuffixTree <span class="title">new_node</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span> e, SuffixTree parent)</span> <span class="comment">// 新建一个节点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	SuffixTree p = &amp;nodes[nodecount++];</span><br><span class="line">	p-&gt;s = s, p-&gt;e = e;</span><br><span class="line">	p-&gt;clear();</span><br><span class="line">	p-&gt;link = <span class="number">0</span>;</span><br><span class="line">	p-&gt;parent = parent;</span><br><span class="line">	<span class="keyword">return</span> p;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(SuffixTree p)</span> <span class="comment">// 返回p为根节点的后缀子树到所有叶子的最短字符数量, 注意, 字符数量不包含p本身.</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (p-&gt;e==n+<span class="number">1</span>) <span class="comment">// 如果已经是叶子</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> ans = _min;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;SIZE; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (p-&gt;next[i])</span><br><span class="line">		&#123;</span><br><span class="line">			p-&gt;next[i]-&gt;len = p-&gt;next[i]-&gt;e-p-&gt;next[i]-&gt;s; <span class="comment">// 这个没写进ukk算法, 因为ukk只是单纯构建后缀树(len并不是ukk算法必须的字段), 不要写进无关的代码</span></span><br><span class="line">			p-&gt;next[i]-&gt;num = p-&gt;next[i]-&gt;len + p-&gt;num; <span class="comment">// 计算出从根节点到本节点(本节点需要完结)的字符数量</span></span><br><span class="line">			<span class="keyword">int</span> ret = dfs(p-&gt;next[i]);</span><br><span class="line">			<span class="keyword">if</span> (ret + p-&gt;next[i]-&gt;len&lt;ans)</span><br><span class="line">			&#123;</span><br><span class="line">				ans = ret + p-&gt;next[i]-&gt;len;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 求出了p到叶子经历的最短字符数量</span></span><br><span class="line">	<span class="keyword">int</span> t = (n-p-&gt;e+<span class="number">1</span>)-ans; <span class="comment">// p到叶子经历的最多字符数量减去最少数量</span></span><br><span class="line">	<span class="keyword">if</span> (p!=root &amp;&amp; p-&gt;num-t&lt;p-&gt;len) <span class="comment">// 是这样推导的：p-&gt;num-x&lt;=t &amp;&amp;  0&lt;=x&lt;p-&gt;len, 可得满足条件的x的个数</span></span><br><span class="line">	&#123;</span><br><span class="line">		count += p-&gt;len - MAX(<span class="number">0</span>, p-&gt;num-t);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ukk</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	nodecount = <span class="number">0</span>;</span><br><span class="line">	root = &amp;nodes[nodecount++];</span><br><span class="line">	root-&gt;s = root-&gt;e = <span class="number">0</span>;</span><br><span class="line">	root-&gt;parent = root-&gt;link = <span class="number">0</span>;</span><br><span class="line">	root-&gt;clear();</span><br><span class="line">	n = <span class="built_in">strlen</span>(w);</span><br><span class="line">	w[n] = <span class="string">'&#123;'</span>;</span><br><span class="line">	w[n+<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">	SuffixTree cur = root;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i =<span class="number">0</span>, m =<span class="number">0</span>, pos = <span class="number">0</span> ; i&lt;=n;i++) <span class="comment">// 依次加入字符 w[i], pos 是下一个插入的位置, 这是在w中的索引, 即要和w[pos]匹配的话, 就不需要显式分裂</span></span><br><span class="line">	&#123;</span><br><span class="line">		SuffixTree last = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = m; j&lt;=i; j++) <span class="comment">// 要加入的后缀是 w[j,...,i], m&lt;=j&lt;=i</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (last) <span class="comment">// 第一次就不能依据后缀链接进行跳跃</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (cur-&gt;link) <span class="comment">// 如果有后缀链接, cur就要继续沿着后缀链接进行变化</span></span><br><span class="line">				&#123;</span><br><span class="line">					cur = cur-&gt;link;  <span class="comment">// 就按照后缀链接进行跳跃, 即找 [j,...,i) 这个后缀对应的节点</span></span><br><span class="line">					pos = cur-&gt;e;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="comment">// 如果没有后缀链接</span></span><br><span class="line">				&#123;</span><br><span class="line">					cur = root-&gt;find_node(j, i, pos); <span class="comment">// 就只能从根节点出发寻找插入的位置</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (pos&lt;cur-&gt;e) <span class="comment">// 如果插入可以在cur上进行</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (w[i]==w[pos]) <span class="comment">// 隐式插入</span></span><br><span class="line">				&#123;</span><br><span class="line">					pos++;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="comment">// 显式插入（分裂）,见图4</span></span><br><span class="line">				&#123;</span><br><span class="line">					SuffixTree internal = new_node(cur-&gt;s, pos, cur-&gt;parent); <span class="comment">// 内部节点</span></span><br><span class="line">					cur-&gt;parent-&gt;next[w[cur-&gt;s]-<span class="string">'a'</span>] = internal; <span class="comment">// internal取代cur作为cur的父亲的儿子.</span></span><br><span class="line">					cur-&gt;s = pos;</span><br><span class="line">					cur-&gt;parent = internal;</span><br><span class="line">					internal-&gt;next[w[i]-<span class="string">'a'</span>] = new_node(i, n+<span class="number">1</span>, internal); <span class="comment">// w[i] 和 w[pos] 分道扬镳,分裂出2个节点</span></span><br><span class="line">					internal-&gt;next[w[pos]-<span class="string">'a'</span>] = cur;</span><br><span class="line">					cur = internal;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="comment">// 则插入只能在cur的后一个节点进行</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (cur-&gt;next[w[i]-<span class="string">'a'</span>]) <span class="comment">// 隐式插入</span></span><br><span class="line">				&#123;</span><br><span class="line">					cur = cur-&gt;next[w[i]-<span class="string">'a'</span>]; <span class="comment">// 则要跑到cur-&gt;next[w[i]-'a']上去插了</span></span><br><span class="line">					pos= cur-&gt;s+<span class="number">1</span>;</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span> <span class="comment">// 显式插入</span></span><br><span class="line">				&#123;</span><br><span class="line">					cur-&gt;next[w[i]-<span class="string">'a'</span>] = new_node(i,n+<span class="number">1</span>, cur);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (last)</span><br><span class="line">			&#123;</span><br><span class="line">				last-&gt;link = cur;</span><br><span class="line">			&#125;</span><br><span class="line">			last = cur;</span><br><span class="line">			m++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"d:\\my.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="keyword">while</span> (<span class="built_in">scanf</span>(<span class="string">"%s"</span>, w) , w[<span class="number">0</span>] != <span class="string">'#'</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		count = <span class="number">0</span>;</span><br><span class="line">		ukk(); <span class="comment">// 线性时间构造后缀树</span></span><br><span class="line">		root-&gt;len = root-&gt;num = <span class="number">0</span>;</span><br><span class="line">		dfs(root);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, count);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ac结果</p>
+<table>
+<thead>
+<tr>
+<th>30127980</th>
+<th>2019-08-06 13:20:21</th>
+<th>Accepted</th>
+<th><a href="http://acm.hdu.edu.cn/showproblem.php?pid=3518" target="_blank" rel="noopener">3518</a></th>
+<th>15MS</th>
+<th>1540K</th>
+<th><a href="http://acm.hdu.edu.cn/viewcode.php?rid=30127980" target="_blank" rel="noopener">4351 B</a></th>
+<th>G++</th>
+<th><a href="http://acm.hdu.edu.cn/userstatus.php?user=yfsyfsyfs" target="_blank" rel="noopener">yfsyfsyfs</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>最后分享一个比较好的老外菊苣做的后缀树动画展示网站 <a href="http://brenden.github.io/ukkonen-animation/" target="_blank" rel="noopener">Visualization of Ukkonen’s Algorithm</a></p>
+<p>大家可以用它来验证自己写的后缀树算法是否正确. 但是它的算法具体步骤和我实现的略有不同. </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/03/hdu-3518-Boring-counting-后缀树/" data-id="cjyzh16h8011fy8vmc5uxa4w2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdu/">hdu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后缀树/">后缀树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/字符串/">字符串</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/07/29/hdu-1503-Advanced-Fruits-LCS-dp/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">hdu 1503 Advanced Fruits LCS dp</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BST/">BST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-Primer/">C++ Primer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C和指针/">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DAG/">DAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HotSpot/">HotSpot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JMM/">JMM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JRE/">JRE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KMP/">KMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/">LCA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCS/">LCS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Manacher算法/">Manacher算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oauth2-0/">Oauth2.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMQ/">RMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ST/">ST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVN/">SVN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tarjan/">Tarjan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bfs/">bfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-c/">c/c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfs/">dfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dp/">dp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fzu/">fzu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdu/">hdu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd树/">kd树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kmp/">kmp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oj/">oj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poj/">poj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sbt/">sbt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/treap/">treap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/trie/">trie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volatile/">volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分答案/">二分答案</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/优先队列/">优先队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/位图/">位图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存模型/">内存模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治/">分治</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态查找/">动态查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原生js/">原生js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同步/">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端，数据库-mysql/">后端，数据库, mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后缀树/">后缀树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/启发式搜索/">启发式搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/哈希/">哈希</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/回文/">回文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图/">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/在线算法/">在线算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆排序/">堆排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串/">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串匹配/">字符串匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/宽搜/">宽搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/左式堆/">左式堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/平衡查找树/">平衡查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并查集/">并查集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通/">强连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通分支/">强连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/归并排序/">归并排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心语/">心语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快排/">快排</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速幂/">快速幂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扩展KMP/">扩展KMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抓包/">抓包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓扑排序/">拓扑排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教材/">教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小生成树/">最小生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最长回文子串/">最长回文子串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有向图/">有向图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂/">杂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/板子/">板子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找/">查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找树/">查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栈/">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树/">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树堆/">树堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组/">树状数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模板/">模板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/欧拉环游/">欧拉环游</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/洛谷/">洛谷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深搜/">深搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/滚动数组/">滚动数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本控制/">版本控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/牛客网/">牛客网</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生成树/">生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简历/">简历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线上问题/">线上问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树/">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络协议/">网络协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自己动手用java写编译器/">自己动手用java写编译器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/菜鸟教材/">菜鸟教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词典/">词典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心/">贪心</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/轮播图/">轮播图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通/">连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通分支/">连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通性/">连通性</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逆序数/">逆序数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归/">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/链表/">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集合/">集合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态查找树/">静态查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/C/" style="font-size: 18.33px;">C</a> <a href="/tags/C/" style="font-size: 11.25px;">C++</a> <a href="/tags/C-Primer/" style="font-size: 10px;">C++ Primer</a> <a href="/tags/C和指针/" style="font-size: 17.92px;">C和指针</a> <a href="/tags/DAG/" style="font-size: 10.83px;">DAG</a> <a href="/tags/DFS/" style="font-size: 10.42px;">DFS</a> <a href="/tags/DP/" style="font-size: 10.83px;">DP</a> <a href="/tags/HotSpot/" style="font-size: 10px;">HotSpot</a> <a href="/tags/JDK/" style="font-size: 16.67px;">JDK</a> <a href="/tags/JMM/" style="font-size: 10.42px;">JMM</a> <a href="/tags/JRE/" style="font-size: 10px;">JRE</a> <a href="/tags/JVM/" style="font-size: 10.83px;">JVM</a> <a href="/tags/KMP/" style="font-size: 10px;">KMP</a> <a href="/tags/LCA/" style="font-size: 10.83px;">LCA</a> <a href="/tags/LCS/" style="font-size: 10.42px;">LCS</a> <a href="/tags/LDAP/" style="font-size: 10.42px;">LDAP</a> <a href="/tags/MST/" style="font-size: 10px;">MST</a> <a href="/tags/Manacher算法/" style="font-size: 10px;">Manacher算法</a> <a href="/tags/Oauth2-0/" style="font-size: 10px;">Oauth2.0</a> <a href="/tags/RMQ/" style="font-size: 11.67px;">RMQ</a> <a href="/tags/ST/" style="font-size: 10px;">ST</a> <a href="/tags/SVN/" style="font-size: 10px;">SVN</a> <a href="/tags/Spring/" style="font-size: 14.58px;">Spring</a> <a href="/tags/String/" style="font-size: 10.42px;">String</a> <a href="/tags/Tarjan/" style="font-size: 10px;">Tarjan</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/bfs/" style="font-size: 10.42px;">bfs</a> <a href="/tags/c-c/" style="font-size: 10px;">c/c++</a> <a href="/tags/dfs/" style="font-size: 11.67px;">dfs</a> <a href="/tags/dp/" style="font-size: 11.67px;">dp</a> <a href="/tags/fzu/" style="font-size: 10px;">fzu</a> <a href="/tags/gradle/" style="font-size: 10.42px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 10.42px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 10.42px;">hdfs</a> <a href="/tags/hdu/" style="font-size: 15px;">hdu</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/java并发编程实践/" style="font-size: 15.83px;">java并发编程实践</a> <a href="/tags/jdbc/" style="font-size: 10.42px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/kd树/" style="font-size: 10px;">kd树</a> <a href="/tags/kmp/" style="font-size: 10px;">kmp</a> <a href="/tags/leetcode/" style="font-size: 10.42px;">leetcode</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oj/" style="font-size: 16.25px;">oj</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/poj/" style="font-size: 11.25px;">poj</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/spring/" style="font-size: 12.5px;">spring</a> <a href="/tags/springboot/" style="font-size: 10.83px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 10.42px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/synchronized/" style="font-size: 10.42px;">synchronized</a> <a href="/tags/treap/" style="font-size: 10px;">treap</a> <a href="/tags/trie/" style="font-size: 12.5px;">trie</a> <a href="/tags/volatile/" style="font-size: 10.42px;">volatile</a> <a href="/tags/vue/" style="font-size: 10.83px;">vue</a> <a href="/tags/事务/" style="font-size: 11.67px;">事务</a> <a href="/tags/二分查找/" style="font-size: 10px;">二分查找</a> <a href="/tags/二分答案/" style="font-size: 10px;">二分答案</a> <a href="/tags/二叉树/" style="font-size: 10px;">二叉树</a> <a href="/tags/优先队列/" style="font-size: 11.25px;">优先队列</a> <a href="/tags/位图/" style="font-size: 10px;">位图</a> <a href="/tags/内存模型/" style="font-size: 10.42px;">内存模型</a> <a href="/tags/分治/" style="font-size: 10px;">分治</a> <a href="/tags/前端/" style="font-size: 11.67px;">前端</a> <a href="/tags/动态查找/" style="font-size: 10px;">动态查找</a> <a href="/tags/动态规划/" style="font-size: 12.08px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/同步/" style="font-size: 10.42px;">同步</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 19.17px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/后缀树/" style="font-size: 10px;">后缀树</a> <a href="/tags/启发式搜索/" style="font-size: 10px;">启发式搜索</a> <a href="/tags/哈希/" style="font-size: 11.25px;">哈希</a> <a href="/tags/回文/" style="font-size: 10px;">回文</a> <a href="/tags/图/" style="font-size: 17.5px;">图</a> <a href="/tags/在线算法/" style="font-size: 10px;">在线算法</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/堆排序/" style="font-size: 10px;">堆排序</a> <a href="/tags/大数据/" style="font-size: 10.83px;">大数据</a> <a href="/tags/字符串/" style="font-size: 13.75px;">字符串</a> <a href="/tags/字符串匹配/" style="font-size: 10px;">字符串匹配</a> <a href="/tags/宽搜/" style="font-size: 10.42px;">宽搜</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/左式堆/" style="font-size: 10px;">左式堆</a> <a href="/tags/平衡查找树/" style="font-size: 10px;">平衡查找树</a> <a href="/tags/并发/" style="font-size: 17.08px;">并发</a> <a href="/tags/并查集/" style="font-size: 11.67px;">并查集</a> <a href="/tags/强连通/" style="font-size: 10.42px;">强连通</a> <a href="/tags/强连通分支/" style="font-size: 10px;">强连通分支</a> <a href="/tags/归并排序/" style="font-size: 10px;">归并排序</a> <a href="/tags/心语/" style="font-size: 10px;">心语</a> <a href="/tags/快排/" style="font-size: 10px;">快排</a> <a href="/tags/快速幂/" style="font-size: 10.42px;">快速幂</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/扩展KMP/" style="font-size: 10.83px;">扩展KMP</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/拓扑排序/" style="font-size: 10.42px;">拓扑排序</a> <a href="/tags/排序/" style="font-size: 15.42px;">排序</a> <a href="/tags/操作系统/" style="font-size: 10.42px;">操作系统</a> <a href="/tags/教材/" style="font-size: 19.58px;">教材</a> <a href="/tags/数学/" style="font-size: 11.25px;">数学</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/最小生成树/" style="font-size: 10px;">最小生成树</a> <a href="/tags/最短路径/" style="font-size: 12.5px;">最短路径</a> <a href="/tags/最长回文子串/" style="font-size: 10px;">最长回文子串</a> <a href="/tags/有向图/" style="font-size: 10px;">有向图</a> <a href="/tags/杂/" style="font-size: 10px;">杂</a> <a href="/tags/板子/" style="font-size: 10px;">板子</a> <a href="/tags/查找/" style="font-size: 10px;">查找</a> <a href="/tags/查找树/" style="font-size: 13.33px;">查找树</a> <a href="/tags/栈/" style="font-size: 12.5px;">栈</a> <a href="/tags/树/" style="font-size: 17.5px;">树</a> <a href="/tags/树堆/" style="font-size: 10px;">树堆</a> <a href="/tags/树状数组/" style="font-size: 11.25px;">树状数组</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/模板/" style="font-size: 12.92px;">模板</a> <a href="/tags/欧拉环游/" style="font-size: 10px;">欧拉环游</a> <a href="/tags/洛谷/" style="font-size: 10px;">洛谷</a> <a href="/tags/深搜/" style="font-size: 11.25px;">深搜</a> <a href="/tags/源码/" style="font-size: 18.75px;">源码</a> <a href="/tags/源码分析/" style="font-size: 11.25px;">源码分析</a> <a href="/tags/滚动数组/" style="font-size: 10px;">滚动数组</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/牛客网/" style="font-size: 10.42px;">牛客网</a> <a href="/tags/生成树/" style="font-size: 10.42px;">生成树</a> <a href="/tags/离散化/" style="font-size: 10px;">离散化</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/线段树/" style="font-size: 12.08px;">线段树</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/编译原理/" style="font-size: 14.17px;">编译原理</a> <a href="/tags/网络协议/" style="font-size: 10px;">网络协议</a> <a href="/tags/自己动手用java写编译器/" style="font-size: 14.17px;">自己动手用java写编译器</a> <a href="/tags/菜鸟教材/" style="font-size: 10.83px;">菜鸟教材</a> <a href="/tags/设计模式/" style="font-size: 10.83px;">设计模式</a> <a href="/tags/词典/" style="font-size: 10px;">词典</a> <a href="/tags/贪心/" style="font-size: 10.42px;">贪心</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/连通/" style="font-size: 11.25px;">连通</a> <a href="/tags/连通分支/" style="font-size: 10px;">连通分支</a> <a href="/tags/连通性/" style="font-size: 11.67px;">连通性</a> <a href="/tags/逆序数/" style="font-size: 10.42px;">逆序数</a> <a href="/tags/递归/" style="font-size: 11.25px;">递归</a> <a href="/tags/链表/" style="font-size: 10.83px;">链表</a> <a href="/tags/锁/" style="font-size: 10.83px;">锁</a> <a href="/tags/队列/" style="font-size: 10.42px;">队列</a> <a href="/tags/集合/" style="font-size: 10px;">集合</a> <a href="/tags/静态查找树/" style="font-size: 10.42px;">静态查找树</a> <a href="/tags/面试/" style="font-size: 13.75px;">面试</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/03/hdu-3518-Boring-counting-后缀树/">hdu 3518 Boring counting 后缀树</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/29/hdu-1503-Advanced-Fruits-LCS-dp/">hdu 1503 Advanced Fruits LCS dp</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/28/最长公共子序列（LCS）问题-hdu-1243-反恐训练营/">最长公共子序列（LCS）问题 hdu 1243 反恐训练营</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/28/hello-world/">声明</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/27/自己动手用java写编译器-课时9-Thompson构造，正则表达式输入预处理/">自己动手用java写编译器 课时9 Thompson构造，正则表达式输入预处理</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
