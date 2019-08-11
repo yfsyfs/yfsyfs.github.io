@@ -7,18 +7,18 @@
   
   <title>hdu 1402 A * B Problem Plus fft | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缘起既然学习了fft，自然要找个板题来测一下. 遂选择了 hdu 1402 A * B Problem Plus">
+  <meta name="description" content="缘起既然学习了fft（【1】），自然要找个板题来测一下. 遂选择了 hdu 1402 A * B Problem Plus">
 <meta name="keywords" content="算法,oj,hdu,高精度,fft">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hdu 1402 A * B Problem Plus fft">
 <meta property="og:url" content="http://yoursite.com/2019/08/09/hdu-1402-A-B-Problem-Plus-fft/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="缘起既然学习了fft，自然要找个板题来测一下. 遂选择了 hdu 1402 A * B Problem Plus">
+<meta property="og:description" content="缘起既然学习了fft（【1】），自然要找个板题来测一下. 遂选择了 hdu 1402 A * B Problem Plus">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-09T03:35:42.176Z">
+<meta property="og:updated_time" content="2019-08-11T09:33:20.661Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hdu 1402 A * B Problem Plus fft">
-<meta name="twitter:description" content="缘起既然学习了fft，自然要找个板题来测一下. 遂选择了 hdu 1402 A * B Problem Plus">
+<meta name="twitter:description" content="缘起既然学习了fft（【1】），自然要找个板题来测一下. 遂选择了 hdu 1402 A * B Problem Plus">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -87,7 +87,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>既然学习了fft，自然要找个板题来测一下. 遂选择了 <a href="https://vjudge.net/problem/HDU-1402" target="_blank" rel="noopener">hdu 1402 A * B Problem Plus</a></p>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>既然学习了fft（【1】），自然要找个板题来测一下. 遂选择了 <a href="https://vjudge.net/problem/HDU-1402" target="_blank" rel="noopener">hdu 1402 A * B Problem Plus</a></p>
 <a id="more"></a>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>题意很裸</p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">计算 A*B</span><br><span class="line"></span><br><span class="line">【输入】</span><br><span class="line">每一行包含2个正整数分别就是A和B，A，B可达 10^50000</span><br><span class="line"></span><br><span class="line">【输出】</span><br><span class="line">对每一行, 输出 A*B 的结果, </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">【样例输入】</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">1000</span><br><span class="line">2</span><br><span class="line"></span><br><span class="line">【样例输出】</span><br><span class="line">2</span><br><span class="line">2000</span><br><span class="line"></span><br><span class="line">【限制】</span><br><span class="line">Time limit 1000 ms </span><br><span class="line">Memory limit 32768 kB</span><br></pre></td></tr></table></figure>
@@ -153,11 +153,42 @@
 </table>
 <p>结果也是吃T的.</p>
 <p>所以不得不祭出fft来搞它了</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">#include "stdafx.h"</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;complex&gt;</span><br><span class="line">#include &lt;math.h&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line"></span><br><span class="line">#define LOCAL</span><br><span class="line">#define PI (atan(1.0)*4)</span><br><span class="line"></span><br><span class="line">#define cp complex&lt;double&gt;</span><br><span class="line"></span><br><span class="line">typedef long long LL;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">char a[140000], b[140000]; // 因为乘数不超过5w位(即令x=10的多项式次数&lt;=5w), 乘积不会超过10w位(即多项式乘积结果的次数&lt;=10w),而2^17=13w+, 而进行fft需要次数为2的幂次, 所以取14w</span><br><span class="line">int c[140000]; // 装a*b乘积的结果</span><br><span class="line">cp aa[140000], bb[140000];</span><br><span class="line">int rev[140000];</span><br><span class="line"></span><br><span class="line">// fft 模板</span><br><span class="line">void fft(cp *a, int bit, int inv) // inv=1表示fft（即系数转点值）, inv=-1表示ifft（即点值转系数），（1&lt;&lt;bit）是a数组的长度</span><br><span class="line">&#123;</span><br><span class="line">	int len = (1&lt;&lt;bit);</span><br><span class="line">	for (int i = 0; i&lt;len; i++) rev[i] = i;</span><br><span class="line">	for (int i = 0; i&lt;len; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		rev[i] = (rev[i&gt;&gt;1]&gt;&gt;1) | ((i&amp;1)&lt;&lt;(bit-1));</span><br><span class="line">		if (i&lt;rev[i]) swap(a[i], a[rev[i]]);</span><br><span class="line">	&#125;</span><br><span class="line">	for (int mid = 1; mid &lt; len; mid&lt;&lt;=1) // 合并区间的长度为2*mid</span><br><span class="line">	&#123;</span><br><span class="line">		cp w = cp(cos(PI/mid), inv*sin(PI/mid));</span><br><span class="line">		for (int i = 0; i&lt;len; i+=(mid&lt;&lt;1)) // i是合并区间的起点—— [i, i+2mid) 是合并区间</span><br><span class="line">		&#123;</span><br><span class="line">			cp t = cp(1,0);</span><br><span class="line">			for (int j = 0; j&lt;mid; j++, t*=w)</span><br><span class="line">			&#123;</span><br><span class="line">				cp x = a[i+j], y = t*a[i+mid+j];</span><br><span class="line">				a[i+j] = x+y, a[i+mid+j] = x-y; // 蝴蝶变换</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125; // 短小精悍的20+行的fft模板</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">#ifdef LOCAL</span><br><span class="line">	freopen("d:<span class="tag">\<span class="name">\</span></span>data.in", "r", stdin);</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">	while(~scanf("<span class="comment">%s%s", a, b))</span></span><br><span class="line">	&#123;</span><br><span class="line">		if (!strcmp(a, "0") || !strcmp(b, "0")) // 如果至少一个为0, 则答案就是0</span><br><span class="line">		&#123;</span><br><span class="line">			puts("0");</span><br><span class="line">			continue;</span><br><span class="line">		&#125;</span><br><span class="line">		int lena = strlen(a), lenb = strlen(b);</span><br><span class="line">		int n = lena+lenb, bit=0; // a*b的结果最多n位数</span><br><span class="line">		while ((1&lt;&lt;bit)&lt;n) ++bit; // 2^bit&gt;=n</span><br><span class="line">		int len = (1&lt;&lt;bit); //len&gt;=n, len是2次幂</span><br><span class="line">		for (int i = 0; i&lt;len; i++) aa[i] = i&lt;lena?cp(a[lena-i-1]-'0', 0):0; // 小的索引存储低位</span><br><span class="line">		for (int i = 0; i&lt;len; i++) bb[i] = i&lt;lenb?cp(b[lenb-i-1]-'0', 0):0; // 初始化aa和bb, 因为fft算法必须要耕作于2幂次的长度的数组上</span><br><span class="line">		fft(aa, bit, 1); // 系数转点值</span><br><span class="line">		fft(bb, bit, 1);  // 系数转点值</span><br><span class="line">		for (int i = 0; i&lt; len; i++) aa[i]*=bb[i];</span><br><span class="line">		fft(aa, bit, -1); // 点值转系数</span><br><span class="line">		for (int i = 0; i&lt;len; i++) c[i] = (int)(aa[i].real()/len+0.5);</span><br><span class="line">		for (int i = 0; i&lt;n-1;i++) // 考虑进位</span><br><span class="line">		&#123;</span><br><span class="line">			c[i+1]+=c[i]/10;</span><br><span class="line">			c[i]<span class="comment">%=10;</span></span><br><span class="line">		&#125;</span><br><span class="line">		bool flag = false;</span><br><span class="line">		for (int i = n; ~i; i--) // 去除前导0,打印结果</span><br><span class="line">		&#123;</span><br><span class="line">			if (c[i]) flag = true;</span><br><span class="line">			if (flag) printf("<span class="comment">%d", c[i]);</span></span><br><span class="line">		&#125;</span><br><span class="line">		puts("");</span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ac情况</p>
+<table>
+<thead>
+<tr>
+<th>30219737</th>
+<th>2019-08-11 17:28:15</th>
+<th>Accepted</th>
+<th><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1402" target="_blank" rel="noopener">1402</a></th>
+<th>140MS</th>
+<th>6740K</th>
+<th><a href="http://acm.hdu.edu.cn/viewcode.php?rid=30219737" target="_blank" rel="noopener">2319 B</a></th>
+<th>G++</th>
+<th><a href="http://acm.hdu.edu.cn/userstatus.php?user=yfsyfsyfs" target="_blank" rel="noopener">yfsyfsyfs</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>注意，这里没有把它整合进之前的高精度模板中, 因为你想想, 一个段是10^9, 那么在卷积过程中（long long作为double进行运算）可能损失精度. 所以采用十进制.</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/08/09/FFT/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/08/09/FFT/</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/09/hdu-1402-A-B-Problem-Plus-fft/" data-id="cjz406hgg0060msvmga7f84n2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/09/hdu-1402-A-B-Problem-Plus-fft/" data-id="cjz6rued30059pwvm53lis94b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fft/">fft</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdu/">hdu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/高精度/">高精度</a></li></ul>

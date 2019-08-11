@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/08/09/FFT/4.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/09/FFT/5.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/09/FFT/6.png">
-<meta property="og:updated_time" content="2019-08-09T11:03:25.240Z">
+<meta property="og:updated_time" content="2019-08-10T04:17:16.023Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FFT">
 <meta name="twitter:description" content="缘起高精度乘法，以前给出过O(n^2)的朴素算法和O(n^log3)的karatsuba优化.  但是还有更好更快的优化——FFT（快速傅里叶变化(fast Fourier transform)） 它是基于 DFT（discrete fourier transform 离散傅里叶变换） fft是1965年由J.W.库利和T.W.图基提出的。采用这种算法能使dft时所需要的乘法次数大幅减少，特别是被">
@@ -146,7 +146,7 @@
 <p>于是, 我们看到了分治的希望. 而且不难知道FFT的复杂度是 O(nlogn)</p>
 <h4 id="IFFT"><a href="#IFFT" class="headerlink" title="IFFT"></a>IFFT</h4><p>这里的数学理论只是简单的线性代数. 参考了【3】. 其实从根本上讲，IDFT是解一个n元一次方程组的问题. </p>
 <img src="/2019/08/09/FFT/1.png">
-<p>写成矩阵形式如下</p>
+<p>写成矩阵形式如下（其实下图左边到右边就是FFT）</p>
 <img src="/2019/08/09/FFT/2.png">
 <p>有点线性代数知识的都知道只需要两边乘以左边矩阵的逆矩阵就行了. 而左边矩阵的逆矩阵刚好就是</p>
 <p>D/n, 其中D为如下矩阵</p>
@@ -177,7 +177,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/09/FFT/" data-id="cjz406hu90106msvm3j1dffeo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/09/FFT/" data-id="cjz6rueqx012ipwvmqbmjq1bj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FFT/">FFT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/高精度/">高精度</a></li></ul>
