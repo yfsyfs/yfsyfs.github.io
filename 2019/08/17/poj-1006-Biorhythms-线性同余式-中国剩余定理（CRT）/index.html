@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="缘起中国剩余定理（CRT）是数论中非常著名的一个定理. 因为最早见于中国南北朝时期（公元5世纪）的数学著作《孙子算经》卷下第二十六题，叫做“物不知其数”问题 ，所以又叫孙子定理. 用现代数学的话来说, CRT解决了一元一次同余方程组$$(S)：\begin{cases}x≡a_1 (mod \ m_1) \x≡a_2 (mod \ m_2) \…\x≡a_n (mod \ m_n) \\end{c">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-17T09:05:56.432Z">
+<meta property="og:updated_time" content="2019-08-17T10:15:44.110Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="poj 1006 Biorhythms 线性同余式 中国剩余定理（CRT）">
 <meta name="twitter:description" content="缘起中国剩余定理（CRT）是数论中非常著名的一个定理. 因为最早见于中国南北朝时期（公元5世纪）的数学著作《孙子算经》卷下第二十六题，叫做“物不知其数”问题 ，所以又叫孙子定理. 用现代数学的话来说, CRT解决了一元一次同余方程组$$(S)：\begin{cases}x≡a_1 (mod \ m_1) \x≡a_2 (mod \ m_2) \…\x≡a_n (mod \ m_n) \\end{c">
@@ -90,13 +90,58 @@
         <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>中国剩余定理（CRT）是数论中非常著名的一个定理. 因为最早见于中国南北朝时期（公元5世纪）的数学著作《孙子算经》卷下第二十六题，叫做“物不知其数”问题 ，所以又叫孙子定理. 用现代数学的话来说, CRT解决了一元一次同余方程组<br>$$<br>(S)：\begin{cases}<br>x≡a_1 (mod \ m_1) \<br>x≡a_2 (mod \ m_2) \<br>…\<br>x≡a_n (mod \ m_n) \<br>\end{cases}<br>$$<br>其中，m1,…,mn 这n个整数两两互质. </p>
 <a id="more"></a>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>CRT告诉我们对于任何整数a1,..,an, (S)有解，并且解可以如下构造出来</p>
-<p>令 $M=m_1<em>m_2</em>…*m_n, M_i=M/m_i\ 1\le i\le n$ </p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】</p>
+<p>令 $M=m_1<em>m_2</em>…*m_n, M_i=M/m_i\ 1\le i\le n , \ t_i为M_i关于m_i）$的逆元（参见【1】） , 则</p>
+<p>S 的通解如下<br>$$<br>x = kM+\Sigma_{1\le i \le n}a_it_iM_i<br>$$<br>k是整数.   所以求解CRT问题本质上可以归结于逆元的求解. 求逆元当然可以使用【1】中的办法，但是这里学习一种相比于逆元更加广泛的问题——求解线性同余式. 即此算法求解的是满足<br>$$<br>ax≡r\ (mod \ m)<br>$$<br>的x. 求法和【1】中涉及的思想是完全一样的（也是 ax+my=r, 然后得到通解, 然后根据需求是否求最小正整数解）. </p>
+<p>于是我们使用CRT求解 <a href="https://vjudge.net/problem/POJ-1006" target="_blank" rel="noopener">poj 1006 Biorhythms</a> 这道题</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">有些人认为一个人生命中有三个周期从他或她出生的那一天开始。这三个周期是身体，情绪和智力周期，它们的周期分</span><br><span class="line">别为23,28和33天。每个周期中有一个峰值。在一个周期的高峰期，一个人在相应的领域（身体，情感或精神）中表现</span><br><span class="line">最佳。例如，如果是精神曲线，思维过程将更加清晰，集中将更容易。</span><br><span class="line">由于三个循环具有不同的周期，因此三个循环的峰值通常在不同的时间发生。我们想确定任何人何时出现三峰（所有三</span><br><span class="line">个周期的峰值出现在同一天）。对于每个周期，您将获得从当前年度开始的一个峰值（不一定是第一个）发生的天数。</span><br><span class="line">您还将获得一个日期，表示为从当年年初开始的天数。您的任务是确定从给定日期到下一个三峰的天数。给定日期不计</span><br><span class="line">算在内。例如，如果给定日期为10且下一个三峰值出现在第12天，则答案为2，而不是3.如果在给定日期出现三峰值，</span><br><span class="line">则应给出下一次出现的天数三峰。</span><br><span class="line"></span><br><span class="line">【输入】</span><br><span class="line">多样例。每种情况的输入由一行四个整数p，e，i和d组成。 值p，e和i分别是从当前年份开始的身体，</span><br><span class="line">情绪和智力周期达到峰值的天数。 值d是给定日期，并且可以小于p，e或i中的任何一个。 所有值均为非负数且最多</span><br><span class="line">为365，您可以假设在给定日期的21252=(23*28*33)天内将出现三峰值。 输入的结束由一行表示，其中p = e = </span><br><span class="line">i = d = -1。</span><br><span class="line"></span><br><span class="line">【输出】</span><br><span class="line">对每个样例，打印形如</span><br><span class="line">Case 1: the next triple peak occurs in 1234 days.</span><br><span class="line">注意，哪怕答案是1天之后, 也用days而不需要改成day</span><br><span class="line"></span><br><span class="line">【样例输入】</span><br><span class="line">0 0 0 0</span><br><span class="line">0 0 0 100</span><br><span class="line">5 20 34 325</span><br><span class="line">4 5 6 7</span><br><span class="line">283 102 23 320</span><br><span class="line">203 301 203 40</span><br><span class="line">-1 -1 -1 -1</span><br><span class="line"></span><br><span class="line">【样例输出】</span><br><span class="line">Case 1: the next triple peak occurs in 21252 days.</span><br><span class="line">Case 2: the next triple peak occurs in 21152 days.</span><br><span class="line">Case 3: the next triple peak occurs in 19575 days.</span><br><span class="line">Case 4: the next triple peak occurs in 16994 days.</span><br><span class="line">Case 5: the next triple peak occurs in 8910 days.</span><br><span class="line">Case 6: the next triple peak occurs in 10789 days.</span><br></pre></td></tr></table></figure>
+<p>显然，根据CRT，答案是 $(p<em>t_1</em>M_1+e<em>t_2</em>M_2+i<em>t_3</em>M_3)\%M-d$</p>
+<p>其中M=m1m2m3, m1=23,m2=28,m3=33, M1=m2*m3, M2=m1*m3, M3=m1*m2, ti是Mi关于mi的逆元（参见【1】）</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">//#include "stdafx.h"</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">//#define LOCAL</span><br><span class="line"></span><br><span class="line">int p,e,i,d;</span><br><span class="line"></span><br><span class="line">int extgcd(int a, int b, int &amp;x, int &amp;y)</span><br><span class="line">&#123;</span><br><span class="line">	if (!b)</span><br><span class="line">	&#123;</span><br><span class="line">		x = 1,y=0;</span><br><span class="line">		return a;</span><br><span class="line">	&#125;</span><br><span class="line">	int ans = extgcd(b, a<span class="comment">%b, x,y), t;</span></span><br><span class="line">	t = x, x = y, y = t-a/b*y;</span><br><span class="line">	return ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int inv(int a, int b) // 求a关于b的逆元, 即ax+by=1,a,b都是正整数</span><br><span class="line">&#123;</span><br><span class="line">	int x,y;</span><br><span class="line">	int gcd = extgcd(a,b,x,y); // gcd显然是1（CRT的假设是m1,..,mn两两互质）</span><br><span class="line">	if (b&gt;0)</span><br><span class="line">	&#123;</span><br><span class="line">		while(x&lt;0)x+=b;</span><br><span class="line">		while(x&gt;b)x-=b;</span><br><span class="line">	&#125;</span><br><span class="line">	else</span><br><span class="line">	&#123;</span><br><span class="line">		while(x&lt;0)x-=b;</span><br><span class="line">		while(x&gt;-b)x+=b;</span><br><span class="line">	&#125; //求出的x就是a关于b的逆元</span><br><span class="line">	return x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() </span><br><span class="line">&#123;</span><br><span class="line">#ifdef LOCAL</span><br><span class="line">	freopen("d:<span class="tag">\<span class="name">\</span></span>data.in", "r", stdin);</span><br><span class="line">#endif</span><br><span class="line">	int cse = 0;</span><br><span class="line">	while(~scanf("<span class="comment">%d%d%d%d", &amp;p, &amp;e, &amp;i,&amp;d), ~p)</span></span><br><span class="line">	&#123;</span><br><span class="line">		int M = 23*28*33, M1 = 28*33, M2 = 23*33, M3=23*28;</span><br><span class="line">		int t1 = inv(M1, 23), t2 = inv(M2, 28), t3=inv(M3, 33);</span><br><span class="line">		int ans = (p*t1*M1+e*t2*M2+i*t3*M3)<span class="comment">%M;</span></span><br><span class="line">		if(ans&lt;=d)</span><br><span class="line">		&#123;</span><br><span class="line">			ans+=M; // 特别的, ans=0, 则ans=M</span><br><span class="line">		&#125;</span><br><span class="line">		printf("Case <span class="comment">%d: the next triple peak occurs in %d days.\n",++cse, ans-d);</span></span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ac情况</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Status</th>
+<th>Accepted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Time</td>
+<td>32ms</td>
+</tr>
+<tr>
+<td style="text-align:center">Memory</td>
+<td>84kB</td>
+</tr>
+<tr>
+<td style="text-align:center">Length</td>
+<td>924</td>
+</tr>
+<tr>
+<td style="text-align:center">Lang</td>
+<td>C++</td>
+</tr>
+<tr>
+<td style="text-align:center">Submitted</td>
+<td>2019-08-17 18:15:23</td>
+</tr>
+<tr>
+<td style="text-align:center">Shared</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">RemoteRunId</td>
+<td>20758235</td>
+</tr>
+</tbody>
+</table>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/08/17/zoj-4712-Modular-Inverse-逆元-扩展欧几里得/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/08/17/zoj-4712-Modular-Inverse-%E9%80%86%E5%85%83-%E6%89%A9%E5%B1%95%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%97/</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/17/poj-1006-Biorhythms-线性同余式-中国剩余定理（CRT）/" data-id="cjzfbh4vo0074a8vmop4zldr5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/17/poj-1006-Biorhythms-线性同余式-中国剩余定理（CRT）/" data-id="cjzfjg5bf007nasvmow85i2ca" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CRT/">CRT</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/中国剩余定理/">中国剩余定理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/扩展欧几里得/">扩展欧几里得</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/线性同余方程/">线性同余方程</a></li></ul>
