@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>POJ 3641 Pseudoprime numbers Miller-Rabin素数测试 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缘起素性测试(即测试给定的数是否为素数)是近代密码学中的一个非常重要的课题. 而众所周知，测试一个数是不是素数，我们有O(sqrt(N))算法. 但是对于超大的n, 这个算法复杂度依旧很高. 所以我们来学习著名的Miller-Rabin素数测试算法。这是一种基于概率的算法,说白了，就是如果一个数能全部通过次数相当的Miller-Rabin测试的话，则我们以非常高的置信度判定它是质数.">
+<meta name="keywords" content="算法,oj,数学,快速幂,poj,素数测试,Miller-Rabin">
+<meta property="og:type" content="article">
+<meta property="og:title" content="POJ 3641 Pseudoprime numbers Miller-Rabin素数测试">
+<meta property="og:url" content="http://yoursite.com/2019/08/16/POJ-3641-Pseudoprime-numbers-Miller-Rabin素数测试/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起素性测试(即测试给定的数是否为素数)是近代密码学中的一个非常重要的课题. 而众所周知，测试一个数是不是素数，我们有O(sqrt(N))算法. 但是对于超大的n, 这个算法复杂度依旧很高. 所以我们来学习著名的Miller-Rabin素数测试算法。这是一种基于概率的算法,说白了，就是如果一个数能全部通过次数相当的Miller-Rabin测试的话，则我们以非常高的置信度判定它是质数.">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-17T03:36:25.128Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="POJ 3641 Pseudoprime numbers Miller-Rabin素数测试">
+<meta name="twitter:description" content="缘起素性测试(即测试给定的数是否为素数)是近代密码学中的一个非常重要的课题. 而众所周知，测试一个数是不是素数，我们有O(sqrt(N))算法. 但是对于超大的n, 这个算法复杂度依旧很高. 所以我们来学习著名的Miller-Rabin素数测试算法。这是一种基于概率的算法,说白了，就是如果一个数能全部通过次数相当的Miller-Rabin测试的话，则我们以非常高的置信度判定它是质数.">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-POJ-3641-Pseudoprime-numbers-Miller-Rabin素数测试" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/16/POJ-3641-Pseudoprime-numbers-Miller-Rabin素数测试/" class="article-date">
+  <time datetime="2019-08-16T09:50:29.000Z" itemprop="datePublished">2019-08-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      POJ 3641 Pseudoprime numbers Miller-Rabin素数测试
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>素性测试(即测试给定的数是否为素数)是近代密码学中的一个非常重要的课题.</p>
+<p>而众所周知，测试一个数是不是素数，我们有O(sqrt(N))算法. 但是对于超大的n, 这个算法复杂度依旧很高. 所以我们来学习著名的Miller-Rabin素数测试算法。这是一种基于概率的算法,说白了，就是如果一个数能全部通过次数相当的Miller-Rabin测试的话，则我们以非常高的置信度判定它是质数.</p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>首先有费马小定理与二测探测定理(为什么叫二次探测定理，看后面的Miller-Rabin测试算法就知道了)如下</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">费马小定理</span><br><span class="line">p是素数, a是整数, 且(a,p)=1, 则 a^(p-1)模掉p等于1.</span><br><span class="line">证明: 考虑&#123;1,...,p-1&#125;和&#123;a,...,a*(p-1)&#125;, 后者中任意两个彼此不模p同余. 所以1*2*...*(p-1)和a*2a*..*(p-1)a 模p同余. 即 (a^(p-1)-1)*(p-1)!可以整除p, 所以 a^(p-1)模p余1. 费马小定理得证.</span><br><span class="line"></span><br><span class="line">二次探测引理</span><br><span class="line">p是一个素数, x^2模p等于1的话, 则要么x模p为1要么模p为p-1</span><br><span class="line">证明: x^2-1=(x+1)*(x-1), 可以被p整除. 得证.</span><br></pre></td></tr></table></figure>
+<p>基于费马小定理的素数测试是费马测试, 费马测试的算法如下</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1 随机取一个 a</span><br><span class="line">2 如果它不满足 a^(n-1)<span class="comment">%n ==1</span></span><br><span class="line">3 则n一定是 合数</span><br><span class="line">4 退出</span><br><span class="line">5 如果它满足 a^(n-1)<span class="comment">%n ==1</span></span><br><span class="line">6 则它是一个素数的概率是1/2</span><br><span class="line">7 回到 1</span><br></pre></td></tr></table></figure>
+<p>如果对这个过程重复50次，每次都没说它是合数，那这个数是素数的概率是多少那？ 它只有(1/2)^50可能不是素数！  </p>
+<p>很显然就像是投硬币那样如果你投了1000次，每次都投到正面 ，那你就会怀疑这个硬币2面都是正面！</p>
+<p>但是素数的费马测试算法是有漏洞的,因为有一种数叫做卡米切尔数，卡米切尔数使得上面发生成为大概率事件,例如561(卡米切尔数，561=3*11*17)有318个伪证据(即底数a),使得将561判为素数</p>
+<p>因此费马素性测试几乎就没用了.  那既然费马小定理只是素数的必要条件，所以才出的卡米切尔数这种漏洞. 那么有没有充要条件呢? 有的！Wilson爵士给出了如下定理</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Wilson定理:</span><br><span class="line">对于给定的正整数p，p是素数的充要条件为 (p-1)! mod p 的结果为 p-1</span><br></pre></td></tr></table></figure>
+<p>Wilson定理的证明是容易的（参考【2】）</p>
+<p>对于p=2，Wilson定理的成立是显然的，我们下面假设p是奇数</p>
+<p>充分性:  如果p是素数，则 (p-1)! = 1*(p-1) *(2*3*…*(p-2)) , 只需要论证2*3<em>…\</em>(p-2)（偶数个数连乘）除以p余数为1即可. 我们其实只需要证明对于任意 $a\in {2,…,p-1}$ , 存在 $b\in {2,…,p-1}$, 且 b!=a, 使得 a*b 除以p余数为1.</p>
+<p>只需要考虑集合 {1*a, 2*a,…., (p-1)*a}, 这(p-1)个数构成的新的集合. 首先他们两两之间不会mod p同余(因为p是素数). 但是又是p-1个数，所以和{1,…,p-1}模掉p的结果是一样的. 存在b, 使得 b*a模掉p余数为1. 但是a会等于b吗? 不会, 因为根据上面的二次探测定理 , 如果a=b的话，则a只能模掉p为1或者p-1, 则a只能是1或者p-1,但是伊始我们假设$a\in {2,…,p-1}$ 的. 所以b一定不等于a，即得证.</p>
+<p>必要性: 必要性就简单多了. 反证法，如果p不是素数的话，p=a*b（a&gt;1, b&gt;1）, 则(p-1)!和p之间有公约数a和b, 从而</p>
+<p>a和b 都是(p-1)的因子，所以(p,p-1)&gt;1 ，但是 p和p-1显然是互质的.</p>
+<p>Wilson定理得证.</p>
+<p>Wilson定理给出了素数的充要条件诶~ 但遗憾的是根据Wilson定理来素性测试所需的计算量太大，无法实现对较大整数的测试. 所以Wilson定理也不能用于素性测试。于是才需要引入今天的主角——Miller-Rabin 素性测试（主要援引的是【1】）.</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">令 p 为一个奇素数, p-1 = t*2^s, t&gt;1是奇数, s是正整数.</span><br><span class="line">则考虑任取一个小于p的正整数a. 则考虑如下的序列（称之为Miller序列）</span><br><span class="line">m=&#123;a^t, a^(2t),a^(4t),...,a^(t*2^(s-1))&#125;, 即m[i] = a^(t*2^(i)), 0&lt;=i&lt;s, Miller序列共计s项</span><br><span class="line">如果m[i]模掉p为1，但是m[i-1]模掉p既不是1又不是p-1的话（s&gt;i&gt;=1）, 则根据二次探测定理, p一定不是素数.</span><br></pre></td></tr></table></figure>
+<p>原理讲清楚了，下面解决poj 3641</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">费马定理指出，对于任何素数p和任何整数a&gt; 1，a^p = a（mod p）。 p的一些（但不是很多）非素数值，称为base-a </span><br><span class="line">伪素数，对于某些a具有此属性。 （有些人称为Carmichael数字，这些数字对于所有的a都是base-a伪素数。）</span><br><span class="line"></span><br><span class="line">给定2 &lt;p≤1000000000且1 &lt;a &lt;p，确定p是否是base-a 伪素数。</span><br><span class="line"></span><br><span class="line">【输入】</span><br><span class="line">多样例，以0 0结尾，每个样例占一行，分别表示p和a</span><br><span class="line"></span><br><span class="line">【输出】</span><br><span class="line">对于每个样例，如果p是base-a伪素数，则输出yes, 否则输出no</span><br><span class="line"></span><br><span class="line">【样例输入】</span><br><span class="line">3 2</span><br><span class="line">10 3</span><br><span class="line">341 2</span><br><span class="line">341 3</span><br><span class="line">1105 2</span><br><span class="line">1105 3</span><br><span class="line">0 0</span><br><span class="line"></span><br><span class="line">【样例输出】</span><br><span class="line">no</span><br><span class="line">no</span><br><span class="line">yes</span><br><span class="line">no</span><br><span class="line">yes</span><br><span class="line">yes</span><br><span class="line"></span><br><span class="line">【限制】</span><br><span class="line">Time limit 1000 ms</span><br><span class="line">Memory limit 65536 kB</span><br></pre></td></tr></table></figure>
+<p>题意就是</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">由费马小定理可得，对于素数p，a^ p  = a (mod p)，但是对于某些非素数p,也有比较小的可能满足a^ p  = a (mod </span><br><span class="line">p)，如果满足，则称p是a条件下的伪素数,现给出p，a，问p是不是a条件的伪素数。</span><br></pre></td></tr></table></figure>
+<p>解法就是首先使用Miller-Rabin测试p是不是素数，如果是，则肯定输出no（因为伪素数必须不是素数），如果不是的话，再用快速幂求a^p除以p的余数, 看看是不是a, 如果是的话，则p就是base-a伪素数, 输出yes，否则输出no</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include "stdafx.h"</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="comment">//#define LOCAL</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"></span><br><span class="line">LL p,a;</span><br><span class="line"><span class="keyword">const</span> LL primes[<span class="number">3</span>] = &#123;<span class="number">2</span>,<span class="number">7</span>,<span class="number">61</span>&#125;; <span class="comment">// 三轮Miller-Rabin测试足以</span></span><br><span class="line"></span><br><span class="line"><span class="function">LL <span class="title">modu_mul</span><span class="params">(LL x, LL y, LL mod)</span> <span class="comment">// 求x*y模掉mod的余数, 注意, 不能直接乘, 因为LL * LL会爆掉, 所以转乘法为加法（沿用快速幂的思想）</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	LL ans = <span class="number">0</span>;</span><br><span class="line">	x%=mod,y%=mod; <span class="comment">// 能少一些是一些</span></span><br><span class="line">	<span class="keyword">while</span>(y) <span class="comment">// 效仿快速幂</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (y&amp;<span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			ans = (ans+x)%mod;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (y&gt;<span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			x = (x&lt;&lt;<span class="number">1</span>)%mod;</span><br><span class="line">		&#125;</span><br><span class="line">		y&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">LL <span class="title">modu_pow</span><span class="params">(LL x, LL y, LL mod)</span> <span class="comment">// 求 x^y 模掉mod的余数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	LL ans = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(y) <span class="comment">// 快速幂</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (y&amp;<span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			ans = modu_mul(ans, x, mod);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (y&gt;<span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			x = modu_mul(x,x, mod);</span><br><span class="line">		&#125;</span><br><span class="line">		y&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">mr</span><span class="params">()</span> <span class="comment">// Miller-Rabin 素性测试模板, 返回true表示p是素数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (p&lt;<span class="number">2</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (!(p&amp;<span class="number">1</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> p==<span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	LL s = <span class="number">0</span>, t = p<span class="number">-1</span>; <span class="comment">// 假设p是大于1的奇数，则考虑分解p-1=t*2^s</span></span><br><span class="line">	<span class="keyword">while</span> (!(t&amp;<span class="number">1</span>))</span><br><span class="line">	&#123;</span><br><span class="line">		t&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">		s++;</span><br><span class="line">	&#125; <span class="comment">// 最后 p-1=t*2^s（s&gt;=0, t是大于1的奇数）</span></span><br><span class="line">	<span class="keyword">for</span> (LL i = <span class="number">0</span>; i&lt;<span class="number">3</span>;i++) <span class="comment">// 进行三轮Miller-Rabin测试</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (p==primes[i])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		LL x = modu_pow(primes[i], t, p); <span class="comment">// x 是 primes[i]^t模掉p的余数</span></span><br><span class="line">		<span class="keyword">for</span> (LL j = <span class="number">0</span>; j&lt;s; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			LL y = modu_mul(x,x,p);</span><br><span class="line">			<span class="keyword">if</span> (y==<span class="number">1</span> &amp;&amp; x!=<span class="number">1</span> &amp;&amp; x!=p<span class="number">-1</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			x = y;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (x!=<span class="number">1</span>) <span class="comment">// 费马素数测试——如果x=prime[i]^(p-1)模p的余数不为1的话,则p一定不是素数(by 费马小定理)</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>; <span class="comment">// 通过了3次Miller-Rabin测试, 以很高置信度判定p是素数</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%lld%lld"</span>, &amp;p, &amp;a), p&amp;&amp;a)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (mr()) <span class="comment">// 如果p是素数</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">puts</span>(<span class="string">"no"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(modu_pow(a,p,p)==a)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">puts</span>(<span class="string">"yes"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="built_in">puts</span>(<span class="string">"no"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ac情况</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Status</th>
+<th>Accepted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Time</td>
+<td>16ms</td>
+</tr>
+<tr>
+<td style="text-align:center">Memory</td>
+<td>80kB</td>
+</tr>
+<tr>
+<td style="text-align:center">Length</td>
+<td>1538</td>
+</tr>
+<tr>
+<td style="text-align:center">Lang</td>
+<td>C++</td>
+</tr>
+<tr>
+<td style="text-align:center">Submitted</td>
+<td>2019-08-17 11:36:01</td>
+</tr>
+<tr>
+<td style="text-align:center">Shared</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">RemoteRunId</td>
+<td>20756077</td>
+</tr>
+</tbody>
+</table>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://blog.csdn.net/ECNU_LZJ/article/details/72675595" target="_blank" rel="noopener">https://blog.csdn.net/ECNU_LZJ/article/details/72675595</a></p>
+<p>【2】<a href="http://blog.sina.com.cn/s/blog_14a210e280102x9il.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_14a210e280102x9il.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/16/POJ-3641-Pseudoprime-numbers-Miller-Rabin素数测试/" data-id="cjzezsu9z003ddkvmd3fvs2c4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Miller-Rabin/">Miller-Rabin</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/快速幂/">快速幂</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/素数测试/">素数测试</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/16/poj-2773-Happy-2006-线性筛/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">poj 2773 Happy 2006 线性筛</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/51nod/">51nod</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BST/">BST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-Primer/">C++ Primer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C和指针/">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DAG/">DAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/">FFT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HotSpot/">HotSpot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Huffman树/">Huffman树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JMM/">JMM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JRE/">JRE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Johnson不等式/">Johnson不等式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KMP/">KMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/">LCA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCS/">LCS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Manacher算法/">Manacher算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Miller-Rabin/">Miller-Rabin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oauth2-0/">Oauth2.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMQ/">RMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ST/">ST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVN/">SVN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tarjan/">Tarjan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bfs/">bfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-c/">c/c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfs/">dfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dp/">dp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fft/">fft</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fzu/">fzu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdu/">hdu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karatsuba/">karatsuba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd树/">kd树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kmp/">kmp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kth/">kth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libreoj/">libreoj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lightoj/">lightoj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oj/">oj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poj/">poj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sbt/">sbt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sdutoj/">sdutoj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/topK/">topK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/treap/">treap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/trie/">trie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volatile/">volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分答案/">二分答案</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/优先队列/">优先队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/位图/">位图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存模型/">内存模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治/">分治</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分解素因数/">分解素因数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/剑指offer/">剑指offer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态查找/">动态查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原生js/">原生js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同步/">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端，数据库-mysql/">后端，数据库, mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后缀树/">后缀树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/启发式搜索/">启发式搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/哈希/">哈希</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/回文/">回文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图/">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/在线算法/">在线算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆排/">堆排</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆排序/">堆排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串/">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串匹配/">字符串匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/宽搜/">宽搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/左式堆/">左式堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/平衡查找树/">平衡查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并查集/">并查集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通/">强连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通分支/">强连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/归并排序/">归并排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心语/">心语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快排/">快排</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速幂/">快速幂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扩展KMP/">扩展KMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抓包/">抓包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓扑排序/">拓扑排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教材/">教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数论/">数论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小生成树/">最小生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最长回文子串/">最长回文子串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有向图/">有向图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂/">杂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/板子/">板子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找/">查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找树/">查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栈/">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树/">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树堆/">树堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组/">树状数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/桶排序/">桶排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模板/">模板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/欧拉函数/">欧拉函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/欧拉环游/">欧拉环游</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/泛洪/">泛洪</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/洛谷/">洛谷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深搜/">深搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/滚动数组/">滚动数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本控制/">版本控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/牛客网/">牛客网</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生成树/">生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/筛法/">筛法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简历/">简历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/素数测试/">素数测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/约瑟夫环/">约瑟夫环</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线上问题/">线上问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树/">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络协议/">网络协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自己动手用java写编译器/">自己动手用java写编译器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/菜鸟教材/">菜鸟教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词典/">词典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心/">贪心</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/轮播图/">轮播图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通/">连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通分支/">连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通性/">连通性</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逆序数/">逆序数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归/">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/链表/">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集合/">集合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态查找树/">静态查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高精度/">高精度</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/51nod/" style="font-size: 10px;">51nod</a> <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/C/" style="font-size: 18px;">C</a> <a href="/tags/C/" style="font-size: 11.2px;">C++</a> <a href="/tags/C-Primer/" style="font-size: 10px;">C++ Primer</a> <a href="/tags/C和指针/" style="font-size: 17.6px;">C和指针</a> <a href="/tags/DAG/" style="font-size: 10.8px;">DAG</a> <a href="/tags/DFS/" style="font-size: 10.4px;">DFS</a> <a href="/tags/DP/" style="font-size: 10.8px;">DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HotSpot/" style="font-size: 10px;">HotSpot</a> <a href="/tags/Huffman树/" style="font-size: 10px;">Huffman树</a> <a href="/tags/JDK/" style="font-size: 16.4px;">JDK</a> <a href="/tags/JMM/" style="font-size: 10.4px;">JMM</a> <a href="/tags/JRE/" style="font-size: 10px;">JRE</a> <a href="/tags/JVM/" style="font-size: 10.8px;">JVM</a> <a href="/tags/Johnson不等式/" style="font-size: 10px;">Johnson不等式</a> <a href="/tags/KMP/" style="font-size: 10px;">KMP</a> <a href="/tags/LCA/" style="font-size: 10.8px;">LCA</a> <a href="/tags/LCS/" style="font-size: 10.4px;">LCS</a> <a href="/tags/LDAP/" style="font-size: 10.4px;">LDAP</a> <a href="/tags/MST/" style="font-size: 10px;">MST</a> <a href="/tags/Manacher算法/" style="font-size: 10px;">Manacher算法</a> <a href="/tags/Miller-Rabin/" style="font-size: 10px;">Miller-Rabin</a> <a href="/tags/Oauth2-0/" style="font-size: 10px;">Oauth2.0</a> <a href="/tags/RMQ/" style="font-size: 11.6px;">RMQ</a> <a href="/tags/ST/" style="font-size: 10px;">ST</a> <a href="/tags/SVN/" style="font-size: 10px;">SVN</a> <a href="/tags/Spring/" style="font-size: 14.4px;">Spring</a> <a href="/tags/String/" style="font-size: 10.4px;">String</a> <a href="/tags/Tarjan/" style="font-size: 10px;">Tarjan</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/bfs/" style="font-size: 10.4px;">bfs</a> <a href="/tags/c-c/" style="font-size: 10px;">c/c++</a> <a href="/tags/dfs/" style="font-size: 12px;">dfs</a> <a href="/tags/dp/" style="font-size: 12.4px;">dp</a> <a href="/tags/fft/" style="font-size: 10px;">fft</a> <a href="/tags/fzu/" style="font-size: 10px;">fzu</a> <a href="/tags/gradle/" style="font-size: 10.4px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 10.4px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 10.4px;">hdfs</a> <a href="/tags/hdu/" style="font-size: 15.6px;">hdu</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/java并发编程实践/" style="font-size: 16px;">java并发编程实践</a> <a href="/tags/jdbc/" style="font-size: 10.4px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/karatsuba/" style="font-size: 10px;">karatsuba</a> <a href="/tags/kd树/" style="font-size: 10px;">kd树</a> <a href="/tags/kmp/" style="font-size: 10px;">kmp</a> <a href="/tags/kth/" style="font-size: 10.4px;">kth</a> <a href="/tags/leetcode/" style="font-size: 10.4px;">leetcode</a> <a href="/tags/libreoj/" style="font-size: 10px;">libreoj</a> <a href="/tags/lightoj/" style="font-size: 11.6px;">lightoj</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oj/" style="font-size: 18.8px;">oj</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/poj/" style="font-size: 14.8px;">poj</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/sdutoj/" style="font-size: 10.4px;">sdutoj</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/spring/" style="font-size: 12.4px;">spring</a> <a href="/tags/springboot/" style="font-size: 10.8px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 10.4px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/synchronized/" style="font-size: 10.4px;">synchronized</a> <a href="/tags/topK/" style="font-size: 10.4px;">topK</a> <a href="/tags/treap/" style="font-size: 10px;">treap</a> <a href="/tags/trie/" style="font-size: 12.4px;">trie</a> <a href="/tags/volatile/" style="font-size: 10.4px;">volatile</a> <a href="/tags/vue/" style="font-size: 10.8px;">vue</a> <a href="/tags/事务/" style="font-size: 11.6px;">事务</a> <a href="/tags/二分查找/" style="font-size: 10px;">二分查找</a> <a href="/tags/二分答案/" style="font-size: 10px;">二分答案</a> <a href="/tags/二叉树/" style="font-size: 10px;">二叉树</a> <a href="/tags/优先队列/" style="font-size: 11.6px;">优先队列</a> <a href="/tags/位图/" style="font-size: 10px;">位图</a> <a href="/tags/内存模型/" style="font-size: 10.4px;">内存模型</a> <a href="/tags/分治/" style="font-size: 10px;">分治</a> <a href="/tags/分解素因数/" style="font-size: 10px;">分解素因数</a> <a href="/tags/前端/" style="font-size: 11.6px;">前端</a> <a href="/tags/剑指offer/" style="font-size: 10px;">剑指offer</a> <a href="/tags/动态查找/" style="font-size: 10px;">动态查找</a> <a href="/tags/动态规划/" style="font-size: 12px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/同步/" style="font-size: 10.4px;">同步</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 19.2px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/后缀树/" style="font-size: 10px;">后缀树</a> <a href="/tags/启发式搜索/" style="font-size: 10px;">启发式搜索</a> <a href="/tags/哈希/" style="font-size: 11.2px;">哈希</a> <a href="/tags/回文/" style="font-size: 10px;">回文</a> <a href="/tags/图/" style="font-size: 17.2px;">图</a> <a href="/tags/在线算法/" style="font-size: 10px;">在线算法</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/堆排/" style="font-size: 10.4px;">堆排</a> <a href="/tags/堆排序/" style="font-size: 10px;">堆排序</a> <a href="/tags/大数据/" style="font-size: 10.8px;">大数据</a> <a href="/tags/字符串/" style="font-size: 13.6px;">字符串</a> <a href="/tags/字符串匹配/" style="font-size: 10px;">字符串匹配</a> <a href="/tags/宽搜/" style="font-size: 10.4px;">宽搜</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/左式堆/" style="font-size: 10px;">左式堆</a> <a href="/tags/平衡查找树/" style="font-size: 10px;">平衡查找树</a> <a href="/tags/并发/" style="font-size: 16.8px;">并发</a> <a href="/tags/并查集/" style="font-size: 11.6px;">并查集</a> <a href="/tags/强连通/" style="font-size: 10.4px;">强连通</a> <a href="/tags/强连通分支/" style="font-size: 10px;">强连通分支</a> <a href="/tags/归并排序/" style="font-size: 10px;">归并排序</a> <a href="/tags/心语/" style="font-size: 10px;">心语</a> <a href="/tags/快排/" style="font-size: 10.8px;">快排</a> <a href="/tags/快速幂/" style="font-size: 11.6px;">快速幂</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/扩展KMP/" style="font-size: 10.8px;">扩展KMP</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/拓扑排序/" style="font-size: 10.4px;">拓扑排序</a> <a href="/tags/排序/" style="font-size: 15.2px;">排序</a> <a href="/tags/操作系统/" style="font-size: 10.4px;">操作系统</a> <a href="/tags/教材/" style="font-size: 19.6px;">教材</a> <a href="/tags/数学/" style="font-size: 12px;">数学</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/数论/" style="font-size: 12.4px;">数论</a> <a href="/tags/最小生成树/" style="font-size: 10px;">最小生成树</a> <a href="/tags/最短路径/" style="font-size: 12.4px;">最短路径</a> <a href="/tags/最长回文子串/" style="font-size: 10px;">最长回文子串</a> <a href="/tags/有向图/" style="font-size: 10px;">有向图</a> <a href="/tags/杂/" style="font-size: 10px;">杂</a> <a href="/tags/板子/" style="font-size: 10px;">板子</a> <a href="/tags/查找/" style="font-size: 10px;">查找</a> <a href="/tags/查找树/" style="font-size: 13.2px;">查找树</a> <a href="/tags/栈/" style="font-size: 12.4px;">栈</a> <a href="/tags/树/" style="font-size: 17.6px;">树</a> <a href="/tags/树堆/" style="font-size: 10px;">树堆</a> <a href="/tags/树状数组/" style="font-size: 11.2px;">树状数组</a> <a href="/tags/桶排序/" style="font-size: 10px;">桶排序</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/模板/" style="font-size: 12.8px;">模板</a> <a href="/tags/欧拉函数/" style="font-size: 10.4px;">欧拉函数</a> <a href="/tags/欧拉环游/" style="font-size: 10px;">欧拉环游</a> <a href="/tags/泛洪/" style="font-size: 10px;">泛洪</a> <a href="/tags/洛谷/" style="font-size: 10.4px;">洛谷</a> <a href="/tags/深搜/" style="font-size: 11.2px;">深搜</a> <a href="/tags/源码/" style="font-size: 18.4px;">源码</a> <a href="/tags/源码分析/" style="font-size: 11.2px;">源码分析</a> <a href="/tags/滚动数组/" style="font-size: 10px;">滚动数组</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/牛客网/" style="font-size: 10.4px;">牛客网</a> <a href="/tags/生成树/" style="font-size: 10.4px;">生成树</a> <a href="/tags/离散化/" style="font-size: 10px;">离散化</a> <a href="/tags/筛法/" style="font-size: 11.2px;">筛法</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/素数测试/" style="font-size: 10px;">素数测试</a> <a href="/tags/约瑟夫环/" style="font-size: 10px;">约瑟夫环</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/线段树/" style="font-size: 12.4px;">线段树</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/编译原理/" style="font-size: 14px;">编译原理</a> <a href="/tags/网络协议/" style="font-size: 10px;">网络协议</a> <a href="/tags/自己动手用java写编译器/" style="font-size: 14px;">自己动手用java写编译器</a> <a href="/tags/菜鸟教材/" style="font-size: 10.8px;">菜鸟教材</a> <a href="/tags/设计模式/" style="font-size: 10.8px;">设计模式</a> <a href="/tags/词典/" style="font-size: 10px;">词典</a> <a href="/tags/贪心/" style="font-size: 11.6px;">贪心</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/连通/" style="font-size: 11.2px;">连通</a> <a href="/tags/连通分支/" style="font-size: 10px;">连通分支</a> <a href="/tags/连通性/" style="font-size: 11.6px;">连通性</a> <a href="/tags/逆序数/" style="font-size: 10.4px;">逆序数</a> <a href="/tags/递归/" style="font-size: 11.6px;">递归</a> <a href="/tags/链表/" style="font-size: 11.6px;">链表</a> <a href="/tags/锁/" style="font-size: 10.8px;">锁</a> <a href="/tags/队列/" style="font-size: 10.8px;">队列</a> <a href="/tags/集合/" style="font-size: 10px;">集合</a> <a href="/tags/静态查找树/" style="font-size: 10.4px;">静态查找树</a> <a href="/tags/面试/" style="font-size: 13.2px;">面试</a> <a href="/tags/高精度/" style="font-size: 13.2px;">高精度</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/16/POJ-3641-Pseudoprime-numbers-Miller-Rabin素数测试/">POJ 3641 Pseudoprime numbers Miller-Rabin素数测试</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/16/poj-2773-Happy-2006-线性筛/">poj 2773 Happy 2006 线性筛</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/16/poj-3253-Fence-Repair-贪心/">poj 3253 Fence Repair 贪心</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/16/poj3069-Saruman-s-Army-贪心/">poj3069 Saruman&#39;s Army 贪心</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/16/poj-3617-Best-Cow-Line-贪心/">poj 3617 Best Cow Line 贪心</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
