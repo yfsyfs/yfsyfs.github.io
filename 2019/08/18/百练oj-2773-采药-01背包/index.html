@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>百练oj 2773 采药 01背包 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="缘起背包是算法中比较重要的一个主题——各种背包. 从最简单的01背包开始. 百练oj 2773 采药">
+<meta name="keywords" content="算法,oj,dp,百练,背包,01背包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="百练oj 2773 采药 01背包">
+<meta property="og:url" content="http://yoursite.com/2019/08/18/百练oj-2773-采药-01背包/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起背包是算法中比较重要的一个主题——各种背包. 从最简单的01背包开始. 百练oj 2773 采药">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-18T02:14:47.633Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="百练oj 2773 采药 01背包">
+<meta name="twitter:description" content="缘起背包是算法中比较重要的一个主题——各种背包. 从最简单的01背包开始. 百练oj 2773 采药">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-百练oj-2773-采药-01背包" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/18/百练oj-2773-采药-01背包/" class="article-date">
+  <time datetime="2019-08-18T00:05:45.000Z" itemprop="datePublished">2019-08-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      百练oj 2773 采药 01背包
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>背包是算法中比较重要的一个主题——各种背包. 从最简单的01背包开始. <a href="http://bailian.openjudge.cn/practice/2773" target="_blank" rel="noopener">百练oj 2773 采药</a> </p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>题目是中文的</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">总时间限制: 1000ms 内存限制: 65536kB</span><br><span class="line"></span><br><span class="line">描述</span><br><span class="line">辰辰是个很有潜能、天资聪颖的孩子，他的梦想是称为世界上最伟大的医师。为此，他想拜附近最有威望的医师为师。医师为了判断他的资质，给他出了一个难题。医师把他带到个到处都是草药的山洞里对他说：“孩子，这个山洞里有一些不同的草药，采每一株都需要一些时间，每一株也有它自身的价值。我会给你一段时间，在这段时间里，你可以采到一些草药。如果你是一个聪明的孩子，你应该可以让采到的草药的总价值最大。”</span><br><span class="line"></span><br><span class="line">如果你是辰辰，你能完成这个任务吗？</span><br><span class="line"></span><br><span class="line">输入</span><br><span class="line">输入的第一行有两个整数T（1 &lt;= T &lt;= 1000）和M（1 &lt;= M &lt;= 100），T代表总共能够用来采药的时间，M代表山洞里的草药的数目。接下来的M行每行包括两个在1到100之间（包括1和100）的的整数，分别表示采摘某株草药的时间和这株草药的价值。</span><br><span class="line"></span><br><span class="line">输出</span><br><span class="line">输出只包括一行，这一行只包含一个整数，表示在规定的时间内，可以采到的草药的最大总价值。</span><br><span class="line"></span><br><span class="line">样例输入</span><br><span class="line">70 3</span><br><span class="line">71 100</span><br><span class="line">69 1</span><br><span class="line">1 2</span><br><span class="line"></span><br><span class="line">样例输出</span><br><span class="line">3</span><br><span class="line"></span><br><span class="line">来源</span><br><span class="line">NOIP 2005</span><br></pre></td></tr></table></figure>
+<p>解决这道题之前，我们先来看看什么是01背包问题</p>
+<h4 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h4><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">01背包问题</span><br><span class="line">有N件物品和一个容量为V 的背包。放入第i件物品耗费的空间是Ci，得到的价值是Wi。求解将哪些物品装入背包可使</span><br><span class="line">价值总和最大。</span><br></pre></td></tr></table></figure>
+<p>01背包是最基本的背包姿势. 特点是每种物品只有一件，你只有放与不放两种选择.</p>
+<p>假设 dp(i,v)是前i件物品放入一个容量为v的背包中所能获得的最大价值. 则显然有如下dp方程</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp(i,v) = max&#123;dp(i-1,v), dp(i-1, v-ci)+wi&#125;, 1&lt;=i&lt;=N, ci&lt;=v&lt;=V</span><br></pre></td></tr></table></figure>
+<p> 即不放(ci,wi)与放(ci,wi)之间取大</p>
+<p>于是根据此dp转移方程（物品件数显然是最外层的dp），我们可以给出如下伪代码</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dp(0, 0...V) = 0 // 不放任何一件物品,管你背包容量多大, 价值都是0</span><br><span class="line">for(i=1...N)</span><br><span class="line">&#123;</span><br><span class="line">	for(v=V,...,ci) // [0,...,ci) 范围的dp值不变（因为没得选——肯定放不下ci这件物品啊）,注意,dp的顺序是从V变动到ci, 即从大变小, 而不能从小到大，想想是不难理解的，因为dp是i大的这一层基于i小的这一层进行dp, 如果小的先变化了,则大的就不是基于i小的一层变化了</span><br><span class="line">	&#123;</span><br><span class="line">		dp(i,v) = max&#123;dp(i-1, v), dp(i-1, v-ci)+wi&#125;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>显然，使用滚动数组可以优化空间复杂度</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">dp[<span class="number">0</span>,...,V]=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span>(i = <span class="number">1</span>,...,N)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(v = V, .., ci)</span><br><span class="line">    &#123;</span><br><span class="line">        dp(v) = max&#123;dp(v), dp(v-ci)+wi&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意到上面的伪代码中, 第一层循环的参数i在内层循环中是没有用到的（只在ci和wi用到了）, 所以完全可以将它封装起来</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">void zo(c,w)</span><br><span class="line">&#123;</span><br><span class="line">	for(v=V,...,c)</span><br><span class="line">	&#123;</span><br><span class="line">		dp(v) = max&#123;dp(v), dp(v-c)+w&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>则01背包的伪代码可以写成</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dp(0,...,V)=0</span><br><span class="line">for(i=1,...,N) zo(ci, wi)</span><br></pre></td></tr></table></figure>
+<h4 id="关于01背包初始化的细节"><a href="#关于01背包初始化的细节" class="headerlink" title="关于01背包初始化的细节"></a>关于01背包初始化的细节</h4><p>如果<strong>要求恰好装满背包</strong>和<strong>不要求恰好装满背包</strong>初始化值是不一样的. 前者要求</p>
+<p>dp[0,…,V] = {0,-INF,-INF,….,-INF}</p>
+<p>后者要求</p>
+<p>dp[0,…,V]=0</p>
+<p>这是因为dp的意义不一样. 前者dp的意义是合法状态（即恰好装满背包）下的最优值.  后者dp的意义也是合法状态下的最优值，但是后者合法状态和前者合法状态的定义不一样. 所以前者初始化状态中除了容量为0为合法状态之外，都是-INF</p>
+<h4 id="01背包的一个常数优化"><a href="#01背包的一个常数优化" class="headerlink" title="01背包的一个常数优化"></a>01背包的一个常数优化</h4><p>对于V超大，而物品Wi并不大的情况下，zo方法中的循环常数可以优化为</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i = <span class="number">1</span> to N</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">for</span> v = V to max(V − ΣCj(i&lt;=j&lt;=N); Ci) <span class="comment">// 这里变化了</span></span><br><span class="line">	&#123;</span><br><span class="line">		dp(v) = max(dp(v), dp(v-ci)+wi)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的优化针对于V超大的情况, 如果wi相对不大的话, 则可以节省很多内层循环. 当然其实大部分题目不会卡这里（因为得不偿失嘛~ 你还要去维护部分和）.</p>
+<p>为什么上面的优化对呢? 其实内层循环是针对放与不放(ci,wi)这件物品来说的. 那么其实对于两种情况是不需要考虑放与不放的</p>
+<ol>
+<li>背包容量v太小（v&lt;Ci）导致根本想都别想去放置(ci,wi)这件物品，对于这种情况是不需要dp的（因为肯定不能放置(ci,wi)嘛~）, 保持原值即可.</li>
+<li>背包容量v太小（$v+\Sigma_{i&lt;=j&lt;=n}c_i\lt V$），小到足以放置后面所有（(ci,wi),…,(cn,wn)）物品，对于这种情况也是不需要进行dp的. 因为肯定是放置(ci,wi)嘛 ~ 不是说它不会变化，而是得到dp(V)最终的值不需要dp(v)状态的值.</li>
+</ol>
+<p>显然，01背包的时间复杂度是O(N*V), 空间复杂度是O(V)</p>
+<p>好了 01背包问题介绍到此，至于本题，时间看成ci, 草药的价值看成wi即可，01背包裸题</p>
+<p>综上，我们给出本题的ac代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include "stdafx.h"</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="comment">//#define LOCAL</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX(a,b) ((a)&gt;(b)?(a):(b))</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> V,N,dp[<span class="number">1005</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">zo</span><span class="params">(<span class="keyword">int</span> c, <span class="keyword">int</span> w)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> v = V; v&gt;=c; v--)</span><br><span class="line">	&#123;</span><br><span class="line">		dp[v] = MAX(dp[v],dp[v-c]+w);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">	<span class="comment">//freopen("d:\\my.out", "w", stdout);</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;V, &amp;N);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>,c,w; i&lt;=N; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;c, &amp;w);</span><br><span class="line">		zo(c,w);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,dp[V]);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ac情况</p>
+<table>
+<thead>
+<tr>
+<th><a href="http://openjudge.cn/user/135277/in/group-3/" target="_blank" rel="noopener">影法师</a></th>
+<th></th>
+<th><a href="http://bailian.openjudge.cn/practice/solution/20602981/" target="_blank" rel="noopener">Accepted</a></th>
+<th>200kB</th>
+<th>8ms</th>
+<th>449 B</th>
+<th><a href="http://bailian.openjudge.cn/practice/solution/20602981/" target="_blank" rel="noopener">G++</a></th>
+<th>刚刚</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/18/百练oj-2773-采药-01背包/" data-id="cjzgco04700efegvmps7qrtiu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/01背包/">01背包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dp/">dp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/百练/">百练</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/背包/">背包</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/08/18/百练oj-2773-采药-01背包-深搜-剪枝/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          百练oj 2773 采药 01背包 深搜+剪枝
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/18/hdu-4344-Mark-the-Rope-pollard-rho/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">hdu 4344 Mark the Rope pollard rho</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/01背包/">01背包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/51nod/">51nod</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BST/">BST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-Primer/">C++ Primer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CRT/">CRT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C和指针/">C和指针</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DAG/">DAG</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DFS/">DFS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DP/">DP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/FFT/">FFT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HotSpot/">HotSpot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Huffman树/">Huffman树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JDK/">JDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JMM/">JMM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JRE/">JRE</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Johnson不等式/">Johnson不等式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KMP/">KMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCA/">LCA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LCS/">LCS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MST/">MST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Manacher算法/">Manacher算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Miller-Rabin/">Miller-Rabin</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Oauth2-0/">Oauth2.0</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pollard-rho/">Pollard rho</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RMQ/">RMQ</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ST/">ST</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SVN/">SVN</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/String/">String</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tarjan/">Tarjan</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/activemq/">activemq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bfs/">bfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c-c/">c/c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dfs/">dfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dp/">dp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fft/">fft</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/fzu/">fzu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gradle/">gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hdu/">hdu</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jpa/">jpa</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/karatsuba/">karatsuba</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kd树/">kd树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kmp/">kmp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kth/">kth</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libreoj/">libreoj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lightoj/">lightoj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mysql/">mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/node/">node</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oj/">oj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/oracle/">oracle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/poj/">poj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sbt/">sbt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sdutoj/">sdutoj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/servlet/">servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/sql/">sql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swagger/">swagger</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/synchronized/">synchronized</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/topK/">topK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/treap/">treap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/trie/">trie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/volatile/">volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/zzulioj/">zzulioj</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/中国剩余定理/">中国剩余定理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/事务/">事务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二分答案/">二分答案</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/优先队列/">优先队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/位图/">位图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内存模型/">内存模型</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分治/">分治</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分解素因数/">分解素因数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/剑指offer/">剑指offer</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/剪枝/">剪枝</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态查找/">动态查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/原生js/">原生js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/同步/">同步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后台/">后台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端/">后端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后端，数据库-mysql/">后端，数据库, mysql</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/后缀树/">后缀树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/启发式搜索/">启发式搜索</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/哈希/">哈希</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/回文/">回文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/图/">图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/在线算法/">在线算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆/">堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆排/">堆排</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/堆排序/">堆排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/大数据/">大数据</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串/">字符串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/字符串匹配/">字符串匹配</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/宽搜/">宽搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/左式堆/">左式堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/平衡查找树/">平衡查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并发/">并发</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/并查集/">并查集</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通/">强连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/强连通分支/">强连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/归并排序/">归并排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/心语/">心语</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快排/">快排</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/快速幂/">快速幂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/性能优化/">性能优化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感悟/">感悟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扩展KMP/">扩展KMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/扩展欧几里得/">扩展欧几里得</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/抓包/">抓包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/拓扑排序/">拓扑排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/排序/">排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/操作系统/">操作系统</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/教材/">教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数学/">数学</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数据库/">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数组/">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/数论/">数论</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最大公约数/">最大公约数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小正整数解/">最小正整数解</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最小生成树/">最小生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/最长回文子串/">最长回文子串</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/有向图/">有向图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂/">杂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/板子/">板子</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找/">查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/查找树/">查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/栈/">栈</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树/">树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树堆/">树堆</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组/">树状数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/桶排序/">桶排序</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模块化/">模块化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/模板/">模板</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/欧几里得/">欧几里得</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/欧拉函数/">欧拉函数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/欧拉环游/">欧拉环游</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/泛洪/">泛洪</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/洛谷/">洛谷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/深搜/">深搜</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码分析/">源码分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/滚动数组/">滚动数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/版本控制/">版本控制</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/牛客网/">牛客网</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生成树/">生成树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/百练/">百练</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离散化/">离散化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/筛法/">筛法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/简历/">简历</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/素数测试/">素数测试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/约瑟夫环/">约瑟夫环</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线上问题/">线上问题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线性同余方程/">线性同余方程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/线段树/">线段树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/组件化/">组件化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/编译原理/">编译原理</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络协议/">网络协议</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/背包/">背包</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/自己动手用java写编译器/">自己动手用java写编译器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/菜鸟教材/">菜鸟教材</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/设计模式/">设计模式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/词典/">词典</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/贪心/">贪心</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/轮播图/">轮播图</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通/">连通</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通分支/">连通分支</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/连通性/">连通性</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逆元/">逆元</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/逆序数/">逆序数</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/递归/">递归</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/链表/">链表</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/锁/">锁</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/队列/">队列</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/集合/">集合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/静态查找树/">静态查找树</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/面试/">面试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/高精度/">高精度</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/01背包/" style="font-size: 10px;">01背包</a> <a href="/tags/51nod/" style="font-size: 10px;">51nod</a> <a href="/tags/BST/" style="font-size: 10px;">BST</a> <a href="/tags/C/" style="font-size: 17.92px;">C</a> <a href="/tags/C/" style="font-size: 11.25px;">C++</a> <a href="/tags/C-Primer/" style="font-size: 10px;">C++ Primer</a> <a href="/tags/CRT/" style="font-size: 10px;">CRT</a> <a href="/tags/C和指针/" style="font-size: 17.5px;">C和指针</a> <a href="/tags/DAG/" style="font-size: 10.83px;">DAG</a> <a href="/tags/DFS/" style="font-size: 10.42px;">DFS</a> <a href="/tags/DP/" style="font-size: 10.83px;">DP</a> <a href="/tags/FFT/" style="font-size: 10px;">FFT</a> <a href="/tags/HotSpot/" style="font-size: 10px;">HotSpot</a> <a href="/tags/Huffman树/" style="font-size: 10px;">Huffman树</a> <a href="/tags/JDK/" style="font-size: 16.25px;">JDK</a> <a href="/tags/JMM/" style="font-size: 10.42px;">JMM</a> <a href="/tags/JRE/" style="font-size: 10px;">JRE</a> <a href="/tags/JVM/" style="font-size: 10.83px;">JVM</a> <a href="/tags/Johnson不等式/" style="font-size: 10px;">Johnson不等式</a> <a href="/tags/KMP/" style="font-size: 10px;">KMP</a> <a href="/tags/LCA/" style="font-size: 10.83px;">LCA</a> <a href="/tags/LCS/" style="font-size: 10.42px;">LCS</a> <a href="/tags/LDAP/" style="font-size: 10.42px;">LDAP</a> <a href="/tags/MST/" style="font-size: 10px;">MST</a> <a href="/tags/Manacher算法/" style="font-size: 10px;">Manacher算法</a> <a href="/tags/Miller-Rabin/" style="font-size: 10.83px;">Miller-Rabin</a> <a href="/tags/Oauth2-0/" style="font-size: 10px;">Oauth2.0</a> <a href="/tags/Pollard-rho/" style="font-size: 10.42px;">Pollard rho</a> <a href="/tags/RMQ/" style="font-size: 11.67px;">RMQ</a> <a href="/tags/ST/" style="font-size: 10px;">ST</a> <a href="/tags/SVN/" style="font-size: 10px;">SVN</a> <a href="/tags/Spring/" style="font-size: 14.58px;">Spring</a> <a href="/tags/String/" style="font-size: 10.42px;">String</a> <a href="/tags/Tarjan/" style="font-size: 10px;">Tarjan</a> <a href="/tags/activemq/" style="font-size: 10px;">activemq</a> <a href="/tags/bfs/" style="font-size: 10.42px;">bfs</a> <a href="/tags/c-c/" style="font-size: 10px;">c/c++</a> <a href="/tags/dfs/" style="font-size: 12.08px;">dfs</a> <a href="/tags/dp/" style="font-size: 12.92px;">dp</a> <a href="/tags/fft/" style="font-size: 10px;">fft</a> <a href="/tags/fzu/" style="font-size: 10px;">fzu</a> <a href="/tags/gradle/" style="font-size: 10.42px;">gradle</a> <a href="/tags/hadoop/" style="font-size: 10.42px;">hadoop</a> <a href="/tags/hdfs/" style="font-size: 10.42px;">hdfs</a> <a href="/tags/hdu/" style="font-size: 15.42px;">hdu</a> <a href="/tags/hibernate/" style="font-size: 10px;">hibernate</a> <a href="/tags/java并发编程实践/" style="font-size: 15.83px;">java并发编程实践</a> <a href="/tags/jdbc/" style="font-size: 10.42px;">jdbc</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/karatsuba/" style="font-size: 10px;">karatsuba</a> <a href="/tags/kd树/" style="font-size: 10px;">kd树</a> <a href="/tags/kmp/" style="font-size: 10px;">kmp</a> <a href="/tags/kth/" style="font-size: 10.42px;">kth</a> <a href="/tags/leetcode/" style="font-size: 10.42px;">leetcode</a> <a href="/tags/libreoj/" style="font-size: 10px;">libreoj</a> <a href="/tags/lightoj/" style="font-size: 11.67px;">lightoj</a> <a href="/tags/mapreduce/" style="font-size: 10px;">mapreduce</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/node/" style="font-size: 10px;">node</a> <a href="/tags/oj/" style="font-size: 18.75px;">oj</a> <a href="/tags/oracle/" style="font-size: 10px;">oracle</a> <a href="/tags/poj/" style="font-size: 15px;">poj</a> <a href="/tags/postgresql/" style="font-size: 10px;">postgresql</a> <a href="/tags/sbt/" style="font-size: 10px;">sbt</a> <a href="/tags/sdutoj/" style="font-size: 10.42px;">sdutoj</a> <a href="/tags/servlet/" style="font-size: 10px;">servlet</a> <a href="/tags/spring/" style="font-size: 12.5px;">spring</a> <a href="/tags/springboot/" style="font-size: 10.83px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 10.42px;">springmvc</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/swagger/" style="font-size: 10px;">swagger</a> <a href="/tags/synchronized/" style="font-size: 10.42px;">synchronized</a> <a href="/tags/topK/" style="font-size: 10.42px;">topK</a> <a href="/tags/treap/" style="font-size: 10px;">treap</a> <a href="/tags/trie/" style="font-size: 12.5px;">trie</a> <a href="/tags/volatile/" style="font-size: 10.42px;">volatile</a> <a href="/tags/vue/" style="font-size: 10.83px;">vue</a> <a href="/tags/zzulioj/" style="font-size: 10px;">zzulioj</a> <a href="/tags/中国剩余定理/" style="font-size: 10px;">中国剩余定理</a> <a href="/tags/事务/" style="font-size: 11.67px;">事务</a> <a href="/tags/二分查找/" style="font-size: 10px;">二分查找</a> <a href="/tags/二分答案/" style="font-size: 10px;">二分答案</a> <a href="/tags/二叉树/" style="font-size: 10px;">二叉树</a> <a href="/tags/优先队列/" style="font-size: 11.67px;">优先队列</a> <a href="/tags/位图/" style="font-size: 10px;">位图</a> <a href="/tags/内存模型/" style="font-size: 10.42px;">内存模型</a> <a href="/tags/分治/" style="font-size: 10px;">分治</a> <a href="/tags/分解素因数/" style="font-size: 10.83px;">分解素因数</a> <a href="/tags/前端/" style="font-size: 11.67px;">前端</a> <a href="/tags/剑指offer/" style="font-size: 10px;">剑指offer</a> <a href="/tags/剪枝/" style="font-size: 10px;">剪枝</a> <a href="/tags/动态查找/" style="font-size: 10px;">动态查找</a> <a href="/tags/动态规划/" style="font-size: 12.08px;">动态规划</a> <a href="/tags/原生js/" style="font-size: 10px;">原生js</a> <a href="/tags/同步/" style="font-size: 10.42px;">同步</a> <a href="/tags/后台/" style="font-size: 10px;">后台</a> <a href="/tags/后端/" style="font-size: 19.17px;">后端</a> <a href="/tags/后端，数据库-mysql/" style="font-size: 10px;">后端，数据库, mysql</a> <a href="/tags/后缀树/" style="font-size: 10px;">后缀树</a> <a href="/tags/启发式搜索/" style="font-size: 10px;">启发式搜索</a> <a href="/tags/哈希/" style="font-size: 11.25px;">哈希</a> <a href="/tags/回文/" style="font-size: 10px;">回文</a> <a href="/tags/图/" style="font-size: 17.08px;">图</a> <a href="/tags/在线算法/" style="font-size: 10px;">在线算法</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/堆排/" style="font-size: 10.42px;">堆排</a> <a href="/tags/堆排序/" style="font-size: 10px;">堆排序</a> <a href="/tags/大数据/" style="font-size: 10.83px;">大数据</a> <a href="/tags/字符串/" style="font-size: 13.75px;">字符串</a> <a href="/tags/字符串匹配/" style="font-size: 10px;">字符串匹配</a> <a href="/tags/宽搜/" style="font-size: 10.42px;">宽搜</a> <a href="/tags/小程序/" style="font-size: 10px;">小程序</a> <a href="/tags/左式堆/" style="font-size: 10px;">左式堆</a> <a href="/tags/平衡查找树/" style="font-size: 10px;">平衡查找树</a> <a href="/tags/并发/" style="font-size: 16.67px;">并发</a> <a href="/tags/并查集/" style="font-size: 11.67px;">并查集</a> <a href="/tags/强连通/" style="font-size: 10.42px;">强连通</a> <a href="/tags/强连通分支/" style="font-size: 10px;">强连通分支</a> <a href="/tags/归并排序/" style="font-size: 10px;">归并排序</a> <a href="/tags/心语/" style="font-size: 10px;">心语</a> <a href="/tags/快排/" style="font-size: 10.83px;">快排</a> <a href="/tags/快速幂/" style="font-size: 12.5px;">快速幂</a> <a href="/tags/性能优化/" style="font-size: 10px;">性能优化</a> <a href="/tags/感悟/" style="font-size: 10px;">感悟</a> <a href="/tags/扩展KMP/" style="font-size: 10.83px;">扩展KMP</a> <a href="/tags/扩展欧几里得/" style="font-size: 10.83px;">扩展欧几里得</a> <a href="/tags/抓包/" style="font-size: 10px;">抓包</a> <a href="/tags/拓扑排序/" style="font-size: 10.42px;">拓扑排序</a> <a href="/tags/排序/" style="font-size: 15px;">排序</a> <a href="/tags/操作系统/" style="font-size: 10.42px;">操作系统</a> <a href="/tags/教材/" style="font-size: 19.58px;">教材</a> <a href="/tags/数学/" style="font-size: 14.17px;">数学</a> <a href="/tags/数据库/" style="font-size: 10px;">数据库</a> <a href="/tags/数组/" style="font-size: 10px;">数组</a> <a href="/tags/数论/" style="font-size: 12.5px;">数论</a> <a href="/tags/最大公约数/" style="font-size: 10px;">最大公约数</a> <a href="/tags/最小正整数解/" style="font-size: 10.42px;">最小正整数解</a> <a href="/tags/最小生成树/" style="font-size: 10px;">最小生成树</a> <a href="/tags/最短路径/" style="font-size: 12.5px;">最短路径</a> <a href="/tags/最长回文子串/" style="font-size: 10px;">最长回文子串</a> <a href="/tags/有向图/" style="font-size: 10px;">有向图</a> <a href="/tags/杂/" style="font-size: 10px;">杂</a> <a href="/tags/板子/" style="font-size: 10px;">板子</a> <a href="/tags/查找/" style="font-size: 10px;">查找</a> <a href="/tags/查找树/" style="font-size: 13.33px;">查找树</a> <a href="/tags/栈/" style="font-size: 12.5px;">栈</a> <a href="/tags/树/" style="font-size: 17.5px;">树</a> <a href="/tags/树堆/" style="font-size: 10px;">树堆</a> <a href="/tags/树状数组/" style="font-size: 11.25px;">树状数组</a> <a href="/tags/桶排序/" style="font-size: 10px;">桶排序</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/模板/" style="font-size: 12.92px;">模板</a> <a href="/tags/欧几里得/" style="font-size: 10px;">欧几里得</a> <a href="/tags/欧拉函数/" style="font-size: 10.42px;">欧拉函数</a> <a href="/tags/欧拉环游/" style="font-size: 10px;">欧拉环游</a> <a href="/tags/泛洪/" style="font-size: 10px;">泛洪</a> <a href="/tags/洛谷/" style="font-size: 10.42px;">洛谷</a> <a href="/tags/深搜/" style="font-size: 11.67px;">深搜</a> <a href="/tags/源码/" style="font-size: 18.33px;">源码</a> <a href="/tags/源码分析/" style="font-size: 11.25px;">源码分析</a> <a href="/tags/滚动数组/" style="font-size: 10px;">滚动数组</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/牛客网/" style="font-size: 10.42px;">牛客网</a> <a href="/tags/生成树/" style="font-size: 10.42px;">生成树</a> <a href="/tags/百练/" style="font-size: 10.42px;">百练</a> <a href="/tags/离散化/" style="font-size: 10px;">离散化</a> <a href="/tags/筛法/" style="font-size: 11.25px;">筛法</a> <a href="/tags/简历/" style="font-size: 10px;">简历</a> <a href="/tags/算法/" style="font-size: 20px;">算法</a> <a href="/tags/素数测试/" style="font-size: 10.83px;">素数测试</a> <a href="/tags/约瑟夫环/" style="font-size: 10px;">约瑟夫环</a> <a href="/tags/线上问题/" style="font-size: 10px;">线上问题</a> <a href="/tags/线性同余方程/" style="font-size: 10px;">线性同余方程</a> <a href="/tags/线段树/" style="font-size: 12.5px;">线段树</a> <a href="/tags/组件化/" style="font-size: 10px;">组件化</a> <a href="/tags/编译原理/" style="font-size: 14.17px;">编译原理</a> <a href="/tags/网络协议/" style="font-size: 10px;">网络协议</a> <a href="/tags/背包/" style="font-size: 10.42px;">背包</a> <a href="/tags/自己动手用java写编译器/" style="font-size: 14.17px;">自己动手用java写编译器</a> <a href="/tags/菜鸟教材/" style="font-size: 10.83px;">菜鸟教材</a> <a href="/tags/设计模式/" style="font-size: 10.83px;">设计模式</a> <a href="/tags/词典/" style="font-size: 10px;">词典</a> <a href="/tags/贪心/" style="font-size: 11.67px;">贪心</a> <a href="/tags/轮播图/" style="font-size: 10px;">轮播图</a> <a href="/tags/连通/" style="font-size: 11.25px;">连通</a> <a href="/tags/连通分支/" style="font-size: 10px;">连通分支</a> <a href="/tags/连通性/" style="font-size: 11.67px;">连通性</a> <a href="/tags/逆元/" style="font-size: 10px;">逆元</a> <a href="/tags/逆序数/" style="font-size: 10.42px;">逆序数</a> <a href="/tags/递归/" style="font-size: 11.67px;">递归</a> <a href="/tags/链表/" style="font-size: 11.67px;">链表</a> <a href="/tags/锁/" style="font-size: 10.83px;">锁</a> <a href="/tags/队列/" style="font-size: 10.83px;">队列</a> <a href="/tags/集合/" style="font-size: 10px;">集合</a> <a href="/tags/静态查找树/" style="font-size: 10.42px;">静态查找树</a> <a href="/tags/面试/" style="font-size: 13.33px;">面试</a> <a href="/tags/高精度/" style="font-size: 13.33px;">高精度</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/18/百练oj-2773-采药-01背包-深搜-剪枝/">百练oj 2773 采药 01背包 深搜+剪枝</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/18/百练oj-2773-采药-01背包/">百练oj 2773 采药 01背包</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/18/hdu-4344-Mark-the-Rope-pollard-rho/">hdu 4344 Mark the Rope pollard rho</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/17/poj-1006-Biorhythms-线性同余式-中国剩余定理（CRT）/">poj 1006 Biorhythms 线性同余式 中国剩余定理（CRT）</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/17/zoj-4712-Modular-Inverse-逆元-扩展欧几里得/">zoj 4712 Modular Inverse 逆元 扩展欧几里得</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
