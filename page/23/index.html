@@ -62,6 +62,49 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-红黑树" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/31/红黑树/" class="article-date">
+  <time datetime="2019-05-31T13:15:52.000Z" itemprop="datePublished">2019-05-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/31/红黑树/">红黑树</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>为了解决【3】中数据倾斜的问题，我们引入了足够精妙的AVL（【1】），但是AVL保持的是绝对平衡. 尽管它可以保证单次查询的速度最坏依旧在O(logn)，但是删除操作之后的重平衡可能需做多 达(logn)次旋转， 从而频繁地导致全树整体拓扑结构的大幅度变化。    于是人们引入了Splay(【2】). Splay 实现简便、无需修改节点 结构(AVL需要修改节点的bf因子)、分摊复杂度低，但可惜最坏情况下的单次操作需要O(n)时间，故难以适用于核电站、医 院等对可靠性和稳定性要求极高的场合。 有没有一种数据结构介于splay和AVL中间呢? 红黑树就此诞生了.红黑树可保证： 在每次插入或删除操作之后的重平衡过程中， 全树拓扑结构的更新仅涉及常数个节点。尽管最坏 情况下需对多达O(logn)个节点重染色，但就分摊意义而言仅为O(1)个  (所谓分摊意义就是指这种最坏情形不会每次都出现，而是多次操作之后才会出现一次，那么每次操作分摊到的时间就是O(1)). 红黑树在AVL树“绝对平衡”的基础上，进一步放宽条件。实际上，红黑树 所采用的“适度平衡”标准，可大致表述为： 任一节点左、右子树的高度，相差不得超过两倍（可以理解为下面红黑树的第四条定义）。</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/31/红黑树/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/31/红黑树/" data-id="cjzg7eojo01emwwvmgd6rz9c6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BST/">BST</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/查找树/">查找树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-B-B-树" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/29/B-B-树/" class="article-date">
@@ -97,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/29/B-B-树/" data-id="cjzfjg64r01e0asvmtyxy4eop" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/29/B-B-树/" data-id="cjzg7eoj401e2wwvm5sx5pvp0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/查找树/">查找树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -141,7 +184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/29/Splay/" data-id="cjzfjg5v4017pasvmt41xv6kg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/29/Splay/" data-id="cjzg7eoaa017iwwvmc0ug3pz8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/查找树/">查找树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -184,7 +227,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/28/AVL/" data-id="cjzfjg5ue0174asvms100aksv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/28/AVL/" data-id="cjzg7eo9r016wwwvmrpdl0ytf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -233,7 +276,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/28/二叉查找树-BST/" data-id="cjzfjg5c60093asvm1dt3w440" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/28/二叉查找树-BST/" data-id="cjzg7envc009wwwvmb5ud7ji2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/查找/">查找</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -276,7 +319,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/全排列/" data-id="cjzfjg5ck009qasvmlgahi4hk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/27/全排列/" data-id="cjzg7env8009mwwvmykz743da" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dfs/">dfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深搜/">深搜</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -319,7 +362,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/使用bfs求解有向网最短路径/" data-id="cjzfjg5cg009iasvmd02n739a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/27/使用bfs求解有向网最短路径/" data-id="cjzg7env5009fwwvm0qx1rc4y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bfs/">bfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/宽搜/">宽搜</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -363,7 +406,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/使用dfs求解有向网最短路径/" data-id="cjzfjg5ci009lasvm6jzq1zad" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/27/使用dfs求解有向网最短路径/" data-id="cjzg7env7009kwwvmo806os2k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dfs/">dfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深搜/">深搜</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -406,7 +449,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/数组手工实现队列/" data-id="cjzfjg5dx00c6asvm04q13m1l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/27/数组手工实现队列/" data-id="cjzg7enx500cnwwvm67jbjukw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/队列/">队列</a></li></ul>
@@ -449,53 +492,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/手工实现栈/" data-id="cjzfjg5dp00bsasvmuuwiedpw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/27/手工实现栈/" data-id="cjzg7enwj00bmwwvm2sq1kpg2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/栈/">栈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-bellman-ford算法之队列优化" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/27/bellman-ford算法之队列优化/" class="article-date">
-  <time datetime="2019-05-27T10:35:56.000Z" itemprop="datePublished">2019-05-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/27/bellman-ford算法之队列优化/">bellman-ford算法之队列优化</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>【1】中我们给出了单源可能带负权环的有向网的最短路径算法——bellman-ford算法. 但是观察其复杂度，是O（NM）的. 较高, 那我们想想看，是不是有什么地方值得优化呢?</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/27/bellman-ford算法之队列优化/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/bellman-ford算法之队列优化/" data-id="cjzfjg599003uasvmmvhejycw" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
 
     </footer>
   </div>
@@ -554,6 +554,10 @@
       <ul>
         
           <li>
+            <a href="/2019/08/18/hdu-4344-Mark-the-Rope-pollard-rho/">hdu 4344 Mark the Rope pollard rho</a>
+          </li>
+        
+          <li>
             <a href="/2019/08/17/poj-1006-Biorhythms-线性同余式-中国剩余定理（CRT）/">poj 1006 Biorhythms 线性同余式 中国剩余定理（CRT）</a>
           </li>
         
@@ -567,10 +571,6 @@
         
           <li>
             <a href="/2019/08/17/zzuli-oj-1062-最大公约数-欧几里得模板/">zzuli oj 1062 最大公约数 欧几里得模板</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/17/poj-1811-Prime-Test-Pollard-rho算法-分解素因数-快速幂/">poj 1811 Prime Test Pollard rho算法 分解素因数 快速幂</a>
           </li>
         
       </ul>
