@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="缘起RT.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-22T07:20:19.369Z">
+<meta property="og:updated_time" content="2019-08-22T07:30:03.959Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kruskal算法的证明">
 <meta name="twitter:description" content="缘起RT.">
@@ -91,12 +91,12 @@
 <a id="more"></a>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>kruskal算法的本质是使用最小代价连接两个不同的连通分支（一开始假设没有任何边，则就是n个连通分支，每个连通分支都是单点集）, 则连通分支个数-1，直至最后连通分支的个数为1. </p>
 <p>类似于prim算法的证明. 我们断言——连通分支S外部连接S的最短边一定属于MST. 证明完全相同——因为总得连接，如果不是这条最短边, 则可以用最短边换掉.</p>
-<p>则我们首先将边排序，则拿出最短的边，连通分支个数-1，然后逐步考察剩余的边（按照边长从小到大），遇到第一个连接不同连通分支的边（并查集判断）根据上述断言</p>
+<p>则我们首先将边排序，则拿出最短的边，连通分支个数-1，然后逐步考察剩余的边（按照边长从小到大），遇到第一个连接不同连通分支的边（并查集判断）根据上述断言它一定是MST中的边. 取之. 然后继续. 注意，每取一次连通分支就少1，而最终连通分支的个数一定是1，所以整个kruskal过程我们断言了n-1条边在MST中. 而MST就恰好n-1条边(多了就会有环).所以kruskal算法得到了MST，是一个正确的算法. </p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/22/kruskal算法的证明/" data-id="cjzmcwk3i007ddkvmeopcc6su" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/22/kruskal算法的证明/" data-id="cjzmd8zrx007fksvmd3x1bnfv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kruskal/">kruskal</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/最小生成树/">最小生成树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
