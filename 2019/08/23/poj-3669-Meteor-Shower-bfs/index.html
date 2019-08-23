@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="缘起日常水题  poj 3669 Meteor Shower">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-23T06:55:29.082Z">
+<meta property="og:updated_time" content="2019-08-23T08:24:12.136Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="poj 3669 Meteor Shower bfs">
 <meta name="twitter:description" content="缘起日常水题  poj 3669 Meteor Shower">
@@ -89,11 +89,53 @@
       
         <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>日常水题  <a href="https://vjudge.net/problem/POJ-3669" target="_blank" rel="noopener">poj 3669 Meteor Shower</a></p>
 <a id="more"></a>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">就是给你一个第一象限，你从(0,0)出发在第一象限移动. 但是给你M颗流星. 这颗流星(xi,yi,ti)表示这颗流星</span><br><span class="line">在ti时刻将袭击(xi,yi), 而且将摧毁(xi,yi)相邻的四个格点. 自ti起，被流星摧毁的格点将再也无法前往了.</span><br><span class="line">那么要求你计算逃生的最短时间.</span><br><span class="line"></span><br><span class="line">【输入】</span><br><span class="line">第一行是M (1 ≤ M ≤ 50000)</span><br><span class="line">然后M行是 (xi,yi,ti)</span><br><span class="line">(0 ≤ Xi ≤ 300; 0 ≤ Yi ≤ 300) at time Ti (0 ≤ Ti  ≤ 1,000)</span><br><span class="line"></span><br><span class="line">【输出】</span><br><span class="line">最短时间或者-1（表示根本不可能逃生）</span><br><span class="line"></span><br><span class="line">【样例输入】</span><br><span class="line">4</span><br><span class="line">0 0 2</span><br><span class="line">2 1 2</span><br><span class="line">1 1 2</span><br><span class="line">0 3 5</span><br><span class="line"></span><br><span class="line">【样例输出】</span><br><span class="line">5</span><br><span class="line"></span><br><span class="line">【限制】</span><br><span class="line">Time limit 1000 ms </span><br><span class="line">Memory limit 65536 kB</span><br><span class="line"></span><br><span class="line">【来源】</span><br><span class="line">USACO 2008 February Silver</span><br></pre></td></tr></table></figure>
+<p>状态转移过程中要考虑两件事情. 第一件事情是能不能去（有木有被摧毁）. 第二件事情是安不安全（即能不能久留）. bfs过程中第一个可以久留的点就是安全区域.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include "stdafx.h"</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="comment">//#define LOCAL</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n, <span class="built_in">map</span>[<span class="number">305</span>][<span class="number">305</span>], dir[<span class="number">5</span>][<span class="number">2</span>]=&#123;&#123;<span class="number">0</span>,<span class="number">0</span>&#125;,&#123;<span class="number">1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">-1</span>,<span class="number">0</span>&#125;,&#123;<span class="number">0</span>,<span class="number">1</span>&#125;,&#123;<span class="number">0</span>,<span class="number">-1</span>&#125;&#125;; <span class="comment">// map[i][j]表示最早遭受袭击的时间（包括溅射伤害）</span></span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; P;</span><br><span class="line"><span class="keyword">bool</span> v[<span class="number">305</span>][<span class="number">305</span>];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span> // 时间<span class="title">t</span>到达<span class="title">p</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	P p;</span><br><span class="line">	<span class="keyword">int</span> t;</span><br><span class="line">	Node(P p, <span class="keyword">int</span> t):p(p),t(t)&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">safe</span><span class="params">(Node node)</span> <span class="comment">// 点p是否永久安全?</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">map</span>[node.p.first][node.p.second] == <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">ok</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">int</span> t)</span> <span class="comment">// 时间t到达(i,j)是否安全?</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> !v[i][j]&amp;&amp;i&gt;=<span class="number">0</span> &amp;&amp; j&gt;=<span class="number">0</span> &amp;&amp; <span class="built_in">map</span>[i][j]&gt;t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">queue</span>&lt;Node&gt; q;</span><br><span class="line">	q.push(Node(P(<span class="number">0</span>,<span class="number">0</span>),<span class="number">0</span>));</span><br><span class="line">	v[<span class="number">0</span>][<span class="number">0</span>] = <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">while</span>(!q.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		Node front = q.front(); <span class="comment">// front是已经到达的格点</span></span><br><span class="line">		q.pop();</span><br><span class="line">		<span class="keyword">if</span> (safe(front)) <span class="comment">// 如果永久安全</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> front.t;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// 说明front不是永久安全, 需要转移</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>,nx,ny; i&lt;=<span class="number">4</span>; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			nx = front.p.first+dir[i][<span class="number">0</span>], ny = front.p.second+dir[i][<span class="number">1</span>];</span><br><span class="line">			<span class="keyword">if</span> (ok(nx,ny, front.t+<span class="number">1</span>))</span><br><span class="line">			&#123;</span><br><span class="line">				v[nx][ny] = <span class="literal">true</span>;</span><br><span class="line">				q.push(Node(P(nx, ny), front.t+<span class="number">1</span>));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>; <span class="comment">// 要是能返回肯定早返回了</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">	<span class="comment">//freopen("d:\\my.out", "w", stdout);</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">	<span class="built_in">memset</span>(<span class="built_in">map</span>, <span class="number">0x3f</span>, <span class="keyword">sizeof</span>(<span class="built_in">map</span>));</span><br><span class="line">	<span class="keyword">while</span>(n--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> x,y,t;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;x, &amp;y, &amp;t);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>,nx,ny; i&lt;=<span class="number">4</span>;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			nx = x+dir[i][<span class="number">0</span>];</span><br><span class="line">			ny = y+dir[i][<span class="number">1</span>];</span><br><span class="line">			<span class="keyword">if</span> (nx&gt;=<span class="number">0</span> &amp;&amp; ny&gt;=<span class="number">0</span> &amp;&amp; <span class="built_in">map</span>[nx][ny]&gt;t)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">map</span>[nx][ny] = t;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="comment">// 得到map上每个点最早遇袭时间</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, bfs());</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ac情况</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Status</th>
+<th>Accepted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Time</td>
+<td>125ms</td>
+</tr>
+<tr>
+<td style="text-align:center">Memory</td>
+<td>556kB</td>
+</tr>
+<tr>
+<td style="text-align:center">Length</td>
+<td>1426</td>
+</tr>
+<tr>
+<td style="text-align:center">Lang</td>
+<td>C++</td>
+</tr>
+<tr>
+<td style="text-align:center">Submitted</td>
+<td>2019-08-23 16:19:27</td>
+</tr>
+<tr>
+<td style="text-align:center">Shared</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">RemoteRunId</td>
+<td>20792255</td>
+</tr>
+</tbody>
+</table>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/23/poj-3669-Meteor-Shower-bfs/" data-id="cjznrsfcs00aj5kvmqd9aa9zc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/23/poj-3669-Meteor-Shower-bfs/" data-id="cjznzdira00f148vm52gn8wkm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bfs/">bfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/搜索/">搜索</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -103,6 +145,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2019/08/23/poj-2718-Smallest-Difference-搜索/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          poj 2718 Smallest Difference 搜索
+        
+      </div>
+    </a>
   
   
     <a href="/2019/08/23/poj-3061-Subsequence-尺取法/" id="article-nav-older" class="article-nav-link-wrap">
@@ -158,6 +209,10 @@
       <ul>
         
           <li>
+            <a href="/2019/08/23/poj-2718-Smallest-Difference-搜索/">poj 2718 Smallest Difference 搜索</a>
+          </li>
+        
+          <li>
             <a href="/2019/08/23/poj-3669-Meteor-Shower-bfs/">poj 3669 Meteor Shower bfs</a>
           </li>
         
@@ -171,10 +226,6 @@
         
           <li>
             <a href="/2019/08/23/poj-1979-Red-and-Black-dfs/">poj 1979 Red and Black dfs</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/23/uva-10006-Carmichael-Numbers-快速幂/">uva 10006 Carmichael Numbers 快速幂</a>
           </li>
         
       </ul>
