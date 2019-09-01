@@ -62,6 +62,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-次优二叉搜索树" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/17/次优二叉搜索树/" class="article-date">
+  <time datetime="2019-06-17T04:45:20.000Z" itemprop="datePublished">2019-06-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/17/次优二叉搜索树/">次优二叉搜索树</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>【1】中我们介绍了最优二叉搜索树. 并给出了算导中的算法实现. 但是它最大的弊病就在于令人尴尬的建树的O(n^3)的复杂度上.  所以【2】的9.1节提出了近似解决方案——次优二叉搜索树. 也就是确定根节点的算法并不像【1】中那样严格的根据dp公式得到最佳分割点，而是只要两边的权重之差达到最小即可(具体公式可以参见【2】，已经写的很清晰了).</p>
+<p>大量实践证明，次优比最优在查找性能上的损失不会超过3%, 一般都在 %1和%2左右，但是次优建树的算法复杂度是O(nlogn)的，远比最优的O(n^3)来的可行性高. 所以实际中人们使用的都是次优查找树. 顺便说一句，次优和最优都是静态查找树. </p>
+<p>顺便说一下，相比 SecondOptimal-BST 这种名词，我更喜欢 NearlyOptimal-BST.</p>
+<p>本文就来实现这一算法.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/06/17/次优二叉搜索树/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/06/17/次优二叉搜索树/" data-id="ck010qhtg00jo5svmknoyjg2j" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dp/">dp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/静态查找树/">静态查找树</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-最优二叉搜索树" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/06/17/最优二叉搜索树/" class="article-date">
@@ -96,7 +142,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/17/最优二叉搜索树/" data-id="ck00svynz00hhnwvmn1exgnme" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/17/最优二叉搜索树/" data-id="ck010qhs700ib5svmvwfm3uwh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dp/">dp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/静态查找树/">静态查找树</a></li></ul>
@@ -141,7 +187,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/17/跳表-SkipList/" data-id="ck00svzgy01twnwvm68fb7gl8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/17/跳表-SkipList/" data-id="ck010qjrc01sp5svmfsh54o8u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态查找/">动态查找</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/哈希/">哈希</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/词典/">词典</a></li></ul>
@@ -184,7 +230,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/17/字符串匹配算法之kmp/" data-id="ck00svzgd01tfnwvm3on1p1ge" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/17/字符串匹配算法之kmp/" data-id="ck010qjpa01s55svms7ishw16" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/字符串/">字符串</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -227,7 +273,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/16/hdu-1512-Monkey-King-左式堆/" data-id="ck00svyhb0053nwvmuotfl7r3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/16/hdu-1512-Monkey-King-左式堆/" data-id="ck010qhbn005h5svmey28spzo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdu/">hdu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/优先队列/">优先队列</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/左式堆/">左式堆</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并查集/">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -271,7 +317,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/16/动态存储管理之伙伴系统/" data-id="ck00svzg501t5nwvmiiik62qi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/16/动态存储管理之伙伴系统/" data-id="ck010qjor01ry5svm86l50dv5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/操作系统/">操作系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链表/">链表</a></li></ul>
@@ -316,7 +362,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/15/事务、锁-小结/" data-id="ck00svzg101t0nwvm9lks2l7m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/15/事务、锁-小结/" data-id="ck010qjok01rt5svmq243yfok" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/事务/">事务</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/锁/">锁</a></li></ul>
@@ -360,7 +406,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/14/Spring-AOP-中的责任链模式/" data-id="ck00svygj003fnwvmojlk3jcn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/14/Spring-AOP-中的责任链模式/" data-id="ck010qh9p003y5svmbs4lppr6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
@@ -403,7 +449,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/14/工厂设计模式/" data-id="ck00svyn300fpnwvmp8z01zr0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/14/工厂设计模式/" data-id="ck010qhpz00gi5svmlj83wqqb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
@@ -446,53 +492,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/13/oauth2-0-协议简记/" data-id="ck00svyio007xnwvm46rvr5lv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/13/oauth2-0-协议简记/" data-id="ck010qhfo008s5svmgh9cmz97" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Oauth2-0/">Oauth2.0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络协议/">网络协议</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-spring-AOP-注解原理" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/13/spring-AOP-注解原理/" class="article-date">
-  <time datetime="2019-06-13T04:21:27.000Z" itemprop="datePublished">2019-06-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/13/spring-AOP-注解原理/">spring AOP 注解原理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>我们知道，其实AOP是一种编程思想——面向切面. 即程序运行期间动态的将某段代码切入到指定位置进行运行的编程方式.  典型的用法可以参见【1】. 其实非java config的用法在之前使用xml的时候都大同小异的使用过. 但是本文就想从源码的角度分析Sping-AOP是如何实现的</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/06/13/spring-AOP-注解原理/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/13/spring-AOP-注解原理/" data-id="ck00svzqr020ynwvmw8b6jc3u" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
 
     </footer>
   </div>
@@ -551,6 +554,10 @@
       <ul>
         
           <li>
+            <a href="/2019/09/01/poj-3279-Fliptile-反转开关问题/">poj 3279 Fliptile 反转开关问题</a>
+          </li>
+        
+          <li>
             <a href="/2019/09/01/poj-3276-Face-The-Right-Way-开关问题/">poj 3276 Face The Right Way 开关问题</a>
           </li>
         
@@ -564,10 +571,6 @@
         
           <li>
             <a href="/2019/09/01/poj-2456-Aggressive-cows-二分答案/">poj 2456 Aggressive cows 二分答案</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/01/poj-1064-Cable-master-二分答案/">poj 1064 Cable master 二分答案</a>
           </li>
         
       </ul>

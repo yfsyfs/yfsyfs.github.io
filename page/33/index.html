@@ -62,6 +62,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-位图法总结" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/25/位图法总结/" class="article-date">
+  <time datetime="2019-05-25T14:26:26.000Z" itemprop="datePublished">2019-05-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/25/位图法总结/">位图法总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>位图法是桶排序思想的延伸. 比如我们想知道 200以内的正整数 某个元素， 例如163，是否存在, 我们需要</p>
+<p>int flag[200], flag[163]=1表示存在, 0表示不存在. 即需要 200*4=800字节的桶才能维护这样的状态. 或者至少</p>
+<p>bool flag[200], 即 200字节维护这一状态. 但是如果使用位图思想——它精简到使用一个bit来记录某个正整数的状态. 例如163, 163/8=20…3 即第20字节的第3个比特的状态就可以刻画163. 所以使用位图思想的话, 只需要200/8=25字节就足够了.</p>
+<blockquote>
+<p>位图思想使用1个比特位表示一个状态，算法的精简性适用于海量数据，但数据状态又不是很多的情况。通常是用来判断某个数据存不存在的。</p>
+</blockquote>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/25/位图法总结/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/25/位图法总结/" data-id="ck010qho600f75svmuquztg73" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/位图/">位图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-离散化模板" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/25/离散化模板/" class="article-date">
@@ -95,7 +143,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/离散化模板/" data-id="ck00svyoy00jcnwvmvexpbgbo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/离散化模板/" data-id="ck010qhvq00lc5svm89sedpda" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模板/">模板</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/离散化/">离散化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -138,7 +186,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/去重/" data-id="ck00svymo00etnwvmi012nhly" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/去重/" data-id="ck010qhp300fw5svm8wdknq38" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -181,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/堆排序/" data-id="ck00svymw00fbnwvm3mt09b8y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/堆排序/" data-id="ck010qhpl00g85svme3z3v02u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -224,7 +272,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/基数排序/" data-id="ck00svymu00f6nwvm1yst7d4d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/基数排序/" data-id="ck010qhpj00g65svmim80hceq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -270,7 +318,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/CBA理论-为什么基于比较的排序方法的性能极限是O-nlogn/" data-id="ck00svyew000hnwvmu5y4k53o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/CBA理论-为什么基于比较的排序方法的性能极限是O-nlogn/" data-id="ck010qh39000o5svmybld3dzt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -313,7 +361,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/非比较排序之计数排序/" data-id="ck00svypr00l5nwvmiu32o9nw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/非比较排序之计数排序/" data-id="ck010qhwf00m35svmy7wcs4gt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -356,7 +404,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/非选择排序之桶排序/" data-id="ck00svyps00l7nwvmk7yfcilg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/非选择排序之桶排序/" data-id="ck010qhwi00m55svmwvaskw04" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -399,7 +447,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/涉及快排的一道面试题——将负数放在正数的前面/" data-id="ck00svyoo00ixnwvm5ck0gh30" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/涉及快排的一道面试题——将负数放在正数的前面/" data-id="ck010qhts00jy5svmwyyd7uki" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
@@ -442,53 +490,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/涉及快排的一道面试题/" data-id="ck00svyon00ivnwvmzwwc9gg2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/涉及快排的一道面试题/" data-id="ck010qhtd00jm5svm1t3hb40e" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-交换两个数" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/25/交换两个数/" class="article-date">
-  <time datetime="2019-05-25T03:52:27.000Z" itemprop="datePublished">2019-05-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/25/交换两个数/">交换两个数</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>交换两个数是经常在面试的是考烂掉了的.</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/25/交换两个数/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/交换两个数/" data-id="ck00svym600e0nwvmr5wsiv6p" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
 
     </footer>
   </div>
@@ -547,6 +552,10 @@
       <ul>
         
           <li>
+            <a href="/2019/09/01/poj-3279-Fliptile-反转开关问题/">poj 3279 Fliptile 反转开关问题</a>
+          </li>
+        
+          <li>
             <a href="/2019/09/01/poj-3276-Face-The-Right-Way-开关问题/">poj 3276 Face The Right Way 开关问题</a>
           </li>
         
@@ -560,10 +569,6 @@
         
           <li>
             <a href="/2019/09/01/poj-2456-Aggressive-cows-二分答案/">poj 2456 Aggressive cows 二分答案</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/01/poj-1064-Cable-master-二分答案/">poj 1064 Cable master 二分答案</a>
           </li>
         
       </ul>

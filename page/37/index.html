@@ -62,6 +62,81 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-huffman编码" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/20/huffman编码/" class="article-date">
+  <time datetime="2019-05-20T06:43:37.000Z" itemprop="datePublished">2019-05-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/20/huffman编码/">huffman编码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>Huffman编码树要从PFC（prefix-free code 无歧义前缀编码方案） 谈起.</p>
+<p>我们考虑只包含5个字符的字符集 {‘A’, ‘E’, ‘G’, ‘M’, ‘S’} 的编码. 如果采用下面的编码方案的话,</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">字符</th>
+<th style="text-align:center">编码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">A</td>
+<td style="text-align:center">00</td>
+</tr>
+<tr>
+<td style="text-align:center">E</td>
+<td style="text-align:center">01</td>
+</tr>
+<tr>
+<td style="text-align:center">G</td>
+<td style="text-align:center">10</td>
+</tr>
+<tr>
+<td style="text-align:center">M</td>
+<td style="text-align:center">11</td>
+</tr>
+<tr>
+<td style="text-align:center">S</td>
+<td style="text-align:center">111</td>
+</tr>
+</tbody>
+</table>
+<p>那么请问如果译码机收到 111xxxx 这种字符串, 到底是将11译为M 还是将111译为S呢? 貌似还要看后面的. 但是译码之事，生死攸关, 怎么容许算法延迟? 所以我们需要提供一种只需要译码机顺序读取密文就可以无歧义的解码的算法. 这就要求编码方案有无歧义的特点. 符合这种特点的编码方案就是 PFC.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/20/huffman编码/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/20/huffman编码/" data-id="ck010qhcy006g5svmfwtllaoq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二叉树/">二叉树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-栈和队列的互相转换" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/20/栈和队列的互相转换/" class="article-date">
@@ -93,7 +168,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/20/栈和队列的互相转换/" data-id="ck00svyoa00i6nwvmof3iziyz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/20/栈和队列的互相转换/" data-id="ck010qhsz00j75svmqe424k3m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/栈/">栈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/队列/">队列</a></li></ul>
@@ -136,7 +211,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/20/二叉树遍历/" data-id="ck00svym500dxnwvm17a2upmz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/20/二叉树遍历/" data-id="ck010qhnq00ev5svmiok9j0ls" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -179,7 +254,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/20/二分查找模板/" data-id="ck00svym200dsnwvmtitvtgoz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/20/二分查找模板/" data-id="ck010qhnf00en5svm50b305s6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二分答案/">二分答案</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/板子/">板子</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -222,7 +297,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/归并排序/" data-id="ck00svyn900g2nwvmse9pephi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/19/归并排序/" data-id="ck010qhqj00gx5svmhbelut7j" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -265,7 +340,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/插入排序/" data-id="ck00svyo000hknwvmuhd4ftgx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/19/插入排序/" data-id="ck010qhs400i85svmbyxxnkr4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -308,7 +383,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/冒泡排序/" data-id="ck00svymk00eknwvmmle99rj1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/19/冒泡排序/" data-id="ck010qhop00fk5svm3ov16oxk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -351,7 +426,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/选择排序/" data-id="ck00svypp00l0nwvmbxof78md" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/19/选择排序/" data-id="ck010qhwc00m05svmzuqr9xpl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -395,7 +470,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/迷宫寻路/" data-id="ck00svypo00kxnwvmcbdonkte" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/19/迷宫寻路/" data-id="ck010qhw900ly5svmrqwi8z94" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/栈/">栈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/递归/">递归</a></li></ul>
@@ -439,54 +514,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/八皇后/" data-id="ck00svymv00f8nwvmxdbozv4l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/19/八皇后/" data-id="ck010qhoa00fa5svmle1dg4fe" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/栈/">栈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/递归/">递归</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-进制转换" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/19/进制转换/" class="article-date">
-  <time datetime="2019-05-19T08:15:30.000Z" itemprop="datePublished">2019-05-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/19/进制转换/">进制转换</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>邓俊辉数据结构算法（C++语言）第三版.  第四章的例子</p>
-<p>需求是输入任何一个十进制数字, 再输入一个进制N（例如8进制, 16进制）, 则输出N进制数.</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/19/进制转换/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/进制转换/" data-id="ck00svypn00kvnwvmfu53xin5" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/栈/">栈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
 
     </footer>
   </div>
@@ -545,6 +576,10 @@
       <ul>
         
           <li>
+            <a href="/2019/09/01/poj-3279-Fliptile-反转开关问题/">poj 3279 Fliptile 反转开关问题</a>
+          </li>
+        
+          <li>
             <a href="/2019/09/01/poj-3276-Face-The-Right-Way-开关问题/">poj 3276 Face The Right Way 开关问题</a>
           </li>
         
@@ -558,10 +593,6 @@
         
           <li>
             <a href="/2019/09/01/poj-2456-Aggressive-cows-二分答案/">poj 2456 Aggressive cows 二分答案</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/01/poj-1064-Cable-master-二分答案/">poj 1064 Cable master 二分答案</a>
           </li>
         
       </ul>

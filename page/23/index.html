@@ -62,6 +62,49 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-FinalReference-源码解读" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/05/FinalReference-源码解读/" class="article-date">
+  <time datetime="2019-07-05T05:57:37.000Z" itemprop="datePublished">2019-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/05/FinalReference-源码解读/">FinalReference 源码解读</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>【2】中我们已经了解到了FinalReference这种引用类型. 我们在【2】中简要分析了一下该类的子类Finalizer和Object的finalize方法之间的关系, 并得出了尽量不要覆写finalize方法的结论，因为如果你的finalize方法执行时间过长的话，由于Finalizer作为Reference的子类，referent属性迟迟得不到释放（未变成null，强引用一直存在），导致不能被后续回收，可能最终导致OOM.  本文对FinalReference特别是它的子类——Finalizer进行更加细致的分析——分析它和垃圾回收，和finalize方法之间的关系. 本文参考了【1】</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/07/05/FinalReference-源码解读/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/05/FinalReference-源码解读/" data-id="ck010qjz401xm5svm80d1so7f" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-java-lang-ref-Reference-源码解读" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/05/java-lang-ref-Reference-源码解读/" class="article-date">
@@ -93,7 +136,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/05/java-lang-ref-Reference-源码解读/" data-id="ck00svzlb01z8nwvm81ntniu2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/05/java-lang-ref-Reference-源码解读/" data-id="ck010qjzz01xw5svmbjp74ccn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -136,7 +179,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/05/HashSet源码解读/" data-id="ck00svzcv01rhnwvmg2xz64m4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/05/HashSet源码解读/" data-id="ck010qjda01q65svmickuar65" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -180,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/04/阿里经典面试题——小朋友最短时间过桥问题——动态规划/" data-id="ck00svypq00l2nwvmz68f3aku" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/04/阿里经典面试题——小朋友最短时间过桥问题——动态规划/" data-id="ck010qhw800lw5svmll24zcar" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
@@ -224,7 +267,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/03/JDK7-中的String的内存结构/" data-id="ck00svzm8020gnwvm502hq6e6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/03/JDK7-中的String的内存结构/" data-id="ck010qk2001z75svm4fs6myp9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/">String</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
@@ -269,7 +312,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/03/Integer-比较问题/" data-id="ck00svyg2002nnwvm6uhe2jf0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/03/Integer-比较问题/" data-id="ck010qh8b00315svm5jvaqnni" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -312,7 +355,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/03/java-lang-String-源码解读/" data-id="ck00svzl801z6nwvmuupremao" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/03/java-lang-String-源码解读/" data-id="ck010qjzs01xu5svmehz1icyu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/">String</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -355,7 +398,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/03/clone-研究/" data-id="ck00svygt003znwvmceaoqpn0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/03/clone-研究/" data-id="ck010qhag004k5svm54uc200q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -403,7 +446,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/02/Arrays-copyOf-和-System-arraycopy-源码解读/" data-id="ck00svz9z01r9nwvm7zxa0xv2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/02/Arrays-copyOf-和-System-arraycopy-源码解读/" data-id="ck010qj7101q05svmeljt3lg0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -446,53 +489,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/02/快速幂模板/" data-id="ck00svynf00gcnwvmc4nz2ve7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/02/快速幂模板/" data-id="ck010qhqt00h95svmlib65sea" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/快速幂/">快速幂</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模板/">模板</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-BSGS-算法" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/02/BSGS-算法/" class="article-date">
-  <time datetime="2019-07-02T03:24:57.000Z" itemprop="datePublished">2019-07-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/02/BSGS-算法/">BSGS 算法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>BSGS算法（拔山盖世是否或者北上广深算法）的全名是大小步算法（Baby Step Giant Step）目的是求满足如下同余方程中的t.<br>$$<br>x^t ≡ y(mod m)<br>$$<br>
-        
-          </p><p class="article-more-link">
-            <a href="/2019/07/02/BSGS-算法/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/02/BSGS-算法/" data-id="ck00svye90004nwvmrkbdi3qn" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/快速幂/">快速幂</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
 
     </footer>
   </div>
@@ -551,6 +551,10 @@
       <ul>
         
           <li>
+            <a href="/2019/09/01/poj-3279-Fliptile-反转开关问题/">poj 3279 Fliptile 反转开关问题</a>
+          </li>
+        
+          <li>
             <a href="/2019/09/01/poj-3276-Face-The-Right-Way-开关问题/">poj 3276 Face The Right Way 开关问题</a>
           </li>
         
@@ -564,10 +568,6 @@
         
           <li>
             <a href="/2019/09/01/poj-2456-Aggressive-cows-二分答案/">poj 2456 Aggressive cows 二分答案</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/01/poj-1064-Cable-master-二分答案/">poj 1064 Cable master 二分答案</a>
           </li>
         
       </ul>
