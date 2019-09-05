@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="缘起学习经典的 TSP 问题的N种姿势. 即售货商问题（又叫做中国邮政问题,或者货郎担问题）.  TSP是著名的NP问题,并且所有其他NP问题可以(在多项式时间)内约化(reduce)到TSP问题上来  hdu 5067 Harry And Dig Machine TSP是著名的NP完全问题. 已经被证明无法给出多项式时间的算法.但是竞赛中依旧可能出现数据范围较小的题目.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-05T01:37:04.396Z">
+<meta property="og:updated_time" content="2019-09-05T06:05:48.490Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hdu 5067 Harry And Dig Machine tsp问题">
 <meta name="twitter:description" content="缘起学习经典的 TSP 问题的N种姿势. 即售货商问题（又叫做中国邮政问题,或者货郎担问题）.  TSP是著名的NP问题,并且所有其他NP问题可以(在多项式时间)内约化(reduce)到TSP问题上来  hdu 5067 Harry And Dig Machine TSP是著名的NP完全问题. 已经被证明无法给出多项式时间的算法.但是竞赛中依旧可能出现数据范围较小的题目.">
@@ -307,12 +307,15 @@
 </tbody>
 </table>
 <h4 id="分支限界"><a href="#分支限界" class="headerlink" title="分支限界"></a>分支限界</h4><p>tsp本质上是要找一条哈密顿回路:从图中的任意一点出发，路途中经过图中每一个结点当且仅当一次，则成为哈密顿回路.</p>
-<p>采用优先队列式分支限界法. </p>
+<p>采用优先队列式分支限界法.  关于分支限界，【1】将它的本质说透了. 推荐看看 ^_^ </p>
+<p>本题的分支限界采用的真是代价函数显然就是到达当前路径最后一个节点P产生的代价. 而启发式函数是什么呢? 就是P以及剩下所有节点出发的最短路径之和（这部分其实我们可以预处理，即下面代码中的minOut数组）.</p>
+<p>很显然，这里的启发式函数是&lt;=真实走完剩余路产生的代价函数. 所以是ok的. 这里采用活动节点 </p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/09/05/分支限界-bfs-搜索-的一般性论述/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/09/05/%E5%88%86%E6%94%AF%E9%99%90%E7%95%8C-bfs-%E6%90%9C%E7%B4%A2-%E7%9A%84%E4%B8%80%E8%88%AC%E6%80%A7%E8%AE%BA%E8%BF%B0/</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/05/hdu-5067-Harry-And-Dig-Machine-tsp问题/" data-id="ck06a8pya01u5okvmrmmkyfo7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/05/hdu-5067-Harry-And-Dig-Machine-tsp问题/" data-id="ck06ar2oz01tya0vm9pis6tz8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dfs/">dfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdu/">hdu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tsp/">tsp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分支限界/">分支限界</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/状态压缩DP/">状态压缩DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/记忆化搜索/">记忆化搜索</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/贪心/">贪心</a></li></ul>
