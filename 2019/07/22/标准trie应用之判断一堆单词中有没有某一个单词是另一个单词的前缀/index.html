@@ -101,10 +101,22 @@
 <p>这里显然选择trie.</p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">#include "stdafx.h"</span><br><span class="line"></span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#define LOCAL</span><br><span class="line"></span><br><span class="line">const int SIZE = 26;</span><br><span class="line"></span><br><span class="line">typedef struct TrieNode</span><br><span class="line">&#123;</span><br><span class="line">	int ch;</span><br><span class="line">	bool end;</span><br><span class="line">	TrieNode *next[SIZE];</span><br><span class="line">	TrieNode(int ch=0):ch(ch),end(false) &#123;memset(next, 0, sizeof(next));&#125;</span><br><span class="line">&#125;TrieNode,*Trie;</span><br><span class="line"></span><br><span class="line">void init(Trie &amp;root) &#123;root = new TrieNode;&#125;</span><br><span class="line"></span><br><span class="line">bool insert(Trie root, char *key)</span><br><span class="line">&#123;</span><br><span class="line">	Trie p = root;</span><br><span class="line">	int i = 0;</span><br><span class="line">	while(key[i])</span><br><span class="line">	&#123;</span><br><span class="line">		if (!p-&gt;next[key[i]-'a'])</span><br><span class="line">		&#123;</span><br><span class="line">			p-&gt;next[key[i]-'a'] = new TrieNode(key[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		if (p-&gt;end) return true; // 如果当前节点是某个单词的结束的话, 则说明存在前缀问题</span><br><span class="line">		p = p-&gt;next[key[i++]-'a'];</span><br><span class="line">	&#125;</span><br><span class="line">	if (p-&gt;end) return true;</span><br><span class="line">	p-&gt;end =  true;</span><br><span class="line">	return false;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void del(Trie &amp;root)</span><br><span class="line">&#123;</span><br><span class="line">	if (!root) return;</span><br><span class="line">	for (int i = 0; i&lt;SIZE; i++)del(root-&gt;next[i]);</span><br><span class="line">	delete root;</span><br><span class="line">	root = 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">#ifdef LOCAL</span><br><span class="line">	freopen("d:<span class="tag">\<span class="name">\</span></span>data.in", "r", stdin);</span><br><span class="line">#endif</span><br><span class="line">	Trie root = 0;</span><br><span class="line">	init(root);</span><br><span class="line">	char key[15];</span><br><span class="line">	while(~scanf("<span class="comment">%s", key))</span></span><br><span class="line">	&#123;</span><br><span class="line">		if(insert(root, key))</span><br><span class="line">		&#123;</span><br><span class="line">			puts("存在一个单词是另一个单词的前缀的情况.");</span><br><span class="line">			del(root);</span><br><span class="line">			return 0;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	puts("不存在一个单词是另一个单词的前缀的情况.");</span><br><span class="line">	del(root);</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line">测试数据</span><br><span class="line">haning hann hanin</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/22/标准trie应用之判断一堆单词中有没有某一个单词是另一个单词的前缀/" data-id="ck082eznb00khugvm79opgzk8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/22/标准trie应用之判断一堆单词中有没有某一个单词是另一个单词的前缀/" data-id="ck082me3900iytkvml5htukyv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/trie/">trie</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -133,18 +145,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

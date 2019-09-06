@@ -98,10 +98,22 @@
 <p>例如12 = 2^3+2^2, 则 B^12, 可以先计算B^2模掉P的余数，则得到之后将B替换为该余数，不妨仍记为B，则需要知道的是B^6模掉P的余数，同理，可以计算B^2模掉P的余数，仍记为B，则只需要计算B^3模掉P的余数，此时3是奇数，则若记最终的答案是ans（初始值为1），则让ans=B*ans模掉P的余数，则一个B就挪出去了，剩下B^(3-1)=B^2, 则只需要计算B^2模掉P的余数，则只需要计算B^2模掉P的余数，仍记为B，则只需要计算B模掉P的余数，1是奇数，所以挪一个进ans，即计算ans=ans*B, 则剩下B^0模掉P的余数计算，此时退出循环. 综上，整个计算过程如下，也就是快速幂的板子</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="function">LL <span class="title">qsm</span><span class="params">(LL B, LL a, LL P)</span> <span class="comment">// 计算 B^a 模掉P的余数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    LL ans = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(a)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(a&amp;<span class="number">1</span>) <span class="comment">// 如果a是奇数</span></span><br><span class="line">        &#123;</span><br><span class="line">            ans = ans * B % P;           </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(a &gt; <span class="number">1</span>) <span class="comment">// 例如a是1的话，就不会进行下面的计算</span></span><br><span class="line">        &#123;</span><br><span class="line">            B = B * B % P;</span><br><span class="line">        &#125;</span><br><span class="line">        a = a &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/02/快速幂模板/" data-id="ck082ezm700irugvmpqiasr7q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/02/快速幂模板/" data-id="ck082me2d00h8tkvmhbkfgs2d" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/快速幂/">快速幂</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模板/">模板</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -130,18 +142,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

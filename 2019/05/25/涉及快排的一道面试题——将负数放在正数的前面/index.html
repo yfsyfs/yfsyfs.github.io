@@ -94,10 +94,22 @@
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>采用快排 pivot的思想</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctime&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> <span class="meta-keyword">warning</span>(disable:4996)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//#define LOCAL</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">gao</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>, j = n - <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(i&lt;j)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">while</span>(i&lt;j&amp;&amp;a[j]&gt;=<span class="number">0</span>)j--;</span><br><span class="line">		<span class="keyword">while</span>(i&lt;j&amp;&amp;a[i]&lt;=<span class="number">0</span>)i++;</span><br><span class="line">		<span class="keyword">if</span> (i&lt;j) swap(a[i],a[j]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	srand((<span class="keyword">int</span>)time(<span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> *p = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">14</span>];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i&lt;<span class="number">14</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		p[i] = rand()%<span class="number">100</span><span class="number">-50</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; <span class="number">14</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>, p[i]);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line"></span><br><span class="line">	gao(p, <span class="number">14</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; <span class="number">14</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>, p[i]);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/涉及快排的一道面试题——将负数放在正数的前面/" data-id="ck082ezo100l9ugvmcszpmnns" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/涉及快排的一道面试题——将负数放在正数的前面/" data-id="ck082me3s00jztkvm5egqlm92" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
@@ -126,18 +138,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

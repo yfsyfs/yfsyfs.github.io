@@ -95,10 +95,22 @@
 <p>尽管一个字有4B，但是其地址只有一个，至于它的地址到底是最左边的字节的位置还是最右边的字节的位置，不同机器有不同的位置. 另一个需要注意的是硬件的边界对齐——即在需要进行边界对齐的机器上，整型存储的起始位置只能是2或者4的倍数. 这些是硬件设计者的事情.</p>
 <p>硬件总是根据地址去访问内存地址中的内容——即变量值，但是我们程序员不可能根据地址去访问变量. 所以就有了变量名，变量名和地址是对应的，注意变量名和内存地址之间的对应并不是硬件提供的，而是由编译器实现的.</p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/22/C和指针-6-1内存和地址/" data-id="ck082ezbp002tugvm8bdk62m0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/22/C和指针-6-1内存和地址/" data-id="ck082mdty001vtkvmu33c6bk1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C和指针/">C和指针</a></li></ul>
@@ -127,18 +139,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

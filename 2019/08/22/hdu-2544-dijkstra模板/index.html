@@ -137,10 +137,22 @@
 <p>这里需要解释一下上面的dijkstra算法. 这是网上流传比较多的板子. 和之前我用的那种有 inU数组的不一样. 因为流程是每次pop出最短的，然后使用这个最短的距离尝试松弛各个顶点到单源的距离. 注意，dijkstra算法其实也是基于dp的思想，因为你想啊，每个顶点u到单源1的最短距离肯定有一个前置顶点v（v可能就是单源1）吧?  即u的前一步是v. 那么可以断言1到v的距离一定是最短的. 不然的话, 可以松弛1到v的距离来达到到达u的更短距离. 只是未必是DAG，所以你不知道从哪个顶点开始求起. 所以DAG图的单源最短路径算法是更简单的.</p>
 <p>回到正题，为什么不需要每次将上一轮已经在pq中的元素全部pop出来再将本轮松弛的结果push进去? 因为前一轮push进去的根本没机会pop出来. 因为本轮就是在上一轮的基础上push进去的. 所以上一轮push进去的结果不可能成为本轮最小的pop出来. 所以可以这么搞.</p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/22/hdu-2544-dijkstra模板/" data-id="ck082ezem006xugvmdq4i35xq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/22/hdu-2544-dijkstra模板/" data-id="ck082mdw0005itkvmz9i4d3s7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dijkstra/">dijkstra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdu/">hdu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/优先队列/">优先队列</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/最短路/">最短路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/邻接多重表/">邻接多重表</a></li></ul>
@@ -169,18 +181,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

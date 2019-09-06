@@ -114,10 +114,22 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ImprovedList</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> List&lt;T&gt; list; <span class="comment">// 没有发布这个list, 所以可以认为外部代码要使用这个list只能通过ImprovedList</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ImprovedList</span><span class="params">(List&lt;T&gt; list)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.list = list;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">boolean</span> <span class="title">putIfAbsent</span><span class="params">(T t)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">boolean</span> contain = !list.contains(t);</span><br><span class="line">		<span class="keyword">if</span> (contain) &#123;</span><br><span class="line">			list.add(t);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> contain;</span><br><span class="line">	&#125;</span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123; list.clear(); &#125; <span class="comment">// 其余代理list的方法统统加上synchronized.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>那么上述最佳实践和策略1有什么不同呢? 这里是增加了一个锁层——即属于ImprovedList自己的锁层. 这个锁层的存在使得我们根本不需要关心被包装的list到底是不是线程安全的容器. 或者被包装的list使用的锁协议到底是什么.  ImprovedList 都可以使用自己的锁来保证线程安全性. 虽然额外的一层同步会带来微弱的性能损失（因为对于已经获取到ImprovedList锁层的线程而言，它获取更进一步的锁是没有竞争的，所以额外的性能消耗是非常小的）.</p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/10/java并发编程实践-4-4-向已有的线程安全类添加功能/" data-id="ck082ezfd008augvma6wr3xbm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/10/java并发编程实践-4-4-向已有的线程安全类添加功能/" data-id="ck082mdx0007gtkvmx3tm6d8d" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li></ul>
@@ -146,18 +158,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

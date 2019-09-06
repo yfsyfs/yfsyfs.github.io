@@ -8,7 +8,7 @@
   <title>拓扑排序 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="缘起我一直认为学习操作系统是一件很酷的事情.  兴致勃勃的准备学习的时候, 却发现了如下的先需课程  C语言 数据结构和算法 编译原理 计算机组成原理  其中, 1-&amp;gt;2-&amp;gt;3 是不能乱序的. 但是4和1 2 3之间没有绝对的谁先学、谁后学的顺序.  所以这就构成了一个有向图. 而且我采用了如下的学习顺序 ​">
-<meta name="keywords" content="算法,教材,图,DAG,拓扑排序">
+<meta name="keywords" content="算法,图,教材,DAG,拓扑排序">
 <meta property="og:type" content="article">
 <meta property="og:title" content="拓扑排序">
 <meta property="og:url" content="http://yoursite.com/2019/05/21/拓扑排序/index.html">
@@ -116,10 +116,22 @@
 <p>三者等价</p>
 <h3 id="后续思考"><a href="#后续思考" class="headerlink" title="后续思考"></a>后续思考</h3><p>如果已经知道了一个图是DAG图的话, 则只需使用DFS遍历之，期间打印每个节点, 得到的序列就是其拓扑序. 具体代码参看 <a href="https://yfsyfs.github.io/2019/05/21/%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86%E4%B9%8BBFS-DFS/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/05/21/%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86%E4%B9%8BBFS-DFS/</a> </p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/21/拓扑排序/" data-id="ck082ezma00iwugvm4wmdq0cd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/21/拓扑排序/" data-id="ck082me2o00hstkvmtjm2t6lx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DAG/">DAG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/拓扑排序/">拓扑排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -148,18 +160,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

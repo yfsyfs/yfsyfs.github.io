@@ -111,10 +111,22 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NotThreadSafe</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MutablePoint</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> x,y;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MutablePoint</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">this</span>.y = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MutablePoint</span><span class="params">(MutablePoint p)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.x = p.x;</span><br><span class="line">        <span class="keyword">this</span>.y = p.y;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    get/set方法...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>注意上面的deepCopy方法, 其实不仅仅是降低接口性能这么简单. 因为你返回了一个里面的元素都是new出来的MutablePoint（而不是原本的引用）, 所以就算后续MonitorVehicleTracker中的locations属性发生变化, 返回的视图也不会相应变化. 也就是上面的getLocations方法返回的数据可能是过期的. 但是这并非没有任何好处, 因为这样的话，保证了返回的这个视图的某种一致性. 也就是实时性换一致性. 具体需要哪种，看你需求。</p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/09/java并发编程实践-4-2-实例限制/" data-id="ck082ezfe008dugvm11wabbn7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/09/java并发编程实践-4-2-实例限制/" data-id="ck082mdwy007btkvm46sfdtgx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li></ul>
@@ -143,18 +155,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

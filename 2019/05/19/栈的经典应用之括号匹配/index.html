@@ -110,10 +110,22 @@
 <p>代码如下</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">valid</span><span class="params">(<span class="keyword">char</span> bracket[])</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 维护括号的栈</span></span><br><span class="line">    <span class="built_in">stack</span>&lt;<span class="keyword">char</span>&gt; s;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(bracket[i]) &#123; <span class="comment">// c/c++ 语法就是简洁,喜欢</span></span><br><span class="line">        <span class="keyword">switch</span>(bracket[i]) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'&#123;'</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'['</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'('</span>:</span><br><span class="line">                <span class="comment">// 碰到左边的就压栈</span></span><br><span class="line">            s.push(bracket[i]);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">')'</span>:</span><br><span class="line">                <span class="comment">// 遇到右边的括号就开始玩消消乐, 如果玩不了，就报错</span></span><br><span class="line">            <span class="keyword">if</span>(s.empty() || s.top() != <span class="string">'('</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">                <span class="comment">// 能玩，就消掉了</span></span><br><span class="line">            s.pop();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">']'</span>:</span><br><span class="line">            <span class="keyword">if</span>(s.empty() || s.top() != <span class="string">'['</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            s.pop();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'&#125;'</span>:</span><br><span class="line">            <span class="keyword">if</span>(s.empty() || s.top() != <span class="string">'&#123;'</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            s.pop();</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">                <span class="comment">// 其他字符统统忽略</span></span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> bracket[<span class="number">100</span>];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"请输入括号表达式: "</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">// 读取一行</span></span><br><span class="line">    <span class="built_in">cin</span>.getline(bracket, <span class="number">100</span>);</span><br><span class="line">    <span class="keyword">bool</span> result = valid(bracket);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; (result?<span class="string">"合法"</span>:<span class="string">"不合法"</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/19/栈的经典应用之括号匹配/" data-id="ck082eznn00kuugvm14s65lcg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/19/栈的经典应用之括号匹配/" data-id="ck082me3g00jdtkvmbdp0cfk3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/栈/">栈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -142,18 +154,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

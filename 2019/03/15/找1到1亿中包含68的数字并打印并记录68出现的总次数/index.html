@@ -105,10 +105,22 @@
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">经过测试， 对比如下</span><br><span class="line">前者是遍历1~1亿，使用字符串的方法得到的性能</span><br><span class="line">后者是通过DP动态规划得到的性能</span><br><span class="line"></span><br><span class="line">需要打印出字符串的前提下性能比较</span><br><span class="line"></span><br><span class="line">三位数</span><br><span class="line">7毫秒 vs 2毫秒</span><br><span class="line">四位数</span><br><span class="line">36毫秒 vs 12毫秒</span><br><span class="line">五位数</span><br><span class="line">256毫秒 vs 140毫秒</span><br><span class="line">六位数</span><br><span class="line">1579毫秒 vs 1285毫秒</span><br><span class="line">七位数</span><br><span class="line">17216毫秒 vs 15103毫秒</span><br><span class="line">八位数</span><br><span class="line">193358毫秒 vs 178752毫秒</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">不需要打印字符串 仅仅计算68出现次数下的性能比较</span><br><span class="line"></span><br><span class="line">三位数</span><br><span class="line">10毫秒 vs 1毫秒</span><br><span class="line">四位数</span><br><span class="line">23毫秒 vs 0毫秒</span><br><span class="line">五位数</span><br><span class="line">84毫秒毫秒 vs 1毫秒</span><br><span class="line">六位数</span><br><span class="line">350毫秒 vs 0毫秒</span><br><span class="line">七位数</span><br><span class="line">2374毫秒 vs 0毫秒</span><br><span class="line">八位数</span><br><span class="line">22058毫秒 vs 0毫秒</span><br></pre></td></tr></table></figure>
 <h3 id="DEMO"><a href="#DEMO" class="headerlink" title="DEMO"></a>DEMO</h3><p>【1】<a href="https://github.com/yfsyfs/algorithm/tree/master/dp_find68" target="_blank" rel="noopener">https://github.com/yfsyfs/algorithm/tree/master/dp_find68</a></p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/" data-id="ck082ezme00j4ugvm04btyr32" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/" data-id="ck082me2l00hntkvmg22mme38" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
@@ -137,18 +149,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

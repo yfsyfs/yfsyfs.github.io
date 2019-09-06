@@ -94,10 +94,22 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOCAL</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 二分搜索 a[lo, hi) 中 target  注意, 使用二分搜索的前提是序列是单调的</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">binsearch</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> lo, <span class="keyword">int</span> hi, <span class="keyword">int</span> target)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (lo &lt; hi)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> mi = (lo+hi)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">		target&lt;a[mi]?hi=mi:lo=mi+<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> --lo; <span class="comment">// 有多个命中元素时，总能保证返回秩最大者；查找失败时，能够返回失败的位置 循环结束时，lo为大于e的元素的最小秩，故lo - 1即不大于e的元素的最大秩</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">10</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;N; i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a[i]);</span><br><span class="line">	<span class="keyword">int</span> ret = binsearch(a, <span class="number">0</span>, N, <span class="number">4</span>);</span><br><span class="line">	<span class="built_in">cout</span>&lt;&lt;ret &lt;&lt; <span class="string">" "</span>&lt;&lt;a[ret]&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>注意，因为返回的是不大于 target的元素中的最大秩, 所以这个板子很方便的可以适用于 二分答案</p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/20/二分查找模板/" data-id="ck082ezkb00g5ugvmsf1fj7b1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/20/二分查找模板/" data-id="ck082me0x00entkvmkg9pc1ds" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二分查找/">二分查找</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二分答案/">二分答案</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/板子/">板子</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -126,18 +138,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

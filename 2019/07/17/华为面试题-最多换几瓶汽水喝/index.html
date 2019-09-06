@@ -103,10 +103,22 @@
 <p>其实本题就是状态转移而已.</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">foo</span><span class="params">(<span class="keyword">int</span> bottle, <span class="keyword">int</span> pod)</span> <span class="comment">// bottle是瓶子, pod是盖子个数</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (!bottle &amp;&amp; pod&lt;=<span class="number">2</span>) <span class="keyword">return</span> pod&lt;=<span class="number">1</span>?<span class="number">0</span>:<span class="number">2</span>; <span class="comment">// 如果没有瓶子 盖子数量&lt;=2 </span></span><br><span class="line">	<span class="keyword">if</span> (bottle&lt;=<span class="number">1</span>&amp;&amp;!pod) <span class="keyword">return</span> bottle; <span class="comment">// 如果没有盖子, 但是有不超过1个的瓶子, 则返回瓶子数量</span></span><br><span class="line">	<span class="keyword">if</span> (bottle&amp;&amp;pod&gt;=<span class="number">2</span>) <span class="keyword">return</span> max(foo(bottle<span class="number">-1</span>, pod+<span class="number">1</span>)+<span class="number">1</span>, foo(bottle, pod<span class="number">-2</span>)+<span class="number">2</span>); <span class="comment">// 如果既有瓶子,盖子数量又&gt;=2, 则在两种策略中取大</span></span><br><span class="line">	<span class="keyword">if</span> (pod&lt;=<span class="number">1</span>) <span class="keyword">return</span> foo(bottle<span class="number">-1</span>, pod+<span class="number">1</span>)+<span class="number">1</span>; <span class="comment">// 如果盖子数量&lt;2, 则只能用瓶子换汽水喝</span></span><br><span class="line">	<span class="keyword">if</span> (!bottle) <span class="keyword">return</span> foo(bottle, pod<span class="number">-2</span>)+<span class="number">2</span>; <span class="comment">// 如果没有瓶子, 则只能用盖子换汽水喝</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">"输入钱数"</span>);</span><br><span class="line">	<span class="keyword">int</span> money;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;money);</span><br><span class="line">	money&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,money+ foo(money, money)); <span class="comment">// 首先拿money买money/2瓶汽水喝. 则喝完之后, 我们手头多了money/2个瓶子 money/2个盖子. 于是foo就是拿着这些瓶子和盖子做文章</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/17/华为面试题-最多换几瓶汽水喝/" data-id="ck082ezl200h9ugvmdyt2luv6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/17/华为面试题-最多换几瓶汽水喝/" data-id="ck082me1m00fstkvmeqs7woam" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/递归/">递归</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
@@ -135,18 +147,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

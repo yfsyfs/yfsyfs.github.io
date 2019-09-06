@@ -151,10 +151,22 @@
 <p>对于for循环进行手动复制，主要浪费在了寻址和赋值上. 效率第三, 最差的就是clone了（默认浅拷贝而不是深拷贝，深拷贝需要递归clone）.</p>
 <p>前三种对于数组不大的情况下，效率差别不大，对于叫较大的数组，高下立判~</p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/02/Arrays-copyOf-和-System-arraycopy-源码解读/" data-id="ck082f0ad01r1ugvmztnh9hj1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/02/Arrays-copyOf-和-System-arraycopy-源码解读/" data-id="ck082meqk01uztkvm6xjglyrx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -183,18 +195,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

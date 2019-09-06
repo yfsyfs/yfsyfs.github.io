@@ -8,7 +8,7 @@
   <title>dijkstra算法 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="缘起dijkstra算法是非负权有向网到单源的最短路径的算法.  dijkstra算法的证明: 如果在某一轮中一个顶点i是d[i] 最短的那个（从而i需要加入U，而引入i的掮客是j）. 那么d[i]就是单源0到i的最短路径了. 反证法. 如果存在别的路径0–&amp;gt;x–&amp;gt;i更小的话, 则考虑x有没有加入U呢? 如果已经在U中了, 那么为什么i没有在x选择的时候就加入呢? 如果尚没有在U中,">
-<meta name="keywords" content="算法,教材,图,最短路径">
+<meta name="keywords" content="算法,图,教材,最短路径">
 <meta property="og:type" content="article">
 <meta property="og:title" content="dijkstra算法">
 <meta property="og:url" content="http://yoursite.com/2019/05/27/dijkstra算法/index.html">
@@ -101,10 +101,22 @@
 <p>dijkstra算法的复杂度显然是 O(n^2), 经过堆优化 可以到达 O(nlogn)</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/05/25/%E6%97%A0%E5%90%91%E8%BF%9E%E9%80%9A%E5%9B%BE%E7%9A%84%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E4%B9%8BPrim%E7%AE%97%E6%B3%95/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/05/25/%E6%97%A0%E5%90%91%E8%BF%9E%E9%80%9A%E5%9B%BE%E7%9A%84%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91%E4%B9%8BPrim%E7%AE%97%E6%B3%95/</a> </p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/dijkstra算法/" data-id="ck082ezde0052ugvm26uiphof" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/27/dijkstra算法/" data-id="ck082mdv90042tkvmt58nmg0c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -133,18 +145,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

@@ -99,10 +99,22 @@
 <p>对那些要求整型数据必须要存储在特定边界范围的机器而言，如果数据存储在错误的边界上的话，那么对这个地址进行访问的话将产生总线错误（bus error）. </p>
 <p>其实更为严重的错误是如果 p中的地址是合法的地址的话（即恰好在os为程序分配的内存中的话），则出的错就更难排查. 所以我们在使用指针进行间接访问的时候一定要注意指针已经被初始化.</p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/22/C和指针-6-5-未初始化和非法的指针/" data-id="ck082ezbq002vugvmbq2d30l0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/22/C和指针-6-5-未初始化和非法的指针/" data-id="ck082mdu20022tkvmtwtbl2xg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C和指针/">C和指针</a></li></ul>
@@ -131,18 +143,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

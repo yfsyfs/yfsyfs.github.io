@@ -96,10 +96,22 @@
 <p>那么怎么改善呢? 要么就是无状态, 则无任何线程安全问题，要么如果无论如何都涉及线程安全问题的操作，则尽量控制synchronized锁住的代码范围尽量的小.</p>
 <p>最后说一下，串行化导致的不仅仅是性能低下，而且性能低下的直接后果就是活跃度失败问题——有些线程可能饥饿. 所以耗时的CPU计算和IO期间最好不要占用锁.</p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/23/java并发编程实践-2-5-活跃度与性能/" data-id="ck082ezf5007vugvmnbi8lfk0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/23/java并发编程实践-2-5-活跃度与性能/" data-id="ck082mdwq006wtkvme4434cmb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li></ul>
@@ -128,18 +140,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

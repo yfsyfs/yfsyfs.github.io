@@ -100,10 +100,22 @@
 </ol>
 <p>其中2,3,4 都属于框架创建线程，然后线程中调用我们自己写的组件，所以如果涉及到多根框架线程访问我们的组件的时候，我们的组件就必须要保持线程安全了. 最好的模式就是我们的组件本身就是线程安全的对象.</p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/22/java并发编程实践-1-4-线程无处不在/" data-id="ck082ezf0007mugvmg44dzdbm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/22/java并发编程实践-1-4-线程无处不在/" data-id="ck082mdwl006jtkvmpb4r3vo3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li></ul>
@@ -132,18 +144,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

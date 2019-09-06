@@ -8,7 +8,7 @@
   <title>prim 算法的证明 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="缘起RT.">
-<meta name="keywords" content="算法,教材,图,最小生成树,prim">
+<meta name="keywords" content="算法,图,教材,最小生成树,prim">
 <meta property="og:type" content="article">
 <meta property="og:title" content="prim 算法的证明">
 <meta property="og:url" content="http://yoursite.com/2019/08/22/prim-算法的证明/index.html">
@@ -97,10 +97,22 @@
 </blockquote>
 <p>所以我们从任何一个顶点开始，它作为S（即伊始的S仅仅是单点集），则外界到S的最短边一定属于MST. 所以将这条边的另一个不属于S的端点加入S，使得S成为拥有2个顶点的集合. 则外界到S的最短边一定属于MST，所以再扩张一个顶点，这样扩张了n-1步之后，S=G. 已经不能再扩张了. 我们已经断言了n-1条边一定属于MST. 而MST就是n-1条边. 所以我们恰好求得了n-1条边. prim算法正确.</p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/22/prim-算法的证明/" data-id="ck082ezja00enugvmf225vd53" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/22/prim-算法的证明/" data-id="ck082me0900dhtkvmtga07tb0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/prim/">prim</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/最小生成树/">最小生成树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -129,18 +141,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

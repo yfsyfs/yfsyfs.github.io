@@ -8,7 +8,7 @@
   <title>DAG判定的除拓扑序之外的另一种方法 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="缘起在参考【1】和【2】中，我们分别提出了无向图是否有环的判定和有向图是否有环的判定（亦即是否是DAG图）. 并指出了有向图是否有环和无向图是否有环的判定方法是不一样的. 因为有向图在遍历过程中边的终点有被遍历到并不能断言存在环，因为这两个顶点很可能在不同的dfs树上.  即这条边仅仅是横叉边. 但是无向图就不一样,无向图的边没有方向. 不存在存在边相连而不在一个连通分支的情形. 所以才有了另辟蹊">
-<meta name="keywords" content="算法,教材,图,DAG">
+<meta name="keywords" content="算法,图,教材,DAG">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DAG判定的除拓扑序之外的另一种方法">
 <meta property="og:url" content="http://yoursite.com/2019/05/21/DAG判定的除拓扑序之外的另一种方法/index.html">
@@ -100,10 +100,22 @@
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/05/21/%E6%97%A0%E5%90%91%E5%9B%BE%E5%88%A4%E5%AE%9A%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E7%8E%AF/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/05/21/%E6%97%A0%E5%90%91%E5%9B%BE%E5%88%A4%E5%AE%9A%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E7%8E%AF/</a> </p>
 <p>【2】<a href="https://yfsyfs.github.io/2019/05/21/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/05/21/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/</a> </p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/21/DAG判定的除拓扑序之外的另一种方法/" data-id="ck082ezc30034ugvmx25cbdqk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/21/DAG判定的除拓扑序之外的另一种方法/" data-id="ck082mdu9002gtkvmpebsf6sy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DAG/">DAG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -132,18 +144,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

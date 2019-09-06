@@ -95,10 +95,22 @@
 <p>servlet框架中的ServletContext为例，ServletContext为Servlet提供了类似于Map的对象容器服务，Servlet可以通过名称，使用setAttribute和getAttribute在ServletContext中注册和获取应用程序对象. 由于Servlet容器实现的ServletContext对象一定会被多线程访问，因此ServletContext必须要是线程安全的. 但是Servlet中调用getAttribute是不必同步的. 即像下面这个样子</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ServletContext.setAttribute();</span><br><span class="line">      	ServletContext.getAttribute();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">MyServlet实例在Tomcat中仅有一个.</span><br><span class="line">服务线程A和B都使用MyServlet这个唯一的实例进行干活的话, 则MyServlet中不需要做显式的同步. 真正的同步都在ServletContext中，即ServletContext本身是线程安全的对象（<span class="number">3.5</span>的最后的<span class="string">"shared thread-safe"</span>）.</span><br></pre></td></tr></table></figure>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/09/java并发编程实践-4-1-设计线程安全的类/" data-id="ck082ezfk008pugvmv6hu2ku3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/09/java并发编程实践-4-1-设计线程安全的类/" data-id="ck082mdww0078tkvmm0ebqzii" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li></ul>
@@ -127,18 +139,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

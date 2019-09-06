@@ -8,7 +8,7 @@
   <title>bellman-ford算法之队列优化 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="缘起【1】中我们给出了单源可能带负权环的有向网的最短路径算法——bellman-ford算法. 但是观察其复杂度，是O（NM）的. 较高, 那我们想想看，是不是有什么地方值得优化呢?">
-<meta name="keywords" content="算法,教材,图,最短路径">
+<meta name="keywords" content="算法,图,教材,最短路径">
 <meta property="og:type" content="article">
 <meta property="og:title" content="bellman-ford算法之队列优化">
 <meta property="og:url" content="http://yoursite.com/2019/05/27/bellman-ford算法之队列优化/index.html">
@@ -96,10 +96,22 @@
 <p>注意, 一个点是可能重复进队列的, 因为可能伊始不能被松弛，但是有新的点的distance变化之后, 这个点就能被松弛了. 然后后面又有一个点变化了, 它会再次被松弛.</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/05/27/Bellman-Ford-%E7%AE%97%E6%B3%95/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/05/27/Bellman-Ford-%E7%AE%97%E6%B3%95/</a> </p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/bellman-ford算法之队列优化/" data-id="ck082ezdb004xugvm7ro4yzex" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/27/bellman-ford算法之队列优化/" data-id="ck082mdv2003utkvmm5b25cxe" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -128,18 +140,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

@@ -8,7 +8,7 @@
   <title>希尔排序 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="缘起本文介绍一下一种直接插入排序的推广——希尔（Shell）排序. 该算法基于以下事实：如果一个序列基本有序，那么用直接插入排序是非常快的，因为while的第一步就会终止. 希尔排序就是选取一定的步长，将序列整的基本有序（所谓基本有序是指大的数基本在后面，小的数基本在前面，而不是局部有序）ps：因为涉及不相邻元素之间的调换，所以希尔排序不是稳定排序，但是显然是就地算法.">
-<meta name="keywords" content="算法,排序,教材">
+<meta name="keywords" content="算法,教材,排序">
 <meta property="og:type" content="article">
 <meta property="og:title" content="希尔排序">
 <meta property="og:url" content="http://yoursite.com/2019/05/27/希尔排序/index.html">
@@ -94,10 +94,22 @@
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//#define LOCAL</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 对含有n个元素的数组进行shell排序</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">shellSort</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> gap = n; <span class="comment">// 步长是n, 所谓步长的解释是, 例如本例子中gap如果是5的话, 则本数组就分成了 99 、17、 25 ; 5、 46、 28; 36、 12、 1; 7、 2、 92; 22、19 这几组. shell排序就是对于固定的gap，将每组数整的有序, 即做到局部有序, 而且间隙越小,局部有序的粒度越细,即就越接近整体有序</span></span><br><span class="line">	<span class="keyword">do</span> </span><br><span class="line">	&#123;</span><br><span class="line">		gap = gap/<span class="number">3</span>+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = gap; i&lt;n; i++) <span class="comment">// 从 a[gap,...,n-1] 开始</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> j = i,tmp = a[i];</span><br><span class="line">			<span class="keyword">while</span>(j&gt;=gap &amp;&amp; a[j-gap] &gt; tmp)</span><br><span class="line">			&#123;</span><br><span class="line">				a[j] = a[j-gap]; <span class="comment">// 后移动一格</span></span><br><span class="line">				j-=gap;</span><br><span class="line">			&#125;</span><br><span class="line">			a[j] = tmp;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; <span class="keyword">while</span> (gap&gt;<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">14</span>]=&#123;<span class="number">99</span>,<span class="number">5</span>,<span class="number">36</span>,<span class="number">7</span>,<span class="number">22</span>,<span class="number">17</span>,<span class="number">46</span>,<span class="number">12</span>,<span class="number">2</span>,<span class="number">19</span>,<span class="number">25</span>,<span class="number">28</span>,<span class="number">1</span>,<span class="number">92</span>&#125;;</span><br><span class="line">	shellSort(a,<span class="number">14</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;<span class="number">14</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>,a[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>希尔排序的循环体中每次都是 O(n)的复杂度, 所以shell排序的复杂度是O(nlogn)</p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/希尔排序/" data-id="ck082ezlu00iaugvmfs9bpw1y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/27/希尔排序/" data-id="ck082me2600gttkvmmd7kdrs1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -126,18 +138,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

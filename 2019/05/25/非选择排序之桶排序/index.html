@@ -8,7 +8,7 @@
   <title>非选择排序之桶排序 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="缘起之前介绍的无论是选择排序还是冒泡还是插入还是快排还是堆排序, 都是基于CBA理论（comparison-based-algorithm）， 对应的结果集就是一棵树, 所以CBA最优时间复杂度就是 nlogn. 但是这里要讲的桶排序不属于比较排序,所以他的排序性能可以飙升到O(n).">
-<meta name="keywords" content="算法,排序,教材">
+<meta name="keywords" content="算法,教材,排序">
 <meta property="og:type" content="article">
 <meta property="og:title" content="非选择排序之桶排序">
 <meta property="og:url" content="http://yoursite.com/2019/05/25/非选择排序之桶排序/index.html">
@@ -93,10 +93,22 @@
 <a id="more"></a>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ctime&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> <span class="meta-keyword">warning</span>(disable:4996)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX_K = <span class="number">105</span>; <span class="comment">// 这个MAX_K的含义是参与排序的数的范围是[0,MAX_K]，注意, 非比较排序之所以那么快, 空间换时间. 所以这种基于hash的算法必须要明确参与排序的数字的范围</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//#define LOCAL</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bucketsort</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> n)</span>  <span class="comment">// 粗糙版的桶排序</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> bucket[MAX_K];</span><br><span class="line">	<span class="built_in">memset</span>(bucket, <span class="number">0</span>, <span class="keyword">sizeof</span>(bucket));</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;n;i++) bucket[a[i]]++; <span class="comment">// 装桶</span></span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">"排序后"</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt; MAX_K;i++) <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j&lt;bucket[i]; j++) <span class="built_in">printf</span>(<span class="string">"%d "</span>,i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bucketsort1</span><span class="params">(<span class="keyword">int</span> *a, <span class="keyword">int</span> n)</span> <span class="comment">// 桶排序 精细一点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> bucket[MAX_K], _max = (<span class="number">1</span>&lt;&lt;<span class="number">31</span>), _min = (<span class="number">1</span>&lt;&lt;<span class="number">31</span>)<span class="number">-1</span>; <span class="comment">// 桶</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">memset</span>(bucket, <span class="number">0</span>, <span class="keyword">sizeof</span>(bucket));</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		bucket[a[i]]++; <span class="comment">// 核心排序代码只有这一行for循环</span></span><br><span class="line">		_max = max(_max, a[i]);</span><br><span class="line">		_min = min(_min, a[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">"排序后"</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = _min; i&lt;=_max;i++) <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j&lt;bucket[i]; j++) <span class="built_in">printf</span>(<span class="string">"%d "</span>,i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">8</span>]=&#123;<span class="number">49</span>, <span class="number">38</span> , <span class="number">35</span>, <span class="number">97</span> , <span class="number">76</span>, <span class="number">73</span> , <span class="number">27</span>, <span class="number">49</span> &#125;;</span><br><span class="line">	bucketsort(a,<span class="number">8</span>);</span><br><span class="line">	<span class="comment">//bucketsort1(a, 8);</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/非选择排序之桶排序/" data-id="ck082ezpx00nlugvmjplsak06" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/非选择排序之桶排序/" data-id="ck082me4x00m9tkvm5i0oyzjy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -125,18 +137,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

@@ -101,10 +101,22 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"stdafx.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOCAL</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Segment</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> start, end; <span class="comment">// 表示线段 [start, end]</span></span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span> &lt;(Segment s) &#123;<span class="keyword">return</span> start&lt;s.start;&#125; <span class="comment">// 按照升序排序</span></span><br><span class="line">&#125;s[<span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;s[i].start);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;s[i].end);</span><br><span class="line"></span><br><span class="line">	sort(s,s+<span class="number">10</span>);</span><br><span class="line">	<span class="keyword">int</span> tot = s[<span class="number">0</span>].end-s[<span class="number">0</span>].start, j = <span class="number">0</span>; <span class="comment">// tot是最后的答案, j是当前蔓延的最远的</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i&lt;<span class="number">10</span>;i++) <span class="comment">// 开始逐个考察后续9个区间</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (s[i].start&gt;s[j].end) tot+=(s[j=i].end-s[i].start); <span class="comment">// 情形1</span></span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (s[i].end&lt;s[j].end) <span class="keyword">continue</span>; <span class="comment">// 情形2</span></span><br><span class="line">			tot+=(s[i].end-s[j].end); <span class="comment">// 情形3</span></span><br><span class="line">			j = i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,tot);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">测试数据</span></span><br><span class="line"><span class="comment">7 3 8 5 6 11 4 9 10 2</span></span><br><span class="line"><span class="comment">8 5 12 6 9 15 7 10 13 3</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <p>不难知道最后算法复杂度是O(nlogn).</p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/13/贪心算法之线段覆盖问题/" data-id="ck082ezpd00mzugvmz23gsn7h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/13/贪心算法之线段覆盖问题/" data-id="ck082me4o00lptkvm71zaejob" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/贪心/">贪心</a></li></ul>
@@ -133,18 +145,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

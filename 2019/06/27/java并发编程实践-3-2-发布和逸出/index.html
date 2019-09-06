@@ -118,10 +118,22 @@
 <p>以源码1为例子, 修改为</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> Class NoEscape &#123;</span><br><span class="line">    <span class="keyword">private</span> EventListener listener;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Escape</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        listener = <span class="keyword">new</span> EventListener()&#123;</span><br><span class="line"> 			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onEvent</span><span class="params">(Event e)</span> </span>&#123;</span><br><span class="line">                System.out.println(Escape.<span class="keyword">this</span>); </span><br><span class="line">                doSomething(e);</span><br><span class="line">            &#125;           </span><br><span class="line">        &#125;)</span><br><span class="line">    &#125; <span class="comment">// 创建，但是没注册, 这样就不会将尚未完成的NoEscape闭包逸出</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(EventSource source)</span> </span>&#123;</span><br><span class="line">        source.registerListener(listener);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/27/java并发编程实践-3-2-发布和逸出/" data-id="ck082ezf80080ugvm4j0ilfpz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/27/java并发编程实践-3-2-发布和逸出/" data-id="ck082mdwt0071tkvmmytwpbk9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li></ul>
@@ -150,18 +162,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

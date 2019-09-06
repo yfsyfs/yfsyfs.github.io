@@ -8,7 +8,7 @@
   <title>无向连通图的最小生成树之Prim算法 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="缘起【1】中我们引进了无向连通图的生成树的概念.  这里 将介绍最小生成树（MST minimal spanning tree）的概念. 即【1】中介绍的是无向连通图, 而本文准确的说, 介绍的是无向连通网——即在无向生成图的前提下，边是带权重的.  要求出所有生成树中边的权重之和最小的那棵生成树, 就是MST. MST在现实世界显然是有意义的, 例如整个城市要铺设网线, 打通各个城区, 但是两个">
-<meta name="keywords" content="算法,教材,图,贪心,连通性,生成树">
+<meta name="keywords" content="算法,图,教材,贪心,连通性,生成树">
 <meta property="og:type" content="article">
 <meta property="og:title" content="无向连通图的最小生成树之Prim算法">
 <meta property="og:url" content="http://yoursite.com/2019/05/25/无向连通图的最小生成树之Prim算法/index.html">
@@ -98,10 +98,22 @@
 <p>上面的算法比较tricky的地方在于, 按照前面所述的思路, 理应确定了_min 之后,  就应该确定是谁拉_min 入MST的, 但是除了1之外第一个入MST的点一定是1拉他入伙的. 其次, 所有的点反正都是要入MST的, 所以更新neighbor就放到了算法的后半部分(即第二个for). 这是没毛病的.</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/05/23/%E6%97%A0%E5%90%91%E5%9B%BE%E7%9A%84%E6%90%9C%E7%B4%A2%E6%A0%91%E5%92%8C%E6%A3%AE%E6%9E%97/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/05/23/%E6%97%A0%E5%90%91%E5%9B%BE%E7%9A%84%E6%90%9C%E7%B4%A2%E6%A0%91%E5%92%8C%E6%A3%AE%E6%9E%97/</a> </p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/无向连通图的最小生成树之Prim算法/" data-id="ck082ezmx00jxugvm0lphdtfa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/无向连通图的最小生成树之Prim算法/" data-id="ck082me2y00ietkvmw3qkequm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/生成树/">生成树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/贪心/">贪心</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/连通性/">连通性</a></li></ul>
@@ -130,18 +142,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

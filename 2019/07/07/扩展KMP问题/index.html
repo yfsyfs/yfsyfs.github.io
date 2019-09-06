@@ -8,7 +8,7 @@
   <title>扩展KMP问题 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="缘起【1】中我们已经分析了KMP算法. 下面考虑扩展KMP问题. 12给定母串T，和子串p, 0索引不用于存储数据, 定义n=|T|（strlen(T)）, m=|p|，extend[i]=T[i..n]与p的最长公共前缀长度(LCP),即extend[i]=LCP(T[i,...,n], p[1,...,m])请在线性的时间复杂度内，求出所有的extend[1..n].">
-<meta name="keywords" content="算法,教材,字符串,DP,扩展KMP,动态规划,KMP">
+<meta name="keywords" content="算法,教材,字符串,DP,扩展KMP,KMP,动态规划">
 <meta property="og:type" content="article">
 <meta property="og:title" content="扩展KMP问题">
 <meta property="og:url" content="http://yoursite.com/2019/07/07/扩展KMP问题/index.html">
@@ -130,10 +130,22 @@
 <p>最后我们讨论一下扩展KMP算法的复杂度. 注意，整个过程我们都是不断的在往前探索——没有后退, 所以复杂度是线性的 O(N+M)——一款性能不错的算法!!!</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/06/17/字符串匹配算法之kmp/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/06/17/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D%E7%AE%97%E6%B3%95%E4%B9%8Bkmp/</a></p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/07/扩展KMP问题/" data-id="ck082ezmm00jgugvm9rgu6tg9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/07/扩展KMP问题/" data-id="ck082me2i00hitkvm932bueg2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KMP/">KMP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/字符串/">字符串</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/扩展KMP/">扩展KMP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -162,18 +174,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

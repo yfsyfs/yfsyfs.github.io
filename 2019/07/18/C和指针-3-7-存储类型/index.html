@@ -104,10 +104,22 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	int a = 3; // auto变量a的"初始值"为3</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这不是有初始值吗? 不然，因为说了，自动变量因为编译器无法预知程序运行时该自动变量的地址. 所以无法给a初始化的（所以一般自动变量的初始化值是一个随机的值，你只是声明一个自动变量a,然后debug发现它是一个随机的值.）. 所以其实编译器的处理是在代码块开始的时候，插入一条隐含的赋值语句，即上述int a = 3并不是变量的定义，而是变量的声明+赋值语句. </p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/18/C和指针-3-7-存储类型/" data-id="ck082ezbh002jugvmx8siufyk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/18/C和指针-3-7-存储类型/" data-id="ck082mdto001dtkvmoj6nid13" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C和指针/">C和指针</a></li></ul>
@@ -136,18 +148,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

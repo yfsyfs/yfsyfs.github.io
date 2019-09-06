@@ -116,10 +116,22 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Cloneable</span>    </span></span><br><span class="line"><span class="class"></span>&#123;    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age; </span><br><span class="line">    <span class="keyword">private</span> String name;    </span><br><span class="line">    <span class="keyword">private</span> Date birth;    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(<span class="keyword">int</span> a,String n,Date b)</span></span>&#123;       </span><br><span class="line">        age=a;    </span><br><span class="line">    	name=n;    </span><br><span class="line">    	birth=b;    </span><br><span class="line">    &#125;    </span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;    </span><br><span class="line">        Person kobe=<span class="keyword">new</span> Person(<span class="number">33</span>,<span class="string">"kobe"</span>,<span class="keyword">new</span> Date());    </span><br><span class="line">        Person kobe_bak=kobe.clone();    </span><br><span class="line">    &#125;    </span><br><span class="line">    <span class="meta">@Override</span>    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span></span>&#123;    </span><br><span class="line">        Person p=(Person)<span class="keyword">super</span>.clone(); <span class="comment">// 重新为克隆对象分配堆内存</span></span><br><span class="line">        <span class="comment">//Date类型的birth域是可变变的，需要对其再次调用克隆（浅拷贝），实现Person对象的深拷贝 </span></span><br><span class="line">        <span class="comment">//Date类实现了Cloneable并且覆写了clone方法，所以直接调用即可实现Date</span></span><br><span class="line">        p.birth=<span class="keyword">this</span>.birth.clone();    </span><br><span class="line">        <span class="keyword">return</span> p;    </span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上述源码值得玩味的地方在于，第18行实现了对克隆对象p在堆内存中的分配空间. 并且重新复制了age过来. String 只是复制了其引用（浅拷贝），但是因为String是不可变的，所以无所谓啊~ 但是对于Date属性birth就不行了——因为它是可变的，这会导致克隆对象对其birth属性的更改会影响到原对象的birth属性. 这种情况业务上一般是不允许的，所以要再次调用birth的clone方法实现Person的深复制才行. 这样clone出来的对象才是业务上可用的.</p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/03/clone-研究/" data-id="ck082ezdj0059ugvmu4obf4b1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/03/clone-研究/" data-id="ck082mdv5003ztkvm9jbry2uk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -148,18 +160,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

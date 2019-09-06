@@ -161,10 +161,22 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Transition_table 是有限状态自动机</span><br><span class="line">Accepting 数组是状态数组</span><br><span class="line">下一个状态可以从输入字符input_character, 和当前状态current_state读出</span><br><span class="line">next_state = Transition_table[input_character][current_state]; <span class="comment">// 得到下一个状态</span></span><br><span class="line">If (Accepting[next_state] == <span class="literal">true</span>) &#123; <span class="comment">// 如果下一个状态是可接受的</span></span><br><span class="line">    do_an_accepting_action(next_state); <span class="comment">// 搞事情</span></span><br><span class="line">&#125;</span><br><span class="line">其中 Transition_table用来表示有限状态机中的转换关系，Accepting数组用来表示各个状态，如果给定状态是接收状态，那么它在数组中的值为<span class="literal">true</span>.</span><br></pre></td></tr></table></figure>
 <p>下一节课，我们将实现一个FSM来判断读入的是整型还是浮点型.</p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/26/自己动手用java写编译器-课时6-词法解析算法的一些概念说明/" data-id="ck082f0ju01tougvm333r91p9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/26/自己动手用java写编译器-课时6-词法解析算法的一些概念说明/" data-id="ck082mez501xotkvm2f04vxl6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编译原理/">编译原理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/自己动手用java写编译器/">自己动手用java写编译器</a></li></ul>
@@ -193,18 +205,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 

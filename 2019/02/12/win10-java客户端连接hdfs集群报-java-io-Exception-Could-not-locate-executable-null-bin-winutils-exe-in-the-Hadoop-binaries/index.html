@@ -105,10 +105,22 @@
 <p>讲道理, 如果我配置了环境变量HADOOP_HOME的话, 第6行代码就应该有值. 于是，我简单写了一个main方法打印System.getenv(“HADOOP_HOME”)， 结果竟然是null. 但是我配置了HADOOP_HOME啊! 是不是System.getenv方法就获取不到我设置的环境变量呢? 于是main方法打印System.getenv(“GRADLE_HOME”), 发现打印的妥妥的. 于是就知道答案了, 我配置了 HADOOP_HOME环境变量但是没有重启机器, 导致System.getenv方法读取不到该环境变量.</p>
 <h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><p>重启</p>
 
+          <div id="vcomments"></div>
+          <script>
+            new Valine({
+              el: '#vcomments' ,
+              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
+              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
+              notify:false,
+              verify:false,
+              avatar:'mp',
+              placeholder: '请奉上您的真知灼见, 谢谢!'
+            });
+          </script>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" data-id="ck082ezjs00fcugvmhj3ass58" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" data-id="ck082me0o00e7tkvmlq9wtnni" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
@@ -137,18 +149,6 @@
 </nav>
 
   
-    <div id="vcomments"></div>
-    <script>
-        new Valine({
-            el: '#vcomments' ,
-            appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-            appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-            notify:false,
-            verify:false,
-            avatar:'mp',
-            placeholder: '请奉上您的真知灼见, 谢谢!'
-        });
-    </script>
 </article>
 
 
