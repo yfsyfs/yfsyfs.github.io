@@ -7,18 +7,18 @@
   
   <title>hdu 3018 Ant Trip 一笔画 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缘起日常浪费生命~  hdu 3018 Ant Trip 分析12345678910111213141516171819202122232425262728蚂蚁王国由N个点，M条边连接起来的无向图. 有一只蚂蚁想走遍王国. 每条边恰好走一次.但是如果就靠它一只蚂蚁可能办不到. 所以它邀请了它的几位朋友, 每只蚂蚁从不同的点出发.问最少需要几只蚂蚁?【输入】多样例. 每个样例开始于N和M，然后是M行">
-<meta name="keywords" content="算法,oj,图,hdu,并查集,欧拉回路">
+  <meta name="description" content="缘起日常浪费生命~  hdu 3018 Ant Trip">
+<meta name="keywords" content="算法,oj,图,hdu,欧拉回路,并查集">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hdu 3018 Ant Trip 一笔画">
 <meta property="og:url" content="http://yoursite.com/2019/09/07/hdu-3018-Ant-Trip-一笔画/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="缘起日常浪费生命~  hdu 3018 Ant Trip 分析12345678910111213141516171819202122232425262728蚂蚁王国由N个点，M条边连接起来的无向图. 有一只蚂蚁想走遍王国. 每条边恰好走一次.但是如果就靠它一只蚂蚁可能办不到. 所以它邀请了它的几位朋友, 每只蚂蚁从不同的点出发.问最少需要几只蚂蚁?【输入】多样例. 每个样例开始于N和M，然后是M行">
+<meta property="og:description" content="缘起日常浪费生命~  hdu 3018 Ant Trip">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-07T01:34:12.930Z">
+<meta property="og:updated_time" content="2019-09-07T03:11:50.680Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hdu 3018 Ant Trip 一笔画">
-<meta name="twitter:description" content="缘起日常浪费生命~  hdu 3018 Ant Trip 分析12345678910111213141516171819202122232425262728蚂蚁王国由N个点，M条边连接起来的无向图. 有一只蚂蚁想走遍王国. 每条边恰好走一次.但是如果就靠它一只蚂蚁可能办不到. 所以它邀请了它的几位朋友, 每只蚂蚁从不同的点出发.问最少需要几只蚂蚁?【输入】多样例. 每个样例开始于N和M，然后是M行">
+<meta name="twitter:description" content="缘起日常浪费生命~  hdu 3018 Ant Trip">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -90,6 +90,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>日常浪费生命~  <a href="https://vjudge.net/problem/HDU-3018" target="_blank" rel="noopener">hdu 3018 Ant Trip</a></p>
+<a id="more"></a>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">蚂蚁王国由N个点，M条边连接起来的无向图. 有一只蚂蚁想走遍王国. 每条边恰好走一次.</span><br><span class="line">但是如果就靠它一只蚂蚁可能办不到. 所以它邀请了它的几位朋友, 每只蚂蚁从不同的点出发.</span><br><span class="line">问最少需要几只蚂蚁?</span><br><span class="line"></span><br><span class="line">【输入】</span><br><span class="line">多样例. 每个样例开始于N和M，然后是M行，每行包含两个整数a和b(1&lt;=a,b&lt;=N,a!=b) 表示a和b之间有一条边,</span><br><span class="line">一条路不会出现2次</span><br><span class="line">N(1&lt;=N&lt;=100000),M(0&lt;=M&lt;=200000)</span><br><span class="line"></span><br><span class="line">【输出】</span><br><span class="line">每个样例输出最少几只蚂蚁</span><br><span class="line"></span><br><span class="line">【样例输入】</span><br><span class="line">3 3</span><br><span class="line">1 2</span><br><span class="line">2 3</span><br><span class="line">1 3</span><br><span class="line"></span><br><span class="line">4 2</span><br><span class="line">1 2</span><br><span class="line">3 4</span><br><span class="line"></span><br><span class="line">【样例输出】</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line"></span><br><span class="line">【限制】</span><br><span class="line">1s</span><br></pre></td></tr></table></figure>
 <p>此题是水题~唯一需要知道的是一个连通无向图所需要的笔画数就是奇度点的个数除以2的商.但是题目没说此无向图连通,所以先用并查集分块,然后每个块的笔画数之和就是答案了</p>
 <p>说实话, 我不太明白为什么孤立点不能算连通分支去?（我没理解题意? 恳请高手解读题意~） 反正要加这个限制, 不然就wa（到吐）. 不管了，反正主要思想明白就行了</p>
@@ -149,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/07/hdu-3018-Ant-Trip-一笔画/" data-id="ck08yqk2q007ylkvmdba3xdzi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/07/hdu-3018-Ant-Trip-一笔画/" data-id="ck08z2l8h005qnsvmkp2f4pq7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdu/">hdu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并查集/">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/欧拉回路/">欧拉回路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>

@@ -87,64 +87,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>日常浪费生命  <a href="https://vjudge.net/problem/UVA-10054" target="_blank" rel="noopener">uva 10054 The Necklace</a></p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">一条项链，珠子的颜色各异, 相邻的2个珠子的一端颜色相同. 例如下图</span><br><span class="line">可惜有一天，项链断了. 珠子散落一地, 只收集了部分珠子. 问你能不能按照此规则串成一串.</span><br><span class="line">如果可以的话, 输出一种顺序。</span><br><span class="line"></span><br><span class="line">【输入】</span><br><span class="line">多样例. 第一行是样例数. 每个样例以一个N开头（5 ≤ N ≤ 1000）表示珠子的个数. 然后N行，两个[1,50]</span><br><span class="line">内的整数表示颜色. </span><br><span class="line"></span><br><span class="line">【输出】</span><br><span class="line">对于每个样例. 如果不行的话，输出"some beads may be lost", 如果行的话，输出任何一种即可</span><br><span class="line">两个样例之间有空行</span><br><span class="line"></span><br><span class="line">【输入样例】</span><br><span class="line">2</span><br><span class="line">5</span><br><span class="line">1 2</span><br><span class="line">2 3</span><br><span class="line">3 4</span><br><span class="line">4 5</span><br><span class="line">5 6</span><br><span class="line">5</span><br><span class="line">2 1</span><br><span class="line">2 2</span><br><span class="line">3 4</span><br><span class="line">3 1</span><br><span class="line">2 4</span><br><span class="line"></span><br><span class="line">【输出样例】</span><br><span class="line">Case #1</span><br><span class="line">some beads may be lost</span><br><span class="line"></span><br><span class="line">Case #2</span><br><span class="line">2 1</span><br><span class="line">1 3</span><br><span class="line">3 4</span><br><span class="line">4 2</span><br><span class="line">2 2</span><br><span class="line"></span><br><span class="line">【限制】</span><br><span class="line">1s</span><br><span class="line"></span><br><span class="line">【是否接受special judge】</span><br><span class="line">是</span><br></pre></td></tr></table></figure>
-<p><img src="C:\Users\yfs\AppData\Roaming\Typora\typora-user-images\1567822043579.png" alt="1567822043579"></p>
-<p>不超过50个顶点的无向图.  求欧拉路径. 首先使用并查集判断无向图是否连通. 然后跑fleury</p>
-<p>代码要是不清楚的话，参见【1】</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include "stdafx.h"</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="comment">//#define LOCAL</span></span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; P;</span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">vector</span>&lt;P&gt;::iterator vit;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,f[<span class="number">55</span>],deg[<span class="number">55</span>],start,ans[<span class="number">1005</span>], top;</span><br><span class="line"><span class="built_in">vector</span>&lt;P&gt; g[<span class="number">55</span>];</span><br><span class="line"><span class="keyword">bool</span> v[<span class="number">1005</span>],used[<span class="number">55</span>];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Bead</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> a,b;</span><br><span class="line">&#125;bb[<span class="number">1005</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getf</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> f[i]&lt;<span class="number">0</span>?i:f[i] = getf(f[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> fi = getf(i), fj = getf(j);</span><br><span class="line">	<span class="keyword">if</span> (fi==fj)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (f[fi]&lt;f[fj])</span><br><span class="line">	&#123;</span><br><span class="line">		f[fi]+=f[fj];</span><br><span class="line">		f[fj] = fi;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		f[fj]+=f[fi];</span><br><span class="line">		f[fi] = fj;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">ok</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i&lt;=<span class="number">50</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (deg[i]&amp;<span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (used[i])</span><br><span class="line">		&#123;</span><br><span class="line">			start = i;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (vit x = g[i].begin(); x!=g[i].end(); x++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (!v[x-&gt;second])</span><br><span class="line">		&#123;</span><br><span class="line">			v[x-&gt;second] = <span class="literal">true</span>;</span><br><span class="line">			dfs(x-&gt;first);</span><br><span class="line">			ans[top++] = x-&gt;second;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="keyword">int</span> kase;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;kase);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i&lt;=kase; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">memset</span>(f, <span class="number">-1</span>, <span class="keyword">sizeof</span>(f));</span><br><span class="line">		<span class="built_in">memset</span>(v, <span class="number">0</span>, <span class="keyword">sizeof</span>(v));</span><br><span class="line">		<span class="built_in">memset</span>(deg, <span class="number">0</span>, <span class="keyword">sizeof</span>(deg));</span><br><span class="line">		<span class="built_in">memset</span>(used, <span class="number">0</span>, <span class="keyword">sizeof</span>(used));</span><br><span class="line">		top = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i&lt;=<span class="number">50</span>; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			g[i].clear();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (i&gt;<span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Case #%d\n"</span>, i);</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i&lt;=n;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;bb[i].a, &amp;bb[i].b);</span><br><span class="line">			g[bb[i].a].push_back(P(bb[i].b, i));</span><br><span class="line">			g[bb[i].b].push_back(P(bb[i].a, i));</span><br><span class="line">			deg[bb[i].a]++, deg[bb[i].b]++;</span><br><span class="line">			used[bb[i].a] = used[bb[i].b] = <span class="literal">true</span>;</span><br><span class="line">			merge(bb[i].a, bb[i].b);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (!ok())</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">puts</span>(<span class="string">"some beads may be lost"</span>);</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		dfs(start); <span class="comment">// 因为要保证存在的是欧拉回路而不仅仅是欧拉路径,所以这里从任何一个顶点开始都是可以的</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = top<span class="number">-1</span>; ~i; i--)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%d %d\n"</span>, start, bb[ans[i]].a+bb[ans[i]].b-start);</span><br><span class="line">			start = bb[ans[i]].a+bb[ans[i]].b-start;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>ac情况</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Status</th>
-<th>Accepted</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Time</td>
-<td>190ms</td>
-</tr>
-<tr>
-<td style="text-align:center">Length</td>
-<td>1800</td>
-</tr>
-<tr>
-<td style="text-align:center">Lang</td>
-<td>C++11 5.3.0</td>
-</tr>
-<tr>
-<td style="text-align:center">Submitted</td>
-<td>2019-09-07 11:01:12</td>
-</tr>
-<tr>
-<td style="text-align:center">Shared</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:center">RemoteRunId</td>
-<td>23877472</td>
-</tr>
-</tbody>
-</table>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/09/06/hihocoder-1181-欧拉路·二-Fleury算法/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/09/06/hihocoder-1181-%E6%AC%A7%E6%8B%89%E8%B7%AF%C2%B7%E4%BA%8C-Fleury%E7%AE%97%E6%B3%95/</a></p>
-
-          <div id="vcomments"></div>
-          <script>
-            new Valine({
-              el: '#vcomments' ,
-              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-              notify:false,
-              verify:false,
-              avatar:'mp',
-              placeholder: '请奉上您的真知灼见, 谢谢!'
-            });
-          </script>
+        
+          <p class="article-more-link">
+            <a href="/2019/09/07/uva-10054-The-Necklace-欧拉回路/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/07/uva-10054-The-Necklace-欧拉回路/" data-id="ck08yqk6n00g3lkvmbycejeuq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/07/uva-10054-The-Necklace-欧拉回路/" data-id="ck08z2lc700dunsvmf8iglr8w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fleury/">fleury</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/uva/">uva</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并查集/">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/欧拉回路/">欧拉回路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -181,66 +132,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>日常浪费生命 <a href="https://vjudge.net/problem/POJ-2230" target="_blank" rel="noopener">poj 2230 Watchcow</a></p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">有一个人每晚要检查牛场，牛场内有m条路（无向图），他担心会有遗漏，就每条路检查两次，且每次的方向不同，要</span><br><span class="line">求你打印他行走的路径（必须从1开始，而且回到1），打印一条即可。注意,两点之间的边可能不止一条。 输入保证</span><br><span class="line">一定存在。</span><br><span class="line"></span><br><span class="line">【输入】</span><br><span class="line">第一行是两个正整数N和M </span><br><span class="line">2 &lt;= N &lt;= 10,000, 1 &lt;= M &lt;= 50,000</span><br><span class="line">然后是M行，每行2个正整数表示此两点之间有边</span><br><span class="line"></span><br><span class="line">【输出】</span><br><span class="line">输出欧拉路径.</span><br><span class="line"></span><br><span class="line">【样例输入】</span><br><span class="line">4 5</span><br><span class="line">1 2</span><br><span class="line">1 4</span><br><span class="line">2 3</span><br><span class="line">2 4</span><br><span class="line">3 4</span><br><span class="line"></span><br><span class="line">【样例输出】</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">2</span><br><span class="line">1</span><br><span class="line">4</span><br><span class="line">3</span><br><span class="line">2</span><br><span class="line">4</span><br><span class="line">1</span><br><span class="line"></span><br><span class="line">【限制】</span><br><span class="line">3s</span><br><span class="line"></span><br><span class="line">【是否接受special judge】</span><br><span class="line">是</span><br></pre></td></tr></table></figure>
-<p>红果果的欧拉回路啊~ 而且题目都保证存在. 连检查是否存在不需要了~ 直接用fleury 艹它!</p>
-<p>因为每条路要走两边——正反各一遍, 所以可以将图视作有向图. 每条边拆成2条弧.  注意，fleury算法是可以跑在有向图上的!</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include "stdafx.h"</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="comment">//#define LOCAL</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m,cnt,head[<span class="number">10005</span>],ans[<span class="number">100005</span>],top;</span><br><span class="line"><span class="keyword">bool</span> v[<span class="number">100005</span>];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Arc</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> from,to,nxt; <span class="comment">// 不需要len,len不重要</span></span><br><span class="line">	Arc()&#123;&#125;</span><br><span class="line">	Arc(<span class="keyword">int</span> from, <span class="keyword">int</span> to, <span class="keyword">int</span> nxt):from(from), to(to), nxt(nxt)&#123;&#125;</span><br><span class="line">&#125;g[<span class="number">100005</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addArc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span> <span class="comment">// 头插弧 a-&gt;b</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	g[cnt].from = a, g[cnt].to = b, g[cnt].nxt = head[a];</span><br><span class="line">	head[a] = cnt++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> i)</span> <span class="comment">// fleury</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> x = head[i]; ~x; x = g[x].nxt)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (!v[x])</span><br><span class="line">		&#123;</span><br><span class="line">			v[x] = <span class="literal">true</span>;</span><br><span class="line">			dfs(g[x].to);</span><br><span class="line">			ans[top++] = x;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">	<span class="built_in">memset</span>(head, <span class="number">-1</span>, <span class="keyword">sizeof</span>(head));</span><br><span class="line">	<span class="keyword">while</span>(m--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> a,b;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">		addArc(a,b);</span><br><span class="line">		addArc(b,a);</span><br><span class="line">	&#125;</span><br><span class="line">	dfs(<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = top<span class="number">-1</span>; ~i; i--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, g[ans[i]].from);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">"1"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>ac情况（水过水过~ 跑了一秒多, fleury真特么慢!）</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Status</th>
-<th>Accepted</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Time</td>
-<td>1125ms</td>
-</tr>
-<tr>
-<td style="text-align:center">Memory</td>
-<td>2960kB</td>
-</tr>
-<tr>
-<td style="text-align:center">Length</td>
-<td>850</td>
-</tr>
-<tr>
-<td style="text-align:center">Lang</td>
-<td>C++</td>
-</tr>
-<tr>
-<td style="text-align:center">Submitted</td>
-<td>2019-09-07 09:59:46</td>
-</tr>
-<tr>
-<td style="text-align:center">Shared</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:center">RemoteRunId</td>
-<td>20840281</td>
-</tr>
-</tbody>
-</table>
-
-          <div id="vcomments"></div>
-          <script>
-            new Valine({
-              el: '#vcomments' ,
-              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-              notify:false,
-              verify:false,
-              avatar:'mp',
-              placeholder: '请奉上您的真知灼见, 谢谢!'
-            });
-          </script>
+        
+          <p class="article-more-link">
+            <a href="/2019/09/07/poj-2230-Watchcow-欧拉回路/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/07/poj-2230-Watchcow-欧拉回路/" data-id="ck08yqk4o00c4lkvmi4opm2cv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/07/poj-2230-Watchcow-欧拉回路/" data-id="ck08z2lag00a6nsvmhquoys08" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fleury/">fleury</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/欧拉回路/">欧拉回路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -277,66 +177,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>日常浪费生命~  <a href="https://vjudge.net/problem/HDU-3018" target="_blank" rel="noopener">hdu 3018 Ant Trip</a></p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">蚂蚁王国由N个点，M条边连接起来的无向图. 有一只蚂蚁想走遍王国. 每条边恰好走一次.</span><br><span class="line">但是如果就靠它一只蚂蚁可能办不到. 所以它邀请了它的几位朋友, 每只蚂蚁从不同的点出发.</span><br><span class="line">问最少需要几只蚂蚁?</span><br><span class="line"></span><br><span class="line">【输入】</span><br><span class="line">多样例. 每个样例开始于N和M，然后是M行，每行包含两个整数a和b(1&lt;=a,b&lt;=N,a!=b) 表示a和b之间有一条边,</span><br><span class="line">一条路不会出现2次</span><br><span class="line">N(1&lt;=N&lt;=100000),M(0&lt;=M&lt;=200000)</span><br><span class="line"></span><br><span class="line">【输出】</span><br><span class="line">每个样例输出最少几只蚂蚁</span><br><span class="line"></span><br><span class="line">【样例输入】</span><br><span class="line">3 3</span><br><span class="line">1 2</span><br><span class="line">2 3</span><br><span class="line">1 3</span><br><span class="line"></span><br><span class="line">4 2</span><br><span class="line">1 2</span><br><span class="line">3 4</span><br><span class="line"></span><br><span class="line">【样例输出】</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line"></span><br><span class="line">【限制】</span><br><span class="line">1s</span><br></pre></td></tr></table></figure>
-<p>此题是水题~唯一需要知道的是一个连通无向图所需要的笔画数就是奇度点的个数除以2的商.但是题目没说此无向图连通,所以先用并查集分块,然后每个块的笔画数之和就是答案了</p>
-<p>说实话, 我不太明白为什么孤立点不能算连通分支去?（我没理解题意? 恳请高手解读题意~） 反正要加这个限制, 不然就wa（到吐）. 不管了，反正主要思想明白就行了</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include "stdafx.h"</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="comment">//#define LOCAL</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m,f[<span class="number">100005</span>],deg[<span class="number">100005</span>],sum[<span class="number">100005</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getf</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> f[i]&lt;<span class="number">0</span>?i:f[i]=getf(f[i]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> fi = getf(i), fj = getf(j);</span><br><span class="line">	<span class="keyword">if</span> (fi==fj)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (f[fi]&lt;f[fj])</span><br><span class="line">	&#123;</span><br><span class="line">		f[fi] += f[fj];</span><br><span class="line">		f[fj] = fi;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		f[fj] += f[fi];</span><br><span class="line">		f[fi] = fj;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;	</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m))</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">memset</span>(f, <span class="number">-1</span>, <span class="keyword">sizeof</span>(f));</span><br><span class="line">		<span class="built_in">memset</span>(deg, <span class="number">0</span>, <span class="keyword">sizeof</span>(deg));</span><br><span class="line">		<span class="built_in">memset</span>(sum, <span class="number">0</span>, <span class="keyword">sizeof</span>(sum));</span><br><span class="line">		<span class="keyword">while</span>(m--)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> a,b;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a,&amp;b);</span><br><span class="line">			deg[a]++, deg[b]++;</span><br><span class="line">			merge(a,b);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>,fi; i&lt;=n; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (deg[i]&amp;<span class="number">1</span>) <span class="comment">// 如果是奇度点</span></span><br><span class="line">			&#123;</span><br><span class="line">				fi = getf(i); <span class="comment">// 找到它所在的连通分支</span></span><br><span class="line">				<span class="keyword">if</span> (~f[fi]) <span class="comment">// 如果不是孤立点</span></span><br><span class="line">				&#123;</span><br><span class="line">					sum[fi]++;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="comment">// sum[i]记录了i是它的连通分支的并查集老大,并且这个连通分支的奇度点的个数</span></span><br><span class="line">		<span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i&lt;=n; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (f[i]&lt;<span class="number">0</span> &amp;&amp; ~f[i])  <span class="comment">// 如果是并查集老大,并且不是孤立点</span></span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">if</span> (!sum[i]) <span class="comment">// 该连通分支存在欧拉回路,可以一笔画</span></span><br><span class="line">				&#123;</span><br><span class="line">					ans++;</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">				&#123;</span><br><span class="line">					ans+=(sum[i]&gt;&gt;<span class="number">1</span>); <span class="comment">// 否则就是奇度点个数/2</span></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>ac情况</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">Status</th>
-<th>Accepted</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Time</td>
-<td>93ms</td>
-</tr>
-<tr>
-<td style="text-align:center">Memory</td>
-<td>2384kB</td>
-</tr>
-<tr>
-<td style="text-align:center">Length</td>
-<td>1103</td>
-</tr>
-<tr>
-<td style="text-align:center">Lang</td>
-<td>G++</td>
-</tr>
-<tr>
-<td style="text-align:center">Submitted</td>
-<td>2019-09-07 09:32:17</td>
-</tr>
-<tr>
-<td style="text-align:center">Shared</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:center">RemoteRunId</td>
-<td>30523325</td>
-</tr>
-</tbody>
-</table>
-
-          <div id="vcomments"></div>
-          <script>
-            new Valine({
-              el: '#vcomments' ,
-              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-              notify:false,
-              verify:false,
-              avatar:'mp',
-              placeholder: '请奉上您的真知灼见, 谢谢!'
-            });
-          </script>
+        
+          <p class="article-more-link">
+            <a href="/2019/09/07/hdu-3018-Ant-Trip-一笔画/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/07/hdu-3018-Ant-Trip-一笔画/" data-id="ck08yqk2q007ylkvmdba3xdzi" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/07/hdu-3018-Ant-Trip-一笔画/" data-id="ck08z2l8h005qnsvmkp2f4pq7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdu/">hdu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并查集/">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/欧拉回路/">欧拉回路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -381,7 +230,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/06/一著名软件公司的java笔试算法题-数字排序/" data-id="ck08yqk7000gvlkvmfngot17a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/06/一著名软件公司的java笔试算法题-数字排序/" data-id="ck08z2lci00egnsvm7mmnsf1p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dfs/">dfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/搜索/">搜索</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
@@ -426,7 +275,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/06/poj-2337-Catenyms-求有向图的字典序最小欧拉环路/" data-id="ck08yqk4n00c2lkvmmlut0dbt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/06/poj-2337-Catenyms-求有向图的字典序最小欧拉环路/" data-id="ck08z2lan00agnsvm30l84azk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fleury/">fleury</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并查集/">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/欧拉环路/">欧拉环路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -472,7 +321,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/06/hihocoder-1181-欧拉路·二-Fleury算法/" data-id="ck08yqk2w008blkvmtvtm198o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/06/hihocoder-1181-欧拉路·二-Fleury算法/" data-id="ck08z2l8o0063nsvmoya5mx8f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fleury/">fleury</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hihocoder/">hihocoder</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/欧拉回路/">欧拉回路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -518,7 +367,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/06/poj-1041-John-s-trip-无向图求欧拉回路模板/" data-id="ck08yqk3x00ahlkvmcsy02odl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/06/poj-1041-John-s-trip-无向图求欧拉回路模板/" data-id="ck08z2l9r008lnsvm319ill0f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dfs/">dfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fleury/">fleury</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/欧拉回路/">欧拉回路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -563,7 +412,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/06/hdu-1116-Play-on-Words-有向图欧拉回路存在与否的判定/" data-id="ck08yqk2e0078lkvmyxv6t17q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/06/hdu-1116-Play-on-Words-有向图欧拉回路存在与否的判定/" data-id="ck08z2l81004snsvmgj2d7mv1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdu/">hdu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并查集/">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/欧拉回路/">欧拉回路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -608,7 +457,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/06/hdu-1878-欧拉回路-判断无向图是否存在欧拉回路/" data-id="ck08yqk2k007klkvmzg2cfi2r" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/06/hdu-1878-欧拉回路-判断无向图是否存在欧拉回路/" data-id="ck08z2l8d005gnsvmddl7hx8c" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdu/">hdu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/欧拉回路/">欧拉回路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/邻接链表法/">邻接链表法</a></li></ul>
@@ -653,7 +502,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/05/poj-2438-Children-s-Dining-哈密顿回路板题-Dirac-定理/" data-id="ck08yqk5200cvlkvmojwvqs9l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/05/poj-2438-Children-s-Dining-哈密顿回路板题-Dirac-定理/" data-id="ck08z2lav00b0nsvmpzls2ah7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dirac定理/">Dirac定理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/哈密顿回路/">哈密顿回路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
