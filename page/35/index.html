@@ -64,6 +64,55 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-A-star-寻路算法" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/26/A-star-寻路算法/" class="article-date">
+  <time datetime="2019-05-26T12:45:45.000Z" itemprop="datePublished">2019-05-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/26/A-star-寻路算法/">A-star 寻路算法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>我们学过 图的dfs和bfs， 并且知道了他们都可以用于求解最短路径.  而且在【1】中指出了</p>
+<blockquote>
+<p>其实各种搜索框架的本质不同就是如何对待发现的顶点. 深搜是最后处理最先发现的顶点（对应数据结构就是栈），而宽搜不同, 宽搜是最先处理最先发现的顶点（对应的数据结构就是队列） </p>
+</blockquote>
+<p>所以其实我们可以将搜索框架进行推广——给所有顶点赋予不同的优先级， 而且随着算法的推进不断调整； 而每一步迭代所选取的顶点， 都是当时的优先级最高者。按照这种理解，包括BFS和DFS在内的 几乎所有图搜索，都可纳入统一的框架。     所以优先队列这种数据结构，也就是堆这种数据结构在一般搜索框架中将扮演重要角色. 堆的相关知识参见【2】. 而本文将介绍一种重要的游戏AI寻路基本算法——A*算法</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/26/A-star-寻路算法/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/26/A-star-寻路算法/" data-id="ck09nqf6f01vy6kvmphpcu5jn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/启发式搜索/">启发式搜索</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-Prim算法之堆优化" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/26/Prim算法之堆优化/" class="article-date">
@@ -95,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/26/Prim算法之堆优化/" data-id="ck09cbb8r01sf9ovmkghmmzcl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/26/Prim算法之堆优化/" data-id="ck09nqflz01wi6kvm3nuo9ol4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MST/">MST</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/优先队列/">优先队列</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/堆排序/">堆排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/最小生成树/">最小生成树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -140,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/26/DAG图上指定单源-求其到其他各个顶点的最短距离/" data-id="ck09cbag1002i9ovmag8mvuer" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/26/DAG图上指定单源-求其到其他各个顶点的最短距离/" data-id="ck09nqcx7002i6kvmxwsbmzed" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DAG/">DAG</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -190,7 +239,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/位图法总结/" data-id="ck09cbar500k89ovmkvtqhwdc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/位图法总结/" data-id="ck09nqddf00ez6kvmj5fz00cq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/位图/">位图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -237,7 +286,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/离散化模板/" data-id="ck09cbauq00qo9ovmplxd4t68" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/离散化模板/" data-id="ck09nqdkm00k66kvm9drscl0w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模板/">模板</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/离散化/">离散化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -282,7 +331,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/去重/" data-id="ck09cbaro00l69ovmom5scai1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/去重/" data-id="ck09nqdek00fq6kvm5mh5l4tw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -327,7 +376,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/堆排序/" data-id="ck09cbart00lg9ovm7r9iuazx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/堆排序/" data-id="ck09nqdfg00gc6kvmbnwiypuf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -372,7 +421,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/基数排序/" data-id="ck09cbarv00ll9ovmedumdbcp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/基数排序/" data-id="ck09nqdfb00g96kvm5p91r5au" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -420,7 +469,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/CBA理论-为什么基于比较的排序方法的性能极限是O-nlogn/" data-id="ck09cbaej000e9ovm337nfccb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/CBA理论-为什么基于比较的排序方法的性能极限是O-nlogn/" data-id="ck09nqctt000h6kvmdsgkmm1n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -465,52 +514,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/非比较排序之计数排序/" data-id="ck09cbav100ra9ovm84oo0o6c" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-非选择排序之桶排序" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/25/非选择排序之桶排序/" class="article-date">
-  <time datetime="2019-05-25T04:26:03.000Z" itemprop="datePublished">2019-05-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/25/非选择排序之桶排序/">非选择排序之桶排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>之前介绍的无论是选择排序还是冒泡还是插入还是快排还是堆排序, 都是基于CBA理论（comparison-based-algorithm）， 对应的结果集就是一棵树, 所以CBA最优时间复杂度就是 nlogn. 但是这里要讲的桶排序不属于比较排序,所以他的排序性能可以飙升到O(n).</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/25/非选择排序之桶排序/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/非选择排序之桶排序/" data-id="ck09cbav600ri9ovmqboncn45" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/非比较排序之计数排序/" data-id="ck09nqdn200ly6kvm2spjabtw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -574,6 +578,10 @@
       <ul>
         
           <li>
+            <a href="/2019/09/07/hdu-3342-Legal-or-Not-拓扑排序板题/">hdu 3342 Legal or Not 拓扑排序板题</a>
+          </li>
+        
+          <li>
             <a href="/2019/09/07/POJ-2186-Popular-Cows-scc的三种姿势/">POJ 2186 Popular Cows scc的三种姿势</a>
           </li>
         
@@ -587,10 +595,6 @@
         
           <li>
             <a href="/2019/09/07/poj-2230-Watchcow-欧拉回路/">poj 2230 Watchcow 欧拉回路</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/07/hdu-3018-Ant-Trip-一笔画/">hdu 3018 Ant Trip 一笔画</a>
           </li>
         
       </ul>
