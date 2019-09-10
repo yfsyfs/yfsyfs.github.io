@@ -8,7 +8,7 @@
   <title>poj-3352-Road-Construction 不带重边的边bcc | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="缘起日常浪费生命~   poj 3352 Road Construction 本题参考了题解 【1】. 的确讲的很透彻~">
-<meta name="keywords" content="算法,oj,图,poj,割点,tarjan,边bcc,割边,缩点">
+<meta name="keywords" content="算法,oj,图,poj,tarjan,割点,边bcc,割边,缩点">
 <meta property="og:type" content="article">
 <meta property="og:title" content="poj-3352-Road-Construction 不带重边的边bcc">
 <meta property="og:url" content="http://yoursite.com/2019/09/10/poj-3352-Road-Construction-不带重边的边bcc/index.html">
@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://hi.csdn.net/attachment/201109/9/0_1315529561z5Y0.gif">
 <meta property="og:image" content="c:/Users/yfs/AppData/Roaming/Typora/typora-user-images/1568092609024.png">
 <meta property="og:image" content="c:/Users/yfs/AppData/Roaming/Typora/typora-user-images/1568093273837.png">
-<meta property="og:updated_time" content="2019-09-10T05:43:57.722Z">
+<meta property="og:updated_time" content="2019-09-10T06:16:50.161Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="poj-3352-Road-Construction 不带重边的边bcc">
 <meta name="twitter:description" content="缘起日常浪费生命~   poj 3352 Road Construction 本题参考了题解 【1】. 的确讲的很透彻~">
@@ -100,7 +100,7 @@
 <p>本题的建模其实是十分简单的——就是问你一个无向连通图（无重边）， 问最少加几条边可以原图变成 边bcc.</p>
 <p>这种题目一般都要求出边bcc，然后缩点. 然后形成无向树之后进行判断. 如果形成无向树之后，显然只需要将叶子们（即deg为1的点)两两配对连接起来即可. 所以答案是 </p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(leaf+1)&gt;&gt;1</span><br></pre></td></tr></table></figure>
-<p>形象的图解为</p>
+<p>形象的图解为(注意，两个边bcc之间最多连一条边，这是显然的，不然就在同一个边bcc中了呀~)</p>
 <p><img src="http://hi.csdn.net/attachment/201109/9/0_1315529561z5Y0.gif" alt="img"></p>
 <p>​                                                                                        图1</p>
 <p>加1是处于考虑叶子的数量为奇数的情况. </p>
@@ -121,15 +121,56 @@
 <p>​                                                                                                图3</p>
 <p>对于上图, 1和2之间存在重边. 则low[1]和low[2]在跑完tarjan算法之后是一样的，都是1（不会出现【1】说的——对于带重边的无向图，low不同亦可能在同一个边bcc中, 这是因为【1】中对low的定义是不经过父节点回到的最早时间戳, 也是我认为错误的做法——虽然它的代码可以ac）. 对于图2，也是一样，跑完tarjan算法得到的low都是1. 所以我们就会发现求点bcc（即块）和求边bcc的不同之处.——</p>
 <p>首先求割点的话，它的low是一定要是”不经过父节点能回到的最早时间戳”，而不能是不经过来路能回到的时间戳.  否则反例是显然的，图2就是. 如果low是”不经过来路能回到的最早时间戳”的话, 则跑tarjan的过程中，4和5的low就都能达到1了, 则就会得出图中不存在割点的错误结论. 其次, 求块的时候，不能依据跑完tarjan 的low数组——low一样就在一个块中. 因为这样的话，图2中1,2,3就在一个块中，而4,5,在另一个块中（因为low在tarjan的过程中会变的，low[3]由3变成了1，实际上是两个块共用了顶点3），但是这样是不正确的, 求块只能在tarjan的过程中遇到一组就处理一组, 就像著名的【6】一样.</p>
-<p>而求边bcc呢? 它的low一定要用”不经过来路最早能回到的时间戳”. 则边bcc就好求太多了——不论是有重边还是没有重边，求法都是一样的. 如果需要输出割边的话就判断一下，如果只是求bcc的话，只需要跑完tarjan之后，low一样的就一定在一个边bcc中. 即low数组已经帮我们缩点了.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>而求边bcc呢? 它的low一定要用”不经过来路最早能回到的时间戳”. 则边bcc就好求太多了——不论是有重边还是没有重边，求法都是一样的. 如果需要输出割边的话就判断一下，如果只是求bcc的话，只需要跑完tarjan之后，low一样的就一定在一个边bcc中，反之亦然. 即low数组已经帮我们缩好点了. </p>
+<p>割点以及块的算法在之前的文章以及【6】中应验了. 关于割边以及边bcc的论述将在【2】、【3】、【7】中进行验证.</p>
+<p>说了这么多，回到本题. 本题首先要求出边bcc. 就像上面说的一样——我们使用low的意义是不从来路能回到的最早时间戳. 则不论是否有重边. 最后low一样的就在同一个边bcc中. 这样就缩点了, 然后重构缩点后的图，统计叶子数量leaf，然后(leaf+1)&gt;&gt;1 就是答案</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include "stdafx.h"</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="comment">//#define LOCAL</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> to, id; <span class="comment">// to是边的端点, id是边的id</span></span><br><span class="line">	Edge(<span class="keyword">int</span> to, <span class="keyword">int</span> id):to(to), id(id)&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,r,timestamp[<span class="number">1005</span>],low[<span class="number">1005</span>],t,deg[<span class="number">1005</span>];</span><br><span class="line"><span class="built_in">vector</span>&lt;Edge&gt; g[<span class="number">1005</span>];</span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">vector</span>&lt;Edge&gt;::iterator vit;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> cur ,<span class="keyword">int</span> fa)</span> <span class="comment">// fa的含义不再是求割点中的父节点, 而是到来的路的编号</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	timestamp[cur] = low[cur] = ++t;</span><br><span class="line">	<span class="keyword">for</span> (vit x = g[cur].begin(); x!=g[cur].end(); x++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (!timestamp[x-&gt;to])</span><br><span class="line">		&#123;</span><br><span class="line">			dfs(x-&gt;to, x-&gt;id);</span><br><span class="line">			low[cur] = min(low[cur], low[x-&gt;to]); <span class="comment">// 不需要判断割边,题目无此需求</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (x-&gt;id!=fa) <span class="comment">// 如果不是来的路,但是x-&gt;to已经搜过了</span></span><br><span class="line">		&#123;</span><br><span class="line">			low[cur] = min(low[cur], timestamp[x-&gt;to]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">	<span class="comment">//freopen("d:\\my.out", "w", stdout);</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;r);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> id = <span class="number">1</span>; id&lt;=r; id++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> a,b;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">		g[a].push_back(Edge(b, id)), g[b].push_back(Edge(a, id));</span><br><span class="line">	&#125;</span><br><span class="line">	dfs(<span class="number">1</span>,<span class="number">0</span>); <span class="comment">// 跑tarjan</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i&lt;=n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span> (vit x = g[i].begin(); x!=g[i].end(); x++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (low[i]!=low[x-&gt;to]) <span class="comment">// 如果边的两个端点不在一个边bcc中的话, 即一个在low[i]这个边bcc中, 一个在low[x-&gt;to]这个边bcc中</span></span><br><span class="line">			&#123;</span><br><span class="line">				deg[low[i]]++; <span class="comment">// 注意, 因为x-&gt;to也会作为i做++的, 所以这里不需要写 deg[x-&gt;to]++了</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> leaf = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i&lt;=n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (deg[i]==<span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			leaf++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, (leaf+<span class="number">1</span>)&gt;&gt;<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ac情况</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Status</th>
+<th>Accepted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Time</td>
+<td>63ms</td>
+</tr>
+<tr>
+<td style="text-align:center">Memory</td>
+<td>204kB</td>
+</tr>
+<tr>
+<td style="text-align:center">Length</td>
+<td>1376</td>
+</tr>
+<tr>
+<td style="text-align:center">Lang</td>
+<td>C++</td>
+</tr>
+<tr>
+<td style="text-align:center">Submitted</td>
+<td>2019-09-10 14:16:33</td>
+</tr>
+<tr>
+<td style="text-align:center">Shared</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">RemoteRunId</td>
+<td>20848323</td>
+</tr>
+</tbody>
+</table>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://blog.csdn.net/lyy289065406/article/details/6762370" target="_blank" rel="noopener">https://blog.csdn.net/lyy289065406/article/details/6762370</a></p>
 <p>【2】<a href="https://yfsyfs.github.io/2019/09/10/hdu-4612-warm-up-带重边的边bcc-缩点-树的直径/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/09/10/hdu-4612-warm-up-%E5%B8%A6%E9%87%8D%E8%BE%B9%E7%9A%84%E8%BE%B9bcc-%E7%BC%A9%E7%82%B9-%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/</a></p>
 <p>【3】<a href="https://yfsyfs.github.io/2019/09/10/zoj-2588-burning-bridge-带重边的边bcc和割边/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/09/10/zoj-2588-burning-bridge-%E5%B8%A6%E9%87%8D%E8%BE%B9%E7%9A%84%E8%BE%B9bcc%E5%92%8C%E5%89%B2%E8%BE%B9/</a></p>
 <p>【4】<a href="https://yfsyfs.github.io/2019/05/24/无向连通图的割边-又称桥/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/05/24/%E6%97%A0%E5%90%91%E8%BF%9E%E9%80%9A%E5%9B%BE%E7%9A%84%E5%89%B2%E8%BE%B9-%E5%8F%88%E7%A7%B0%E6%A1%A5/</a></p>
 <p>【5】<a href="https://yfsyfs.github.io/2019/05/25/无向连通图的边双连通分量/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/05/25/%E6%97%A0%E5%90%91%E8%BF%9E%E9%80%9A%E5%9B%BE%E7%9A%84%E8%BE%B9%E5%8F%8C%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F/</a></p>
 <p>【6】<a href="https://yfsyfs.github.io/2019/09/09/poj-2942-Knights-of-the-Round-Table-bcc-交叉染色判定奇圈/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/09/09/poj-2942-Knights-of-the-Round-Table-bcc-%E4%BA%A4%E5%8F%89%E6%9F%93%E8%89%B2%E5%88%A4%E5%AE%9A%E5%A5%87%E5%9C%88/</a></p>
-<p>【7】</p>
+<p>【7】<a href="https://yfsyfs.github.io/2019/09/10/lightoj-1026-Critical-Links-割边/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/09/10/lightoj-1026-Critical-Links-%E5%89%B2%E8%BE%B9/</a></p>
 
           <div id="vcomments"></div>
           <script>
@@ -146,7 +187,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/10/poj-3352-Road-Construction-不带重边的边bcc/" data-id="ck0deze4q00jqj0vmui3sz9wz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/10/poj-3352-Road-Construction-不带重边的边bcc/" data-id="ck0dg0m2e020w8wvmkhoez7ro" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tarjan/">tarjan</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/割点/">割点</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/割边/">割边</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/缩点/">缩点</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/边bcc/">边bcc</a></li></ul>
