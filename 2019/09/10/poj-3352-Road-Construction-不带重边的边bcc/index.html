@@ -16,7 +16,7 @@
 <meta property="og:description" content="缘起日常浪费生命~   poj 3352 Road Construction 本题参考了题解 【1】. 的确讲的很透彻~">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://hi.csdn.net/attachment/201109/9/0_1315529561z5Y0.gif">
-<meta property="og:updated_time" content="2019-09-10T02:51:10.041Z">
+<meta property="og:updated_time" content="2019-09-10T02:53:22.899Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="poj-3352-Road-Construction 不带重边的边bcc">
 <meta name="twitter:description" content="缘起日常浪费生命~   poj 3352 Road Construction 本题参考了题解 【1】. 的确讲的很透彻~">
@@ -28,7 +28,7 @@
     <link rel="icon" href="/favicon.png">
   
   
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    <!--<link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">-->
   
   <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -104,6 +104,8 @@
 <p>但是本题求bcc分量，需要在运行tarjan的时候真的使用栈收集边bcc吗? 不需要! 因为本题保证输入无重边. 无重边意味着什么你知道吗?</p>
 <p>意味着2个顶点在一个边bcc中的充要条件是他们的low值相等. 为什么有重边就不成立? 太显然啦~ 比如无向图就2个点, 他们之间有2条边（所以是重边）. 则显然他们在一个边bcc中. 但是他们的low值显然是不一样的. 所以我们只需要跑一遍tarjan算法，期间维护low数组. 不需要判断桥，也不需要收集边bcc. 最后再根据low进行缩点重构(low值就是它所在的边bcc编号). 然后确定leaf的值, 最后打印(leaf+1)&gt;&gt;1 即可. </p>
 <p>那么， 有重边的情况怎么求边bcc? 这个在【2】中解答了. 就不能取巧通过low来缩点了.  正确的做法见【2】或者【3】</p>
+<p>一言以蔽之就是，要改变low数组的意义——不能是不通过父节点回到的最早时间戳，而应该是不通过来的边能回到的最早时间戳. 然后同样判断桥，收割边bcc.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://blog.csdn.net/lyy289065406/article/details/6762370" target="_blank" rel="noopener">https://blog.csdn.net/lyy289065406/article/details/6762370</a></p>
 <p>【2】</p>
 <p>【3】</p>
@@ -123,7 +125,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/10/poj-3352-Road-Construction-不带重边的边bcc/" data-id="ck0d8oef500d8q0vmrvvlafsz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/10/poj-3352-Road-Construction-不带重边的边bcc/" data-id="ck0d9536000hpx4vm8ma0g4jc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tarjan/">tarjan</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/割点/">割点</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/割边/">割边</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/缩点/">缩点</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/边bcc/">边bcc</a></li></ul>
@@ -236,7 +238,7 @@
 </nav>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script>
 
 
   <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
