@@ -16,7 +16,9 @@
 <meta property="og:description" content="缘起日常浪费生命~   poj 3352 Road Construction 本题参考了题解 【1】. 的确讲的很透彻~">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://hi.csdn.net/attachment/201109/9/0_1315529561z5Y0.gif">
-<meta property="og:updated_time" content="2019-09-10T02:53:22.899Z">
+<meta property="og:image" content="c:/Users/yfs/AppData/Roaming/Typora/typora-user-images/1568092609024.png">
+<meta property="og:image" content="c:/Users/yfs/AppData/Roaming/Typora/typora-user-images/1568093273837.png">
+<meta property="og:updated_time" content="2019-09-10T05:43:57.722Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="poj-3352-Road-Construction 不带重边的边bcc">
 <meta name="twitter:description" content="缘起日常浪费生命~   poj 3352 Road Construction 本题参考了题解 【1】. 的确讲的很透彻~">
@@ -100,15 +102,34 @@
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(leaf+1)&gt;&gt;1</span><br></pre></td></tr></table></figure>
 <p>形象的图解为</p>
 <p><img src="http://hi.csdn.net/attachment/201109/9/0_1315529561z5Y0.gif" alt="img"></p>
+<p>​                                                                                        图1</p>
 <p>加1是处于考虑叶子的数量为奇数的情况. </p>
-<p>但是本题求bcc分量，需要在运行tarjan的时候真的使用栈收集边bcc吗? 不需要! 因为本题保证输入无重边. 无重边意味着什么你知道吗?</p>
-<p>意味着2个顶点在一个边bcc中的充要条件是他们的low值相等. 为什么有重边就不成立? 太显然啦~ 比如无向图就2个点, 他们之间有2条边（所以是重边）. 则显然他们在一个边bcc中. 但是他们的low值显然是不一样的. 所以我们只需要跑一遍tarjan算法，期间维护low数组. 不需要判断桥，也不需要收集边bcc. 最后再根据low进行缩点重构(low值就是它所在的边bcc编号). 然后确定leaf的值, 最后打印(leaf+1)&gt;&gt;1 即可. </p>
-<p>那么， 有重边的情况怎么求边bcc? 这个在【2】中解答了. 就不能取巧通过low来缩点了.  正确的做法见【2】或者【3】</p>
-<p>一言以蔽之就是，要改变low数组的意义——不能是不通过父节点回到的最早时间戳，而应该是不通过来的边能回到的最早时间戳. 然后同样判断桥，收割边bcc.</p>
+<p>本题是边bcc的第一题. 所以要讲清楚一些问题. </p>
+<h4 id="有重边对于求割点以及点bcc有影响吗"><a href="#有重边对于求割点以及点bcc有影响吗" class="headerlink" title="有重边对于求割点以及点bcc有影响吗?"></a>有重边对于求割点以及点bcc有影响吗?</h4><p>答: 没有. 因为判断割点是根据不通过父节点回到的最早时间戳. 这和有无重边无关. </p>
+<h4 id="求割边（即桥）的low数组的意义是什么-它和割点的low数组的意义可以一样吗"><a href="#求割边（即桥）的low数组的意义是什么-它和割点的low数组的意义可以一样吗" class="headerlink" title="求割边（即桥）的low数组的意义是什么? 它和割点的low数组的意义可以一样吗?"></a>求割边（即桥）的low数组的意义是什么? 它和割点的low数组的意义可以一样吗?</h4><p>答: 求割点的low数组的意义是</p>
+<p>low[i]是i不经过它的父节点能回到的最早的时间戳. 而</p>
+<p>求割边的low数组的意义是</p>
+<p>low[i]是i不经过来路能回到的最早的时间戳.  所以原先写的【4】和【5】求割边以及边bcc的算法是错误的.</p>
+<p>其实你仔细品味一下上面的定义，是非常具备对称美的. 而且最重要的事情是非常复合直观——求割点我自然是不允许跨过父节点，求割边我自然是希望不能跨过原先来的边啦~</p>
+<p>能不能一样要看实际题目以及使用low数组的时机（因为low数组是在dfs的时候求得的.）但是使用”不能跨越来边回到的最早时间戳是一定不会出错的”.  例如本题的解法是跑完tarjan算法之low数组值一样的，一定在同一个边bcc中. 如果采用”low的意义是不经过父节点能回到的最早的时间戳”的话，则就是错误的. 不需要有重边都能有反例. 例如下图 </p>
+<p>跑完tarjan算法之后low[1]=low[2]=low[3]=1, low[4]=low[5]=3. 那么1、2、3就 在一个边bcc中，4和5就在一个边bcc中咯? 这不胡扯吗? 显然1、2、3、4、5都应该在同一个边bcc中. </p>
+<p><img src="C:\Users\yfs\AppData\Roaming\Typora\typora-user-images\1568092609024.png" alt="1568092609024"></p>
+<p>​                                                                                                图2</p>
+<p>.</p>
+<h4 id="对于有重边的情形，割边和边bcc的求法有什么影响吗"><a href="#对于有重边的情形，割边和边bcc的求法有什么影响吗" class="headerlink" title="对于有重边的情形，割边和边bcc的求法有什么影响吗?"></a>对于有重边的情形，割边和边bcc的求法有什么影响吗?</h4><p>答: 如果你使用low数组的意义为——low[i]是不经过来路能回到的最早时间戳. 则没有影响. 因为</p>
+<p><img src="C:\Users\yfs\AppData\Roaming\Typora\typora-user-images\1568093273837.png" alt="1568093273837"></p>
+<p>​                                                                                                图3</p>
+<p>对于上图, 1和2之间存在重边. 则low[1]和low[2]在跑完tarjan算法之后是一样的，都是1（不会出现【1】说的——对于带重边的无向图，low不同亦可能在同一个边bcc中, 这是因为【1】中对low的定义是不经过父节点回到的最早时间戳, 也是我认为错误的做法——虽然它的代码可以ac）. 对于图2，也是一样，跑完tarjan算法得到的low都是1. 所以我们就会发现求点bcc（即块）和求边bcc的不同之处.——</p>
+<p>首先求割点的话，它的low是一定要是”不经过父节点能回到的最早时间戳”，而不能是不经过来路能回到的时间戳.  否则反例是显然的，图2就是. 如果low是”不经过来路能回到的最早时间戳”的话, 则跑tarjan的过程中，4和5的low就都能达到1了, 则就会得出图中不存在割点的错误结论. 其次, 求块的时候，不能依据跑完tarjan 的low数组——low一样就在一个块中. 因为这样的话，图2中1,2,3就在一个块中，而4,5,在另一个块中（因为low在tarjan的过程中会变的，low[3]由3变成了1，实际上是两个块共用了顶点3），但是这样是不正确的, 求块只能在tarjan的过程中遇到一组就处理一组, 就像著名的【6】一样.</p>
+<p>而求边bcc呢? 它的low一定要用”不经过来路最早能回到的时间戳”. 则边bcc就好求太多了——不论是有重边还是没有重边，求法都是一样的. 如果需要输出割边的话就判断一下，如果只是求bcc的话，只需要跑完tarjan之后，low一样的就一定在一个边bcc中. 即low数组已经帮我们缩点了.</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://blog.csdn.net/lyy289065406/article/details/6762370" target="_blank" rel="noopener">https://blog.csdn.net/lyy289065406/article/details/6762370</a></p>
-<p>【2】</p>
-<p>【3】</p>
+<p>【2】<a href="https://yfsyfs.github.io/2019/09/10/hdu-4612-warm-up-带重边的边bcc-缩点-树的直径/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/09/10/hdu-4612-warm-up-%E5%B8%A6%E9%87%8D%E8%BE%B9%E7%9A%84%E8%BE%B9bcc-%E7%BC%A9%E7%82%B9-%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/</a></p>
+<p>【3】<a href="https://yfsyfs.github.io/2019/09/10/zoj-2588-burning-bridge-带重边的边bcc和割边/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/09/10/zoj-2588-burning-bridge-%E5%B8%A6%E9%87%8D%E8%BE%B9%E7%9A%84%E8%BE%B9bcc%E5%92%8C%E5%89%B2%E8%BE%B9/</a></p>
+<p>【4】<a href="https://yfsyfs.github.io/2019/05/24/无向连通图的割边-又称桥/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/05/24/%E6%97%A0%E5%90%91%E8%BF%9E%E9%80%9A%E5%9B%BE%E7%9A%84%E5%89%B2%E8%BE%B9-%E5%8F%88%E7%A7%B0%E6%A1%A5/</a></p>
+<p>【5】<a href="https://yfsyfs.github.io/2019/05/25/无向连通图的边双连通分量/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/05/25/%E6%97%A0%E5%90%91%E8%BF%9E%E9%80%9A%E5%9B%BE%E7%9A%84%E8%BE%B9%E5%8F%8C%E8%BF%9E%E9%80%9A%E5%88%86%E9%87%8F/</a></p>
+<p>【6】<a href="https://yfsyfs.github.io/2019/09/09/poj-2942-Knights-of-the-Round-Table-bcc-交叉染色判定奇圈/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/09/09/poj-2942-Knights-of-the-Round-Table-bcc-%E4%BA%A4%E5%8F%89%E6%9F%93%E8%89%B2%E5%88%A4%E5%AE%9A%E5%A5%87%E5%9C%88/</a></p>
+<p>【7】</p>
 
           <div id="vcomments"></div>
           <script>
@@ -125,7 +146,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/10/poj-3352-Road-Construction-不带重边的边bcc/" data-id="ck0dbmufj00estovm645jqllj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/10/poj-3352-Road-Construction-不带重边的边bcc/" data-id="ck0deze4q00jqj0vmui3sz9wz" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tarjan/">tarjan</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/割点/">割点</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/割边/">割边</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/缩点/">缩点</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/边bcc/">边bcc</a></li></ul>
@@ -135,6 +156,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2019/09/10/lightoj-1026-Critical-Links-割边/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          lightoj 1026 Critical Links 割边
+        
+      </div>
+    </a>
   
   
     <a href="/2019/09/10/hdu-4612-warm-up-带重边的边bcc-缩点-树的直径/" id="article-nav-older" class="article-nav-link-wrap">
@@ -192,6 +222,10 @@
       <ul>
         
           <li>
+            <a href="/2019/09/10/lightoj-1026-Critical-Links-割边/">lightoj 1026 Critical Links 割边</a>
+          </li>
+        
+          <li>
             <a href="/2019/09/10/poj-3352-Road-Construction-不带重边的边bcc/">poj-3352-Road-Construction 不带重边的边bcc</a>
           </li>
         
@@ -205,10 +239,6 @@
         
           <li>
             <a href="/2019/09/10/hdu-2196-Computer-树的直径/">hdu 2196 Computer 树的直径</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/10/poj-1985-Cow-Marathon-树的直径/">poj 1985 Cow Marathon 树的直径</a>
           </li>
         
       </ul>
