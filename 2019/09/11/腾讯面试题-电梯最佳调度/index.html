@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="缘起相信每个有点自负的程序员在写字楼里面等电梯的时候都会有想过电梯的调度算法. 123456789101112腾讯面试题问题如下:    一座楼里没有楼梯，只有一架电梯，    电梯一次最多只能乘3人，    已知楼共有20层，每层有一个人，    每个人都有1~20中唯一的编号，他们要去对应的楼层。    电梯初始状态：在一楼。    目标状态：每个人在相应楼层。试编写一个算法，完成目标状态，而">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-11T21:58:54.037Z">
+<meta property="og:updated_time" content="2019-09-11T22:08:17.966Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="腾讯面试题 电梯最佳调度">
 <meta name="twitter:description" content="缘起相信每个有点自负的程序员在写字楼里面等电梯的时候都会有想过电梯的调度算法. 123456789101112腾讯面试题问题如下:    一座楼里没有楼梯，只有一架电梯，    电梯一次最多只能乘3人，    已知楼共有20层，每层有一个人，    每个人都有1~20中唯一的编号，他们要去对应的楼层。    电梯初始状态：在一楼。    目标状态：每个人在相应楼层。试编写一个算法，完成目标状态，而">
@@ -91,6 +91,8 @@
       
         <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p><strong>相信每个有点自负的程序员在写字楼里面等电梯的时候都会有想过电梯的调度算法.</strong></p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">腾讯面试题</span><br><span class="line"></span><br><span class="line">问题如下:</span><br><span class="line"></span><br><span class="line">    一座楼里没有楼梯，只有一架电梯，</span><br><span class="line">    电梯一次最多只能乘3人，</span><br><span class="line">    已知楼共有20层，每层有一个人，</span><br><span class="line">    每个人都有1~20中唯一的编号，他们要去对应的楼层。</span><br><span class="line">    电梯初始状态：在一楼。</span><br><span class="line">    目标状态：每个人在相应楼层。</span><br><span class="line"></span><br><span class="line">试编写一个算法，完成目标状态，而且使电梯移动最小距离。</span><br></pre></td></tr></table></figure>
+<p>我知道此题是因为 <a href="https://bbs.csdn.net/topics/310097307" target="_blank" rel="noopener">腾讯笔试题<em>电梯问题</em>思路和初步的算法_討論一下 [问题点数：20分，结帖人zhanzongru]</a></p>
+<p>这里的<strong>炒鸡热闹</strong>的讨论.</p>
 <a id="more"></a>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>此题考查的其实是<strong>操作系统的磁盘调度的电梯算法</strong>.</p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">比如磁道号从41开始，磁盘请求序列为:20 44 40 4 80 12 76。该怎么移动呢?</span><br><span class="line">答:就是读取时按找当前的移动方向读取下一个，到顶后再反着读，就跟坐电梯一样，要不先上，要不先下。</span><br><span class="line">假设当前磁头移动方向是向下. </span><br><span class="line">下：40 20 12 4 上： 44 76 80</span><br><span class="line">合起来就是： 40 20 12 4 44 76 80</span><br><span class="line">这样的话磁头的总移动距离会相对减少</span><br></pre></td></tr></table></figure>
@@ -126,7 +128,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/11/腾讯面试题-电梯最佳调度/" data-id="ck0ftfjds02795ovm2kfde1hx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/11/腾讯面试题-电梯最佳调度/" data-id="ck0ftps7u0272q8vm3y59bbmx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/优先队列/">优先队列</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/操作系统/">操作系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模拟/">模拟</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
