@@ -7,18 +7,18 @@
   
   <title>腾讯面试题 电梯最佳调度 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缘起123456腾讯面试题问题如下:一座楼里没有楼梯，只有一架电梯，电梯一次最多只能乘3人，已知楼共有20层，每层有一个人，每个人都有1~20中唯一的编号，他们要去对应的楼层。电梯初始状态：在一楼。目标状态：每个人在相应楼层。试编写一个算法，完成目标状态，而且使电梯移动最小距离。">
+  <meta name="description" content="缘起相信每个有点自负的程序员在写字楼里面等电梯的时候都会有想过电梯的调度算法. 123456789101112腾讯面试题问题如下:    一座楼里没有楼梯，只有一架电梯，    电梯一次最多只能乘3人，    已知楼共有20层，每层有一个人，    每个人都有1~20中唯一的编号，他们要去对应的楼层。    电梯初始状态：在一楼。    目标状态：每个人在相应楼层。试编写一个算法，完成目标状态，而">
 <meta name="keywords" content="算法,面试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="腾讯面试题 电梯最佳调度">
 <meta property="og:url" content="http://yoursite.com/2019/09/11/腾讯面试题-电梯最佳调度/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="缘起123456腾讯面试题问题如下:一座楼里没有楼梯，只有一架电梯，电梯一次最多只能乘3人，已知楼共有20层，每层有一个人，每个人都有1~20中唯一的编号，他们要去对应的楼层。电梯初始状态：在一楼。目标状态：每个人在相应楼层。试编写一个算法，完成目标状态，而且使电梯移动最小距离。">
+<meta property="og:description" content="缘起相信每个有点自负的程序员在写字楼里面等电梯的时候都会有想过电梯的调度算法. 123456789101112腾讯面试题问题如下:    一座楼里没有楼梯，只有一架电梯，    电梯一次最多只能乘3人，    已知楼共有20层，每层有一个人，    每个人都有1~20中唯一的编号，他们要去对应的楼层。    电梯初始状态：在一楼。    目标状态：每个人在相应楼层。试编写一个算法，完成目标状态，而">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-11T05:40:15.896Z">
+<meta property="og:updated_time" content="2019-09-11T07:28:58.499Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="腾讯面试题 电梯最佳调度">
-<meta name="twitter:description" content="缘起123456腾讯面试题问题如下:一座楼里没有楼梯，只有一架电梯，电梯一次最多只能乘3人，已知楼共有20层，每层有一个人，每个人都有1~20中唯一的编号，他们要去对应的楼层。电梯初始状态：在一楼。目标状态：每个人在相应楼层。试编写一个算法，完成目标状态，而且使电梯移动最小距离。">
+<meta name="twitter:description" content="缘起相信每个有点自负的程序员在写字楼里面等电梯的时候都会有想过电梯的调度算法. 123456789101112腾讯面试题问题如下:    一座楼里没有楼梯，只有一架电梯，    电梯一次最多只能乘3人，    已知楼共有20层，每层有一个人，    每个人都有1~20中唯一的编号，他们要去对应的楼层。    电梯初始状态：在一楼。    目标状态：每个人在相应楼层。试编写一个算法，完成目标状态，而">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -89,7 +89,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">腾讯面试题</span><br><span class="line">问题如下:</span><br><span class="line">一座楼里没有楼梯，只有一架电梯，电梯一次最多只能乘3人，已知楼共有20层，每层有一个人，每个人都有1~20中唯一的编号，他们要去对应的楼层。</span><br><span class="line">电梯初始状态：在一楼。</span><br><span class="line">目标状态：每个人在相应楼层。</span><br><span class="line">试编写一个算法，完成目标状态，而且使电梯移动最小距离。</span><br></pre></td></tr></table></figure>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p><strong>相信每个有点自负的程序员在写字楼里面等电梯的时候都会有想过电梯的调度算法.</strong></p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">腾讯面试题</span><br><span class="line"></span><br><span class="line">问题如下:</span><br><span class="line"></span><br><span class="line">    一座楼里没有楼梯，只有一架电梯，</span><br><span class="line">    电梯一次最多只能乘3人，</span><br><span class="line">    已知楼共有20层，每层有一个人，</span><br><span class="line">    每个人都有1~20中唯一的编号，他们要去对应的楼层。</span><br><span class="line">    电梯初始状态：在一楼。</span><br><span class="line">    目标状态：每个人在相应楼层。</span><br><span class="line"></span><br><span class="line">试编写一个算法，完成目标状态，而且使电梯移动最小距离。</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3>
           <div id="vcomments"></div>
@@ -107,7 +108,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/11/腾讯面试题-电梯最佳调度/" data-id="ck0eu7w4t00mu50vma44pcmx6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/11/腾讯面试题-电梯最佳调度/" data-id="ck0ey0qve01znlgvmk18k8vqy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>

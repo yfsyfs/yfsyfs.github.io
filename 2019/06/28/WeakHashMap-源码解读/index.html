@@ -8,7 +8,7 @@
   <title>WeakHashMap 源码解读 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="缘起【1】中我们介绍了弱引用的一种应用场景——ThreadLocal. 当时是为了解决内存泄漏问题而必须要使得ThreadLocalMap的key（ThreadLocal类型）是弱引用. 但是带来的问题就是ThreadLocalMap的value的内存泄漏问题. 解决办法就是在get、set的时候顺便清理一下key已经为null的Entry.  而本文介绍弱引用另一种应用场景——WeakHashM">
-<meta name="keywords" content="后端,源码,JDK">
+<meta name="keywords" content="源码,后端,JDK">
 <meta property="og:type" content="article">
 <meta property="og:title" content="WeakHashMap 源码解读">
 <meta property="og:url" content="http://yoursite.com/2019/06/28/WeakHashMap-源码解读/index.html">
@@ -181,7 +181,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/28/WeakHashMap-源码解读/" data-id="ck0eu7xnm029s50vm3ridjhzt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/28/WeakHashMap-源码解读/" data-id="ck0ey0r1j0289lgvmoyvfl9r8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
