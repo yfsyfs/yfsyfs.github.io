@@ -15,10 +15,13 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="缘起继续全排列之旅!!!    leetcode 31 下一个排列">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-13T08:06:10.768Z">
+<meta property="og:image" content="http://yoursite.com/2019/09/13/leetcode-31-下一个排列/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/13/leetcode-31-下一个排列/2.png">
+<meta property="og:updated_time" content="2019-09-13T10:08:56.266Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode 31 下一个排列">
 <meta name="twitter:description" content="缘起继续全排列之旅!!!    leetcode 31 下一个排列">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/13/leetcode-31-下一个排列/1.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -92,9 +95,17 @@
         <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>继续全排列之旅!!!    <a href="https://leetcode-cn.com/problems/next-permutation/" target="_blank" rel="noopener">leetcode 31 下一个排列</a></p>
 <a id="more"></a>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。</span><br><span class="line"></span><br><span class="line">如果不存在下一个更大的排列，则将数字重新排列成最小的排列（即升序排列）。</span><br><span class="line"></span><br><span class="line">必须原地修改，只允许使用额外常数空间。</span><br><span class="line"></span><br><span class="line">以下是一些例子，输入位于左侧列，其相应输出位于右侧列。</span><br><span class="line">1,2,3 → 1,3,2</span><br><span class="line">3,2,1 → 1,2,3</span><br><span class="line">1,1,5 → 1,5,1</span><br></pre></td></tr></table></figure>
-<p>思想在 【1】中已经详细说过了. 题目中说的 <strong>必须原地修改，只允许使用额外常数空间。</strong> 其实就是为了防止你遍历全排列. 其实这样会被T掉的. 本题的算法显然是先进行康托展开求原全排列的哈希值，然后使用逆康托展开下一个哈希值.</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>如果数字是不重复的话，则思想在 【1】中已经详细说过了. 题目中说的 <strong>必须原地修改，只允许使用额外常数空间。</strong> 其实就是为了防止你遍历全排列. 其实这样会被T掉的. 本题的算法显然是先进行康托展开求原全排列的哈希值，然后使用逆康托展开下一个哈希值. 但是遗憾的事情是，本题参与全排列的数字是可能重复的. 就不能这么干. </p>
+<p>怎么做呢?  看下面的图</p>
+<img src="/2019/09/13/leetcode-31-下一个排列/1.png">
+<p>从全排列的末尾an倒序一直保持非降的趋势. 即ak&gt;=ai&gt;=aj&gt;=an</p>
+<p>但是现在来了个 a_{k-1} 它严格&lt;ak 导致破坏了非降的趋势. 假设aj&lt;=a_{k-1}&lt;ai, 即找到非降序列中第一个严格大于a_{k-1}的数——ai, 然后将ai和a_{k-1}交换.  变成</p>
+<img src="/2019/09/13/leetcode-31-下一个排列/2.png">
+<p> 再将ak-&gt;…-&gt;an逆序就是下一个全排列.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">nextPermutation</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;&amp; nums)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> n = nums.size();</span><br><span class="line">		<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; kk;</span><br><span class="line">		kk.push_back(nums[n<span class="number">-1</span>]);</span><br><span class="line">		nums.pop_back();</span><br><span class="line">		<span class="keyword">while</span>(!nums.empty() &amp;&amp; nums.back()&gt;=kk.back())</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> t = nums.back();</span><br><span class="line">			nums.pop_back();</span><br><span class="line">			kk.push_back(t);</span><br><span class="line">		&#125; <span class="comment">// 则 kk中已经是非降排序的, 所以不需要逆序了</span></span><br><span class="line">		<span class="keyword">if</span> (nums.empty()) <span class="comment">// 说明原先是逆序, 则只需要输出kk即可(kk已成顺序)</span></span><br><span class="line">		&#123;</span><br><span class="line">			nums = kk;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="comment">// 说明nums的最后一个元素&lt;kk的最后一个元素</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator x = upper_bound(kk.begin(), kk.end(), nums.back()); <span class="comment">// 找到kk中第一个严格&gt;nums最后一个元素的元素x</span></span><br><span class="line">			swap(nums.back(), *x); <span class="comment">// 交换二者</span></span><br><span class="line">			<span class="keyword">for</span> (<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator vit = kk.begin(); vit!=kk.end(); vit++)</span><br><span class="line">			&#123;</span><br><span class="line">				nums.push_back(*vit);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>ac情况</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">执行结果：</span><br><span class="line">通过</span><br><span class="line">显示详情</span><br><span class="line">执行用时 :</span><br><span class="line">12 ms</span><br><span class="line">, 在所有 C++ 提交中击败了</span><br><span class="line">83.44<span class="comment">%</span></span><br><span class="line">的用户</span><br><span class="line">内存消耗 :</span><br><span class="line">8.7 MB</span><br><span class="line">, 在所有 C++ 提交中击败了</span><br><span class="line">81.72<span class="comment">%</span></span><br><span class="line">的用户</span><br></pre></td></tr></table></figure>
+<p>这里已经无力吐槽 leetcode的输入输出~ 和各大OJ太不一样~ QAQ</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/09/13/康托展开求全排列/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/09/13/康托展开求全排列/</a></p>
 
           <div id="vcomments"></div>
@@ -112,7 +123,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/13/leetcode-31-下一个排列/" data-id="ck0hube63008pt8vm976p7irt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/13/leetcode-31-下一个排列/" data-id="ck0hymdt9008pk0vm3c5ok9b9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/全排列/">全排列</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/康托展开/">康托展开</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
