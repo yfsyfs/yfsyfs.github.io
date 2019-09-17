@@ -7,18 +7,18 @@
   
   <title>hdu 1043 Eight 八数码 康托展开+搜索 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缘起">
+  <meta name="description" content="缘起搜索经典问题——“八数码”  hdu 1043 Eight">
 <meta name="keywords" content="算法,oj,hdu,康托展开,搜索,bfs,双向bfs,A*算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hdu 1043 Eight 八数码 康托展开+搜索">
 <meta property="og:url" content="http://yoursite.com/2019/09/13/hdu-1043-Eight-八数码-康托展开-搜索/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="缘起">
+<meta property="og:description" content="缘起搜索经典问题——“八数码”  hdu 1043 Eight">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-13T14:02:18.479Z">
+<meta property="og:updated_time" content="2019-09-17T10:58:50.225Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hdu 1043 Eight 八数码 康托展开+搜索">
-<meta name="twitter:description" content="缘起">
+<meta name="twitter:description" content="缘起搜索经典问题——“八数码”  hdu 1043 Eight">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -89,8 +89,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><a id="more"></a>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>搜索经典问题——“八数码”  <a href="https://vjudge.net/problem/HDU-1043" target="_blank" rel="noopener">hdu 1043 Eight</a></p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">就是给你一串例如  1 2 3 x 4 6 7 5 8 表示</span><br><span class="line">1 2 3</span><br><span class="line">x 4 6</span><br><span class="line">7 5 8</span><br><span class="line">要你给出操作序列将上面的矩阵变成</span><br><span class="line">1 2 3</span><br><span class="line">4 5 6</span><br><span class="line">7 8 x</span><br><span class="line">如果无解的话, 输出 "unsolvable"</span><br><span class="line"></span><br><span class="line">【输入】</span><br><span class="line">多样例, 每个样例给你一串</span><br><span class="line"></span><br><span class="line">【输出】</span><br><span class="line">每个样例要么输出解（任何一组解都行）</span><br><span class="line"></span><br><span class="line">【样例输入】</span><br><span class="line">2  3  4  1  5  x  7  6  8</span><br><span class="line"></span><br><span class="line">【样例输出】</span><br><span class="line">ullddrurdllurdruldr</span><br><span class="line"></span><br><span class="line">【限制】</span><br><span class="line">5s</span><br></pre></td></tr></table></figure>
+
           <div id="vcomments"></div>
           <script>
             new Valine({
@@ -106,7 +108,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/13/hdu-1043-Eight-八数码-康托展开-搜索/" data-id="ck0npt9b700562ovmul8xfsmt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/13/hdu-1043-Eight-八数码-康托展开-搜索/" data-id="ck0nq5pwm004v34vmv12zpj5h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/A-算法/">A*算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bfs/">bfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdu/">hdu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/双向bfs/">双向bfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/康托展开/">康托展开</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/搜索/">搜索</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
