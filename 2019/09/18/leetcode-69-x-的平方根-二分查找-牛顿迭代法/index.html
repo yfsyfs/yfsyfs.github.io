@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="缘起日常浪费生命~  leetcode 69 x 的平方根">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-18T02:59:44.406Z">
+<meta property="og:updated_time" content="2019-09-18T03:20:29.065Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode 69 x 的平方根 二分查找 牛顿迭代法">
 <meta name="twitter:description" content="缘起日常浪费生命~  leetcode 69 x 的平方根">
@@ -107,7 +107,7 @@
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">执行结果：</span><br><span class="line">通过</span><br><span class="line">显示详情</span><br><span class="line">执行用时 :</span><br><span class="line">8 ms</span><br><span class="line">, 在所有 C++ 提交中击败了</span><br><span class="line">60.21<span class="comment">%</span></span><br><span class="line">的用户</span><br><span class="line">内存消耗 :</span><br><span class="line">8.2 MB</span><br><span class="line">, 在所有 C++ 提交中击败了</span><br><span class="line">77.26<span class="comment">%</span></span><br><span class="line">的用户</span><br></pre></td></tr></table></figure>
 <p>牛顿迭代</p>
 <p>牛顿迭代的原理如下</p>
-<p>求f(x)=0的根. 如果x0不是f(x)=0的根的话，则做(x0,f(x0))点出的切线, 然后求出该切线与x轴的交点. 则该交点坐标将快速收敛到f(x)=0的一个根. 收敛速度是二节无穷小（泰勒展开可以证明）. 速度很快~</p>
+<p>求f(x)=0的根. 如果x0不是f(x)=0的根的话，则做(x0,f(x0))点出的切线, 然后求出该切线与x轴的交点. 则该交点坐标将快速收敛到f(x)=0的一个根. 收敛速度是二阶无穷小（泰勒展开可以证明）. 速度很快~</p>
 <p>对于求平方根，即求 x^2-n=0的根. 则牛顿迭代的公式就显然了</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">假设x0不是n的平方根, 则</span><br><span class="line">xn = x_&#123;n<span class="number">-1</span>&#125;/<span class="number">2</span>+n/<span class="number">2</span>/x_&#123;n<span class="number">-1</span>&#125;</span><br><span class="line">不断迭代即可</span><br></pre></td></tr></table></figure>
 <p>代码如下</p>
@@ -130,7 +130,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/18/leetcode-69-x-的平方根-二分查找-牛顿迭代法/" data-id="ck0ooisno00al6gvmr6hi4mlo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/18/leetcode-69-x-的平方根-二分查找-牛顿迭代法/" data-id="ck0ow9ikt009clwvmb1blm99d" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二分答案/">二分答案</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/牛顿迭代法/">牛顿迭代法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
