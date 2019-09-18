@@ -64,6 +64,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-mapreduce程序提交job源码分析" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/20/mapreduce程序提交job源码分析/" class="article-date">
+  <time datetime="2019-02-19T22:49:27.000Z" itemprop="datePublished">2019-02-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/20/mapreduce程序提交job源码分析/">mapreduce程序提交job源码分析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>继续入门, 运行mapreduce的helloworld程序——wordcount. 运行mr程序的方式有两种</p>
+<ol>
+<li>本地模式，你导入的hadoop的jar包包括了本地模拟器</li>
+<li>集群模式, 打成（普通）jar包（未必要是可运行jar包），扔到hadoop集群上使用hadoop jar 命令运行</li>
+</ol>
+<p>这不是本文讨论的重点, 本文讨论的重点在于最后提交(job)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">job.waitForCompletion(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
+<p>本文就在于分析其提交过程</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/02/20/mapreduce程序提交job源码分析/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/" data-id="ck0pvdm9h02bm10vmvlwry4af" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-一道sql面试题统计人数-1的记录id" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/02/13/一道sql面试题统计人数-1的记录id/" class="article-date">
@@ -141,7 +193,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/13/一道sql面试题统计人数-1的记录id/" data-id="ck0puv4lq00irdkvmdgw2yga8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/13/一道sql面试题统计人数-1的记录id/" data-id="ck0pvdknl00hb10vmvkijm7bv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
@@ -189,7 +241,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" data-id="ck0puv4lj00ihdkvmihj74bmu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" data-id="ck0pvdknd00gx10vm1pq38iia" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
@@ -255,7 +307,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" data-id="ck0puv4lu00iwdkvm6yapkkst" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" data-id="ck0pvdknr00hl10vmne5187rj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
@@ -302,7 +354,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/" data-id="ck0puv4aw005rdkvmrm3q8ot5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/" data-id="ck0pvdkf9004e10vm0kkj7qal" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradle/">gradle</a></li></ul>
@@ -348,7 +400,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/" data-id="ck0puv4ay005tdkvm2jbm74fb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/" data-id="ck0pvdkfa004g10vmfc3be7qu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradle/">gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
@@ -396,7 +448,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" data-id="ck0puv6xl022edkvmq3n5nj2z" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" data-id="ck0pvdll101sx10vmv48lmfxi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jpa/">jpa</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oracle/">oracle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
@@ -460,6 +512,10 @@
       <ul>
         
           <li>
+            <a href="/2019/09/19/poj-2411-Mondriaan-s-Dream-状压DP/">poj 2411 Mondriaan&#39;s Dream 状压DP</a>
+          </li>
+        
+          <li>
             <a href="/2019/09/19/sjtuoj-3016-均分纸牌-贪心/">sjtuoj 3016. 均分纸牌 贪心</a>
           </li>
         
@@ -473,10 +529,6 @@
         
           <li>
             <a href="/2019/09/18/poj-2686-Traveling-by-Stagecoach-dijkstra-DAG-DP-状态压缩/">poj 2686 Traveling by Stagecoach dijkstra DAG DP 状态压缩</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/18/leetcode-69-x-的平方根-二分查找-牛顿迭代法/">leetcode 69 x 的平方根 二分查找 牛顿迭代法</a>
           </li>
         
       </ul>

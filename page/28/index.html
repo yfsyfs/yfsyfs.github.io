@@ -64,10 +64,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Windows10下编译openjdk8" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-JDK-JRE-JVM-HotSpot-之间的区别和联系" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/07/11/Windows10下编译openjdk8/" class="article-date">
-  <time datetime="2019-07-11T12:27:41.000Z" itemprop="datePublished">2019-07-11</time>
+    <a href="/2019/07/13/JDK-JRE-JVM-HotSpot-之间的区别和联系/" class="article-date">
+  <time datetime="2019-07-13T02:18:50.000Z" itemprop="datePublished">2019-07-13</time>
 </a>
     
   </div>
@@ -78,7 +78,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/11/Windows10下编译openjdk8/">Windows10下编译openjdk8</a>
+      <a class="article-title" href="/2019/07/13/JDK-JRE-JVM-HotSpot-之间的区别和联系/">JDK JRE JVM HotSpot 之间的区别和联系</a>
     </h1>
   
 
@@ -86,19 +86,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>java程序员经常说new 一个对象，后台线程啥的，而且面试经常被问及JVM，其实感觉java就像是c/c++上建筑的高塔. 总有一种不踏实的感觉——我就是这么的喜欢底层. 哈哈, 所以准备在Windows10上编译一套自己的jdk源码来玩玩. 真实的看到java到底是怎么运行的，对象究竟是个什么样的存在?</p>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>学java伊始的时候就经常听说这四个单词，但是具体什么意思，他们之间的联系是什么，当时就是不求甚解了. 现在回顾，有必要好好整理一下，不要到头来搞了一辈子java，连这四个单词的区别和联系都搞不清楚就丢人了.</p>
         
           <p class="article-more-link">
-            <a href="/2019/07/11/Windows10下编译openjdk8/#more">Read More</a>
+            <a href="/2019/07/13/JDK-JRE-JVM-HotSpot-之间的区别和联系/#more">Read More</a>
           </p>
         
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/11/Windows10下编译openjdk8/" data-id="ck0puv4am005cdkvmvdq1xjux" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/13/JDK-JRE-JVM-HotSpot-之间的区别和联系/" data-id="ck0pvdke5002q10vmjodp0ted" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HotSpot/">HotSpot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JRE/">JRE</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
 
     </footer>
   </div>
@@ -140,7 +140,52 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/11/Windows10下vs2010单步调试jvm/" data-id="ck0puv4ag0054dkvm2z4ogxvy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/11/Windows10下vs2010单步调试jvm/" data-id="ck0pvdkeu003p10vmuxz0t1f0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-Windows10下编译openjdk8" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/11/Windows10下编译openjdk8/" class="article-date">
+  <time datetime="2019-07-11T12:27:41.000Z" itemprop="datePublished">2019-07-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/11/Windows10下编译openjdk8/">Windows10下编译openjdk8</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>java程序员经常说new 一个对象，后台线程啥的，而且面试经常被问及JVM，其实感觉java就像是c/c++上建筑的高塔. 总有一种不踏实的感觉——我就是这么的喜欢底层. 哈哈, 所以准备在Windows10上编译一套自己的jdk源码来玩玩. 真实的看到java到底是怎么运行的，对象究竟是个什么样的存在?</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/07/11/Windows10下编译openjdk8/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/11/Windows10下编译openjdk8/" data-id="ck0pvdkew003s10vm0otjwobg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JVM/">JVM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -185,7 +230,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/11/java并发编程实践-5-2-并发容器/" data-id="ck0puv4en009xdkvmbkebah7n" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/11/java并发编程实践-5-2-并发容器/" data-id="ck0pvdkho008c10vmgvb0rsf4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li></ul>
@@ -230,7 +275,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/10/java并发编程实践-5-1-同步容器/" data-id="ck0puv4ef009kdkvmikpds6ob" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/10/java并发编程实践-5-1-同步容器/" data-id="ck0pvdkhl008710vm7ksnoea7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li></ul>
@@ -275,7 +320,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/10/java并发编程实践-4-5-同步策略的文档化/" data-id="ck0puv4ek009sdkvmy2gaoh4a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/10/java并发编程实践-4-5-同步策略的文档化/" data-id="ck0pvdkhk008510vmtf4ltr85" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li></ul>
@@ -320,7 +365,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/10/java并发编程实践-4-4-向已有的线程安全类添加功能/" data-id="ck0puv4e7009fdkvmg73qzmv2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/10/java并发编程实践-4-4-向已有的线程安全类添加功能/" data-id="ck0pvdkhn008a10vmwqbsap8o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li></ul>
@@ -365,7 +410,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/10/ConcurrentHashMap-源码解读/" data-id="ck0puv47l001edkvmncs2oj43" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/10/ConcurrentHashMap-源码解读/" data-id="ck0pvdkcj000q10vmbwerrjxe" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -410,7 +455,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/10/java并发编程实践-4-3-委托线程安全/" data-id="ck0puv4e5009ddkvmqj2y19x3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/10/java并发编程实践-4-3-委托线程安全/" data-id="ck0pvdkhh008010vmwr7ptxu5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li></ul>
@@ -455,52 +500,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/09/java并发编程实践-4-2-实例限制/" data-id="ck0puv4ee009idkvmt6yk6lar" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-java并发编程实践-4-1-设计线程安全的类" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/09/java并发编程实践-4-1-设计线程安全的类/" class="article-date">
-  <time datetime="2019-07-09T10:39:39.000Z" itemprop="datePublished">2019-07-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/09/java并发编程实践-4-1-设计线程安全的类/">java并发编程实践 4.1 设计线程安全的类</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>《java并发编程实践》 4.1节</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/07/09/java并发编程实践-4-1-设计线程安全的类/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/09/java并发编程实践-4-1-设计线程安全的类/" data-id="ck0puv4e20098dkvm4rtvx3vw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/09/java并发编程实践-4-2-实例限制/" data-id="ck0pvdkhf007x10vmbczj98ae" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java并发编程实践/">java并发编程实践</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li></ul>
@@ -564,6 +564,10 @@
       <ul>
         
           <li>
+            <a href="/2019/09/19/poj-2411-Mondriaan-s-Dream-状压DP/">poj 2411 Mondriaan&#39;s Dream 状压DP</a>
+          </li>
+        
+          <li>
             <a href="/2019/09/19/sjtuoj-3016-均分纸牌-贪心/">sjtuoj 3016. 均分纸牌 贪心</a>
           </li>
         
@@ -577,10 +581,6 @@
         
           <li>
             <a href="/2019/09/18/poj-2686-Traveling-by-Stagecoach-dijkstra-DAG-DP-状态压缩/">poj 2686 Traveling by Stagecoach dijkstra DAG DP 状态压缩</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/18/leetcode-69-x-的平方根-二分查找-牛顿迭代法/">leetcode 69 x 的平方根 二分查找 牛顿迭代法</a>
           </li>
         
       </ul>
