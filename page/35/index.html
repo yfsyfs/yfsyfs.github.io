@@ -64,6 +64,187 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-FinalReference-源码解读" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/05/FinalReference-源码解读/" class="article-date">
+  <time datetime="2019-07-05T05:57:37.000Z" itemprop="datePublished">2019-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/05/FinalReference-源码解读/">FinalReference 源码解读</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>【2】中我们已经了解到了FinalReference这种引用类型. 我们在【2】中简要分析了一下该类的子类Finalizer和Object的finalize方法之间的关系, 并得出了尽量不要覆写finalize方法的结论，因为如果你的finalize方法执行时间过长的话，由于Finalizer作为Reference的子类，referent属性迟迟得不到释放（未变成null，强引用一直存在），导致不能被后续回收，可能最终导致OOM.  本文对FinalReference特别是它的子类——Finalizer进行更加细致的分析——分析它和垃圾回收，和finalize方法之间的关系. 本文参考了【1】</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/07/05/FinalReference-源码解读/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/05/FinalReference-源码解读/" data-id="ck19wn3xw02mb10vm1a349fdu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-java-lang-ref-Reference-源码解读" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/05/java-lang-ref-Reference-源码解读/" class="article-date">
+  <time datetime="2019-07-05T00:30:27.000Z" itemprop="datePublished">2019-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/05/java-lang-ref-Reference-源码解读/">java.lang.ref.Reference 源码解读</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>java.lang.ref.Reference<t> 是java中的引用类型对象. 它与GC机制密切相关. 所以我们打算从源码角度理解一下它. 本文参考了【1】和【2】 </t></p>
+        
+          <p class="article-more-link">
+            <a href="/2019/07/05/java-lang-ref-Reference-源码解读/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/05/java-lang-ref-Reference-源码解读/" data-id="ck19wn41002mo10vmx668nrwl" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-HashSet源码解读" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/05/HashSet源码解读/" class="article-date">
+  <time datetime="2019-07-04T22:40:59.000Z" itemprop="datePublished">2019-07-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/05/HashSet源码解读/">HashSet源码解读</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>【1】中我们已经分析了HashMap的源码. 现在我们继续我们的Java集合之旅. 开始解读HashSet的源码. 其实弄懂了HashMap的源码的话，HashSet的源码很简单的.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/07/05/HashSet源码解读/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/05/HashSet源码解读/" data-id="ck19wn3im025b10vmhtukffdg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-阿里经典面试题——小朋友最短时间过桥问题——动态规划" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/04/阿里经典面试题——小朋友最短时间过桥问题——动态规划/" class="article-date">
+  <time datetime="2019-07-04T04:59:10.000Z" itemprop="datePublished">2019-07-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/04/阿里经典面试题——小朋友最短时间过桥问题——动态规划/">阿里经典面试题——小朋友最短时间过桥问题——动态规划</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>阿里笔试曾经考过下面的题目</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">题目：在一个夜黑风高的晚上，有n（n &lt;= 50）个小朋友在桥的这边，现在他们需要过桥，但是由于桥很窄，每次只允许不大于两人通过，他们只有一个手电筒，所以每次过桥的两个人需要把手电筒带回来，i号小朋友过桥的时间为T[i]，两个人过桥的总时间为二者中时间长者。问所有小朋友过桥的总时间最短是多少。</span><br><span class="line"></span><br><span class="line">输入：</span><br><span class="line"></span><br><span class="line">两行数据：</span><br><span class="line"></span><br><span class="line">第一行为小朋友个数n</span><br><span class="line"></span><br><span class="line">第二行有n个数，用空格隔开，分别是每个小朋友过桥的时间。</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line"></span><br><span class="line">一行数据：所有小朋友过桥花费的最少时间.</span><br><span class="line"></span><br><span class="line">样例：</span><br><span class="line"></span><br><span class="line">输入</span><br><span class="line"></span><br><span class="line">4</span><br><span class="line">1 2 5 10</span><br><span class="line"></span><br><span class="line">输出</span><br><span class="line"></span><br><span class="line">17</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2019/07/04/阿里经典面试题——小朋友最短时间过桥问题——动态规划/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/04/阿里经典面试题——小朋友最短时间过桥问题——动态规划/" data-id="ck19wn3u802bk10vm54a0zdvm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-JDK7-中的String的内存结构" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/07/03/JDK7-中的String的内存结构/" class="article-date">
@@ -96,7 +277,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/03/JDK7-中的String的内存结构/" data-id="ck19av9xj02nf54vmhhicp1z6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/03/JDK7-中的String的内存结构/" data-id="ck19wn47n02rd10vm7bywtthx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/">String</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/设计模式/">设计模式</a></li></ul>
@@ -143,7 +324,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/03/Integer-比较问题/" data-id="ck19av79h003r54vmzsuq29kr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/03/Integer-比较问题/" data-id="ck19wn2gm002n10vmwtptd6e0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -188,7 +369,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/03/java-lang-String-源码解读/" data-id="ck19av9u702l554vmzyywu340" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/03/java-lang-String-源码解读/" data-id="ck19wn41x02mq10vm9q34pjez" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/">String</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -233,7 +414,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/03/clone-研究/" data-id="ck19av7ac005c54vm0fp8sku4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/03/clone-研究/" data-id="ck19wn2ha004010vmv535m8tq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -283,7 +464,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/02/Arrays-copyOf-和-System-arraycopy-源码解读/" data-id="ck19av8vf028s54vmz7ocmvj1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/02/Arrays-copyOf-和-System-arraycopy-源码解读/" data-id="ck19wn3hj025310vmy3hrw32h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -328,191 +509,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/02/快速幂模板/" data-id="ck19av7mu00nn54vmm9b9jyu9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/07/02/快速幂模板/" data-id="ck19wn2ql00m210vm79ynfz0q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/快速幂/">快速幂</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模板/">模板</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-BSGS-算法" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/07/02/BSGS-算法/" class="article-date">
-  <time datetime="2019-07-02T03:24:57.000Z" itemprop="datePublished">2019-07-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/02/BSGS-算法/">BSGS 算法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>BSGS算法（拔山盖世是否或者北上广深算法）的全名是大小步算法（Baby Step Giant Step）目的是求满足如下同余方程中的t.<br>$$<br>x^t ≡ y(mod m)<br>$$<br>
-        
-          </p><p class="article-more-link">
-            <a href="/2019/07/02/BSGS-算法/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/07/02/BSGS-算法/" data-id="ck19av75o000m54vm23iiigiy" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/快速幂/">快速幂</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数学/">数学</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-替罪羊树-洛谷-P3369-【模板】普通平衡树" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/30/替罪羊树-洛谷-P3369-【模板】普通平衡树/" class="article-date">
-  <time datetime="2019-06-30T09:22:56.000Z" itemprop="datePublished">2019-06-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/30/替罪羊树-洛谷-P3369-【模板】普通平衡树/">替罪羊树 洛谷 P3369 【模板】普通平衡树</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>平衡二叉树是为了解决二叉树退化为链表导致O(n) 查询复杂度而诞生的数据结构.  现在有一款平衡二叉树比较暴力，就是所谓的替罪羊树（scapegoat tree， 下面简称SGT）（虽然其实我觉得这个名字叫的觉得不是很贴切，但是市面上都这么叫它）.</p>
-<p> SGT最大的特点就是一旦失衡，就暴力重建，检查是否失衡就是在插入和删除节点的时候. 其他的和典型的BST没什么两样.  本文以 洛谷 P3369 【模板】普通平衡树 为板子，讲解一下这种数据结构。</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/06/30/替罪羊树-洛谷-P3369-【模板】普通平衡树/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/30/替罪羊树-洛谷-P3369-【模板】普通平衡树/" data-id="ck19av9vb02lh54vm8dkqjtp5" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/平衡查找树/">平衡查找树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/洛谷/">洛谷</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-为什么尽量不要Override-finalize方法" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/28/为什么尽量不要Override-finalize方法/" class="article-date">
-  <time datetime="2019-06-28T07:07:13.000Z" itemprop="datePublished">2019-06-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/28/为什么尽量不要Override-finalize方法/">为什么尽量不要Override finalize方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>我们在java.lang.Object中的约莫10个方法中能看到 finalize方法的身影. 但是java官方并不推荐 Override此方法. 这是为什么呢? </p>
-        
-          <p class="article-more-link">
-            <a href="/2019/06/28/为什么尽量不要Override-finalize方法/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/28/为什么尽量不要Override-finalize方法/" data-id="ck19av7k400kf54vmsnnsmihu" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-WeakHashMap-源码解读" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/28/WeakHashMap-源码解读/" class="article-date">
-  <time datetime="2019-06-28T07:03:42.000Z" itemprop="datePublished">2019-06-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/28/WeakHashMap-源码解读/">WeakHashMap 源码解读</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>【1】中我们介绍了弱引用的一种应用场景——ThreadLocal. 当时是为了解决内存泄漏问题而必须要使得ThreadLocalMap的key（ThreadLocal类型）是弱引用. 但是带来的问题就是ThreadLocalMap的value的内存泄漏问题. 解决办法就是在get、set的时候顺便清理一下key已经为null的Entry.  而本文介绍弱引用另一种应用场景——WeakHashMap. 它的key同样是弱引用. 对弱引用不清楚的同学可以参考【2】</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/06/28/WeakHashMap-源码解读/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/28/WeakHashMap-源码解读/" data-id="ck19av9tq02ky54vmj2dnwsx4" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
 
     </footer>
   </div>
@@ -573,23 +573,23 @@
       <ul>
         
           <li>
+            <a href="/2019/10/02/洛谷-P1880-NOI1995-石子合并-区间DP/">洛谷 P1880 [NOI1995]石子合并 区间DP</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/02/sdnuoj-1045-石子合并1-DP的平行四边形优化/">sdnuoj 1045 石子合并1 DP的平行四边形优化</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/02/poj-1738-An-old-Stone-Game-GarsiaWachs算法/">poj 1738 An old Stone Game GarsiaWachs算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/02/poj-1160-Post-Office-DP的平行四边形优化/">poj 1160 Post Office DP的平行四边形优化</a>
+          </li>
+        
+          <li>
             <a href="/2019/10/01/面试-打印输出全部出栈次序/">面试 打印输出全部出栈次序</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/01/hdu-1023-Train-Problem-II-卡塔兰数-栈/">hdu 1023 Train Problem II 卡塔兰数 栈</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/01/hdu-1022-Train-Problem-I-卡塔兰数-栈/">hdu 1022 Train Problem I 卡塔兰数 栈</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/01/poj-1363-Rails-卡塔兰数-栈/">poj 1363 Rails 卡塔兰数 栈</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/30/uva-10498-Happiness-线性规划/">uva 10498 Happiness 线性规划</a>
           </li>
         
       </ul>

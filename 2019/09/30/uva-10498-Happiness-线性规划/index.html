@@ -7,15 +7,18 @@
   
   <title>uva 10498 Happiness 线性规划 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="算法,oj,uva,单纯形法,线性规划">
+  <meta name="description" content="缘起继续学习单纯形法求解线性规划.   uva 10498 Happiness">
+<meta name="keywords" content="算法,oj,uva,单纯形法,线性规划">
 <meta property="og:type" content="article">
 <meta property="og:title" content="uva 10498 Happiness 线性规划">
 <meta property="og:url" content="http://yoursite.com/2019/09/30/uva-10498-Happiness-线性规划/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="缘起继续学习单纯形法求解线性规划.   uva 10498 Happiness">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-09-30T15:39:38.426Z">
+<meta property="og:updated_time" content="2019-10-02T13:52:32.131Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="uva 10498 Happiness 线性规划">
+<meta name="twitter:description" content="缘起继续学习单纯形法求解线性规划.   uva 10498 Happiness">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -86,7 +89,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>继续学习单纯形法求解线性规划.   <a href="https://vjudge.net/problem/UVA-10498" target="_blank" rel="noopener">uva 10498 Happiness</a></p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">将n种食品分给m个参赛选手，一个单位的某食品给某个选手一定的满足度，每个选手有一个最大满足度。为了避免浪</span><br><span class="line">费，分给每一个选手的食品都不超越选手的满足度。已知各种食品的单价，求最多可以花多少钱。</span><br><span class="line"></span><br><span class="line">【输入】</span><br><span class="line">多样例. 每个样例包含n和m（(3 ≤ n, m ≤ 20），然后一行包含n个实数, 表示每种食物的单价.</span><br><span class="line">然后是m行，每行刻画了一位选手. 每行n+1个数字, 前n个实数是每种食物能给该选手带来的满足感, 最后那个实数</span><br><span class="line">是该选手最多需要的满足感</span><br><span class="line"></span><br><span class="line">【输出】</span><br><span class="line">对每个样例, 输出最多能花费的钱. 最后的答案四舍五入.</span><br><span class="line"></span><br><span class="line">【样例输入】</span><br><span class="line">3 3</span><br><span class="line">1 0.67 1.67</span><br><span class="line">1 2 1 430</span><br><span class="line">3 0 2 460</span><br><span class="line">1 4 0 420</span><br><span class="line"></span><br><span class="line">【样例输出】</span><br><span class="line">Nasa can spend 1354 taka.</span><br><span class="line"></span><br><span class="line">【限制】</span><br><span class="line">3s</span><br></pre></td></tr></table></figure>
+<p>红果果的线性规划问题. 上来就是标准型，不需要转换. 直接套单纯形模板.</p>
+<p>以样例输入为例：</p>
+<p>输入第一行，有3种食品，3个选手。</p>
+<p>第二行是每种食品的单价。目标函数求最多可以花多少钱，也就是极大化目标函数</p>
+<p>C=x1*1+x2*0.67+x3*1.67</p>
+<p>输入后面某个选手，每种食品单位给予的满足度以及他最大满足度。也就是我们的约束条件：</p>
+<p>x1*1+x2*2+x3*1&lt;=430</p>
+<p>x1*3+x2*0+x3*2&lt;=460</p>
+<p>x1*1+x2*4+x3*0&lt;=420</p>
+<p>求出的C最后还要乘以m（不晓得为啥, 反正是题意, 但是懒得去解读题意了）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>ac情况</p>
+
           <div id="vcomments"></div>
           <script>
             new Valine({
@@ -102,7 +120,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/30/uva-10498-Happiness-线性规划/" data-id="ck19av7jg00jg54vmsonab3g0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/30/uva-10498-Happiness-线性规划/" data-id="ck19wn2o300i010vmlart5v1r" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/uva/">uva</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/单纯形法/">单纯形法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/线性规划/">线性规划</a></li></ul>
@@ -178,23 +196,23 @@
       <ul>
         
           <li>
+            <a href="/2019/10/02/洛谷-P1880-NOI1995-石子合并-区间DP/">洛谷 P1880 [NOI1995]石子合并 区间DP</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/02/sdnuoj-1045-石子合并1-DP的平行四边形优化/">sdnuoj 1045 石子合并1 DP的平行四边形优化</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/02/poj-1738-An-old-Stone-Game-GarsiaWachs算法/">poj 1738 An old Stone Game GarsiaWachs算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/02/poj-1160-Post-Office-DP的平行四边形优化/">poj 1160 Post Office DP的平行四边形优化</a>
+          </li>
+        
+          <li>
             <a href="/2019/10/01/面试-打印输出全部出栈次序/">面试 打印输出全部出栈次序</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/01/hdu-1023-Train-Problem-II-卡塔兰数-栈/">hdu 1023 Train Problem II 卡塔兰数 栈</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/01/hdu-1022-Train-Problem-I-卡塔兰数-栈/">hdu 1022 Train Problem I 卡塔兰数 栈</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/01/poj-1363-Rails-卡塔兰数-栈/">poj 1363 Rails 卡塔兰数 栈</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/30/uva-10498-Happiness-线性规划/">uva 10498 Happiness 线性规划</a>
           </li>
         
       </ul>

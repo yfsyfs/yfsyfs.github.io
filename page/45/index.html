@@ -64,6 +64,193 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-位图法总结" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/25/位图法总结/" class="article-date">
+  <time datetime="2019-05-25T14:26:26.000Z" itemprop="datePublished">2019-05-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/25/位图法总结/">位图法总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>位图法是桶排序思想的延伸. 比如我们想知道 200以内的正整数 某个元素， 例如163，是否存在, 我们需要</p>
+<p>int flag[200], flag[163]=1表示存在, 0表示不存在. 即需要 200*4=800字节的桶才能维护这样的状态. 或者至少</p>
+<p>bool flag[200], 即 200字节维护这一状态. 但是如果使用位图思想——它精简到使用一个bit来记录某个正整数的状态. 例如163, 163/8=20…3 即第20字节的第3个比特的状态就可以刻画163. 所以使用位图思想的话, 只需要200/8=25字节就足够了.</p>
+<blockquote>
+<p>位图思想使用1个比特位表示一个状态，算法的精简性适用于海量数据，但数据状态又不是很多的情况。通常是用来判断某个数据存不存在的。</p>
+</blockquote>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/25/位图法总结/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/25/位图法总结/" data-id="ck19wn2p600jk10vm3987igj3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/位图/">位图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-离散化模板" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/25/离散化模板/" class="article-date">
+  <time datetime="2019-05-25T13:51:20.000Z" itemprop="datePublished">2019-05-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/25/离散化模板/">离散化模板</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>很多时候, 如果我们要考察一组数字，例如</p>
+<p>-1118, 57, 3299, 163, 871,-2,73, -2, 57, 163</p>
+<p>我们只关心其在数组中的大小相对顺序, 而不关心其绝对的数值, 则此时离散化就起到了作用. </p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/25/离散化模板/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/25/离散化模板/" data-id="ck19wn3rq029r10vmhlucvhg2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模板/">模板</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/离散化/">离散化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-去重" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/25/去重/" class="article-date">
+  <time datetime="2019-05-25T13:11:55.000Z" itemprop="datePublished">2019-05-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/25/去重/">去重</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>数组去重是常见的面试题， 而且也是基本的操作.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/25/去重/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/25/去重/" data-id="ck19wn2pt00kq10vmmlyeax0i" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-堆排序" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/25/堆排序/" class="article-date">
+  <time datetime="2019-05-25T08:44:02.000Z" itemprop="datePublished">2019-05-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/25/堆排序/">堆排序</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>堆排序又叫做优先队列. 在c++ 的STL中的模板类priority_queue\<t>以及java中的java.util.PriorityQueue 无疑都给出了堆的实现.  这个算法属于内排序中最快、性能最稳定（快排虽然也是O(nlogn)但是最坏亦可以堕落到O（n^2），而堆排稳定在O（nlogn））的一类算法, 但是因为涉及到非相邻元素之间的交换, 所以堆排不是稳定的排序。 但是堆排序是就地算法.</t></p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/25/堆排序/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/25/堆排序/" data-id="ck19wn2px00ky10vmusggqu47" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-基数排序" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/25/基数排序/" class="article-date">
@@ -95,7 +282,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/基数排序/" data-id="ck19av7ls00mh54vmg5yv1e74" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/基数排序/" data-id="ck19wn2pv00kv10vmn7hd34c3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -143,7 +330,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/CBA理论-为什么基于比较的排序方法的性能极限是O-nlogn/" data-id="ck19av768000z54vmf7d4fagf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/CBA理论-为什么基于比较的排序方法的性能极限是O-nlogn/" data-id="ck19wn2fc000i10vmzcvt78q7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -188,7 +375,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/非比较排序之计数排序/" data-id="ck19av7tx00sx54vmpiwatnqo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/非比较排序之计数排序/" data-id="ck19wn3uf02bm10vmbwzw1b3o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -233,7 +420,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/非选择排序之桶排序/" data-id="ck19av7u500t054vmxfu8faud" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/非选择排序之桶排序/" data-id="ck19wn3us02bt10vm1p4r3r3f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -278,7 +465,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/涉及快排的一道面试题——将负数放在正数的前面/" data-id="ck19av7qw00ql54vmre1d3mzs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/涉及快排的一道面试题——将负数放在正数的前面/" data-id="ck19wn3r0029810vmtqnf3utc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
@@ -323,191 +510,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/涉及快排的一道面试题/" data-id="ck19av7ql00qe54vmfjcxirnu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/25/涉及快排的一道面试题/" data-id="ck19wn3qv029310vmuqy50rmq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-交换两个数" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/25/交换两个数/" class="article-date">
-  <time datetime="2019-05-25T03:52:27.000Z" itemprop="datePublished">2019-05-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/25/交换两个数/">交换两个数</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>交换两个数是经常在面试的是考烂掉了的.</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/25/交换两个数/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/交换两个数/" data-id="ck19av7ke00ku54vm82w50qak" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-洗牌算法" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/25/洗牌算法/" class="article-date">
-  <time datetime="2019-05-25T02:58:17.000Z" itemprop="datePublished">2019-05-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/25/洗牌算法/">洗牌算法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>造对拍数据的时候有可能用到</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/25/洗牌算法/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/洗牌算法/" data-id="ck19av7q200pz54vmrqcmqfpk" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-快速排序" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/25/快速排序/" class="article-date">
-  <time datetime="2019-05-25T02:03:32.000Z" itemprop="datePublished">2019-05-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/25/快速排序/">快速排序</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>不客气的说, 快排已经是几乎每个库（c++ STL、java collection 甚至一些js库）中必备的API了, 由此可见其重要性.</p>
-<p>快排是与堆排一样常用的内排序算法,但是更加简洁<br>快排属于交换排序（冒泡是另一种交换排序的初级版，但是冒泡稳定，快排不稳定(涉及不相邻元素的调换的排序都是不稳定的,例如希尔，堆排)），堆排属于选择排序（简单选择排序是另一种初级版，但是初级的选择排序与堆排都是不稳定的）<br>在时间复杂度上，快排可能最差到O（N^2）但是堆排一直很稳定O(N*logN)</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/25/快速排序/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/快速排序/" data-id="ck19av7mt00nk54vmwj4l0uka" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/排序/">排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模板/">模板</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-无向连通图的最小生成树-MST-之Kruskal算法" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/25/无向连通图的最小生成树-MST-之Kruskal算法/" class="article-date">
-  <time datetime="2019-05-25T02:00:10.000Z" itemprop="datePublished">2019-05-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/25/无向连通图的最小生成树-MST-之Kruskal算法/">无向连通图的最小生成树(MST)之Kruskal算法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>【1】中介绍了MST（无向连通图的最小生成树）的概念并给出了Prim算法, 【2】中使用堆结构对Prim算法给出了堆优化. 这里将给出无向连通图的 MST的第二种算法——Kruskal算法</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/25/无向连通图的最小生成树-MST-之Kruskal算法/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/25/无向连通图的最小生成树-MST-之Kruskal算法/" data-id="ck19av7nr00oj54vms3gacyxc" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并查集/">并查集</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/快排/">快排</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/生成树/">生成树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/连通性/">连通性</a></li></ul>
 
     </footer>
   </div>
@@ -568,23 +574,23 @@
       <ul>
         
           <li>
+            <a href="/2019/10/02/洛谷-P1880-NOI1995-石子合并-区间DP/">洛谷 P1880 [NOI1995]石子合并 区间DP</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/02/sdnuoj-1045-石子合并1-DP的平行四边形优化/">sdnuoj 1045 石子合并1 DP的平行四边形优化</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/02/poj-1738-An-old-Stone-Game-GarsiaWachs算法/">poj 1738 An old Stone Game GarsiaWachs算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/02/poj-1160-Post-Office-DP的平行四边形优化/">poj 1160 Post Office DP的平行四边形优化</a>
+          </li>
+        
+          <li>
             <a href="/2019/10/01/面试-打印输出全部出栈次序/">面试 打印输出全部出栈次序</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/01/hdu-1023-Train-Problem-II-卡塔兰数-栈/">hdu 1023 Train Problem II 卡塔兰数 栈</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/01/hdu-1022-Train-Problem-I-卡塔兰数-栈/">hdu 1022 Train Problem I 卡塔兰数 栈</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/01/poj-1363-Rails-卡塔兰数-栈/">poj 1363 Rails 卡塔兰数 栈</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/30/uva-10498-Happiness-线性规划/">uva 10498 Happiness 线性规划</a>
           </li>
         
       </ul>

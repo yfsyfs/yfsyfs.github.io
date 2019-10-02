@@ -64,6 +64,190 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-jdbc-性能优化之fetch-batch" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/19/jdbc-性能优化之fetch-batch/" class="article-date">
+  <time datetime="2019-04-18T16:02:39.000Z" itemprop="datePublished">2019-04-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/19/jdbc-性能优化之fetch-batch/">jdbc 性能优化之fetch &amp; batch</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>朋友（下简称P）在公司经常955, 拿着三线城市8.5K/月的薪资, 让老板十分的不爽, 于是有一天, 老板交代给他一个任务, oracle11g 单表（未分表）5000w的数据.  其中一个字段是中文姓名, 然后老板希望他能新增一个字段为拼音字段,  并且这个字段的值为中文姓名的拼音. P觉得这还不简单，首先改表结构——新增一个varchar字段（下简称V）为拼音， 然后用原生jdbc拉取所有数据下来，然后遍历结果集, 然后逐条更新V字段. 逻辑异常的清晰和简单. 至于中文转拼音，既有成熟的API接口，也有丰富的本地jar包. 所以这就不是难事了. 写完开始跑, 一下子傻了眼, 大概是 <code>12秒/1w条</code> 的处理速度. 则这样算下来，约莫16小时才能搞定. 但是气人就气人在老板还安排一位17年毕业的小鲜肉也来做这个东西, 人家处理速度是 <code>5秒/1w条</code>. 老板很明显想diss一下我的这位朋友P. 于是他死扛了2天，来找我怎么扳回一局. 最后我通过使用fetch+batch参数将性能提高到了<code>0.35秒/1w条</code>. 着实帮他找回了面子.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/04/19/jdbc-性能优化之fetch-batch/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/19/jdbc-性能优化之fetch-batch/" data-id="ck19wn2jj008s10vmxfq98cj9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-学习vue的成果之cms系统" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/11/学习vue的成果之cms系统/" class="article-date">
+  <time datetime="2019-04-11T05:09:41.000Z" itemprop="datePublished">2019-04-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/11/学习vue的成果之cms系统/">学习vue的成果之cms系统</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>作为一个想吃全栈的java后端程序员, 一直认为前端已非09年之前的前端了. 正如某些前端自豪的称之为 大前端 时代的驾临. 所以我目前正沉下心来学习前端知识. 正好公司项目用到了vue.js 作为前端技术支撑. 所以学习了一下vue的知识. 并且做了一个小型的cms系统. 后端采用的是node.js. 参见Demo【1】</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/04/11/学习vue的成果之cms系统/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/04/11/学习vue的成果之cms系统/" data-id="ck19wn2q200l810vm7l5hfbaw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-springmvc-整合-swagger2-遇到的坑" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/17/springmvc-整合-swagger2-遇到的坑/" class="article-date">
+  <time datetime="2019-03-17T08:26:24.000Z" itemprop="datePublished">2019-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/17/springmvc-整合-swagger2-遇到的坑/">springmvc 整合 swagger2 遇到的坑</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>公司最近做项目, 负责一个小组件的开发. 前端小姐姐需要我提供swagger.json 文档. 原先做过boot和swagger2整合，但是没整过 swagger.json. 其实就是swagger2框架暴露的一个以json格式描述api结构的http接口. 路径是 /v2/api-docs</p>
+<p>但是整合之后发现 swagger-ui.html 可以妥妥的访问，但是 /v2/api-docs 死活出不来.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/03/17/springmvc-整合-swagger2-遇到的坑/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/17/springmvc-整合-swagger2-遇到的坑/" data-id="ck19wn2nz00hq10vmjq3sj7po" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swagger/">swagger</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后台/">后台</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-找1到1亿中包含68的数字并打印并记录68出现的总次数" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/" class="article-date">
+  <time datetime="2019-03-15T08:40:23.000Z" itemprop="datePublished">2019-03-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/">找1到1亿中包含68的数字并打印并记录68出现的总次数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>这是我朋友面试一家公司的时候机试的题目. 题目很简单，就是求出</p>
+<blockquote>
+<p>1~100000000（1亿）中68出现的总次数，例如 168068 就出现了2次68. 而且要求打印出全部包含68的数字</p>
+</blockquote>
+        
+          <p class="article-more-link">
+            <a href="/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/" data-id="ck19wn2qs00mc10vmsfd14tco" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-Spring-LDAP-官文阅读理解-纯干货" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/" class="article-date">
@@ -96,7 +280,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/" data-id="ck19av8zu029b54vmdca1v99l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/08/Spring-LDAP-官文阅读理解-纯干货/" data-id="ck19wn3iz025n10vmu6pc8d2b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li></ul>
@@ -141,7 +325,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/07/从使用-ldap-想到的-jndi-机制分析/" data-id="ck19av9h202be54vm0lwfs7dl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/07/从使用-ldap-想到的-jndi-机制分析/" data-id="ck19wn3ou027q10vm3bht1xih" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LDAP/">LDAP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
@@ -189,7 +373,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/07/jdk-的-URL-源码浅析/" data-id="ck19av9d402a254vmbxfxfo6x" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/07/jdk-的-URL-源码浅析/" data-id="ck19wn3kc026e10vmgbdd7qvf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
@@ -234,7 +418,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/" data-id="ck19av7kl00l154vm1zzd7hsu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/" data-id="ck19wn2p400ji10vm8su8ktbm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/servlet/">servlet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li></ul>
@@ -279,7 +463,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/28/JDK之SPI机制简明分析/" data-id="ck19av79i003t54vm8krognfa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/28/JDK之SPI机制简明分析/" data-id="ck19wn2go002r10vmdt54rsyy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
@@ -331,262 +515,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/" data-id="ck19av9uf02l954vm9pplfjbg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/" data-id="ck19wn42v02ms10vmp446r710" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-一道sql面试题统计人数-1的记录id" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/13/一道sql面试题统计人数-1的记录id/" class="article-date">
-  <time datetime="2019-02-13T07:54:09.000Z" itemprop="datePublished">2019-02-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/13/一道sql面试题统计人数-1的记录id/">一道sql面试题统计人数&gt;1的记录id</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>朋友面试, 问我面到的题目, 哎，每次sql的问题, 其实想吧想吧都能答出来，但是如果要求你短时间，特别是面试官就站在你对面的话, 还真有点压力.</p>
-<p>题目: 如下一张表 T_PUB_MEMBER</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">PUB_ID</th>
-<th style="text-align:center">JOB_TITLE</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">采集人员</td>
-</tr>
-<tr>
-<td style="text-align:center">3</td>
-<td style="text-align:center">财务人员</td>
-</tr>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">采集人员</td>
-</tr>
-<tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center">采集人员</td>
-</tr>
-</tbody>
-</table>
-<p>要统计这张表中JOB_TITLE为<strong>采集人员</strong>的数量&gt;1的PUB_ID</p>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>sql题一般都是逐步写出答案的.</p>
-<ol>
-<li><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> PUB_ID <span class="keyword">AS</span> <span class="keyword">id</span> <span class="keyword">FROM</span> T_PUB_MEMBER <span class="keyword">WHERE</span> JOB_TITLE=<span class="string">'采集人员'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> JOB_TITLE</span><br></pre></td></tr></table></figure>
-<p>得到所有JOB_TITLE为采集人员的ID列表. 将此表记做c</p>
-</li>
-<li><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> c.id <span class="keyword">FROM</span> c <span class="keyword">GROUP</span> <span class="keyword">BY</span> c.id <span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(<span class="number">1</span>)&gt;<span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>得到答案</p>
-</li>
-</ol>
-<p>综上，答案是</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> c.id <span class="keyword">FROM</span></span><br><span class="line">(<span class="keyword">SELECT</span> PUB_ID <span class="keyword">AS</span> <span class="keyword">id</span> <span class="keyword">FROM</span> T_PUB_MEMBER <span class="keyword">WHERE</span> JOB_TITLE=<span class="string">'采集人员'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> JOB_TITLE) c <span class="keyword">GROUP</span> <span class="keyword">BY</span> c.id <span class="keyword">HAVING</span> <span class="keyword">COUNT</span>(<span class="number">1</span>)&gt;<span class="number">1</span></span><br></pre></td></tr></table></figure>
-          <div id="vcomments"></div>
-          <script>
-            new Valine({
-              el: '#vcomments' ,
-              appId: 'XlY58twgvIOmA3HxDHid3qxr-gzGzoHsz',
-              appKey: 'XPVIq9oMfocEh6gcBmLadxCb',
-              notify:false,
-              verify:false,
-              avatar:'mp',
-              placeholder: '请奉上您的真知灼见, 谢谢!'
-            });
-          </script>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/13/一道sql面试题统计人数-1的记录id/" data-id="ck19av7k900km54vm168bauxv" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" class="article-date">
-  <time datetime="2019-02-12T11:09:07.000Z" itemprop="datePublished">2019-02-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/">win10 java客户端连接hdfs集群报 java.io.Exception: Could not locate executable null/bin/winutils.exe in the Hadoop binaries</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>小白继续入门. 使用java客户端连接hdfs集群, 本地环境是<code>win10 Home Basic</code>.搭建好hadoop集群, 配置好HADOOP_HOME环境变量.以及PATH环境变量.  </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">upload</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line">	FileSystem fs = FileSystem.get(<span class="keyword">new</span> URI(<span class="string">"hdfs://hadoop01:9000"</span>), configuration, <span class="string">"root"</span>);</span><br><span class="line">	fs.copyFromLocalFile(<span class="keyword">new</span> Path(<span class="string">"e:/hello.txt"</span>), <span class="keyword">new</span> Path(<span class="string">"/hello.txt"</span>));</span><br><span class="line">	fs.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中hadoop01是hdfs的namenode所在节点. 运行之后报错</p>
-<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.io.Exception: Could not locate executable null<span class="tag">\<span class="name">bin</span></span><span class="tag">\<span class="name">winutils</span></span>.exe in the Hadoop binaries.</span><br></pre></td></tr></table></figure>
-        
-          <p class="article-more-link">
-            <a href="/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" data-id="ck19av7jz00k854vmu43c1kzc" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-上传文件到hdfs-结果50070web控制台的Availability为localhost" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" class="article-date">
-  <time datetime="2019-02-11T08:07:34.000Z" itemprop="datePublished">2019-02-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/">上传文件到hdfs,结果50070web控制台的Availability为localhost</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>大数据最近入门. 3台centos虚拟机搭建了hadoop环境.  集群部署规划如下</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center"></th>
-<th style="text-align:center">hadoop01</th>
-<th style="text-align:center">hadoop02</th>
-<th style="text-align:center">hadoop03</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">HDFS</td>
-<td style="text-align:center">namenode/datanode</td>
-<td style="text-align:center">datanode</td>
-<td style="text-align:center">secondarynamenode/datanode</td>
-</tr>
-</tbody>
-</table>
-<p>但是上传本地文件到hdfs上去之后, 打开50070端口的hdfsのweb控制台一看</p>
-<img src="/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/1.png" title="上传hdfs的文件的Availability异常">
-<p>我明明有三台hadoop节点, 为什么该block的副本全部在localhost?</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" data-id="ck19av7k700kk54vm2dxzd3u6" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-gradle-build和gradlew-build的区别" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/02/06/gradle-build和gradlew-build的区别/" class="article-date">
-  <time datetime="2019-02-06T07:24:14.000Z" itemprop="datePublished">2019-02-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/06/gradle-build和gradlew-build的区别/">gradle build和gradlew build的区别</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>接之前写的一篇小文<strong>《gradle项目开发环境搭建》</strong>， 我们观察一下gradle项目中的文件</p>
-<img src="/2019/02/06/gradle-build和gradlew-build的区别/1.png" title="项目结构">
-<p>其中我们看到了gradlew 和 gradlew.bat 文件, 有点经验的人都知道, 前者是linux上用的, 后者是Windows下用的, 但从作用上来讲, 两者没有本质区别. 那么接上一文的疑问, gradlew 的作用是什么呢? 它和gradle命令有什么区别?</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/02/06/gradle-build和gradlew-build的区别/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/" data-id="ck19av7ah005k54vmfazgyqh7" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradle/">gradle</a></li></ul>
 
     </footer>
   </div>
@@ -647,23 +579,23 @@
       <ul>
         
           <li>
+            <a href="/2019/10/02/洛谷-P1880-NOI1995-石子合并-区间DP/">洛谷 P1880 [NOI1995]石子合并 区间DP</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/02/sdnuoj-1045-石子合并1-DP的平行四边形优化/">sdnuoj 1045 石子合并1 DP的平行四边形优化</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/02/poj-1738-An-old-Stone-Game-GarsiaWachs算法/">poj 1738 An old Stone Game GarsiaWachs算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/02/poj-1160-Post-Office-DP的平行四边形优化/">poj 1160 Post Office DP的平行四边形优化</a>
+          </li>
+        
+          <li>
             <a href="/2019/10/01/面试-打印输出全部出栈次序/">面试 打印输出全部出栈次序</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/01/hdu-1023-Train-Problem-II-卡塔兰数-栈/">hdu 1023 Train Problem II 卡塔兰数 栈</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/01/hdu-1022-Train-Problem-I-卡塔兰数-栈/">hdu 1022 Train Problem I 卡塔兰数 栈</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/01/poj-1363-Rails-卡塔兰数-栈/">poj 1363 Rails 卡塔兰数 栈</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/30/uva-10498-Happiness-线性规划/">uva 10498 Happiness 线性规划</a>
           </li>
         
       </ul>

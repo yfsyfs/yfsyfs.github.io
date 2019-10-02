@@ -64,6 +64,186 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ZOJ-2477-Magic-Cube-IDA" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/09/14/ZOJ-2477-Magic-Cube-IDA/" class="article-date">
+  <time datetime="2019-09-14T12:36:39.000Z" itemprop="datePublished">2019-09-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/14/ZOJ-2477-Magic-Cube-IDA/">ZOJ 2477 Magic Cube IDA*</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>本题来研究IDA* 这种搜索算法。  <a href="https://zoj.pintia.cn/problem-sets/91827364500/problems/91827365976" target="_blank" rel="noopener">ZOJ 2477 Magic Cube</a></p>
+        
+          <p class="article-more-link">
+            <a href="/2019/09/14/ZOJ-2477-Magic-Cube-IDA/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/09/14/ZOJ-2477-Magic-Cube-IDA/" data-id="ck19wn3jh025x10vmfsxsh14i" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDA/">IDA*</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/zoj/">zoj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-spoj-1771-NQUEEN-Yet-Another-N-Queen-Problem-DLX" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/09/14/spoj-1771-NQUEEN-Yet-Another-N-Queen-Problem-DLX/" class="article-date">
+  <time datetime="2019-09-14T00:47:19.000Z" itemprop="datePublished">2019-09-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/14/spoj-1771-NQUEEN-Yet-Another-N-Queen-Problem-DLX/">spoj 1771 NQUEEN Yet Another N-Queen Problem DLX</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>【1】中讲解了舞蹈链算法. 这里用它解决N皇后（N&gt;8） <a href="https://vjudge.net/problem/SPOJ-NQUEEN" target="_blank" rel="noopener">spoj 1771 NQUEEN Yet Another N-Queen Problem</a></p>
+        
+          <p class="article-more-link">
+            <a href="/2019/09/14/spoj-1771-NQUEEN-Yet-Another-N-Queen-Problem-DLX/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/09/14/spoj-1771-NQUEEN-Yet-Another-N-Queen-Problem-DLX/" data-id="ck19wn2o900ic10vml78r5m87" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DLX/">DLX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spoj/">spoj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-舞蹈链（dancing-links）算法" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/09/14/舞蹈链（dancing-links）算法/" class="article-date">
+  <time datetime="2019-09-13T23:45:30.000Z" itemprop="datePublished">2019-09-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/14/舞蹈链（dancing-links）算法/">舞蹈链（dancing links）算法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>【1】中我们使用了dfs求解八皇后问题. 但是一旦这个八变动, 则会导致解的个数爆炸性的增长.  你可以试试【1】中的代码对于16皇后能不能1秒内算出解的个数. 显然是不能的.  于是更高效的Knuth大神发明的舞蹈链算法（dancing links）诞生了. 本文来学习学习该算法.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/09/14/舞蹈链（dancing-links）算法/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/09/14/舞蹈链（dancing-links）算法/" data-id="ck19wn44t02nr10vmtznfx5el" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DLX/">DLX</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
+    <article id="post-百练oj-2754-八皇后-dfs" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/09/14/百练oj-2754-八皇后-dfs/" class="article-date">
+  <time datetime="2019-09-13T23:15:34.000Z" itemprop="datePublished">2019-09-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/14/百练oj-2754-八皇后-dfs/">百练oj 2754 八皇后 dfs</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>【1】中早就写过八皇后. 但是没有提交过. 这么经典的题目怎么能不提交呢? 遂找到  <a href="http://bailian.openjudge.cn/practice/2754" target="_blank" rel="noopener">百练oj 2754 八皇后</a></p>
+        
+          <p class="article-more-link">
+            <a href="/2019/09/14/百练oj-2754-八皇后-dfs/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/09/14/百练oj-2754-八皇后-dfs/" data-id="ck19wn3rd029i10vmg6k4z4hn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dfs/">dfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/回溯/">回溯</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/百练/">百练</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-leetcode-77-组合-全排列" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/09/13/leetcode-77-组合-全排列/" class="article-date">
@@ -95,7 +275,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/13/leetcode-77-组合-全排列/" data-id="ck19av7dn00am54vm678bu41d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/13/leetcode-77-组合-全排列/" data-id="ck19wn2jv009h10vm15tccnmj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/全排列/">全排列</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -140,7 +320,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/13/leetcode-60-第k个排列-康托展开/" data-id="ck19av7dq00ar54vm7me06lg1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/13/leetcode-60-第k个排列-康托展开/" data-id="ck19wn2js009c10vmeuu8130v" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/全排列/">全排列</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/康托展开/">康托展开</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -185,7 +365,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/13/leetcode-47-全排列-II-可重复全排列/" data-id="ck19av7dk00ah54vmhnva683g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/13/leetcode-47-全排列-II-可重复全排列/" data-id="ck19wn2k500a510vmu82pil69" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/全排列/">全排列</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -230,7 +410,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/13/leetcode-46-全排列-康托展开/" data-id="ck19av7dm00aj54vmnmlat1dm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/13/leetcode-46-全排列-康托展开/" data-id="ck19wn2jq009910vmigux7ton" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vector初始化容量/">vector初始化容量</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/全排列/">全排列</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/康托展开/">康托展开</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -275,7 +455,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/13/hdu-1043-Eight-八数码-康托展开-搜索/" data-id="ck19av9ty02l054vmrxbc0gli" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/13/hdu-1043-Eight-八数码-康托展开-搜索/" data-id="ck19wn40u02mj10vmmfk619is" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/A-算法/">A*算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bfs/">bfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdu/">hdu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/双向bfs/">双向bfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/康托展开/">康托展开</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/搜索/">搜索</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -320,191 +500,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/13/康托展开求全排列/" data-id="ck19av7mo00ng54vmsyz489s5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/09/13/康托展开求全排列/" data-id="ck19wn2qg00ls10vm0dfcl2v2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/全排列/">全排列</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/哈希/">哈希</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/康托展开/">康托展开</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-leetcode-31-下一个排列" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/13/leetcode-31-下一个排列/" class="article-date">
-  <time datetime="2019-09-13T02:41:24.000Z" itemprop="datePublished">2019-09-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/13/leetcode-31-下一个排列/">leetcode 31 下一个排列</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>继续全排列之旅!!!    <a href="https://leetcode-cn.com/problems/next-permutation/" target="_blank" rel="noopener">leetcode 31 下一个排列</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/13/leetcode-31-下一个排列/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/13/leetcode-31-下一个排列/" data-id="ck19av7dj00ae54vmvjqm9pnr" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/全排列/">全排列</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/康托展开/">康托展开</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-poj-1179-Polygon-多边形游戏-区间DP" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/12/poj-1179-Polygon-多边形游戏-区间DP/" class="article-date">
-  <time datetime="2019-09-12T12:56:40.000Z" itemprop="datePublished">2019-09-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/12/poj-1179-Polygon-多边形游戏-区间DP/">poj 1179 Polygon 多边形游戏 区间DP</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>继续做经典的DP问题.  <a href="https://vjudge.net/problem/POJ-1179" target="_blank" rel="noopener">poj 1179 Polygon</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/12/poj-1179-Polygon-多边形游戏-区间DP/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/12/poj-1179-Polygon-多边形游戏-区间DP/" data-id="ck19av7eo00bx54vmnf9dkpkk" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/区间DP/">区间DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/记忆化搜索/">记忆化搜索</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-hdu-1081-poj-1050-To-the-Matrix-最大子矩阵之和" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/12/hdu-1081-poj-1050-To-the-Matrix-最大子矩阵之和/" class="article-date">
-  <time datetime="2019-09-12T11:48:04.000Z" itemprop="datePublished">2019-09-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/12/hdu-1081-poj-1050-To-the-Matrix-最大子矩阵之和/">hdu 1081 &amp; poj 1050 To the Matrix 最大子矩阵之和</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>【1】中讲解了一维的最大片段和, 本题将它推广到了二维.    <a href="https://vjudge.net/problem/POJ-1050" target="_blank" rel="noopener">poj 1050 To the Matrix</a>  </p>
-<p>hdu 1081和此题一模一样~</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/12/hdu-1081-poj-1050-To-the-Matrix-最大子矩阵之和/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/12/hdu-1081-poj-1050-To-the-Matrix-最大子矩阵之和/" data-id="ck19av7b9006j54vmthkucqky" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdu/">hdu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-hdu-1244-Max-Sum-Plus-Plus-Plus-DP" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/09/12/hdu-1244-Max-Sum-Plus-Plus-Plus-DP/" class="article-date">
-  <time datetime="2019-09-12T10:26:23.000Z" itemprop="datePublished">2019-09-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/12/hdu-1244-Max-Sum-Plus-Plus-Plus-DP/">hdu 1244 Max Sum Plus Plus Plus DP</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>最大子段和之三连弹 ^_^  <a href="https://vjudge.net/problem/HDU-1244" target="_blank" rel="noopener">hdu 1244 Max Sum Plus Plus Plus</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2019/09/12/hdu-1244-Max-Sum-Plus-Plus-Plus-DP/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/12/hdu-1244-Max-Sum-Plus-Plus-Plus-DP/" data-id="ck19av7b7006g54vmxnaq7bu0" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DP/">DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdu/">hdu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
 
     </footer>
   </div>
@@ -565,23 +564,23 @@
       <ul>
         
           <li>
+            <a href="/2019/10/02/洛谷-P1880-NOI1995-石子合并-区间DP/">洛谷 P1880 [NOI1995]石子合并 区间DP</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/02/sdnuoj-1045-石子合并1-DP的平行四边形优化/">sdnuoj 1045 石子合并1 DP的平行四边形优化</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/02/poj-1738-An-old-Stone-Game-GarsiaWachs算法/">poj 1738 An old Stone Game GarsiaWachs算法</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/02/poj-1160-Post-Office-DP的平行四边形优化/">poj 1160 Post Office DP的平行四边形优化</a>
+          </li>
+        
+          <li>
             <a href="/2019/10/01/面试-打印输出全部出栈次序/">面试 打印输出全部出栈次序</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/01/hdu-1023-Train-Problem-II-卡塔兰数-栈/">hdu 1023 Train Problem II 卡塔兰数 栈</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/01/hdu-1022-Train-Problem-I-卡塔兰数-栈/">hdu 1022 Train Problem I 卡塔兰数 栈</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/01/poj-1363-Rails-卡塔兰数-栈/">poj 1363 Rails 卡塔兰数 栈</a>
-          </li>
-        
-          <li>
-            <a href="/2019/09/30/uva-10498-Happiness-线性规划/">uva 10498 Happiness 线性规划</a>
           </li>
         
       </ul>
