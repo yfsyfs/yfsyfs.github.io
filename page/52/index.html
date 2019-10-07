@@ -64,6 +64,53 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-mysql-like-后缀匹配真的不会用到索引吗" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/16/mysql-like-后缀匹配真的不会用到索引吗/" class="article-date">
+  <time datetime="2019-05-16T07:31:48.000Z" itemprop="datePublished">2019-05-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/16/mysql-like-后缀匹配真的不会用到索引吗/">mysql like 后缀匹配真的不会用到索引吗</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>业余草大哥问（kao）了我一个问题</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> xttblog_like (</span><br><span class="line">	<span class="keyword">ID</span> <span class="built_in">int</span> primary <span class="keyword">key</span>,</span><br><span class="line">	test_like <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="number">0</span>,</span><br><span class="line">	<span class="keyword">index</span> test_like(test_like)</span><br><span class="line">)<span class="keyword">engine</span>=<span class="keyword">InnoDB</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> xttblog_like <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'公众号：业余草'</span>),</span><br><span class="line">	(<span class="number">2</span>,<span class="string">'微信号：xttblog'</span>),</span><br><span class="line">	(<span class="number">3</span>,<span class="string">'感谢转发！'</span>),</span><br><span class="line">	(<span class="number">4</span>,<span class="string">'MySQL like'</span>),</span><br><span class="line">	(<span class="number">5</span>,<span class="string">'MySQL in'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> xttblog_like;</span><br><span class="line"></span><br><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> xttblog_like <span class="keyword">WHERE</span> test_like <span class="keyword">LIKE</span> <span class="string">'y'</span>;</span><br><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> xttblog_like <span class="keyword">WHERE</span> test_like <span class="keyword">LIKE</span> <span class="string">'y%'</span>;</span><br><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> xttblog_like <span class="keyword">WHERE</span> test_like <span class="keyword">LIKE</span> <span class="string">'%y'</span>;</span><br><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> xttblog_like <span class="keyword">WHERE</span> test_like <span class="keyword">LIKE</span> <span class="string">'%y%'</span>;</span><br></pre></td></tr></table></figure>
+<p>%y 是用索引了吗? </p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/16/mysql-like-后缀匹配真的不会用到索引吗/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/16/mysql-like-后缀匹配真的不会用到索引吗/" data-id="ck1fr37ts00b2ywvmcuzzqnys" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端，数据库-mysql/">后端，数据库, mysql</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-微信小程序demo-及一个重要的日子" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/15/微信小程序demo-及一个重要的日子/" class="article-date">
@@ -122,7 +169,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/15/微信小程序demo-及一个重要的日子/" data-id="ck1fmik3m00phs4vmcfbsgkfy" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/15/微信小程序demo-及一个重要的日子/" data-id="ck1fr38qq01zcywvm7dt6mzp1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/小程序/">小程序</a></li></ul>
@@ -167,7 +214,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/10/记一次因为mq连接数爆满导致异常的线上排错/" data-id="ck1fmik7c00uzs4vmhm4iasaw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/10/记一次因为mq连接数爆满导致异常的线上排错/" data-id="ck1fr38yt024tywvm9msltsnn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/activemq/">activemq</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/抓包/">抓包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/线上问题/">线上问题</a></li></ul>
@@ -212,7 +259,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/05/My-Resume/" data-id="ck1fmijsj005qs4vmxegrrryt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/05/My-Resume/" data-id="ck1fr37qo0041ywvmrtacyd3t" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/简历/">简历</a></li></ul>
@@ -257,7 +304,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/28/轮播图总结以及组件化思考/" data-id="ck1fmik7700uss4vmb0ajbtbm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/28/轮播图总结以及组件化思考/" data-id="ck1fr38yg024jywvmgn60hr6h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原生js/">原生js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模块化/">模块化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/组件化/">组件化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/轮播图/">轮播图</a></li></ul>
@@ -311,7 +358,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/24/vue-学习-之-硅谷外卖/" data-id="ck1fmik1500lus4vmbuc4wcsv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/24/vue-学习-之-硅谷外卖/" data-id="ck1fr37xu00k6ywvmitz6a3uo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -359,7 +406,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/20/vue-cli-proxytable-日常踩坑之神坑-之-4000端口/" data-id="ck1fmik1200lps4vm2vmeyt0j" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/20/vue-cli-proxytable-日常踩坑之神坑-之-4000端口/" data-id="ck1fr37xs00k2ywvmb88x1enh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -404,7 +451,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/19/jdbc-性能优化之fetch-batch/" data-id="ck1fmijvo00bxs4vmv7flo205" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/19/jdbc-性能优化之fetch-batch/" data-id="ck1fr37tf00a9ywvmkls4oh80" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能优化/">性能优化</a></li></ul>
@@ -449,7 +496,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/11/学习vue的成果之cms系统/" data-id="ck1fmik3700ous4vm107ni0uo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/11/学习vue的成果之cms系统/" data-id="ck1fr38m901ykywvm0902zkpo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/node/">node</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
@@ -495,58 +542,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/17/springmvc-整合-swagger2-遇到的坑/" data-id="ck1fmik0q00l3s4vma96uut87" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/17/springmvc-整合-swagger2-遇到的坑/" data-id="ck1fr37xk00jkywvmfrh97nz6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swagger/">swagger</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后台/">后台</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-找1到1亿中包含68的数字并打印并记录68出现的总次数" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/" class="article-date">
-  <time datetime="2019-03-15T08:40:23.000Z" itemprop="datePublished">2019-03-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/">找1到1亿中包含68的数字并打印并记录68出现的总次数</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>这是我朋友面试一家公司的时候机试的题目. 题目很简单，就是求出</p>
-<blockquote>
-<p>1~100000000（1亿）中68出现的总次数，例如 168068 就出现了2次68. 而且要求打印出全部包含68的数字</p>
-</blockquote>
-        
-          <p class="article-more-link">
-            <a href="/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/15/找1到1亿中包含68的数字并打印并记录68出现的总次数/" data-id="ck1fmik4400q8s4vm8i451prl" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态规划/">动态规划</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
 
     </footer>
   </div>
@@ -607,11 +606,15 @@
       <ul>
         
           <li>
-            <a href="/2019/10/07/面试题-各个位上的数字乘积最大的数/">面试题 各个位上的数字乘积最大的数</a>
+            <a href="/2019/10/07/hdu-1403-Longest-Common-Substring-最长公共子串-后缀树解法/">hdu 1403 Longest Common Substring 最长公共子串 后缀树解法</a>
           </li>
         
           <li>
-            <a href="/2019/10/06/51nod-1088-最长回文子串-后缀树/">51nod 1088 最长回文子串 后缀树</a>
+            <a href="/2019/10/07/51nod-1088-1089-最长回文子串-后缀树/">51nod 1088 1089 最长回文子串 后缀树</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/07/面试题-各个位上的数字乘积最大的数/">面试题 各个位上的数字乘积最大的数</a>
           </li>
         
           <li>
@@ -620,10 +623,6 @@
         
           <li>
             <a href="/2019/10/06/最长公共子串之DP解法/">最长公共子串之DP解法</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/06/hdu-1403-Longest-Common-Substring-最长公共子串-后缀数组解法/">hdu 1403 Longest Common Substring 最长公共子串 后缀数组解法</a>
           </li>
         
       </ul>

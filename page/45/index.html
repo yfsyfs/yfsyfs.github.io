@@ -64,6 +64,55 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-B-B-树" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/29/B-B-树/" class="article-date">
+  <time datetime="2019-05-29T15:05:12.000Z" itemprop="datePublished">2019-05-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/29/B-B-树/">B/B+树</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>为了解决BST数据倾斜的问题，我们引入了AVL等平衡二叉树的结构. 但是对于海量数据的今天, 内存算法近乎不可能, 所以很多时候对数据进行检索的时候其实下一次要读取的数据其实尚在磁盘中. 而我们知道数据在磁盘中是以块（block）为单位存放的, 并且数据的读取要经历</p>
+<blockquote>
+<p>柱面–&gt;磁道–&gt;块–&gt;系统总线传输</p>
+</blockquote>
+<p>上面的过程（参见【1】）. 其中前三个属于磁头定位要读取数据的过程，最为耗时（甚至可长达0.1s之久）. 所以对于海量数据的检索问题，我们必须要尽可能减少磁盘IO的次数. 因此降低树的高度势在必行——因为每次读取下一个树的节点就有可能是去磁盘通过IO文件读取数据. 所以原先的二路平衡查找拓广为多路平衡查找树势在必行. 这就是B系列的查找树（B、B+、B*）. 关于B树的前世今生以及B树的高维推广——R树（用于地图搜索）可参见【2】, 七月大神的博文.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/05/29/B-B-树/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/05/29/B-B-树/" data-id="ck1fr39cv02o6ywvmvi63dvms" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/查找树/">查找树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-Splay" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/05/29/Splay/" class="article-date">
@@ -96,7 +145,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/29/Splay/" data-id="ck1fmikyp02aus4vmo5tjetra" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/29/Splay/" data-id="ck1fr390c025zywvmid1k216y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/查找树/">查找树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -141,7 +190,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/28/AVL/" data-id="ck1fmik7y00vts4vm2obqvsoe" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/28/AVL/" data-id="ck1fr38zm025dywvmi46q20b2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -192,7 +241,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/28/二叉查找树-BST/" data-id="ck1fmik1s00mss4vmiyrcm75f" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/28/二叉查找树-BST/" data-id="ck1fr37yg00lfywvm07bq2bai" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/查找/">查找</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -237,7 +286,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/全排列/" data-id="ck1fmik2g00nos4vmvkfrei6m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/27/全排列/" data-id="ck1fr37yp00lsywvm4n1norje" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dfs/">dfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/全排列/">全排列</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深搜/">深搜</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -282,7 +331,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/使用bfs求解有向网最短路径/" data-id="ck1fmik2400n7s4vmgr91d5sh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/27/使用bfs求解有向网最短路径/" data-id="ck1fr37z800moywvmfa8q1nor" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bfs/">bfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/宽搜/">宽搜</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -328,7 +377,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/使用dfs求解有向网最短路径/" data-id="ck1fmik2a00nfs4vm0ua7xia7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/27/使用dfs求解有向网最短路径/" data-id="ck1fr37yk00lnywvmjbwf0qch" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dfs/">dfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/深搜/">深搜</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -373,7 +422,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/数组手工实现队列/" data-id="ck1fmik3y00pys4vmrsw7mkyc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/27/数组手工实现队列/" data-id="ck1fr38rv0201ywvmj9evd0eb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/队列/">队列</a></li></ul>
@@ -418,7 +467,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/手工实现栈/" data-id="ck1fmik3q00pos4vmic5exjaj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/27/手工实现栈/" data-id="ck1fr38r001zjywvmltj35x3l" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/栈/">栈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -463,52 +512,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/bellman-ford算法之队列优化/" data-id="ck1fmijsy006ls4vme15j4wc2" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-Bellman-Ford-算法" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/05/27/Bellman-Ford-算法/" class="article-date">
-  <time datetime="2019-05-27T09:19:50.000Z" itemprop="datePublished">2019-05-27</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/27/Bellman-Ford-算法/">Bellman-Ford 算法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>【1】【2】分别给出了有向非负权网的最短路径的算法，前者是图中任意两点的. 后者是单源的.  但是不论是floyd还是dijkstra，都要求不含负权边. 那么对于含有负权边有什么办法求出最短路径呢? bellman-ford就此诞生. 该算法不仅可以求出可能含有负权边的有向图单源最短路径，或者如果存在负权环的导致不存在最短路径则能检测出来.</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/27/Bellman-Ford-算法/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/05/27/Bellman-Ford-算法/" data-id="ck1fmijqt003vs4vm6hvbb4sv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/05/27/bellman-ford算法之队列优化/" data-id="ck1fr37r40050ywvmoaigttqn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/最短路径/">最短路径</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -572,11 +576,15 @@
       <ul>
         
           <li>
-            <a href="/2019/10/07/面试题-各个位上的数字乘积最大的数/">面试题 各个位上的数字乘积最大的数</a>
+            <a href="/2019/10/07/hdu-1403-Longest-Common-Substring-最长公共子串-后缀树解法/">hdu 1403 Longest Common Substring 最长公共子串 后缀树解法</a>
           </li>
         
           <li>
-            <a href="/2019/10/06/51nod-1088-最长回文子串-后缀树/">51nod 1088 最长回文子串 后缀树</a>
+            <a href="/2019/10/07/51nod-1088-1089-最长回文子串-后缀树/">51nod 1088 1089 最长回文子串 后缀树</a>
+          </li>
+        
+          <li>
+            <a href="/2019/10/07/面试题-各个位上的数字乘积最大的数/">面试题 各个位上的数字乘积最大的数</a>
           </li>
         
           <li>
@@ -585,10 +593,6 @@
         
           <li>
             <a href="/2019/10/06/最长公共子串之DP解法/">最长公共子串之DP解法</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/06/hdu-1403-Longest-Common-Substring-最长公共子串-后缀数组解法/">hdu 1403 Longest Common Substring 最长公共子串 后缀数组解法</a>
           </li>
         
       </ul>
