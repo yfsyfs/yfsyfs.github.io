@@ -8,14 +8,14 @@
   <title>hdu 1023 Train Problem II 卡塔兰数 栈 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="缘起【1】中已经论述过卡塔兰数了. 本文搞道题目来玩玩~  hdu 1023 Train Problem II">
-<meta name="keywords" content="算法,oj,卡塔兰数,hdu,高精度,栈,模拟">
+<meta name="keywords" content="算法,oj,卡塔兰数,hdu,栈,模拟,高精度">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hdu 1023 Train Problem II 卡塔兰数 栈">
 <meta property="og:url" content="http://yoursite.com/2019/10/01/hdu-1023-Train-Problem-II-卡塔兰数-栈/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="缘起【1】中已经论述过卡塔兰数了. 本文搞道题目来玩玩~  hdu 1023 Train Problem II">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-01T23:31:18.160Z">
+<meta property="og:updated_time" content="2019-10-07T13:09:16.779Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hdu 1023 Train Problem II 卡塔兰数 栈">
 <meta name="twitter:description" content="缘起【1】中已经论述过卡塔兰数了. 本文搞道题目来玩玩~  hdu 1023 Train Problem II">
@@ -97,6 +97,40 @@
 <p>但是遗憾的事情是上面的板子貌似速度比较慢, 而且比赛的时候你不可能写上面那么复杂的大数板子，所以必须要吸取其中的思想精华， 仿照【2】的思想, 试过了，第100个卡塔兰数是57位的, 而一个long long是18位的, 所以4个long long足够了. 但是考虑到除法, 需要使用8个int模拟, 即使用 LL [8] 来保存结果。BASE=1e9, 遂再写一版</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include "stdafx.h"</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iomanip&gt;</span></span></span><br><span class="line"><span class="comment">//#define LOCAL</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"></span><br><span class="line">LL ans[<span class="number">105</span>][<span class="number">8</span>], BASE=<span class="number">1e9</span>; <span class="comment">// ans[i]保存了第i个catalan数, ans[i][0],ans[i][1],ans[i][2], ans[i][3] 保留了从低位到高位</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">catalan</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ans[<span class="number">1</span>][<span class="number">0</span>] = <span class="number">1</span>; <span class="comment">// 第一个卡塔兰数</span></span><br><span class="line">	<span class="keyword">for</span> (LL i = <span class="number">2</span>, m, d; i&lt;=<span class="number">100</span>; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		m = <span class="number">4</span>*i<span class="number">-2</span>, d = i+<span class="number">1</span>; <span class="comment">// 要乘以m再除以d</span></span><br><span class="line">		<span class="keyword">for</span> (LL j = <span class="number">0</span>,carry = <span class="number">0</span>; j&lt;<span class="number">8</span>; j++)</span><br><span class="line">		&#123;</span><br><span class="line">			ans[i][j] = ans[i<span class="number">-1</span>][j]*m + carry;</span><br><span class="line">			carry = ans[i][j]/BASE; <span class="comment">// 进位</span></span><br><span class="line">			ans[i][j]%=BASE;</span><br><span class="line">		&#125; <span class="comment">// 乘以m</span></span><br><span class="line">		<span class="keyword">for</span> (LL j = <span class="number">7</span>, r=<span class="number">0</span>, t; ~j; j--)</span><br><span class="line">		&#123;</span><br><span class="line">			t =  r*BASE + ans[i][j];</span><br><span class="line">			ans[i][j] = t /d;</span><br><span class="line">			r = t%d;</span><br><span class="line">		&#125; <span class="comment">// 除以d</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> x)</span> <span class="comment">// 打印第x个卡塔兰数ans[x]</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">7</span>; ~i; i--)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (ans[x][i])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (flag)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">cout</span> &lt;&lt; setfill(<span class="string">'0'</span>) &lt;&lt; setw(<span class="number">9</span>) &lt;&lt; ans[x][i]; <span class="comment">// 中间的0是不能漏掉的</span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (ans[x][i])</span><br><span class="line">			&#123;</span><br><span class="line">				flag = <span class="literal">true</span>;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"%lld"</span>, ans[x][i]);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"d:\\my.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="keyword">int</span> x;</span><br><span class="line">	catalan(); <span class="comment">// 递推进行预处理</span></span><br><span class="line">	<span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x))</span><br><span class="line">	&#123;</span><br><span class="line">		print(x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>ac情况</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Status</th>
+<th>Accepted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Memory</td>
+<td>1400kB</td>
+</tr>
+<tr>
+<td style="text-align:center">Length</td>
+<td>1110</td>
+</tr>
+<tr>
+<td style="text-align:center">Lang</td>
+<td>G++</td>
+</tr>
+<tr>
+<td style="text-align:center">Submitted</td>
+<td>2019-10-07 21:09:01</td>
+</tr>
+<tr>
+<td style="text-align:center">Shared</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">RemoteRunId</td>
+<td>30793389</td>
+</tr>
+</tbody>
+</table>
 <p>这一版不仅代码短, 而且效率高. 美滋滋~ 嘿嘿</p>
 <p>所以如果你知道了最大的结果的位数是多少, 就没必要使用【3】中那个板子——太重了. 可以使用LL模拟即可.</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/05/24/Catalan数/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/05/24/Catalan%E6%95%B0/</a></p>
@@ -118,7 +152,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/01/hdu-1023-Train-Problem-II-卡塔兰数-栈/" data-id="ck1gf80pm02dthovmqp84ed9i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/01/hdu-1023-Train-Problem-II-卡塔兰数-栈/" data-id="ck1giyxbd02d34wvm18vkkozd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdu/">hdu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/卡塔兰数/">卡塔兰数</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/栈/">栈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模拟/">模拟</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/高精度/">高精度</a></li></ul>
