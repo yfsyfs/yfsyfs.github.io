@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="缘起继续研究蓄水池取样算法  leetcode 398 随机数索引">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-16T12:39:44.489Z">
+<meta property="og:updated_time" content="2019-10-16T12:58:57.529Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode 398 随机数索引 蓄水池取样算法">
 <meta name="twitter:description" content="缘起继续研究蓄水池取样算法  leetcode 398 随机数索引">
@@ -93,7 +93,11 @@
 <a id="more"></a>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">给定一个可能含有重复元素的整数数组，要求随机输出给定的数字的索引。 您可以假设给定的数字一定存在于数组中。</span><br><span class="line"></span><br><span class="line">注意：</span><br><span class="line">数组大小可能非常大。 使用太多额外空间的解决方案将不会通过测试。</span><br><span class="line"></span><br><span class="line">示例:</span><br><span class="line"></span><br><span class="line">int[] nums = new int[] &#123;1,2,3,3,3&#125;;</span><br><span class="line">Solution solution = new Solution(nums);</span><br><span class="line"></span><br><span class="line">// pick(3) 应该返回索引 2,3 或者 4。每个索引的返回概率应该相等。</span><br><span class="line">solution.pick(3);</span><br><span class="line"></span><br><span class="line">// pick(1) 应该返回 0。因为只有nums[0]等于1。</span><br><span class="line">solution.pick(1);</span><br></pre></td></tr></table></figure>
 <p>此题怎么和蓄水池取样问题联系到一起呢? 数组的长度非常大~ 假设你要pick(x), 则我们可以理解为数组中=x的元素的个数是未知的.  而且题干只强调了——不允许使用额外的空间, 并没有提及时间效率. emmm~ </p>
-<p>对于固定的x, 我们遍历数组, 当有一个x出现的时候，我们就要开始施展蓄水池抽样算法的第一次选择对象——其实就是百分之百选择这个. 再继续遍历, 出现第二个n的时候, 我们施展第二次选择对象.  此次就是以1/2概率选择, 然后等待第三次x的出现, 就是以1/3的概率选择第三此对象. </p>
+<p>对于固定的x, 我们遍历数组, 当有一个x出现的时候，我们就要开始施展蓄水池抽样算法的第一次选择对象——其实就是百分之百选择这个. 再继续遍历, 出现第二个n的时候, 我们施展第二次选择对象.  此次就是以1/2概率选择, 然后等待第三次x的出现, 就是以1/3的概率选择第三个对象.  思想完全借鉴于【1】（【1】是裸的蓄水池取样）</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">typedef vector&lt;int&gt;::iterator vit;</span><br><span class="line">public:</span><br><span class="line">	Solution(vector&lt;int&gt;&amp; nums) </span><br><span class="line">	&#123;</span><br><span class="line">		srand((int)(time(0))); // 和【1】一样, 切记, 时间种子初始化一次即可, 不要放到pick中去, 否则多次调用pick的输出的是一样的</span><br><span class="line">		this-&gt;nums = nums;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	int pick(int target) </span><br><span class="line">	&#123;</span><br><span class="line">		a.clear();</span><br><span class="line">		int cnt = 0, ans, index = 0;</span><br><span class="line">		for (vit x = nums.begin(); x!=nums.end(); x++)</span><br><span class="line">		&#123;</span><br><span class="line">			if (*x==target)</span><br><span class="line">			&#123;</span><br><span class="line">				a.push_back(index); // a中存target出现的索引</span><br><span class="line">				ans = a[rand()<span class="comment">%((cnt++)+1)];</span></span><br><span class="line">			&#125;</span><br><span class="line">			++index;</span><br><span class="line">		&#125;</span><br><span class="line">		return ans;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">	vector&lt;int&gt; a, nums;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>ac情况</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">执行结果：</span><br><span class="line">通过</span><br><span class="line">显示详情</span><br><span class="line">执行用时 :</span><br><span class="line">104 ms</span><br><span class="line">, 在所有 cpp 提交中击败了</span><br><span class="line">67.82<span class="comment">%</span></span><br><span class="line">的用户</span><br><span class="line">内存消耗 :</span><br><span class="line">18.8 MB</span><br><span class="line">, 在所有 cpp 提交中击败了</span><br><span class="line">86.67<span class="comment">%</span></span><br><span class="line">的用户</span><br></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/10/16/leetcode-382-链表随机节点-蓄水池取样算法/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/10/16/leetcode-382-%E9%93%BE%E8%A1%A8%E9%9A%8F%E6%9C%BA%E8%8A%82%E7%82%B9-%E8%93%84%E6%B0%B4%E6%B1%A0%E5%8F%96%E6%A0%B7%E7%AE%97%E6%B3%95/</a></p>
 
           <div id="vcomments"></div>
           <script>
@@ -110,7 +114,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/16/leetcode-398-随机数索引-蓄水池取样算法/" data-id="ck1t9j71d00bfygvm5qw2wyhv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/16/leetcode-398-随机数索引-蓄水池取样算法/" data-id="ck1tadbup00bmt4vm0tz88tgx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/蓄水池取样算法/">蓄水池取样算法</a></li></ul>
@@ -120,6 +124,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2019/10/16/poj-1085-Triangle-War-极小化极大-alphabeta剪枝/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          poj 1085 Triangle War 极小化极大+alphabeta剪枝
+        
+      </div>
+    </a>
   
   
     <a href="/2019/10/16/leetcode-382-链表随机节点-蓄水池取样算法/" id="article-nav-older" class="article-nav-link-wrap">
@@ -177,6 +190,10 @@
       <ul>
         
           <li>
+            <a href="/2019/10/16/poj-1085-Triangle-War-极小化极大-alphabeta剪枝/">poj 1085 Triangle War 极小化极大+alphabeta剪枝</a>
+          </li>
+        
+          <li>
             <a href="/2019/10/16/leetcode-398-随机数索引-蓄水池取样算法/">leetcode 398 随机数索引 蓄水池取样算法</a>
           </li>
         
@@ -190,10 +207,6 @@
         
           <li>
             <a href="/2019/10/15/洛谷-P3402-【模板】可持久化并查集/">洛谷 P3402 【模板】可持久化并查集</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/15/hdu-4417-Super-Mario-二分答案-划分树/">hdu 4417 Super Mario 二分答案+划分树</a>
           </li>
         
       </ul>
