@@ -64,6 +64,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-jdk-的-URL-源码浅析" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/07/jdk-的-URL-源码浅析/" class="article-date">
+  <time datetime="2019-03-07T01:34:31.000Z" itemprop="datePublished">2019-03-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/07/jdk-的-URL-源码浅析/">jdk 的 URL 源码浅析</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>工作中遇到了ldap使用. 后来自学了一下，不可避免的遇到了jndi这个老朋友. 后来仔细一想，jndi只需要初始化一个context就可以想拿啥就拿啥了，觉得和jdk的spi机制以及java.net.URL的构造器很像. 你想啊，URL背后其实是URLConnection, 而它本身是一个抽象类, 可以根据你传入的url的scheme自动选择使用的URLConnection子类. <strong>这本质上都是类的动态加载和服务发现</strong>. 关于JDK的spi机制可以参见我写的一篇文章【1】. 关于jndi我会再写一篇文章. 最后你会发现, jndi、spi、URL 这三个东西其实用的核心思想是完全一样的.</p>
+<blockquote>
+<p>本质上都是为了打破父委托机制而引入的线程上下文类加载器啊!</p>
+</blockquote>
+        
+          <p class="article-more-link">
+            <a href="/2019/03/07/jdk-的-URL-源码浅析/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/03/07/jdk-的-URL-源码浅析/" data-id="ck1ue7i5w02bpmgvms2eboybx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/" class="article-date">
@@ -95,7 +143,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/" data-id="ck1u6tvb70214h0vmccv38ay3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/02/从springmvc讨厌的404说起-谈及tomcat的servlet路径匹配规则，-和-是不一样的/" data-id="ck1ue7gw700mzmgvmxaw3ztc1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/servlet/">servlet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springmvc/">springmvc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li></ul>
@@ -140,7 +188,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/28/JDK之SPI机制简明分析/" data-id="ck1u6tu5y0033h0vmqgckxkrd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/28/JDK之SPI机制简明分析/" data-id="ck1ue7gmy0043mgvm72jy20hq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
@@ -192,7 +240,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/" data-id="ck1u6tw0f02wxh0vms27vzt45" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/20/mapreduce程序提交job源码分析/" data-id="ck1ue7ij602uomgvmkru5vb4n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mapreduce/">mapreduce</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码分析/">源码分析</a></li></ul>
@@ -283,7 +331,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/13/一道sql面试题统计人数-1的记录id/" data-id="ck1u6tvag020gh0vmrn5c6crf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/13/一道sql面试题统计人数-1的记录id/" data-id="ck1ue7gw300mpmgvmveq5seqe" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sql/">sql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试/">面试</a></li></ul>
@@ -331,7 +379,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" data-id="ck1u6tv9x01zwh0vmajauzxtn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/12/win10-java客户端连接hdfs集群报-java-io-Exception-Could-not-locate-executable-null-bin-winutils-exe-in-the-Hadoop-binaries/" data-id="ck1ue7gvy00mfmgvmfveb4rtl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
@@ -397,7 +445,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" data-id="ck1u6tvah020ih0vm5hml6jmg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/11/上传文件到hdfs-结果50070web控制台的Availability为localhost/" data-id="ck1ue7gw000mkmgvmvyelrigy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hadoop/">hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdfs/">hdfs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/大数据/">大数据</a></li></ul>
@@ -444,7 +492,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/" data-id="ck1u6tu6t004ph0vm1tr6vijs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/06/gradle-build和gradlew-build的区别/" data-id="ck1ue7gnr005mmgvm154kbrq3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradle/">gradle</a></li></ul>
@@ -490,7 +538,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/" data-id="ck1u6tu6v004th0vmp8613q42" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/06/gradle项目开发环境搭建/" data-id="ck1ue7go3006bmgvmxp5vanil" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gradle/">gradle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
@@ -538,7 +586,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" data-id="ck1u6tv5h01x9h0vmc81ucaqk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/02/05/oracle转postgresql时-使用jpa-hibernate-报错-不良的类型值-long/" data-id="ck1ue7i6102bumgvmbclpqqat" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hibernate/">hibernate</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdbc/">jdbc</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jpa/">jpa</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oracle/">oracle</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/postgresql/">postgresql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
@@ -602,6 +650,10 @@
       <ul>
         
           <li>
+            <a href="/2019/10/17/poj-1568-Find-the-Winning-Move-极大极小搜索-alphabeta剪枝优化/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/10/17/极大极小搜索以及alphabeta剪枝优化/">极大极小搜索以及alphabeta剪枝优化</a>
           </li>
         
@@ -615,10 +667,6 @@
         
           <li>
             <a href="/2019/10/16/leetcode-382-链表随机节点-蓄水池取样算法/">leetcode 382 链表随机节点 蓄水池取样算法</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/16/1的单位分解/">1的单位分解</a>
           </li>
         
       </ul>

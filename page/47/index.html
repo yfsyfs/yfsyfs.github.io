@@ -64,6 +64,51 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-HashMap-等集合中的快速失败机制（fast-fail）" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/11/HashMap-等集合中的快速失败机制（fast-fail）/" class="article-date">
+  <time datetime="2019-06-11T14:28:53.000Z" itemprop="datePublished">2019-06-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/11/HashMap-等集合中的快速失败机制（fast-fail）/">HashMap 等集合中的快速失败机制（fast-fail）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>我们知道遍历HashMap的时候，或者使用迭代器遍历ArrayList等集合的时候，是不能直接调用集合的API对集合元素进行删除或者新增元素（而不是覆盖，覆盖不会导致异常）操作的. 否则的话，会抛出ConcurrentModificationException. 这是为什么呢? 其实这个和所谓的 快速失败机制（Fast-Fail）有关.</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/06/11/HashMap-等集合中的快速失败机制（fast-fail）/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/06/11/HashMap-等集合中的快速失败机制（fast-fail）/" data-id="ck1ue7gmu003vmgvm3ib7zx9g" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/集合/">集合</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+
+  
     <article id="post-Value-源码浅析" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/06/10/Value-源码浅析/" class="article-date">
@@ -95,7 +140,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/10/Value-源码浅析/" data-id="ck1u6tv4g01wfh0vmdvctf9j3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/10/Value-源码浅析/" data-id="ck1ue7i4q02b3mgvmzm0eqdzv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -140,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/10/BeanPostProcessor-原理浅析/" data-id="ck1u6tu3p000gh0vmwxuwpeiv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/10/BeanPostProcessor-原理浅析/" data-id="ck1ue7gku0015mgvm8iy4e2x8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
@@ -185,7 +230,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/07/java-util-HashMap-源码分析/" data-id="ck1u6twi2035qh0vmyv6aaa62" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/07/java-util-HashMap-源码分析/" data-id="ck1ue7iqy0305mgvmjoamjtkq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/哈希/">哈希</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -230,7 +275,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/07/哈希表/" data-id="ck1u6tvcf0227h0vmjbyjxdx9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/07/哈希表/" data-id="ck1ue7gx000oimgvmaq1gzoss" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/哈希/">哈希</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/教材/">教材</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -276,7 +321,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/07/归并排序求逆序数-牛客网/" data-id="ck1u6tve4023ih0vmctothkdu" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/07/归并排序求逆序数-牛客网/" data-id="ck1ue7hkd023fmgvmrf2mqhac" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/归并排序/">归并排序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/牛客网/">牛客网</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/逆序数/">逆序数</a></li></ul>
@@ -322,7 +367,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/06/离散化-树状数组-求逆序数/" data-id="ck1u6tvik027fh0vml7aawps4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/06/离散化-树状数组-求逆序数/" data-id="ck1ue7hzg027bmgvm4a2paxcr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树状数组/">树状数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/牛客网/">牛客网</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/离散化/">离散化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/逆序数/">逆序数</a></li></ul>
@@ -368,7 +413,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/06/poj-3468-A-Simple-Problem-with-Integers-树状数组/" data-id="ck1u6tud300gah0vmjplahkxe" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/06/poj-3468-A-Simple-Problem-with-Integers-树状数组/" data-id="ck1ue7gun00jtmgvmpnxzbdpq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/查找树/">查找树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树状数组/">树状数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -416,7 +461,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/06/疯狂的区间-树状数组/" data-id="ck1u6tvi40270h0vmbkqggq48" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/06/疯狂的区间-树状数组/" data-id="ck1ue7hzb0278mgvmgzxbjk78" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/查找树/">查找树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树状数组/">树状数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
@@ -464,56 +509,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/05/poj-2481-Cows-树状数组/" data-id="ck1u6tubn00dnh0vmdh9pg4cf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/05/poj-2481-Cows-树状数组/" data-id="ck1ue7gt600gtmgvmx1va16p3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/查找树/">查找树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树/">树</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树状数组/">树状数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
-    <article id="post-poj-1442-Black-Box-treap" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/06/05/poj-1442-Black-Box-treap/" class="article-date">
-  <time datetime="2019-06-05T07:09:50.000Z" itemprop="datePublished">2019-06-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/05/poj-1442-Black-Box-treap/">poj 1442 Black Box treap</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>【1】给出了treap的板子，自然找一道题来测下板子的性能. 于是选择了 poj 1442</p>
-<p><a href="https://vjudge.net/problem/POJ-1442" target="_blank" rel="noopener">传送门</a></p>
-        
-          <p class="article-more-link">
-            <a href="/2019/06/05/poj-1442-Black-Box-treap/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/05/poj-1442-Black-Box-treap/" data-id="ck1u6tuaf00bfh0vmxba9ne91" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/treap/">treap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树堆/">树堆</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
 
     </footer>
   </div>
@@ -574,6 +573,10 @@
       <ul>
         
           <li>
+            <a href="/2019/10/17/poj-1568-Find-the-Winning-Move-极大极小搜索-alphabeta剪枝优化/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2019/10/17/极大极小搜索以及alphabeta剪枝优化/">极大极小搜索以及alphabeta剪枝优化</a>
           </li>
         
@@ -587,10 +590,6 @@
         
           <li>
             <a href="/2019/10/16/leetcode-382-链表随机节点-蓄水池取样算法/">leetcode 382 链表随机节点 蓄水池取样算法</a>
-          </li>
-        
-          <li>
-            <a href="/2019/10/16/1的单位分解/">1的单位分解</a>
           </li>
         
       </ul>
