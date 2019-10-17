@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/10/17/极大极小搜索以及alphabeta剪枝优化/1.png">
 <meta property="og:image" content="http://yoursite.com/2019/10/17/极大极小搜索以及alphabeta剪枝优化/2.png">
 <meta property="og:image" content="http://yoursite.com/2019/10/17/极大极小搜索以及alphabeta剪枝优化/3.png">
-<meta property="og:updated_time" content="2019-10-17T03:30:41.652Z">
+<meta property="og:updated_time" content="2019-10-17T04:11:25.054Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="极大极小搜索以及alphabeta剪枝优化">
 <meta name="twitter:description" content="缘起在棋类等博弈游戏中, 极大极小搜索是常用的博弈搜索算法. 比如：围棋，五子棋，象棋等。 遂来学习之. 本文是吸收了【1】的营养写下的。">
@@ -135,6 +135,7 @@
 </blockquote>
 <p>为什么是这样的呢? 你注意第七行, 即发生beta剪枝的地方. beta是node的父节点（即一个求极小的节点）的上界估计. 而alpha是当前节点node正在不断通过max更新的值（其中用的是node的求极小的子节点来max化的）, 如果发现某一次更新之后alpha&gt;=beta了, 则当前节点node作为求极大的节点的评分一定&gt;=alpha&gt;=beta, 则不可能对它的父节点的下界估计beta有影响了, 所以不需要再更新alpha了（alpha已经&gt;=beta了）, 即不需要再通过代码第7行进行max更新了. 而max的都是node的求极小的子节点, 即剪掉求极小的子节点, 这不就是前面说的beta剪枝吗? 那么同理, 第13行就是alpha剪枝——剪去的是求极大的子节点——即不需要再通过12行进行min更新beta了（因为当前节点node的beta已经&lt;=node父节点的alpha（即评分）了, 所以当前节点node已经不可能对父节点（一个求极大的节点）的alpha有任何贡献了）.</p>
 <p>注意, 上面的代码没有涉及dfs搜索中的undo, 这是显然的, 因为这里考虑的角度都是子节点, 状态转移并不是没有, 而是略去了这些细节. undo是肯定要undo的(dfs搜索怎么不要undo呢?), 只是没有在上面的代码中体现罢了.</p>
+<p>注意, 因为alphabeta剪枝的存在, 所以极大极小搜索树上的一些节点的评分可能不是准确的，但是这些不准确的评分并不影响根节点的评分，即根节点的评分是准确的~ </p>
 <p>据网友说, alphabeta剪枝可以有效的将平均35种走法降低到6种, 可见alphabeta剪枝对于极大极小搜索的优化程度有多么的巨大~</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://www.cnblogs.com/pangxiaodong/archive/2011/05/26/2058864.html" target="_blank" rel="noopener">https://www.cnblogs.com/pangxiaodong/archive/2011/05/26/2058864.html</a></p>
 
@@ -153,7 +154,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/17/极大极小搜索以及alphabeta剪枝优化/" data-id="ck1u51ez2030tk8vmj3bzcmae" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/17/极大极小搜索以及alphabeta剪枝优化/" data-id="ck1u6tw6302xyh0vm9qutozdw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/alphabeta剪枝/">alphabeta剪枝</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/极大极小搜索/">极大极小搜索</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
