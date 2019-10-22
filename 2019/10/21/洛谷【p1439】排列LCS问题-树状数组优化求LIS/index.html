@@ -7,18 +7,18 @@
   
   <title>洛谷【p1439】排列LCS问题 树状数组优化求LIS | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缘起继续学习树状数组优化LIS.  洛谷【p1439】排列LCS问题 分析123456789101112131415161718192021222324题目描述给出1-n的两个排列P1和P2，求它们的最长公共子序列。输入格式第一行是一个数n，接下来两行，每行为n个数，为自然数1-n的一个排列。输出格式一个数，即最长公共子序列的长度输入输出样例输入 #1复制5 3 2 1 4 51 2 3 4 5输">
+  <meta name="description" content="缘起继续学习树状数组优化LIS.  洛谷【p1439】排列LCS问题">
 <meta name="keywords" content="算法,oj,LCS,LIS,树状数组,洛谷">
 <meta property="og:type" content="article">
 <meta property="og:title" content="洛谷【p1439】排列LCS问题 树状数组优化求LIS">
 <meta property="og:url" content="http://yoursite.com/2019/10/21/洛谷【p1439】排列LCS问题-树状数组优化求LIS/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="缘起继续学习树状数组优化LIS.  洛谷【p1439】排列LCS问题 分析123456789101112131415161718192021222324题目描述给出1-n的两个排列P1和P2，求它们的最长公共子序列。输入格式第一行是一个数n，接下来两行，每行为n个数，为自然数1-n的一个排列。输出格式一个数，即最长公共子序列的长度输入输出样例输入 #1复制5 3 2 1 4 51 2 3 4 5输">
+<meta property="og:description" content="缘起继续学习树状数组优化LIS.  洛谷【p1439】排列LCS问题">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-22T03:40:19.778Z">
+<meta property="og:updated_time" content="2019-10-22T04:07:45.197Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="洛谷【p1439】排列LCS问题 树状数组优化求LIS">
-<meta name="twitter:description" content="缘起继续学习树状数组优化LIS.  洛谷【p1439】排列LCS问题 分析123456789101112131415161718192021222324题目描述给出1-n的两个排列P1和P2，求它们的最长公共子序列。输入格式第一行是一个数n，接下来两行，每行为n个数，为自然数1-n的一个排列。输出格式一个数，即最长公共子序列的长度输入输出样例输入 #1复制5 3 2 1 4 51 2 3 4 5输">
+<meta name="twitter:description" content="缘起继续学习树状数组优化LIS.  洛谷【p1439】排列LCS问题">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -90,6 +90,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>继续学习树状数组优化LIS.  <a href="https://www.luogu.org/problem/P1439" target="_blank" rel="noopener">洛谷【p1439】排列LCS问题</a></p>
+<a id="more"></a>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">题目描述</span><br><span class="line">给出1-n的两个排列P1和P2，求它们的最长公共子序列。</span><br><span class="line"></span><br><span class="line">输入格式</span><br><span class="line">第一行是一个数n，</span><br><span class="line"></span><br><span class="line">接下来两行，每行为n个数，为自然数1-n的一个排列。</span><br><span class="line"></span><br><span class="line">输出格式</span><br><span class="line">一个数，即最长公共子序列的长度</span><br><span class="line"></span><br><span class="line">输入输出样例</span><br><span class="line">输入 #1复制</span><br><span class="line">5 </span><br><span class="line">3 2 1 4 5</span><br><span class="line">1 2 3 4 5</span><br><span class="line">输出 #1复制</span><br><span class="line">3</span><br><span class="line">说明/提示</span><br><span class="line">【数据规模】</span><br><span class="line"></span><br><span class="line">对于50<span class="comment">%的数据，n≤1000</span></span><br><span class="line"></span><br><span class="line">对于100<span class="comment">%的数据，n≤100000</span></span><br></pre></td></tr></table></figure>
 <p>关于LCS（最长公共子序列）问题, 【2】中是给出过朴素dp解法的. 但是本题的数据规模达到了1e5, 【2】的解法显然只能骗小数据分. 所以需要使用树状数组优化.</p>
 <p>本题的想法很直接. </p>
@@ -117,7 +118,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/21/洛谷【p1439】排列LCS问题-树状数组优化求LIS/" data-id="ck21b3t8p02c96ovmk4gw5by3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/21/洛谷【p1439】排列LCS问题-树状数组优化求LIS/" data-id="ck21bvzx200p2s0vm4p2gzplo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LCS/">LCS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LIS/">LIS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/树状数组/">树状数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/洛谷/">洛谷</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
