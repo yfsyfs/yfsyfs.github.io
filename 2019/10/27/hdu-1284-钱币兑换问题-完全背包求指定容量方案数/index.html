@@ -7,18 +7,21 @@
   
   <title>hdu 1284 钱币兑换问题 完全背包求指定容量方案数 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缘起">
+  <meta name="description" content="缘起【1】中研究了01背包最优解决方案的个数. 本文研究一下01背包、完全背包装满背包条件下的方案数. hdu 1284 钱币兑换问题">
 <meta name="keywords" content="算法,oj,hdu,完全背包装满背包方案数">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hdu 1284 钱币兑换问题 完全背包求指定容量方案数">
 <meta property="og:url" content="http://yoursite.com/2019/10/27/hdu-1284-钱币兑换问题-完全背包求指定容量方案数/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="缘起">
+<meta property="og:description" content="缘起【1】中研究了01背包最优解决方案的个数. 本文研究一下01背包、完全背包装满背包条件下的方案数. hdu 1284 钱币兑换问题">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-10-27T02:35:08.141Z">
+<meta property="og:image" content="http://yoursite.com/2019/10/27/hdu-1284-钱币兑换问题-完全背包求指定容量方案数/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/10/27/hdu-1284-钱币兑换问题-完全背包求指定容量方案数/2.png">
+<meta property="og:updated_time" content="2019-10-27T03:15:24.879Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hdu 1284 钱币兑换问题 完全背包求指定容量方案数">
-<meta name="twitter:description" content="缘起">
+<meta name="twitter:description" content="缘起【1】中研究了01背包最优解决方案的个数. 本文研究一下01背包、完全背包装满背包条件下的方案数. hdu 1284 钱币兑换问题">
+<meta name="twitter:image" content="http://yoursite.com/2019/10/27/hdu-1284-钱币兑换问题-完全背包求指定容量方案数/1.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -89,8 +92,69 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><a id="more"></a>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】</p>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>【1】中研究了01背包最优解决方案的个数. 本文研究一下01背包、完全背包装满背包条件下的方案数.</p>
+<p><a href="https://vjudge.net/problem/HDU-1284" target="_blank" rel="noopener">hdu 1284 钱币兑换问题</a></p>
+<a id="more"></a>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">在一个国家仅有1分，2分，3分硬币，将钱N兑换成硬币有很多种兑法。请你编程序计算出共有多少种兑法。</span><br><span class="line"></span><br><span class="line">Input</span><br><span class="line">每行只有一个正整数N，N小于32768。</span><br><span class="line"></span><br><span class="line">Output</span><br><span class="line">对应每个输入，输出兑换方法数。</span><br><span class="line"></span><br><span class="line">Sample Input</span><br><span class="line">2934</span><br><span class="line">12553</span><br><span class="line"></span><br><span class="line">Sample Output</span><br><span class="line">718831</span><br><span class="line">13137761</span><br><span class="line"></span><br><span class="line">限制</span><br><span class="line">1s</span><br></pre></td></tr></table></figure>
+<p>首先关于这种问题常见于面试题</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">网上各大公司经常出题目：假设现在有1元、2元、5元的纸币很多张，现在需要20块钱，你能给多少种找</span><br><span class="line">钱方案，这就可以认为是完全背包装满背包求方案数的问题，即背包容量为20，物品体积分别为1、2、5。</span><br><span class="line">所以再换个角度看</span><br><span class="line"></span><br><span class="line">还有公司出题目：给定一个数m，将m拆成不同的自然数的和的形式有多少种方案，这就是典型的01背包</span><br><span class="line">问题，背包容量为n，物品件数为k，这里面的k是隐含条件，可以求出来，因为n最多由1+2+…+k得到，由此</span><br><span class="line">可以根据n求得物品件数的上限k。而【3】就是对n使用1,..,k进行完全背包得到方法数（去看看【3】,是不是那里的</span><br><span class="line">dp方程和这里很像呢（逃~）?）. </span><br><span class="line">而如果面试要求不同的整数的话, 就是对n进行1,...,k的01背包方案数.</span><br></pre></td></tr></table></figure>
+<p>本文汲取了【2】这篇好文的思想.</p>
+<h4 id="01背包求装满背包的方案数"><a href="#01背包求装满背包的方案数" class="headerlink" title="01背包求装满背包的方案数"></a>01背包求装满背包的方案数</h4><h5 id="问题的定义"><a href="#问题的定义" class="headerlink" title="问题的定义"></a>问题的定义</h5><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">设背包容量为V，一共N件物品，每件物品体积为C[i]，每件物品的价值为W[i]，每件物品至多选择一次</span><br><span class="line">求将背包装满的方案总数。</span><br></pre></td></tr></table></figure>
+<h5 id="问题的求解"><a href="#问题的求解" class="headerlink" title="问题的求解"></a>问题的求解</h5><p>dp. 令F[i][j] 是前i件物品,j的容量限制的背包, 恰好将背包装满的方案数. 则根据选与不选第i件物品. 我们得到如下dp方程</p>
+<img src="/2019/10/27/hdu-1284-钱币兑换问题-完全背包求指定容量方案数/1.png">
+<p>初始化条件是 F[0][0]  =1, 其余都是0. 即不选任何物品的话, 背包容量只有为0, 才有一种方案将背包装满, 否则都是没办法的.</p>
+<p>显然对i进行滚动优化掉. 得到了O(NV)时间复杂度、O(V) 空间复杂度的算法, 伪代码如下</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">memset(F,0)</span><br><span class="line">F[0] = 1;</span><br><span class="line">for i = 1,...,N</span><br><span class="line">	for j = V,...,C[i]  // 倒序才能保证每件物品至多选取一次</span><br><span class="line">		F[j] += F[j-C[i]]</span><br><span class="line">return F[v]</span><br></pre></td></tr></table></figure>
+<h4 id="完全背包求装满背包的方案数"><a href="#完全背包求装满背包的方案数" class="headerlink" title="完全背包求装满背包的方案数"></a>完全背包求装满背包的方案数</h4><h5 id="问题的定义-1"><a href="#问题的定义-1" class="headerlink" title="问题的定义"></a>问题的定义</h5><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">设背包容量为V，一共N件物品，每件物品体积为C[i]，每件物品的价值为W[i]，每件物品可选取无限次.</span><br><span class="line">求将背包装满的方案总数。</span><br></pre></td></tr></table></figure>
+<h5 id="问题的求解-1"><a href="#问题的求解-1" class="headerlink" title="问题的求解"></a>问题的求解</h5><p>dp. 令F[i][j] 是前i件物品,j的容量限制的背包, 恰好将背包装满的方案数. 则根据选与不选第i件物品. 我们得到如下dp方程</p>
+<img src="/2019/10/27/hdu-1284-钱币兑换问题-完全背包求指定容量方案数/2.png">
+<p>初始化条件是 F[0][0]  =1, 其余都是0. 即不选任何物品的话, 背包容量只有为0, 才有一种方案将背包装满, 否则都是没办法的.</p>
+<p>显然对i进行滚动优化掉. 得到了O(NV)时间复杂度、O(V) 空间复杂度的算法, 伪代码如下</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">memset(F,0)</span><br><span class="line">F[0] = 1;</span><br><span class="line">for i = 1,...,N</span><br><span class="line">	for j = C[i],...,V  // 正序才能保证每件物品随意选</span><br><span class="line">		F[j] += F[j-C[i]]</span><br><span class="line">return F[v]</span><br></pre></td></tr></table></figure>
+<p>回到本题, 本题显然属于完全背包恰好装满背包的方案总数计算问题. 有了上面的讲解. 则不难写下本题的ac代码</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">//#include "stdafx.h"</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">//#define LOCAL</span><br><span class="line">const int maxv = 33000;</span><br><span class="line">int n, dp[maxv];</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">#ifdef LOCAL</span><br><span class="line">	freopen("d:<span class="tag">\<span class="name">\</span></span>data.in", "r", stdin);</span><br><span class="line">//	freopen("d:<span class="tag">\<span class="name">\</span></span>my.out", "w", stdout);</span><br><span class="line">#endif</span><br><span class="line">	while(~scanf("<span class="comment">%d", &amp;n))</span></span><br><span class="line">	&#123;</span><br><span class="line">		memset(dp,0,sizeof(dp));</span><br><span class="line">		dp[0] = 1;</span><br><span class="line">		for (int i = 1;i&lt;=3;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			for (int v = i;v&lt;=n;v++)</span><br><span class="line">			&#123;</span><br><span class="line">				dp[v]+=dp[v-i];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		printf("<span class="comment">%d\n", dp[n]);</span></span><br><span class="line">	&#125;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ac情况</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Status</th>
+<th>Accepted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Time</td>
+<td>124ms</td>
+</tr>
+<tr>
+<td style="text-align:center">Memory</td>
+<td>1864kB</td>
+</tr>
+<tr>
+<td style="text-align:center">Length</td>
+<td>429</td>
+</tr>
+<tr>
+<td style="text-align:center">Lang</td>
+<td>C++</td>
+</tr>
+<tr>
+<td style="text-align:center">Submitted</td>
+<td>2019-10-27 11:11:39</td>
+</tr>
+<tr>
+<td style="text-align:center">Shared</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">RemoteRunId</td>
+<td>31128590</td>
+</tr>
+</tbody>
+</table>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/10/27/hdu-2126-Buy-the-souvenirs-01背包求最优方案数/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/10/27/hdu-2126-Buy-the-souvenirs-01%E8%83%8C%E5%8C%85%E6%B1%82%E6%9C%80%E4%BC%98%E6%96%B9%E6%A1%88%E6%95%B0/</a></p>
+<p>【2】<a href="https://blog.csdn.net/wumuzi520/article/details/7021210" target="_blank" rel="noopener">https://blog.csdn.net/wumuzi520/article/details/7021210</a></p>
+<p>【3】<a href="https://yfsyfs.github.io/2019/08/27/poj-3181-Dollar-Dayz-高精度-dp/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/08/27/poj-3181-Dollar-Dayz-%E9%AB%98%E7%B2%BE%E5%BA%A6-dp/</a></p>
 
           <div id="vcomments"></div>
           <script>
@@ -107,7 +171,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/10/27/hdu-1284-钱币兑换问题-完全背包求指定容量方案数/" data-id="ck28ds3zh005upsvmsi4pouti" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/10/27/hdu-1284-钱币兑换问题-完全背包求指定容量方案数/" data-id="ck28f9m5n00cgj8vm9he7b06p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdu/">hdu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/完全背包装满背包方案数/">完全背包装满背包方案数</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>

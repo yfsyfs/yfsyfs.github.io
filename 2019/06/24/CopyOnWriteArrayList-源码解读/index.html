@@ -8,7 +8,7 @@
   <title>CopyOnWriteArrayList 源码解读 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="缘起CopyOnWriteArrayList（下简称COW） 是常见的线程安全的集合类. 它的源码是比较好读的—— 从它的源码你也知道为什么它的名字会是”写时复制”，其实这里所谓的”写时”指的是”增删改”.  其基本思路是，从一开始大家都在共享同一个内容，当某个人想要修改这个内容的时候，才会加（可重入）锁然后把原内容 Copy 出去形成一个新的内容然后再改，从而不影响别的线程读（读操作不加锁, 所">
-<meta name="keywords" content="源码,后端,JDK,并发">
+<meta name="keywords" content="后端,源码,JDK,并发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CopyOnWriteArrayList 源码解读">
 <meta property="og:url" content="http://yoursite.com/2019/06/24/CopyOnWriteArrayList-源码解读/index.html">
@@ -141,7 +141,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/06/24/CopyOnWriteArrayList-源码解读/" data-id="ck28ds3tf001epsvmplbfl8vz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/06/24/CopyOnWriteArrayList-源码解读/" data-id="ck28f9lkt0014j8vmcd818zs9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JDK/">JDK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/后端/">后端</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/并发/">并发</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码/">源码</a></li></ul>
