@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="缘起dijkstra算法求最短路是熟知的, 那么有一个问题——如何求次短路呢?">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-08-22T11:37:06.537Z">
+<meta property="og:updated_time" content="2019-10-28T09:11:13.109Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="poj 3255 Roadblocks dijkstra">
 <meta name="twitter:description" content="缘起dijkstra算法求最短路是熟知的, 那么有一个问题——如何求次短路呢?">
@@ -124,6 +124,48 @@
 </tr>
 </tbody>
 </table>
+<p>其实这种理解方式并不好, 更好的方式是 【1】， 使用【1】的方式可以给出如下更快的代码(代码详细注释参见【1】)</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">//#include "stdafx.h"</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;string.h&gt;</span><br><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;queue&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">//#define LOCAL</span><br><span class="line"></span><br><span class="line">int n,r, head[5005], cnt, d[5005][2]; // d[i][0]是到i的最短路, d[i][1]是到i的次短路</span><br><span class="line">bool v[5005][2];</span><br><span class="line"></span><br><span class="line">struct KK</span><br><span class="line">&#123;</span><br><span class="line">	int v,c,flag;</span><br><span class="line">	KK(int v,int c,int flag):v(v),c(c),flag(flag)&#123;&#125;</span><br><span class="line">	bool operator&lt;(const KK &amp;o) const</span><br><span class="line">	&#123;</span><br><span class="line">		return c&gt;o.c;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct Arc</span><br><span class="line">&#123;</span><br><span class="line">	int from, to, nxt, len;</span><br><span class="line">	Arc()&#123;&#125;</span><br><span class="line">	Arc(int from, int to, int nxt, int len):from(from), to(to), nxt(nxt), len(len)&#123;&#125;</span><br><span class="line">&#125;g[200005];</span><br><span class="line"></span><br><span class="line">void addArc(int a, int b, int c)</span><br><span class="line">&#123;</span><br><span class="line">	g[cnt] = Arc(a,b,head[a], c);</span><br><span class="line">	head[a]= cnt++;</span><br><span class="line">	g[cnt] = Arc(b,a,head[b], c);</span><br><span class="line">	head[b]= cnt++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int dijkstra()</span><br><span class="line">&#123;</span><br><span class="line">	memset(d, 0x3f, sizeof(d));</span><br><span class="line">	memset(v,0,sizeof(v));</span><br><span class="line">	d[1][0] = 0;</span><br><span class="line">	priority_queue&lt;KK&gt; pq;</span><br><span class="line">	pq.push(KK(1,0,0));</span><br><span class="line">	while(!pq.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		KK top = pq.top();</span><br><span class="line">		pq.pop();</span><br><span class="line">		int h = top.v, flag = top.flag;</span><br><span class="line">		if (v[h][flag])</span><br><span class="line">		&#123;</span><br><span class="line">			continue;</span><br><span class="line">		&#125;</span><br><span class="line">		v[h][flag] = true;</span><br><span class="line">		for (int i = head[h],to,t; ~i; i = g[i].nxt)</span><br><span class="line">		&#123;</span><br><span class="line">			to = g[i].to, t = d[h][flag]+g[i].len;</span><br><span class="line">			if (!v[to][0] &amp;&amp; d[to][0]&gt;t)</span><br><span class="line">			&#123;</span><br><span class="line">				d[to][1] = d[to][0];</span><br><span class="line">				d[to][0] = t;</span><br><span class="line">				pq.push(KK(to,d[to][0], 0));</span><br><span class="line">				pq.push(KK(to,d[to][1], 1));</span><br><span class="line">			&#125;</span><br><span class="line">			else if (!v[to][1] &amp;&amp; d[to][1]&gt;t)</span><br><span class="line">			&#123;</span><br><span class="line">				d[to][1] = t;</span><br><span class="line">				pq.push(KK(to, d[to][1], 1));</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	return d[n][1];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">#ifdef LOCAL</span><br><span class="line">	freopen("d:<span class="tag">\<span class="name">\</span></span>data.in", "r", stdin);</span><br><span class="line">	//freopen("d:<span class="tag">\<span class="name">\</span></span>my.out", "w", stdout);</span><br><span class="line">#endif</span><br><span class="line">	scanf("<span class="comment">%d%d", &amp;n,&amp;r);</span></span><br><span class="line">	memset(head,-1, sizeof(head));</span><br><span class="line">	while(r--)</span><br><span class="line">	&#123;</span><br><span class="line">		int a,b,c;</span><br><span class="line">		scanf("<span class="comment">%d%d%d", &amp;a, &amp;b, &amp;c);</span></span><br><span class="line">		addArc(a,b,c);</span><br><span class="line">	&#125;</span><br><span class="line">	printf("<span class="comment">%d\n", dijkstra());</span></span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ac情况</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Status</th>
+<th>Accepted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Time</td>
+<td>172ms</td>
+</tr>
+<tr>
+<td style="text-align:center">Memory</td>
+<td>4128kB</td>
+</tr>
+<tr>
+<td style="text-align:center">Length</td>
+<td>1591</td>
+</tr>
+<tr>
+<td style="text-align:center">Lang</td>
+<td>C++</td>
+</tr>
+<tr>
+<td style="text-align:center">Submitted</td>
+<td>2019-10-28 17:03:12</td>
+</tr>
+<tr>
+<td style="text-align:center">Shared</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">RemoteRunId</td>
+<td>20997964</td>
+</tr>
+</tbody>
+</table>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/10/28/poj-3463-Sightseeing-最短路次短路的条数-dijkstra/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/10/28/poj-3463-Sightseeing-%E6%9C%80%E7%9F%AD%E8%B7%AF%E6%AC%A1%E7%9F%AD%E8%B7%AF%E7%9A%84%E6%9D%A1%E6%95%B0-dijkstra/</a></p>
 
           <div id="vcomments"></div>
           <script>
@@ -140,7 +182,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/21/poj-3255-Roadblocks-dijkstra/" data-id="ck2a6sp4700p5qkvm7d5mbmpq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/08/21/poj-3255-Roadblocks-dijkstra/" data-id="ck2a7ioo100iumcvmgrf8276m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dijkstra/">dijkstra</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/图/">图</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/最短路/">最短路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/次短路/">次短路</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
