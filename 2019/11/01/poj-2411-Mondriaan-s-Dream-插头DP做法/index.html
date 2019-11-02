@@ -15,10 +15,15 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="缘起【1】中我们基于状压DP切了， 这里在入门了插头DP之后想使用插头DP的思想切一下.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-11-02T01:52:39.804Z">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/poj-2411-Mondriaan-s-Dream-插头DP做法/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/poj-2411-Mondriaan-s-Dream-插头DP做法/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/poj-2411-Mondriaan-s-Dream-插头DP做法/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/poj-2411-Mondriaan-s-Dream-插头DP做法/4.png">
+<meta property="og:updated_time" content="2019-11-02T06:22:23.684Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="poj-2411-Mondriaan-s-Dream-插头DP做法">
 <meta name="twitter:description" content="缘起【1】中我们基于状压DP切了， 这里在入门了插头DP之后想使用插头DP的思想切一下.">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/01/poj-2411-Mondriaan-s-Dream-插头DP做法/1.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -91,7 +96,81 @@
       
         <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>【1】中我们基于状压DP切了， 这里在入门了插头DP之后想使用插头DP的思想切一下.</p>
 <a id="more"></a>
-<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>题目见【1】好了. 这里先说说解法思想.  </p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">Description</span><br><span class="line">有一个n行m列的棋盘，你可以在里放1*2的骨牌，骨牌之间互相不重叠，问放满整个棋盘有多少种方案数。</span><br><span class="line"></span><br><span class="line">Input</span><br><span class="line">输入文件有多组数据，每组数据只有一行为两个整数n和m(1&lt;=W,H&lt;=11)。</span><br><span class="line"></span><br><span class="line">Output</span><br><span class="line">每组数据一行为方案总数，若不能够放满整个棋盘输出0。</span><br><span class="line"></span><br><span class="line">Sample Input</span><br><span class="line">1 2 </span><br><span class="line">1 3 </span><br><span class="line">1 4</span><br><span class="line">2 2</span><br><span class="line">2 3</span><br><span class="line">2 4</span><br><span class="line">2 11</span><br><span class="line">4 11</span><br><span class="line"></span><br><span class="line">Sample Output</span><br><span class="line">1</span><br><span class="line">0</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">5</span><br><span class="line">144</span><br><span class="line">51205</span><br><span class="line"></span><br><span class="line">限制</span><br><span class="line">3s</span><br></pre></td></tr></table></figure>
+<p>这里先说说解法思想.   理解了【2】的想法之后, 本题就很好做了. 而且做法绝逼比【1】的做法要自然的多.</p>
+<p>和【2】一样，依旧是对轮廓线进行DP. 画图如下</p>
+<img src="/2019/11/01/poj-2411-Mondriaan-s-Dream-插头DP做法/1.png">
+<p>​                                                                                            </p>
+<p>A是格子(i,j-1)（即第i行, 第j-1列的格子）, B是格子(i,j), 其中A是上一次决策完毕的格子, B是当前决策完毕的格子. 决策完A格子之后产生的轮廓线是L1, 决策完B格子之后, 产生的轮廓线是L2. 轮廓线的概念不清楚的童鞋可以参考【2】</p>
+<blockquote>
+<p>wait wait wait~</p>
+</blockquote>
+<p>拜托你别自说自话好伐?  </p>
+<p>Q:  对于本题而言, 什么叫做决策一个格子呢?  </p>
+<p>A:  就是决定格子是否填骨牌, 而且如果填的话, 到底是横着放呢? 还是竖着放呢? </p>
+<p>Q: 对于本题而言, 什么是插头呢?</p>
+<p>A: 和【2】一样, 插头是长在每个格子上的结构. 换言之, 一个格子有4个插头——上下左右. 对于本题, 我们定义, 如果一个格子被骨牌覆盖的话, 则它就具有上插头. 注意, 对于本题的情形, 四个插头中只有上插头有意义, 其余方向的插头我们统统不考虑（即本题每个格子只有一个插头,所以构成轮廓线的m+1个单位长度的竖着的那个单位长度对应的比特位一定是0）. 所以轮构成廓线的m+1个单位长度上的插头只需要考虑存在与不存在. 所以我们可以用一个[0, 2^{m+1})范围内的整数来压缩轮廓线的状态. 而且我们不难知道, 根据轮廓线的状态我们完全可以推定下一次的决策. 进而得到下一条轮廓线的状态值. 举个例子吧~</p>
+<img src="/2019/11/01/poj-2411-Mondriaan-s-Dream-插头DP做法/2.png">
+<p>​                                                                                            </p>
+<p>上图给出了决策完毕A格子之后的棋盘局面, 其中跨越两个格子的竖线代表一块骨牌. 则决策A格子的时候显然是发现（其实就是可以通过图2中决策完B格子之后黄色的轮廓线推断出来）A格子已经被覆盖了的. 则A格子显然就不能再放置任何一块骨牌了. 则决策完A格子之后的蓝色轮廓线就是 000010000, 唯一的1是因为C格子已经被覆盖了, 所以C的上插头是存在的. 而C被覆盖是当时决策格子D的时候做的决定.</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">令 dp[i][j][k] 是决策完毕第i行第j列的格子之后轮廓线的状态是k时的方案数. 则和【2】一样</span><br><span class="line">初始值 dp[1][0][0] = 1</span><br><span class="line">答案是 dp[n][m][0], 因为决策完最后那个格子之后, 轮廓线变成了图2中的L,而L对应的状态显然是0</span><br></pre></td></tr></table></figure>
+<p>定义了DP的问题, 我们再来考虑如何转移状态.  和【2】一样, 我们同样将考虑的问题分成 逐格递推和逐行递推.</p>
+<h4 id="逐格递推"><a href="#逐格递推" class="headerlink" title="逐格递推"></a>逐格递推</h4><img src="/2019/11/01/poj-2411-Mondriaan-s-Dream-插头DP做法/3.png">
+<p>​                                                                                            </p>
+<p>假设 正方形ABCD是格子(i,j-1),  它是上一次决策完毕的格子; 正方形BEFC 是格子(i,j), (1&lt;=i&lt;=n, 1&lt;=j&lt;=m)，它是当前决策完毕的格子。 则我们要考虑决策完ABCD之后的轮廓线L1=H-&gt;G-&gt;A-&gt;B-&gt;C-&gt;F-&gt;I-&gt;J-&gt;K-&gt;L 和决策完 BEFC之后产生的轮廓线 L2=H-&gt;G-&gt;A-&gt;B-&gt;E-&gt;F-&gt;I-&gt;J-&gt;K-&gt;L  之间的关系. 其实就是把第j-1个比特位——BC边、第j个比特位——CF边换成了BE边、EF边.</p>
+<p>首先我们要根据L1判断一下BEFC 是否存在上插头. 即CF边，亦即第j个比特位是否存在插头. </p>
+<ul>
+<li>情形1: 如果存在的话, 则表明BEFC已经被覆盖了,即L1的第j个比特位为1), 则L2的第j个比特位是0（竖边恒为0）. 而至于BC边和BE边的话, 都是0（BC为0是因为它是竖的, BE为0是因为BEFC是按照从左至右、从上至下顺序决策的当前决策到的格子, 不可能BEFC下方的格子已经被覆盖了）. 所以 dp(i,j,L2) = dp(i,j-1,L1), 其中 L2=L1^(1&lt;&lt;j)</li>
+<li>情形2: 如果不存在的话, 则表明BEFC尚未被覆盖,即L1的第j个比特位为0)，则就要考虑一下BEFC处格子的骨牌的方法了.<ul>
+<li>情形2.1 如果在BEFC处能横着放骨牌（即BEFC不是一行最后那一列个格子,而且L1的第j+1个比特位是0——即BEFC右侧的格子尚未被覆盖）, 则L1的第j-1(竖边)、j、j+1个比特位都是0, 但是L2的第j-1、j、j+1个比特位分别是0、0、1，其他的比特位都是一样的. 所以L2=L1 | (1&lt;&lt;j+1)  而且 dp(i,j,L2)=dp(i,j-1,L1)</li>
+<li>情形2.2 如果在BEFC处能竖着放骨牌（即BEFC不是最后一行的格子）, 则L1的第j-1、j个比特位分别是0,0,而L2的第j-1、j个比特位分别是1,0，即L2=L1|(1&lt;&lt;j-1), 而且 dp(i,j,L2)=dp(i,j-1,L1)</li>
+</ul>
+</li>
+</ul>
+<h4 id="逐行递推"><a href="#逐行递推" class="headerlink" title="逐行递推"></a>逐行递推</h4><img src="/2019/11/01/poj-2411-Mondriaan-s-Dream-插头DP做法/4.png">
+<p>​                                                                                        </p>
+<p>换行的情况就是上图中A格子决策完毕之后产生轮廓线L1变到决策完格子B（虚拟格子）之后产生的轮廓线L2. 则L2和L1的关系非常显然, 就是 L2=L1&lt;&lt;1. dp(i+1,0,L2) = dp(i,m,L1).</p>
+<p>至此, 我们分析了所有DP转移的情况, 于是可以愉快的打代码了</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include "stdafx.h"</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="comment">//#define LOCAL</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m, full;</span><br><span class="line">ll dp[<span class="number">15</span>][<span class="number">15</span>][(<span class="number">1</span>&lt;&lt;<span class="number">13</span>)+<span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sz</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>;k&lt;full&gt;&gt;<span class="number">1</span>;k++)</span><br><span class="line">	&#123;</span><br><span class="line">		dp[i+<span class="number">1</span>][<span class="number">0</span>][k&lt;&lt;<span class="number">1</span>] = dp[i][m][k];</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">zz</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span> j)</span> <span class="comment">// 判断k的第j个比特位是不是1</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (k&gt;&gt;j)&amp;<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">kk</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>;k&lt;full;k++) <span class="comment">// 同【2】, 这里的k是L1的状态,而不应理解为L2的状态值</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (zz(k,j)) <span class="comment">// 情形1</span></span><br><span class="line">		&#123;</span><br><span class="line">			dp[i][j][k^(<span class="number">1</span>&lt;&lt;j)] += dp[i][j<span class="number">-1</span>][k];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="comment">// 情形2</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> (j&lt;m &amp;&amp; !zz(k,j+<span class="number">1</span>)) <span class="comment">// 情形2.1</span></span><br><span class="line">			&#123;</span><br><span class="line">				dp[i][j][k|(<span class="number">1</span>&lt;&lt;j+<span class="number">1</span>)] += dp[i][j<span class="number">-1</span>][k];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (i&lt;n) <span class="comment">// 情形2.2</span></span><br><span class="line">			&#123;</span><br><span class="line">				dp[i][j][k|(<span class="number">1</span>&lt;&lt;j<span class="number">-1</span>)] += dp[i][j<span class="number">-1</span>][k];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">	<span class="comment">//	freopen("d:\\my.out", "w", stdout);</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n,&amp;m),n||m)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">memset</span>(dp,<span class="number">0</span>,<span class="keyword">sizeof</span>(dp));</span><br><span class="line">		full = <span class="number">1</span>&lt;&lt;m+<span class="number">1</span>;</span><br><span class="line">		dp[<span class="number">1</span>][<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j&lt;=m;j++) <span class="comment">// 逐格DP</span></span><br><span class="line">			&#123;</span><br><span class="line">				kk(i,j);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (i!=n) <span class="comment">// 逐行DP</span></span><br><span class="line">			&#123;</span><br><span class="line">				sz(i);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, dp[n][m][<span class="number">0</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ac情况（唉, 可能是目前我插头的板子还不够好吧, 跑的没【1】的快）</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Status</th>
+<th>Accepted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Time</td>
+<td>969ms</td>
+</tr>
+<tr>
+<td style="text-align:center">Memory</td>
+<td>14540kB</td>
+</tr>
+<tr>
+<td style="text-align:center">Length</td>
+<td>1029</td>
+</tr>
+<tr>
+<td style="text-align:center">Lang</td>
+<td>C++</td>
+</tr>
+<tr>
+<td style="text-align:center">Submitted</td>
+<td>2019-11-02 14:10:46</td>
+</tr>
+<tr>
+<td style="text-align:center">Shared</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">RemoteRunId</td>
+<td>21014163</td>
+</tr>
+</tbody>
+</table>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/09/19/poj-2411-Mondriaan-s-Dream-状压DP/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/09/19/poj-2411-Mondriaan-s-Dream-%E7%8A%B6%E5%8E%8BDP/</a></p>
 <p>【2】<a href="https://yfsyfs.github.io/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/11/01/HDU-1693-Eat-the-Trees-%E6%8F%92%E5%A4%B4DP%E5%85%A5%E9%97%A8/</a></p>
 
@@ -110,7 +189,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/01/poj-2411-Mondriaan-s-Dream-插头DP做法/" data-id="ck2gxksei0138tovm6bsw2jdf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/01/poj-2411-Mondriaan-s-Dream-插头DP做法/" data-id="ck2h6kakp00jgy8vm2ag75e7z" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/poj/">poj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/插头DP/">插头DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
