@@ -7,27 +7,36 @@
   
   <title>HDU 1693 Eat the Trees 插头DP入门 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缘起终于该来的还是得来~ 插头DP学习!   HDU 1693 Eat the Trees">
+  <meta name="description" content="缘起终于该来的还是得来~ 插头DP入门学习!   HDU 1693 Eat the Trees">
 <meta name="keywords" content="算法,oj,hdu,插头DP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HDU 1693 Eat the Trees 插头DP入门">
 <meta property="og:url" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="缘起终于该来的还是得来~ 插头DP学习!   HDU 1693 Eat the Trees">
+<meta property="og:description" content="缘起终于该来的还是得来~ 插头DP入门学习!   HDU 1693 Eat the Trees">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://vj.z180.cn/e09a280a0d56b1d7a8752053e38fc553?v=1572052307">
-<meta property="og:image" content="c:/Users/yfs/AppData/Roaming/Typora/typora-user-images/1572582475654.png">
-<meta property="og:image" content="c:/Users/yfs/AppData/Roaming/Typora/typora-user-images/1572582588542.png">
-<meta property="og:image" content="c:/Users/yfs/AppData/Roaming/Typora/typora-user-images/1572582622461.png">
-<meta property="og:image" content="c:/Users/yfs/AppData/Roaming/Typora/typora-user-images/1572583034922.png">
-<meta property="og:image" content="c:/Users/yfs/AppData/Roaming/Typora/typora-user-images/1572586174463.png">
-<meta property="og:image" content="c:/Users/yfs/AppData/Roaming/Typora/typora-user-images/1572584959160.png">
-<meta property="og:image" content="c:/Users/yfs/AppData/Roaming/Typora/typora-user-images/1572585770126.png">
-<meta property="og:updated_time" content="2019-11-01T05:36:01.771Z">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/4.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/5.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/6.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/7.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/8.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/9.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/10.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/11.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/12.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/13.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/14.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/15.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/16.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/17.png">
+<meta property="og:updated_time" content="2019-11-02T01:30:03.666Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HDU 1693 Eat the Trees 插头DP入门">
-<meta name="twitter:description" content="缘起终于该来的还是得来~ 插头DP学习!   HDU 1693 Eat the Trees">
-<meta name="twitter:image" content="https://vj.z180.cn/e09a280a0d56b1d7a8752053e38fc553?v=1572052307">
+<meta name="twitter:description" content="缘起终于该来的还是得来~ 插头DP入门学习!   HDU 1693 Eat the Trees">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/1.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -98,11 +107,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>终于该来的还是得来~ 插头DP学习!   <a href="https://vjudge.net/problem/HDU-1693" target="_blank" rel="noopener">HDU 1693 Eat the Trees</a></p>
+        <h3 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h3><p>终于该来的还是得来~ 插头DP入门学习!   <a href="https://vjudge.net/problem/HDU-1693" target="_blank" rel="noopener">HDU 1693 Eat the Trees</a></p>
 <a id="more"></a>
 <h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">给出一张n*m有障碍的棋盘，要求用任意条非平凡哈密顿回路遍历整个棋盘，不能经过障碍格子，</span><br><span class="line">要求统计不同的行走方案数。所谓非平凡指的是回路的长度&gt;1（一个格子也构成一条回路，但是它长度为1,是平凡的</span><br><span class="line">哈密顿回路）</span><br><span class="line"></span><br><span class="line">【输入】</span><br><span class="line">多样例. 第一行是样例的数目, 对每个样例，第一行是n和m，1&lt;=N, M&lt;=11，然后下面是n*m的01矩阵</span><br><span class="line">1表示此格子没有障碍, 0表示此格子有障碍.</span><br><span class="line"></span><br><span class="line">【输出】</span><br><span class="line">对每个样例输出方案数. 输入保证答案不会超出 2^63-1</span><br><span class="line"></span><br><span class="line">【样例输入】</span><br><span class="line">2</span><br><span class="line">6 3</span><br><span class="line">1 1 1</span><br><span class="line">1 0 1</span><br><span class="line">1 1 1</span><br><span class="line">1 1 1</span><br><span class="line">1 0 1</span><br><span class="line">1 1 1</span><br><span class="line">2 4</span><br><span class="line">1 1 1 1</span><br><span class="line">1 1 1 1</span><br><span class="line"></span><br><span class="line">【样例输出】</span><br><span class="line">Case 1: There are 3 ways to eat the trees.</span><br><span class="line">Case 2: There are 2 ways to eat the trees.</span><br><span class="line"></span><br><span class="line">【限制】</span><br><span class="line">2s</span><br></pre></td></tr></table></figure>
 <p>举个例子 N = 6 and M = 3,灰色的格子表示是障碍， 答案是3</p>
-<p><img src="https://vj.z180.cn/e09a280a0d56b1d7a8752053e38fc553?v=1572052307" alt="img"> </p>
+<img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/1.png"> 
 <p>关于插头DP，最早的题目出现于04年，但是论文《基于连通性状态压缩的动态规划问题 长沙市雅礼中学 陈丹琦》是08年才出现的（神犇女侠 CDQ 救世 or2）. 所以关于插头DP要看原著的话肯定还是推荐CDQ女神的论文。 没错, 就是那个发明了 CQD分治、插头DP的神犇~</p>
 <p>首先说清楚, 因为本题也是我插头DP入门, 而且CDQ的论文也只读了第一部分. 所以未必吃透了插头DP. 但是我会用大白话将我对插头DP的理解说清楚.  几百年前，大数学家高斯就说过</p>
 <blockquote>
@@ -110,28 +119,130 @@
 </blockquote>
 <p>我不会从什么是插头，什么是轮廓线讲起。而是希望能以一个自然的思路引出这些概念. 首先我想讲一道《啊哈!算法》4.6节的一道题目.</p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">《水管工游戏》</span><br><span class="line"></span><br><span class="line">给你一块土地，土地被分割成N*M的棋盘. 一些单元格下面埋藏有一根水管。水管的形状只有直的和弯的两种</span><br></pre></td></tr></table></figure>
-<p><img src="C:\Users\yfs\AppData\Roaming\Typora\typora-user-images\1572582475654.png" alt="1572582475654"></p>
+<img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/2.png"> 
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">现在你的任务是旋转这些水管，使得构成一个管道系统，即创建一条从（1,1）到（n,m）的连通管道。但是市政不能</span><br><span class="line">破坏森林。有一些单元格已经种了树，下面是没有铺设管道的。除此之外都是埋有水管的。例如下面这个样子</span><br></pre></td></tr></table></figure>
-<p><img src="C:\Users\yfs\AppData\Roaming\Typora\typora-user-images\1572582588542.png" alt="1572582588542"></p>
+<img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/3.png"> 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">我们可以旋转其中的一些单元格下面的管道使之构成一个连通的管道系统</span><br></pre></td></tr></table></figure>
-<p><img src="C:\Users\yfs\AppData\Roaming\Typora\typora-user-images\1572582622461.png" alt="1572582622461"></p>
+<img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/4.png"> 
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果可以通过旋转管道使之构成一个连通的管道系统，则输出铺设的路径，否则输出"Impossible"</span><br></pre></td></tr></table></figure>
 <p>对于此题，是dfs的入门题——因为每个格子的水管铺设情况只能是下面6种（其中4种是弯管，一种是直管）</p>
-<p><img src="C:\Users\yfs\AppData\Roaming\Typora\typora-user-images\1572583034922.png" alt="1572583034922"></p>
+<img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/5.png"> 
 <p>所以只需要根据每个方格的上述6种水管状态进行扩展即可. 当然，还有一个要素——就是当前方格的进水口到底是位于当前格子的上下左右. 因为进水口的位置显然限制了能使用哪种水管状态. 例如，如果进水口在上方，你总不可能用2这种状态吧? 当前格子只能使用1、4、6三种状态才行.</p>
 <p>所以dfs的伪代码应该是下面这个样子</p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">dfs(int x,int y, int dir) // (x,y)是当前要决定水管的格子的行与列,dir是当前格子进水口的方向</span><br><span class="line">&#123;</span><br><span class="line">	if(x==n &amp;&amp; y ==m+1) // 如果当前决定状态的格子已经是(n,m+1)了,则表明已经通了</span><br><span class="line">	&#123;</span><br><span class="line">		puts("找到一组解了!");</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	if(v[x][y] || (x,y)越界了) // v是标记当前格子的水管状态是否已经决定了</span><br><span class="line">	&#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line">	v[x][y] = true; // 锁定</span><br><span class="line">	if(当前格子中铺设的水管是直管)</span><br><span class="line">	&#123;</span><br><span class="line">		if(dir是上方) // 进水口在上方, 则只能使用水管状态6</span><br><span class="line">		&#123;</span><br><span class="line">			dfs(x+1,y,上方); // 则拓展到下一行(x+1,y)格子, 而且此格子的进水口也是在上方</span><br><span class="line">		&#125;</span><br><span class="line">		else if (dir是下方)</span><br><span class="line">		&#123;</span><br><span class="line">			dfs(x-1,y, 下方);</span><br><span class="line">		&#125;</span><br><span class="line">		else if (dir是左方)</span><br><span class="line">		&#123;</span><br><span class="line">			dfs(x,y+1,左方);</span><br><span class="line">		&#125;</span><br><span class="line">		else (dir是右方)</span><br><span class="line">		&#123;</span><br><span class="line">			dfs(x, y-1, 右方);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	else // 当前格子中铺设的水管是弯管</span><br><span class="line">	&#123;</span><br><span class="line">		类似于直管进行拓展...</span><br><span class="line">	&#125;</span><br><span class="line">	v[x][y] = false; // 解除锁定</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>为什么说《水管工游戏》（下面简称<strong>游戏</strong>）道题目呢? 因为和本题有点像啊~ 本题不就是也给你一个棋盘，然后要求在这个棋盘上生成一些回路然后将棋盘覆盖掉吗? 而游戏中是水管的状态构成了通路。而本题呢? 一样的呀~ 也是水管的6种状态! 而水管的6种状态本质上是由格子的四条边的选择2条 <img src="C:\Users\yfs\AppData\Roaming\Typora\typora-user-images\1572586174463.png" alt="1572586174463"> 构成的（即所谓的双插头状态（下面简称插头状态）共6种）。而每条边一旦选了，就叫做这条边上存在<strong>插头</strong>。 所以对于本题而言，其实就是每个格子选择6种双插头状态中的一种然后使得所有格子形成若干条非平凡的哈密顿回路（我们称之为成功局面）。一旦达到了成功局面，我们就得到了一种方案. 所以本题其实是dfs, </p>
+<p>为什么说《水管工游戏》（下面简称<strong>游戏</strong>）道题目呢? 因为和本题有点像啊~ 本题不就是也给你一个棋盘，然后要求在这个棋盘上生成一些回路然后将棋盘覆盖掉吗? 而游戏中是水管的状态构成了通路。而本题呢? 一样的呀~ 也是每个格子要选择水管的6种状态中的一种使得整个棋盘构成一种图论的状态! 而水管的6种状态本质上是由格子的四条边的选择2条 <img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/6.png">  构成的（即所谓的双插头状态（下面简称插头状态）共6种）。而每条边一旦选了，就叫做这条边上存在<strong>插头</strong>。 所以对于本题而言，其实就是每个格子选择6种双插头状态中的一种然后使得所有格子形成若干条非平凡的哈密顿回路（我们称之为成功局面）。一旦达到了成功局面，我们就得到了一种方案. 所以本题其实是dfs, </p>
 <blockquote>
 <p>等等~</p>
 </blockquote>
-<p>数据的规模是11*11, 即100+个格子, 我们要决定每个格子的6种状态中选哪一种. 所以如果不论剪枝的话, 状态树的规模达到了 <img src="C:\Users\yfs\AppData\Roaming\Typora\typora-user-images\1572584959160.png" alt="1572584959160"></p>
+<p>数据的规模是11*11, 即100+个格子, 我们要决定每个格子的6种状态中选哪一种. 所以如果不剪枝的话, 状态树的规模达到了 <img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/7.png"> </p>
 <blockquote>
 <p>分分钟炸飞服务器的节奏啊！</p>
 </blockquote>
 <p>不能用暴搜！其实你想想看哈，有必要暴搜吗?  什么意思?  下面是一棵树的样子</p>
-<p><img src="C:\Users\yfs\AppData\Roaming\Typora\typora-user-images\1572585770126.png" alt="1572585770126"></p>
-<p>K的状态其实是怎么到的? 首先你要达到A, 然后在A处选择了B，最后在B处选择了G，最后G选择了K. 即K这个状态是直接受到他的所有祖先影响的! 但是对于本题而言. 一个格子的状态选择仅仅和所谓的<strong>轮廓线</strong>上的插头状态有关. 所以暴搜是完全没有必要的——因为一个格子（例如下图中黄颜色的格子）的插头状态不会受到太早做出的插头状态选择的影响，而仅仅会受到轮廓线的影响.  那轮廓线是什么呢? </p>
+<img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/8.png"> 
+<p>K的状态其实是怎么到的? 首先你要达到A, 然后在A处选择了B，最后在B处选择了G，最后G选择了K. 即K这个状态是直接受到他的所有祖先影响的! 但是对于本题而言. 一个格子的状态选择仅仅和所谓的<strong>轮廓线</strong>上的插头状态有关. 所以暴搜是完全没有必要的——因为一个格子（例如下图中黄颜色的格子）的插头状态不会受到太早做出的插头状态选择的影响，而仅仅会受到轮廓线的影响.   如果做过poj 1185 炮兵阵地 （参考【1】）这道经典状压DP的童鞋就知道当前排的布阵仅仅受到上一行、上上行的布阵的影响.</p>
+<p>说了这么多, 轮廓线是啥?</p>
+<p>假设我们是从上至下、从左至右决策各个格子的插头状态. </p>
+<img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/9.png"> 
+<p>图有点丑，见谅哈~ 上图中 <strong>粗线</strong> LA、LB、LC、LD 就是轮廓线. AA、BB、CC、DD 是当前决策好的格子. A、B、C、D是下一步要决策的格子.    其中BB和D是虚拟的格子（因为棋盘仅仅是[1,…,n]*[1,..,m] n行,m列的）,BB在第0列, D在第m+1列.</p>
+<p>换个角度看轮廓线上方是<strong>已经决策完</strong>的格子，下方是<strong>未决策的</strong>格子. 注意决策的<strong>决策格子换行</strong>是什么意思?  就是决策完DD之后, 轮廓线就从形如LD变成了形如LB的样子. </p>
+<p>注意, 轮廓线的长度始终是m+1（m个横着的单位长度，1个竖着的单位长度）.  </p>
+<p>我们考察一下最终合法方案造成这条长为m+1的轮廓线上插头是否存在的情况. </p>
+<img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/10.png"> 
+<p>例如上面n = 5, m = 6 地图中的粗黑线就是一条哈密顿回路（而且上图给的例子中地图中没有障碍物）遍历了地图全部的格子. L1和L2是两条轮廓线. 显然上图就是一种合法的最终方案.  如果将出现插头记做1, 没有出现插头记做0的话, 则一条轮廓线就可以用一个长度为m+1的01序列刻画. 例如 L1是 1111000， 而L2是1101111.  所以我们可以对每条轮廓线的状态二进制压缩成一个<img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/11.png"> 的整数值.  下面有时候说轮廓线L其实是在说L对应的二级制压缩值. </p>
+<blockquote>
+<p>因为本题m较小, 所以我们完全可以对轮廓线的01状态（所以确切讲, 轮廓线其实是带着0和1的长度为m+1的序列）进行状压DP.  即我们状压的对象是轮廓线.  因为下一个格子的插头状态完全可以从当前轮廓线进行转移. 而和之前较早决策的格子的插头状态无关. 所以不需要暴搜. 而是状压DP就行了。这将大大降低算法的复杂度.</p>
+</blockquote>
+<p>下面给出本题DP的对象</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">令dp[i][j][k] 是当前已经决策完 第i行, 第j列的格子（1&lt;=i&lt;=n, 1&lt;=j&lt;=m）,轮廓线状态是k时的方案数.</span><br><span class="line">0&lt;=k&lt;(1&lt;&lt;(m+1)). 为什么是m+1? 因为说了啦, 轮廓线是长度为m+1的01序列啦~</span><br><span class="line">ps: 这里插一句, 这里的DP对象其实和【1】好像的说~</span><br><span class="line">dp的初始值是 dp[1][0][0] = 1</span><br><span class="line">即第一行第0列决策完, 轮廓线状态是0（事实上, 轮廓线状态只能是0啊~）的方案数就是1.</span><br><span class="line">答案是 dp[n][m][0], 即决策完全部的格子, 轮廓线的状态是0</span><br><span class="line">（决策完最后一个格子轮廓线的样子是形如LD样子,只不过LD在棋盘最底部边线, 所以自然轮廓线状态是0啦）</span><br></pre></td></tr></table></figure>
+<p>那么说完了dp的东西以及初始化还有最终答案，那么我们自然要考虑的重点就是状态转移了. 因为是状压DP（ps: 因为本题是针对轮廓线的状态进行状压，而且涉及到的轮廓线本质上还是由插头这一重要的概念引进的. 所以本题所涉及的DP又叫做插头DP或者叫轮廓线DP, 通过本题你也知道, 插头DP也好，轮廓线DP也好, 本质上是状压DP的一种类型而已，应用场景常见于棋盘这种数学模型）.</p>
+<p>所谓状压DP就是 <strong>F(状态) = 状态的值</strong> 这种东西。 所以自然的, 我们要考察两件事情</p>
+<p>从格子 (i, j-1)变到 (i,j) （注意，我们是从左至右、从上至下决策各个格子的）.</p>
+<ol>
+<li>状态怎么变?  即自变量怎么变?  更确切讲决策完(i,j-1)格子（例如AA）之后的轮廓线和决策完(i,j)（例如A）的轮廓线怎么变化? 当然, 对于决策发生换行的时候（例如形如LD的轮廓线变动到形如LB的轮廓线）后面作为特殊情况论述, 这里仅仅将一般的情况说清楚.</li>
+<li>对应的状态的值怎么变? 即因变量怎么变? </li>
+</ol>
+<p>第一个问题，什么是状态? 状态不就是轮廓线吗? 前面也说了，轮廓线确切讲是轮廓线上插头的存在情况构成的m+1长度的01序列，1表示存在插头, 0表示不存在插头。</p>
+<p>状态的转移分成下面3种情况</p>
+<p><strong>情况1</strong>  下图灰色格子是障碍（下同）</p>
+<p>当前决策完毕的格子（即正方形BGDC）在上一次决策完毕（即决策完正方形ABCH（即格子(i,j-1)）产生的轮廓线L1=A-&gt;B-&gt;C-&gt;D-&gt;E-&gt;F 中没有左插头，也没有上插头（即BC和CD上都没有插头）.  注意, 这种有无插头是由L1对应的二进制压缩值值决定的（其实反过来说, 轮廓线上的插头有无也决定了哈密顿回路到底长什么样子）. 例如对于下图, L1对应的压缩值的第1、2个比特位如果是1的话, 则就表示BC和CD两条边上有插头. 因为BC和CD就是L1的第1个、第二个比特位.</p>
+<img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/12.png"> 
+<p>​                                                                                        </p>
+<p>上一次决策完毕的正方形ABCH（即格子 (i, j-1)）决策完毕之后, 轮廓线是L1=A-&gt;B-&gt;C-&gt;D-&gt;E-&gt;F, 而当前决策完正方形BGDC（即格子(i,j)）之后，轮廓线是L2=A-&gt;B-&gt;G-&gt;D-&gt;E-&gt;F ,  因为我们要遍历全图. 而且每个格子一定是恰好有2个插头（一进一出）. 所以这种情况只可能是由L1中BC、CD无插头变为L2中 BG、DG 有插头，而且L1、L2中的m+1个位置的01状态只有这两个位置不同（0变成了1） 其他位置的01情况是相同的. 而且注意, BC、CD在这m+1个01中的排序索引和BG、GD在m+1个01中排序索引是一样的. 所以就知道L1的对应的二进制压缩状态值在O(1)时间就可以得到L2对应的二进制压缩状态值。确切讲是L1 = L2^(1&lt;&lt;j-1)^(1&lt;&lt;j) 至于因变量的变化, 自然有 dp(i,j,L1) = dp(i,j-1,L2). </p>
+<p><strong>情况2</strong>  </p>
+<p>当前决策完毕的格子（即格子(i,j)，亦即下面的正方形CGED）在上一次决策完毕产生的轮廓线 A-&gt;B-&gt;C-&gt;D-&gt;E-&gt;F中既有左插头，又有上插头，亦即CD和DE上都有插头.</p>
+<img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/13.png"> 
+<p>​                                                                                                </p>
+<p>上一次决策完毕正方形BCDH（即格子(i,j-1)） 之后轮廓线变成 L1=A-&gt;B-&gt;C-&gt;D-&gt;E-&gt;F , 然后当前决策的格子是正方形CGED （即格子(i,j)），当前决策完毕之后，轮廓线变成L2=A-&gt;B-&gt;C-&gt;G-&gt;E-&gt;F </p>
+<p>这种情况下, 假设CD和DE是L1的第j-1和第j个比特位(m&gt;=j&gt;=1)（注意, 轮廓线由m+1个单位长度构成, 所以它有第0个比特位，第一个比特位，第二个比特位,…,第m个比特位构成）则L2对应的二进制压缩值就是把第j-1个比特位和第j个比特位都由1变成0（即上图中CG和GE边上都没有插头了）而已.  </p>
+<p>所以从L1出发O(1)时间就可以得到L2的状态. 确切讲是L1 = L2^(1&lt;&lt;j-1)^(1&lt;&lt;j) ， 而且关于因变量的变化，自然有  dp(i,j,L2) = dp(i,j-1,L1)</p>
+<p><strong>情况3</strong></p>
+<p>当前决策完毕的格子（即格子(i,j)，亦即下面的正方形BCED）在上一次决策完毕产生的轮廓线 A-&gt;B-&gt;D-&gt;E-&gt;F-&gt;G中左插头，上插头中只有一个，即下图中 BD、DE中只有一条边有插头. 例如下图是DE存在插头, 而DB边没有插头</p>
+<img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/14.png"> 
+<p>​                                                                                        </p>
+<p>上一次决策完毕正方形ABDH（即格子(i,j-1)） 之后轮廓线变成 L1=A-&gt;B-&gt;D-&gt;E-&gt;F-&gt;G , 然后当前决策的格子是正方形BCED （即格子(i,j)），当前决策完毕之后，轮廓线变成L2=A-&gt;B-&gt;C-&gt;E-&gt;F-&gt;G</p>
+<p>这种情况下, L1和L2的值是相等的. 注意, 此时，我们是让CE有了插头（即为1），而BC是没有插头的，而且如果DE在L1中是第i个比特位的话, 则CE在L2中也是第i个比特位. 所以我们才说L1和L2的值是一样的.</p>
+<p>如果不是让CE有插头, 而是让BC有插头呢? 即轮廓线的状态变成下面的样子（因为题目并没有强调必须要一条回路, 所以下图也是可以的）</p>
+<img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/15.png"> 
+<p>​                                                                                            </p>
+<p>则L2的值和L1的值关系如何呢? 令BD和DE分别是L1的第j-1个比特位和第j个比特位的话(1&lt;=j&lt;=m), 则L1的第j-1个比特位是0, 第j个比特位是1, 则可以知道L2的第j-1个比特位（即BC）将变为为1（即BC将有插头），第j个比特位为（即CE）0（即CE将没有插头）.   即和(i,j-1)格子的时候是反过来了，为什么说是反过来了? 因为L1的第j-1个比特位是0，第j个比特位是1, 而L2的第j-1个比特位是1, 第j个比特位是0. 所以才说刚好反过来了.</p>
+<p>那么既然我们知道了决策完毕当前格子BCED之后轮廓线对应的值的变化——两种, 第一种是图3（不变化），第二种是图4（两个比特位反过来）, 所以就知道了 dp(i,j,L2) = dp(i,j-1,L2)+dp(i,j-1,L2^(1&lt;&lt;y-1)^(1&lt;&lt;y)), 其中 L2^(1&lt;&lt;y-1)^(1&lt;&lt;y)就表示第y-1个比特位和第y个比特位和L2是反过来了. </p>
+<p>最后我们要提及一下换行的情况下轮廓线压缩的二进制值的变化以及因变量的变化. 前面也已经说过了, 本题中换行其实就是形如LD的轮廓线变成了形如LB的轮廓线。即如下图所示</p>
+<img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/16.png"> 
+<p>​                                                                                        </p>
+<p>即从决策完A格子之后的轮廓线L1变化到决策完B格子之后的轮廓线L2. 那么我们分析一下L1和L2的值的关系. 显然, L1的最后那个比特位（竖着的黄线）是0, 而L2的第0个比特位（竖着的蓝线）是0. 而其他比特位同为0或者1，所以L2的二进制压缩值恰好是L1的二进制压缩值的2倍. 即L2=L1&lt;&lt;1. 则有 dp(i+1,0,L2) =dp(i,m,L1)</p>
+<p>而因为L1最后一个比特位是0, 所以0&lt;=L1&lt;(1&lt;&lt;m). 这样我们就分析完了行转换时的状态转移以及dp公式.</p>
+<p>ps: 上面分别进行了逐格（所谓的逐格，指的是决策完毕每一行的第1列的格子到这一行的第m列的格子）的DP（图1~图4）以及换行时的DP（图5），其实就是CQD的论文第一部分中说的逐格递推和逐行递推. </p>
+<p>作为分析的最后，我们要来讲一下遇到是障碍物的时候该如何处理.  例如我们遇到了一只可爱的障碍物格子</p>
+<img src="/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/17.png"> 
+<p>​                                                                                            </p>
+<p>如上图所示, ABCD是一个障碍物. 则我们考虑和上面一样的问题——既决策完毕ABCD之后，轮廓线的变化以及以此轮廓线为自变量的因变量的值的变化. 因为ABCD是障碍物, 所以L2=E-&gt;A-&gt;B-&gt;C-&gt;G-&gt;H 在AB和BC边上不应该有插头. 即如果令 AB是L2的第j-1个比特位，BC是L2的第j个比特位的话, 则L2的这两比特位应该都是0才行. 因为一旦有了一个比特位就意味着一定有哈密顿回路穿过此障碍我物, 但是障碍物显然是不允许有哈密顿回路穿过的. 所以对于L2&amp;(1&lt;&lt;j-1)==0 &amp;&amp; L2&amp;(1&lt;&lt;j)==0的L2而言,  dp(i,j,L2)=dp(i,j-1,L2), 因为是dp(i,j-1,L2), 所以意味着L1=E-&gt;A-&gt;D-&gt;C-&gt;G-&gt;H的L1=L2，从而AD边（L1=L2的第j-1个比特位）和DC边（L1=L2的第j个比特位）都是0, 所以ABCD这个障碍物四边都没有插头. 这是合理的. 但是反之, 如果 L2&amp;(1&lt;&lt;j-1)==0 &amp;&amp; L2&amp;(1&lt;&lt;j)==0 不成立的话, 则L2就是非法状态（因为它使得AB或者BC边有插头，这对于障碍物是不允许的）, 所以dp(i,j,L2) = 0.</p>
+<p>至此, 对于本题的各种状态，我们都得到了dp的转移方程. 所以可以开心的打代码了.</p>
+<p>​                                                                                </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//#include "stdafx.h"</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="comment">//#define LOCAL</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line">LL n,m,a[<span class="number">15</span>][<span class="number">15</span>], bin[<span class="number">15</span>],dp[<span class="number">15</span>][<span class="number">15</span>][(<span class="number">1</span>&lt;&lt;<span class="number">13</span>)+<span class="number">5</span>], full;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">kk</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	LL p1 = <span class="number">1</span>&lt;&lt;j<span class="number">-1</span>, p2 = <span class="number">1</span>&lt;&lt;j; <span class="comment">// 第j-1个比特位和第j个比特位</span></span><br><span class="line">	<span class="keyword">for</span> (LL k = <span class="number">0</span>; k&lt;full; k++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (a[i][j]) <span class="comment">// 如果不是障碍物</span></span><br><span class="line">		&#123;</span><br><span class="line">			dp[i][j][k] = dp[i][j<span class="number">-1</span>][k^p1^p2]; <span class="comment">// 图1、图2、图4的情形</span></span><br><span class="line">			<span class="keyword">if</span> ((k&gt;&gt;j<span class="number">-1</span>&amp;<span class="number">1</span>)==(k&gt;&gt;j&amp;<span class="number">1</span>))</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">continue</span>; <span class="comment">// 图1、图2、图4就会continue</span></span><br><span class="line">			&#125; <span class="comment">// 因为只有情形3才要再加上一部分(即图3).</span></span><br><span class="line">			dp[i][j][k] += dp[i][j<span class="number">-1</span>][k];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="comment">// 如果是障碍物（图6）</span></span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span> ((k&amp;p1) || (k&amp;p2)) <span class="comment">// 两个比特位一旦有一个是0, 则此轮廓线非法状态,方案数自然为0</span></span><br><span class="line">			&#123;</span><br><span class="line">				dp[i][j][k] = <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">			&#123;</span><br><span class="line">				dp[i][j][k] = dp[i][j<span class="number">-1</span>][k];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sz</span><span class="params">(<span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>;k&lt;full&gt;&gt;<span class="number">1</span>; k++)</span><br><span class="line">	&#123;</span><br><span class="line">		dp[i+<span class="number">1</span>][<span class="number">0</span>][k&lt;&lt;<span class="number">1</span>] = dp[i][m][k]; <span class="comment">// 图5</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> LOCAL</span></span><br><span class="line">	freopen(<span class="string">"d:\\data.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">	<span class="comment">//	freopen("d:\\my.out", "w", stdout);</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">	<span class="keyword">int</span> kase;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;kase);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> kse = <span class="number">1</span>;kse&lt;=kase;kse++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lld%lld"</span>, &amp;n, &amp;m);</span><br><span class="line">		full = <span class="number">1</span>&lt;&lt;m+<span class="number">1</span>; <span class="comment">// 则轮廓线被状压成[0,full)内的一个值</span></span><br><span class="line">		<span class="keyword">for</span> (LL i = <span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span> (LL j = <span class="number">1</span>;j&lt;=m;j++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">scanf</span>(<span class="string">"%d"</span>, a[i]+j);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="comment">// 读入棋盘</span></span><br><span class="line">		dp[<span class="number">1</span>][<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>; <span class="comment">// dp初始化</span></span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j&lt;=m;j++)</span><br><span class="line">			&#123;</span><br><span class="line">				kk(i,j); <span class="comment">// 处理第i行,第j列的格子, 即逐格DP</span></span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (i&lt;n)</span><br><span class="line">			&#123;</span><br><span class="line">				sz(i); <span class="comment">// 换行, 即逐行DP</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125; <span class="comment">// 开始dp</span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Case %d: There are %lld ways to eat the trees.\n"</span>, kse, dp[n][m][<span class="number">0</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ac情况</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Status</th>
+<th>Accepted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Time</td>
+<td>15ms</td>
+</tr>
+<tr>
+<td style="text-align:center">Memory</td>
+<td>6520kB</td>
+</tr>
+<tr>
+<td style="text-align:center">Length</td>
+<td>1374</td>
+</tr>
+<tr>
+<td style="text-align:center">Lang</td>
+<td>C++</td>
+</tr>
+<tr>
+<td style="text-align:center">Submitted</td>
+<td>2019-11-02 09:17:36</td>
+</tr>
+<tr>
+<td style="text-align:center">Shared</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">RemoteRunId</td>
+<td>31236762</td>
+</tr>
+</tbody>
+</table>
+<h3 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h3><p>其实我想说，【2】中以 <a href="https://vjudge.net/problem/URAL-1519" target="_blank" rel="noopener">Ural1519 Formula 1</a>  作为插头DP并不合适. 并不是说题目难才不合适。它不合适的理由在于本题考虑的仅仅是插头存在与否（用01刻画即可），Ural1519还在插头存在与否这个问题的基础上杂糅了连通性状态（即增加了一个维度，用三进制刻画轮廓线状态，而不是本题用二进制就可以刻画了）.杂糅连通性的理由在于Ural1519需要用一个哈密顿回路而不是本题任意多个. 关于Ural1519后面肯定会写题解的. </p>
+<p>因为插头DP的本质就是状压DP轮廓线的插头状态. 所以本题虽然较为简单（事实上可能已经是最简单的插头DP问题了,因为只需要考虑轮廓线上的m+1段存在还是不存在插头），但是完整的说明了插头DP的整个分析过程, 作为入门插头DP是最为合适不过的了.</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p>【1】<a href="https://yfsyfs.github.io/2019/10/31/poj-1185-炮兵阵地-经典状压DP/" target="_blank" rel="noopener">https://yfsyfs.github.io/2019/10/31/poj-1185-%E7%82%AE%E5%85%B5%E9%98%B5%E5%9C%B0-%E7%BB%8F%E5%85%B8%E7%8A%B6%E5%8E%8BDP/</a></p>
+<p>【2】《基于连通性状态压缩的动态规划问题 长沙市雅礼中学 陈丹琦》</p>
 
           <div id="vcomments"></div>
           <script>
@@ -148,7 +259,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/" data-id="ck2fpgmrm003tzcvms9v38uhf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/11/01/HDU-1693-Eat-the-Trees-插头DP入门/" data-id="ck2gw4upy034lzgvm80prxjf4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hdu/">hdu</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oj/">oj</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/插头DP/">插头DP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
